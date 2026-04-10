@@ -19,10 +19,10 @@ export class UserService {
 
   loadCurrentUser(): Observable<User> {
     const mockUser: User = {
-      id: 'mritz-choudhury',
-      name: 'Mritz Choudhury',
-      email: 'mritz.choudhury@veradigm.com',
-      role: 'manager'
+      id: 'mrittick-choudhury',
+      name: 'Mrittick Choudhury',
+      email: 'mrittick.choudhury@veradigm.com',
+      role: 'admin'
     };
     this._currentUser.set(mockUser);
     return of(mockUser);
