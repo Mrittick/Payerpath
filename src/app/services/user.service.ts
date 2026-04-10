@@ -22,7 +22,8 @@ export class UserService {
       id: 'mrittick-choudhury',
       name: 'Mrittick Choudhury',
       email: 'mrittick.choudhury@veradigm.com',
-      role: 'admin'
+      role: 'admin',
+      avatarUrl: 'assets/mrittick-photo.jpeg'
     };
     this._currentUser.set(mockUser);
     return of(mockUser);
