@@ -22,10 +22,24 @@ export class AuthService {
   }
 
   login(email: string, username: string, password: string): Observable<void> {
-    const fakeToken = 'demo-mock-jwt-token';
-    this._accessToken.set(fakeToken);
-    localStorage.setItem('gh_demo_token', fakeToken);
-    return of(void 0);
+    // Only allow specific demo accounts found in the local database
+    const isValid = (
+      email === 'mrittick.choudhury@veradigm.com' &&
+      (username === 'mritz' || username === 'mrittick') &&
+      password === 'merces'
+    );
+
+    if (isValid) {
+      const fakeToken = 'demo-mock-jwt-token';
+      this._accessToken.set(fakeToken);
+      localStorage.setItem('gh_demo_token', fakeToken);
+      return of(void 0);
+    } else {
+      // Simulate an authentication error
+      console.error('Login failed: Invalid credentials');
+      const error = new Error('Authentication failed');
+      return new Observable(subscriber => subscriber.error(error));
+    }
   }
 
   logout(): void {
