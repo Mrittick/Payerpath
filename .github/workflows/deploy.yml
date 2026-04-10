@@ -32,7 +32,6 @@ jobs:
         run: npm install
         
       - name: Build Angular Project
-      - name: Build Angular Project
         run: npm run build -- --base-href /
         
       - name: Setup GitHub Pages
