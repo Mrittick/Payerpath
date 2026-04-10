@@ -1,0 +1,48 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+
+.page-divider {
+  width: 100%;
+  height: 2px;
+  flex-shrink: 0;
+  background-color: var(--colour-stroke-divider-primary-medium);
+  view-transition-name: shell-divider;
+}
+
+.body {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  background-color: var(--colour-fill-surface-neutral-intermediary);
+}
+
+.nav-page-divider {
+  width: 2px;
+  flex-shrink: 0;
+  align-self: stretch;
+  background-color: var(--colour-stroke-divider-primary-light);
+  view-transition-name: shell-nav-divider;
+}
+
+.screen {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  background-color: var(--colour-fill-surface-neutral-backdrop);
+  view-transition-name: page-content;
+}
+
+merces-global-header {
+  view-transition-name: shell-header;
+}
+
+merces-global-navbar {
+  view-transition-name: shell-navbar;
+}

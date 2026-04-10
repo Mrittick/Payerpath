@@ -1,0 +1,80 @@
+/* ==========================================================================
+   Time Picker Ranged
+   Figma: Ranged Time Picker - 12hr / 24hr (781:11206, 781:18413)
+
+   Structure:
+     Host (vertical or horizontal layout)
+       ├── .tpr__label  (paragraph/ui — label text)
+       └── .tpr__inputs (row — start field + end field, gap 8px)
+             ├── .tpr__field (merces-time-field — start)
+             └── .tpr__field (merces-time-field — end)
+
+   Variant axes → CSS classes on :host:
+     Layout: .tpr--vertical (default) / .tpr--horizontal
+   ========================================================================== */
+
+/* ── Vertical layout (default) ── */
+
+:host(.tpr--vertical) {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* No gap — label owns its margin-bottom, ds-slot owns field→message spacing */
+}
+
+/* ── Horizontal layout ── */
+
+:host(.tpr--horizontal) {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-3xl); /* 16px — Default padding */
+}
+
+:host(.tpr--horizontal.tpr--span) {
+  gap: var(--gap-1xl); /* 12px — Span: label has own padding, reduce gap */
+}
+
+/* ==========================================================================
+   Label
+   ========================================================================== */
+
+.tpr__label {
+  color: var(--colour-text-default-base);
+}
+
+:host(.tpr--vertical) .tpr__label {
+  margin-bottom: var(--gap-1xl); /* 12px — label to inputs row, matches Figma gap/1xl */
+}
+
+:host(.tpr--span) .tpr__label {
+  padding: 0 var(--gap-2xl); /* 14px — label text aligns with field's internal content */
+}
+
+:host(.tpr--horizontal) .tpr__label {
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Inputs row — start + end fields
+   ========================================================================== */
+
+.tpr__inputs {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: var(--gap-md); /* 8px */
+}
+
+:host(.tpr--vertical) .tpr__inputs {
+  width: 100%;
+}
+
+/* ==========================================================================
+   Each field — equal width, fills the inputs row
+   ========================================================================== */
+
+.tpr__field {
+  flex: 1;
+  min-width: 0;
+}

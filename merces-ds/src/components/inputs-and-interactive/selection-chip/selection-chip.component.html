@@ -1,0 +1,11 @@
+<button
+  class="selection-chip__button paragraph-ui-thin"
+  type="button"
+  [attr.data-tooltip]="label()"
+  (click)="onClick()"
+>
+  <span class="selection-chip__label">{{ label() }}</span>
+  <span class="selection-chip__icon">
+    <merces-icon name="cross" type="filled" size="mini" />
+  </span>
+</button>

@@ -1,0 +1,22 @@
+@if (user()) {
+  <merces-global-header
+    [name]="userName()"
+    [role]="userRole()"
+    [avatarUrl]="userAvatar()"
+    (signOutClick)="onSignOut()"
+  />
+  <div class="page-divider" role="separator" aria-hidden="true"></div>
+  <div class="body">
+    <merces-global-navbar
+      product="payerpath"
+      [(collapsed)]="navCollapsed"
+      [navPages]="navPages()"
+      [currentPageId]="currentPageId()"
+      (pageSelected)="onPageSelected($event)"
+    />
+    <div class="nav-page-divider" aria-hidden="true"></div>
+    <div class="screen">
+      <router-outlet />
+    </div>
+  </div>
+}

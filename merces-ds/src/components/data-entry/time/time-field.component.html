@@ -1,0 +1,50 @@
+<!-- Field wrapper — position:relative anchors the overlay -->
+<div class="tfd__field-wrap">
+
+  <!-- Frame — visible field box (border, bg, radius, focus ring) -->
+  <div
+    class="tfd__frame"
+    role="button"
+    [attr.tabindex]="disabled() ? -1 : 0"
+    [attr.aria-label]="label()"
+    [attr.aria-expanded]="_open()"
+    [attr.aria-haspopup]="'listbox'"
+    [attr.aria-disabled]="disabled() || null"
+    (click)="onFrameClick()"
+    (keydown.enter)="onKeydownActivate($event)"
+    (keydown.space)="onKeydownActivate($event)"
+    (keydown.escape)="onEscape()"
+  >
+
+    <!-- Input row -->
+    <div class="tfd__row">
+
+      <!-- Display text / placeholder — fills available width -->
+      <div class="tfd__content">
+        <span
+          class="tfd__text paragraph-ui-thin"
+          [class.tfd__text--placeholder]="isEmpty()"
+        >{{ displayText() }}</span>
+      </div>
+
+      <!-- Time-picker icon — filled when open -->
+      <merces-icon
+        class="tfd__icon"
+        name="time-picker"
+        size="base"
+        [type]="_open() ? 'filled' : 'regular'"
+      />
+
+    </div>
+  </div>
+
+  <!-- Time selection overlay — always in DOM, shown via .tfd--open on host -->
+  <div class="tfd__overlay" (click)="$event.stopPropagation()">
+    <merces-time-selection-dropdown
+      [format]="format()"
+      [value]="value()"
+      (timeSelected)="onTimeSelected($event)"
+    />
+  </div>
+
+</div>

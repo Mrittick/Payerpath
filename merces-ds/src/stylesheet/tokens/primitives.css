@@ -1,0 +1,181 @@
+/* ==========================================================================
+   Primitives — Raw palette values from Figma
+   Source: Merces | Design System (Fu2tcEQrSrhZZvhGw1aGZ5)
+   Collection: Primitives
+   Total tokens: 116
+
+   Groups:
+     colour/neutral .............. 15
+     colour/brand ................ 45
+       purple .................... 12
+       red ....................... 11
+       yellow .................... 11
+       green ..................... 11
+     colour/dataviz .............. 40
+     colour/dataviz/legacy ....... 8
+     stroke ...................... 7
+     text ........................ 1
+   ========================================================================== */
+
+:root {
+
+  /* ———————————————————————————————————————————
+     colour/neutral (15)
+     ——————————————————————————————————————————— */
+  --colour-neutral-black: hsla(0, 0%, 0%, 1);
+  --colour-neutral-grey-100: hsla(0, 0%, 10%, 1);
+  --colour-neutral-grey-200: hsla(0, 0%, 20%, 1);
+  --colour-neutral-grey-300: hsla(0, 0%, 40%, 1);
+  --colour-neutral-grey-400: hsla(0, 0%, 60%, 1);
+  --colour-neutral-grey-500: hsla(0, 0%, 80%, 1);
+  --colour-neutral-grey-600: hsla(0, 0%, 90%, 1);
+  --colour-neutral-grey-700: hsla(0, 0%, 92%, 1);
+  --colour-neutral-grey-800: hsla(0, 0%, 94%, 1);
+  --colour-neutral-grey-900: hsla(0, 0%, 96%, 1);
+  --colour-neutral-grey-1000: hsla(0, 0%, 98%, 1);
+  --colour-neutral-white: hsla(0, 0%, 100%, 1);
+  --colour-neutral-white-alpha-1: hsla(0, 0%, 100%, 0.14);
+  --colour-neutral-white-alpha-2: hsla(0, 0%, 100%, 0.2);
+  --colour-neutral-null: hsla(0, 0%, 100%, 0);
+
+  /* ———————————————————————————————————————————
+     colour/brand/purple (12)
+     ——————————————————————————————————————————— */
+  --colour-brand-purple-50: hsla(255, 50%, 15%, 1);
+  --colour-brand-purple-100: hsla(255, 44%, 24%, 1);
+  --colour-brand-purple-200: hsla(255, 32%, 32%, 1);
+  --colour-brand-purple-300: hsla(255, 32%, 36%, 1);
+  --colour-brand-purple-400: hsla(255, 28%, 44%, 1);
+  --colour-brand-purple-500: hsla(255, 16%, 44%, 1);
+  --colour-brand-purple-600: hsla(256, 12%, 56%, 1);
+  --colour-brand-purple-700: hsla(258, 12%, 78%, 1);
+  --colour-brand-purple-800: hsla(251, 20%, 84%, 1);
+  --colour-brand-purple-900: hsla(256, 22%, 86%, 1);
+  --colour-brand-purple-1000: hsla(255, 20%, 92%, 1);
+  --colour-brand-purple-1100: hsla(259, 20%, 96%, 1);
+
+  /* ———————————————————————————————————————————
+     colour/brand/red (11)
+     ——————————————————————————————————————————— */
+  --colour-brand-red-100: hsla(4, 90%, 20%, 1);
+  --colour-brand-red-200: hsla(4, 90%, 30%, 1);
+  --colour-brand-red-300: hsla(4, 64%, 48%, 1);
+  --colour-brand-red-400: hsla(4, 85%, 62%, 1);
+  --colour-brand-red-500: hsla(4, 80%, 72%, 1);
+  --colour-brand-red-600: hsla(4, 36%, 72%, 1);
+  --colour-brand-red-700: hsla(4, 52%, 80%, 1);
+  --colour-brand-red-800: hsla(4, 44%, 88%, 1);
+  --colour-brand-red-900: hsla(4, 36%, 92%, 1);
+  --colour-brand-red-1000: hsla(4, 95%, 98%, 1);
+  --colour-brand-red-1100: hsla(4, 98%, 99%, 1);
+
+  /* ———————————————————————————————————————————
+     colour/brand/yellow (11)
+     ——————————————————————————————————————————— */
+  --colour-brand-yellow-100: hsla(37, 100%, 20%, 1);
+  --colour-brand-yellow-200: hsla(37, 88%, 30%, 1);
+  --colour-brand-yellow-300: hsla(37, 84%, 40%, 1);
+  --colour-brand-yellow-400: hsla(37, 72%, 50%, 1);
+  --colour-brand-yellow-500: hsla(37, 92%, 51%, 1);
+  --colour-brand-yellow-600: hsla(37, 40%, 64%, 1);
+  --colour-brand-yellow-700: hsla(37, 72%, 72%, 1);
+  --colour-brand-yellow-800: hsla(37, 84%, 88%, 1);
+  --colour-brand-yellow-900: hsla(37, 75%, 92%, 1);
+  --colour-brand-yellow-1000: hsla(37, 81%, 96%, 1);
+  --colour-brand-yellow-1100: hsla(37, 100%, 98%, 1);
+
+  /* ———————————————————————————————————————————
+     colour/brand/green (11)
+     ——————————————————————————————————————————— */
+  --colour-brand-green-100: hsla(103, 88%, 12%, 1);
+  --colour-brand-green-200: hsla(103, 24%, 24%, 1);
+  --colour-brand-green-300: hsla(103, 48%, 32%, 1);
+  --colour-brand-green-400: hsla(103, 50%, 36%, 1);
+  --colour-brand-green-500: hsla(103, 36%, 54%, 1);
+  --colour-brand-green-600: hsla(103, 12%, 64%, 1);
+  --colour-brand-green-700: hsla(103, 20%, 72%, 1);
+  --colour-brand-green-800: hsla(103, 34%, 83%, 1);
+  --colour-brand-green-900: hsla(103, 40%, 90%, 1);
+  --colour-brand-green-1000: hsla(103, 50%, 95%, 1);
+  --colour-brand-green-1100: hsla(103, 63%, 97%, 1);
+
+  /* ———————————————————————————————————————————
+     colour/dataviz (40)
+     ——————————————————————————————————————————— */
+  /* coral */
+  --colour-dataviz-coral-default: hsla(8, 100%, 64%, 1);
+  --colour-dataviz-coral-hint: hsla(8, 100%, 93%, 1);
+  --colour-dataviz-coral-translucent: hsla(8, 100%, 64%, 0.2);
+  --colour-dataviz-coral-emphasis: hsla(8, 80%, 52%, 1);
+  --colour-dataviz-coral-focus: hsla(8, 92%, 36%, 1);
+  /* lime */
+  --colour-dataviz-lime-default: hsla(55, 88%, 43%, 1);
+  --colour-dataviz-lime-hint: hsla(56, 100%, 94%, 1);
+  --colour-dataviz-lime-translucent: hsla(55, 100%, 72%, 0.2);
+  --colour-dataviz-lime-emphasis: hsla(55, 80%, 52%, 1);
+  --colour-dataviz-lime-focus: hsla(55, 92%, 36%, 1);
+  /* parrot */
+  --colour-dataviz-parrot-default: hsla(75, 84%, 40%, 1);
+  --colour-dataviz-parrot-hint: hsla(72, 100%, 94%, 1);
+  --colour-dataviz-parrot-translucent: hsla(72, 100%, 72%, 0.2);
+  --colour-dataviz-parrot-emphasis: hsla(72, 80%, 52%, 1);
+  --colour-dataviz-parrot-focus: hsla(72, 92%, 36%, 1);
+  /* turquoise */
+  --colour-dataviz-turquoise-default: hsla(168, 100%, 41%, 1);
+  --colour-dataviz-turquoise-hint: hsla(168, 100%, 94%, 1);
+  --colour-dataviz-turquoise-translucent: hsla(168, 100%, 72%, 0.2);
+  --colour-dataviz-turquoise-emphasis: hsla(168, 80%, 52%, 1);
+  --colour-dataviz-turquoise-focus: hsla(168, 92%, 36%, 1);
+  /* sky */
+  --colour-dataviz-sky-default: hsla(195, 100%, 41%, 1);
+  --colour-dataviz-sky-hint: hsla(195, 100%, 94%, 1);
+  --colour-dataviz-sky-translucent: hsla(195, 100%, 72%, 0.2);
+  --colour-dataviz-sky-emphasis: hsla(195, 80%, 52%, 1);
+  --colour-dataviz-sky-focus: hsla(195, 92%, 36%, 1);
+  /* ocean */
+  --colour-dataviz-ocean-default: hsla(222, 100%, 69%, 1);
+  --colour-dataviz-ocean-hint: hsla(221, 100%, 94%, 1);
+  --colour-dataviz-ocean-translucent: hsla(222, 100%, 72%, 0.2);
+  --colour-dataviz-ocean-emphasis: hsla(222, 80%, 52%, 1);
+  --colour-dataviz-ocean-focus: hsla(222, 92%, 36%, 1);
+  /* lavender */
+  --colour-dataviz-lavender-default: hsla(265, 100%, 72%, 1);
+  --colour-dataviz-lavender-hint: hsla(265, 100%, 94%, 1);
+  --colour-dataviz-lavender-translucent: hsla(265, 100%, 72%, 0.2);
+  --colour-dataviz-lavender-emphasis: hsla(265, 80%, 52%, 1);
+  --colour-dataviz-lavender-focus: hsla(265, 92%, 36%, 1);
+  /* rose */
+  --colour-dataviz-rose-default: hsla(320, 79%, 65%, 1);
+  --colour-dataviz-rose-hint: hsla(321, 100%, 94%, 1);
+  --colour-dataviz-rose-translucent: hsla(320, 100%, 72%, 0.2);
+  --colour-dataviz-rose-emphasis: hsla(320, 80%, 52%, 1);
+  --colour-dataviz-rose-focus: hsla(320, 92%, 36%, 1);
+
+  /* ———————————————————————————————————————————
+     colour/dataviz/legacy (8)
+     ——————————————————————————————————————————— */
+  --colour-dataviz-legacy-bright-coral: hsla(8, 100%, 72%, 1);
+  --colour-dataviz-legacy-bright-lime: hsla(55, 100%, 44%, 1);
+  --colour-dataviz-legacy-bright-parrot: hsla(72, 100%, 44%, 1);
+  --colour-dataviz-legacy-bright-turquoise: hsla(168, 100%, 44%, 1);
+  --colour-dataviz-legacy-bright-sky: hsla(195, 100%, 48%, 1);
+  --colour-dataviz-legacy-bright-ocean: hsla(222, 100%, 64%, 1);
+  --colour-dataviz-legacy-bright-lavender: hsla(265, 100%, 72%, 1);
+  --colour-dataviz-legacy-bright-rose: hsla(320, 100%, 72%, 1);
+
+  /* ———————————————————————————————————————————
+     stroke (7)
+     ——————————————————————————————————————————— */
+  --stroke-nil: 0px;
+  --stroke-xs: 1px;
+  --stroke-sm: 2px;
+  --stroke-md: 3px;
+  --stroke-lg: 4px;
+  --stroke-xl: 6px;
+  --stroke-big: 8px;
+
+  /* ———————————————————————————————————————————
+     text (1)
+     ——————————————————————————————————————————— */
+  --text-spacing-paragraph: 0px;
+}

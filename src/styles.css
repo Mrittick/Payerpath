@@ -1,0 +1,63 @@
+/* ── View Transitions ── */
+@keyframes vt-fade-slide-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes vt-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes vt-fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* Root: pure fade — no y-axis. Covers all in-app navigation and any
+   transitions not handled by a named element below. */
+::view-transition-old(root) {
+  animation: 180ms cubic-bezier(0, 0, 0, 1) both vt-fade-out;
+}
+::view-transition-new(root) {
+  animation: 280ms cubic-bezier(0, 0, 0, 1) both vt-fade-in;
+}
+
+/* Login page: y-axis slide on enter, clean fade on exit. */
+::view-transition-new(login-page) {
+  animation: 320ms cubic-bezier(0, 0, 0, 1) both vt-fade-slide-in;
+}
+::view-transition-old(login-page) {
+  animation: 180ms cubic-bezier(0, 0, 0, 1) both vt-fade-out;
+}
+
+/* Signed-out page: y-axis slide on enter, clean fade on exit. */
+::view-transition-new(signedout-page) {
+  animation: 320ms cubic-bezier(0, 0, 0, 1) both vt-fade-slide-in;
+}
+::view-transition-old(signedout-page) {
+  animation: 180ms cubic-bezier(0, 0, 0, 1) both vt-fade-out;
+}
+
+/* Shell chrome: permanently frozen across every navigation.
+   animation: none on both old and new means both pseudo-elements sit at
+   full opacity simultaneously — they stack perfectly and the chrome is
+   invisible to the transition engine, behaving like a persistent element. */
+::view-transition-old(shell-header),
+::view-transition-new(shell-header),
+::view-transition-old(shell-divider),
+::view-transition-new(shell-divider),
+::view-transition-old(shell-navbar),
+::view-transition-new(shell-navbar),
+::view-transition-old(shell-nav-divider),
+::view-transition-new(shell-nav-divider) {
+  animation: none;
+}
+
+/* Page content area: fade only. */
+::view-transition-old(page-content) {
+  animation: 150ms cubic-bezier(0, 0, 0, 1) both vt-fade-out;
+}
+::view-transition-new(page-content) {
+  animation: 220ms cubic-bezier(0, 0, 0, 1) both vt-fade-in;
+}

@@ -1,0 +1,104 @@
+/* ═══════════════════════════════════════════════
+   Chevron Badge — Sub-control
+   Figma: 957:12994
+   ═══════════════════════════════════════════════ */
+
+/* ── Host base ── */
+:host {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  box-sizing: border-box;
+  color: var(--colour-brand-purple-100);
+  transition: background-color 300ms ease, opacity 300ms ease, color 300ms ease;
+}
+
+/* ── Focus ring (keyboard only) ── */
+:host::after {
+  content: '';
+  position: absolute;
+  inset: calc(-1 * var(--stroke-button-focus));
+  border: var(--stroke-button-focus) solid transparent;
+  pointer-events: none;
+  transition: border-color 300ms ease;
+}
+
+:host(.cb--keyboard-focused)::after {
+  border-color: var(--colour-stroke-element-focus-brand-enabled-base);
+}
+
+/* ═══════════════════════════════════════════════
+   SIZE VARIANTS
+   ═══════════════════════════════════════════════ */
+
+:host(.cb--huge) {
+  padding: var(--gap-md);
+  border-radius: var(--radius-sm);
+}
+
+:host(.cb--huge)::after {
+  border-radius: calc(var(--radius-sm) + var(--stroke-button-focus));
+}
+
+:host(.cb--large) {
+  padding: var(--gap-1xs);
+  border-radius: var(--radius-xs);
+}
+
+:host(.cb--large)::after {
+  border-radius: calc(var(--radius-xs) + var(--stroke-button-focus));
+}
+
+:host(.cb--base) {
+  padding: var(--gap-2xs);
+  border-radius: var(--radius-xs);
+}
+
+:host(.cb--base)::after {
+  border-radius: calc(var(--radius-xs) + var(--stroke-button-focus));
+}
+
+/* ═══════════════════════════════════════════════
+   INTERACTIVE STATES
+   ═══════════════════════════════════════════════ */
+
+/* ── Hover ── */
+:host(:not(.cb--active):not(.cb--disabled):not(.cb--hidden):hover) {
+  background-color: var(--colour-brand-purple-1000);
+}
+
+/* ── Pressed ── */
+:host(:active):not(.cb--active):not(.cb--disabled):not(.cb--hidden) {
+  background-color: var(--colour-brand-purple-900);
+}
+
+/* ── Active (toggle state) ── */
+:host(.cb--active) {
+  background-color: var(--colour-brand-purple-100);
+  color: var(--colour-neutral-white);
+}
+
+:host(.cb--active:hover) {
+  background-color: var(--colour-brand-purple-200);
+}
+
+:host(.cb--active:active) {
+  background-color: var(--colour-brand-purple-300);
+}
+
+/* ── Disabled ── */
+:host(.cb--disabled) {
+  color: var(--colour-brand-purple-700);
+  cursor: not-allowed;
+}
+
+/* ── Hidden ── */
+:host(.cb--hidden) {
+  opacity: 0;
+  pointer-events: none;
+}

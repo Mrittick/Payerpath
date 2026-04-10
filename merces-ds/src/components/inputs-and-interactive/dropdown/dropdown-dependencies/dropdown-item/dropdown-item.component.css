@@ -1,0 +1,236 @@
+/* ==========================================================================
+   Dropdown Item
+   Figma: Dropdown-Item (131:2095) — 128 variants
+   ========================================================================== */
+
+/* ── Host ── */
+
+:host {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap-md);
+  padding: var(--gap-lg) var(--gap-2xl);
+  background-color: var(--colour-fill-button-dropdown-item-default);
+  color: var(--colour-text-checkbox-brand-enabled);
+  cursor: pointer;
+  position: relative;
+  transition: background-color 300ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* ── Focus ring (::after pseudo, zero layout impact) ── */
+
+:host::after {
+  content: '';
+  position: absolute;
+  inset: calc(-1 * var(--stroke-button-focus));
+  border: var(--stroke-button-focus) solid var(--colour-neutral-null);
+  pointer-events: none;
+  transition: border-color 300ms cubic-bezier(0, 0, 0, 1);
+}
+
+:host(.dropdown-item--keyboard-focus)::after {
+  border-color: var(--colour-stroke-element-focus-brand-enabled-base);
+}
+
+/* ── Hover ── */
+
+:host(:hover:not(.dropdown-item--disabled)) {
+  background-color: var(--colour-fill-button-dropdown-item-hover);
+}
+
+/* ── Pressed ── */
+
+:host(:active:not(.dropdown-item--disabled)) {
+  background-color: var(--colour-fill-button-dropdown-item-pressed);
+}
+
+/* ── Highlighted (keyboard navigation) ── */
+
+:host(.dropdown-item--highlighted:not(.dropdown-item--disabled)) {
+  background-color: var(--colour-fill-button-dropdown-item-hover);
+}
+
+/* ── Disabled ── */
+
+:host(.dropdown-item--disabled) {
+  color: var(--colour-text-checkbox-brand-disabled);
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Main Content
+   ========================================================================== */
+
+.main-content {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-md);
+  flex: 1;
+  min-width: 0;
+}
+
+/* SingleSelect Right: Figma uses gap 6 in Main Content */
+.main-content--right-ss {
+  gap: var(--gap-sm);
+}
+
+/* ==========================================================================
+   Item Text
+   ========================================================================== */
+
+.item-text {
+  flex: 1;
+  min-width: 0;
+  color: inherit;
+}
+
+.item-text--truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* ==========================================================================
+   SingleSelect — Tick Icon (Icon-Check Frame)
+
+   Figma: 12w × 20h frame, counterAxisAlign CENTER.
+   Tick instance: opacity 0 unchecked, opacity 1 checked.
+   Icon inherits colour from host via currentColor.
+   ========================================================================== */
+
+.icon-check-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Icon frame: 12w (icon tiny = 12px) × 20h (matches text line height) */
+  width: var(--gap-1xl);
+  height: var(--gap-4xl);
+  flex-shrink: 0;
+  color: inherit;
+  opacity: 0;
+  transition: opacity 300ms cubic-bezier(0, 0, 0, 1);
+}
+
+.icon-check--visible {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   MultiSelect — Checkbox
+
+   Figma: Checkbox (wrapper) > Box (20×20, padding 4, radius 6, stroke 2)
+     > Icon (Tick, 12×12)
+
+   Stroke behaviour per Figma inspection:
+     Unchecked enabled:   stroke visible
+     Checked default:     stroke exists but visible=false → transparent
+     Checked hover/press: stroke visible
+     All disabled:        stroke removed → transparent
+   ========================================================================== */
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.checkbox-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Checkbox box: 20×20 matching Figma fixed size */
+  width: var(--gap-4xl);
+  height: var(--gap-4xl);
+  padding: var(--gap-1xs);
+  border-radius: var(--radius-sm);
+  border: var(--stroke-button-checkbox-base) solid var(--colour-stroke-button-checkbox-brand-stroke-default);
+  background-color: var(--colour-fill-button-checkbox-brand-unchecked-default);
+  transition:
+    background-color 300ms cubic-bezier(0, 0, 0, 1),
+    border-color 300ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* ── Unchecked states ── */
+
+:host(:hover:not(.dropdown-item--disabled)) .checkbox-box:not(.checkbox-box--checked) {
+  background-color: var(--colour-fill-button-checkbox-brand-unchecked-hover);
+  border-color: var(--colour-stroke-button-checkbox-brand-stroke-hover);
+}
+
+:host(:active:not(.dropdown-item--disabled)) .checkbox-box:not(.checkbox-box--checked) {
+  background-color: var(--colour-fill-button-checkbox-brand-unchecked-pressed);
+  border-color: var(--colour-stroke-button-checkbox-brand-stroke-hover);
+}
+
+/* ── Checked states ── */
+
+.checkbox-box--checked {
+  background-color: var(--colour-fill-button-checkbox-brand-checked-default);
+  border-color: var(--colour-neutral-null);
+}
+
+:host(:hover:not(.dropdown-item--disabled)) .checkbox-box--checked {
+  background-color: var(--colour-fill-button-checkbox-brand-checked-hover);
+  border-color: var(--colour-stroke-button-checkbox-brand-stroke-hover);
+}
+
+:host(:active:not(.dropdown-item--disabled)) .checkbox-box--checked {
+  background-color: var(--colour-fill-button-checkbox-brand-checked-pressed);
+  border-color: var(--colour-stroke-button-checkbox-brand-stroke-hover);
+}
+
+/* ── Disabled (both checked and unchecked) ── */
+
+.checkbox-box--disabled {
+  border-color: var(--colour-neutral-null);
+}
+
+.checkbox-box--disabled:not(.checkbox-box--checked) {
+  background-color: var(--colour-fill-button-checkbox-brand-unchecked-disabled);
+}
+
+.checkbox-box--disabled.checkbox-box--checked {
+  background-color: var(--colour-fill-button-checkbox-brand-checked-disabled);
+}
+
+/* ── Checkbox tick icon ── */
+
+.checkbox-tick {
+  color: var(--colour-text-inverted-base);
+  opacity: 0;
+  transition:
+    opacity 300ms cubic-bezier(0, 0, 0, 1),
+    color 300ms cubic-bezier(0, 0, 0, 1);
+}
+
+.checkbox-box--checked .checkbox-tick {
+  opacity: 1;
+}
+
+/* Pressed: box goes light, tick must flip to dark text colour for contrast */
+:host(:active:not(.dropdown-item--disabled)) .checkbox-box--checked .checkbox-tick {
+  color: var(--colour-text-checkbox-brand-enabled);
+}
+
+/* ==========================================================================
+   More Info Icon (Icon-Info Frame)
+
+   Figma: 16×20 frame, counterAxisAlign CENTER.
+   SingleSelect: sibling of Main Content at root.
+   MultiSelect: inside Main Content, after text.
+   Icon inherits colour from host via currentColor.
+   ========================================================================== */
+
+.icon-info-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: inherit;
+  cursor: pointer;
+}
+
+:host(.dropdown-item--disabled) .icon-info-frame {
+  pointer-events: none;
+}

@@ -1,0 +1,251 @@
+<!-- ══════════════════════════════════════════════════════════════════
+     Analytics → Remittances
+     Layout: sidebar (left, 320px) | content card (right, flex:1)
+     Figma: X3ePdrL3EFGOKK6Gb6qbV7 node 49:2
+     ══════════════════════════════════════════════════════════════════ -->
+
+<!-- Left: filter sidebar -->
+<payerpath-remittances-sidebar />
+
+<!-- Right: main content card -->
+<main class="content">
+  <article class="content-card">
+
+    <!-- ══════════════════════════════════════════════════════════
+         Header
+         Figma node 88:8206 — HORIZONTAL, gap:10, center-aligned
+         Two sections: Tabs (FILL) + Plotting (HUG)
+         ══════════════════════════════════════════════════════════ -->
+    <header class="header">
+
+      <!-- Tabs — Analytics / Claims Data / Service Data (Level02)
+           Figma node 82:7285 — padding 12/8/0/8, FILL width -->
+      <div class="header-tabs" role="tablist">
+        <merces-tab-button
+          hierarchy="level-02"
+          label="Analytics"
+          [isCurrent]="activeTab() === 'analytics'"
+          (pressed)="activeTab.set('analytics')"
+        />
+        <merces-tab-button
+          hierarchy="level-02"
+          label="Claims Data"
+          [isCurrent]="activeTab() === 'claims-data'"
+          (pressed)="activeTab.set('claims-data')"
+        />
+        <merces-tab-button
+          hierarchy="level-02"
+          label="Service Data"
+          [isCurrent]="activeTab() === 'service-data'"
+          (pressed)="activeTab.set('service-data')"
+        />
+      </div>
+
+      <!-- Plotting — Chart / Date Series tabs + dividers + Edit Columns + Download Chip
+           Figma node 88:8207 — padding 0/8/0/8, gap:8, HUG width, center-aligned -->
+      <div class="header-plotting">
+        <merces-tab-button
+          hierarchy="level-01"
+          label="Chart"
+          [isCurrent]="activePlottingTab() === 'chart'"
+          (pressed)="activePlottingTab.set('chart')"
+        />
+        <merces-tab-button
+          hierarchy="level-01"
+          label="Date Series"
+          [isCurrent]="activePlottingTab() === 'date-series'"
+          (pressed)="activePlottingTab.set('date-series')"
+        />
+
+        <!-- Divider 1 — Figma: 10×FILL, 2px fill, colour/neutral/grey-400 -->
+        <div class="plotting-divider" aria-hidden="true"></div>
+
+        <!-- Edit Columns CTA — Primary/Base/IconLeft/Table icon -->
+        <merces-cta-button
+          intent="brand"
+          type="primary"
+          size="base"
+          variant="icon-left"
+          [icon]="'table'"
+          label="Edit Columns"
+          (pressed)="onEditColumns()"
+        />
+
+        <!-- Divider 2 -->
+        <div class="plotting-divider" aria-hidden="true"></div>
+
+        <!-- Download Chip — State=Default, hasChart=True -->
+        <payerpath-download-chip
+          [hasChart]="true"
+          (downloadAll)="onDownloadAll()"
+          (downloadChartSnapshot)="onDownloadChartSnapshot()"
+        />
+      </div>
+    </header>
+
+    <!-- ── Tab panels ── -->
+    @if (activeTab() === 'analytics') {
+
+      <!-- Segmentation area
+           Figma node 82:8019 — Analytics slice controls ── -->
+      <section class="segmentation-area" aria-label="Data segmentation">
+        <div class="segmentation-card">
+          <merces-dropdown-group label="Group by" layout="horizontal">
+            <merces-dropdown [selectionText]="'Biller Provider Number'" [unselected]="false">
+              @for (item of groupByOptions(); track item.label) {
+                <merces-dropdown-item [label]="item.label" [checked]="item.checked" />
+              }
+            </merces-dropdown>
+          </merces-dropdown-group>
+
+          <div class="fsc-group">
+            <merces-dropdown-group label="Frequency" layout="horizontal">
+              <merces-dropdown [selectionText]="'Quarter'" [unselected]="false">
+                @for (item of frequencyOptions(); track item.label) {
+                  <merces-dropdown-item [label]="item.label" [checked]="item.checked" />
+                }
+              </merces-dropdown>
+            </merces-dropdown-group>
+
+            <merces-dropdown-group label="Show Column" layout="horizontal">
+              <merces-dropdown [selectionText]="'Total Claim Count'" [unselected]="false">
+                @for (item of showColumnOptions(); track item.label) {
+                  <merces-dropdown-item [label]="item.label" [checked]="item.checked" />
+                }
+              </merces-dropdown>
+            </merces-dropdown-group>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════════════
+           Chart section wrapper — pad=(nil,8,8,8) on .charting
+           "Frame" inside Chart: 974×358, corner=8=radius-md,
+           fill=colour/fill/surface/neutral-default
+           VERTICAL gap:12, pad top/bottom:20 (Figma exact)
+           ═══════════════════════════════════════════════════════════════ -->
+      <section class="charting"
+        [style.height.px]="chartHeightPx()"
+        [style.flex]="chartHeightPx() !== null ? '0 0 auto' : null"
+        aria-label="Grouped horizontal bar chart">
+        <div class="chart-frame">
+
+          <!-- Plotting — Sub Frame + Marking overlap via position:relative/absolute -->
+          <div class="plotting">
+
+            <!-- Sub Frame: Content rows + Magnitude, pad-bottom:30px (Figma) -->
+            <div class="plot-subframe">
+
+              <!-- Content rows — each row: 44px tall, HORIZONTAL gap:12, pad:0 20px -->
+              <div class="plot-content">
+                @for (group of chartGroups(); track group.groupId) {
+                  <div class="plot-row">
+                    <!-- Identifier: 100px fixed, text left (Figma) -->
+                    <span class="plot-identifier">{{ group.groupId }}</span>
+
+                    <!-- Bars: always in DOM — hidden via .plot-bar--hidden for CSS animation -->
+                    <div class="plot-bars">
+                      @for (series of chartSeriesDefs; track series.id) {
+                        <div
+                          [class]="'plot-bar plot-bar--series-' + series.id"
+                          [class.plot-bar--hidden]="!activeSeriesIds().has(series.id)"
+                          [style.width]="getBarWidthPercent(group.seriesValues[series.id], _chartMax())"
+                          [attr.aria-label]="series.label + ': ' + group.seriesValues[series.id]"
+                          [attr.aria-hidden]="!activeSeriesIds().has(series.id)"
+                        ></div>
+                      }
+                    </div>
+
+                    <!-- Buffer — fills remaining track width (Figma) -->
+                    <div class="plot-buffer"></div>
+                  </div>
+                }
+              </div>
+
+              <!-- Magnitude row: baseline + tick labels at exact value positions -->
+              <div class="plot-magnitude">
+                <span class="plot-magnitude-spacer"></span>
+                <div class="plot-magnitude-ticks">
+                  @for (tick of xAxisTicks(); track tick.label) {
+                    <!-- Centered at its value% position — aligns with gridline and bar scale -->
+                    <span class="plot-tick" [style.left.%]="tick.percent">{{ tick.label }}</span>
+                  }
+                </div>
+                <!-- End spacer: matches the 20px right padding on .plot-marking
+                     so the ticks reference width === bar track width -->
+                <span class="plot-magnitude-end-spacer"></span>
+              </div>
+
+            </div><!-- /plot-subframe -->
+
+            <!-- Marking — grid lines at exact value% positions, behind bars -->
+            <div class="plot-marking" aria-hidden="true">
+              <div class="plot-measure">
+                @for (tick of xAxisTicks(); track tick.label) {
+                  <!-- 1px line centered at its value% — no slot wrapper needed -->
+                  <div class="plot-gridline" [style.left.%]="tick.percent"></div>
+                }
+              </div>
+            </div>
+
+          </div><!-- /plotting -->
+
+          <!-- Series Filter — scrollable, centred when space allows -->
+          <aside class="series-filter">
+            <!-- Inner wrapper: margin:auto centres when unconstrained;
+                 degrades to top-aligned scroll when content overflows -->
+            <div class="series-filter-list">
+              @for (series of chartSeriesDefs; track series.id) {
+                <merces-checkbox-dataviz
+                  [series]="$any(series.id)"
+                  [label]="series.label"
+                  [checked]="activeSeriesIds().has(series.id)"
+                  (changed)="onToggleSeries(series.id)" />
+              }
+            </div>
+          </aside>
+
+        </div><!-- /chart-frame -->
+      </section>
+
+
+      <!-- Invisible resizer — 8px hit area, -4px margins to avoid layout impact -->
+      <div class="section-resizer" (mousedown)="onResizerMouseDown($event)"></div>
+
+      <!-- Table section wrapper -->
+      <section class="table-area">
+        <div class="table-frame">
+          <!-- Body: horizontal pad=gap-md, vertical pad=gap-nil
+               Frame's 8px top/bottom pad provides the vertical breathing room -->
+          <div class="table-body">
+            <merces-data-table
+              [columns]="columns"
+              [rows]="rows"
+              [showSelection]="false"
+              [defaultSort]="{ key: 'billingProvider', direction: 'ascending' }"
+              (sortChange)="onTableSortChange($event)"
+            />
+          </div>
+        </div>
+      </section>
+
+    }
+
+    @if (activeTab() === 'claims-data') {
+      <section class="tab-placeholder" aria-label="Claims data">
+        <span class="paragraph-ui-thin tab-placeholder__label">
+          Claims data — coming soon
+        </span>
+      </section>
+    }
+
+    @if (activeTab() === 'service-data') {
+      <section class="tab-placeholder" aria-label="Service data">
+        <span class="paragraph-ui-thin tab-placeholder__label">
+          Service data — coming soon
+        </span>
+      </section>
+    }
+
+  </article>
+</main>

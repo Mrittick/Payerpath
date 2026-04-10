@@ -1,0 +1,160 @@
+/* Figma: Download Chip — Fu2tcEQrSrhZZvhGw1aGZ5 node 4125:77852
+   Variants: State × hasChart
+   Host is inline, position:relative for panel overlay.
+   Figma root layout: VERTICAL, align:MAX (right-aligned), gap:8 */
+
+/* ══════════════════════════════════════════════════════════
+   Host
+   ══════════════════════════════════════════════════════════ */
+
+:host {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;   /* Figma: align:MAX — panel aligns right with button */
+}
+
+/* ══════════════════════════════════════════════════════════
+   Button
+   layout_Button: HORIZONTAL, padding 12/10, gap 8, center-aligned
+   hasChart=True: padding 10px both sides (Cue fills right)
+   hasChart=False: padding 10px left / 14px right (no Cue, extra right breathing room)
+   ══════════════════════════════════════════════════════════ */
+
+.dc-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-md);                              /* 8px */
+  padding: var(--gap-lg) var(--gap-lg);             /* 10px — 10+20+10=40px total height */
+  background: var(--colour-fill-button-emphasis-primary-default);
+  color: var(--colour-text-inverted-base);
+  border: none;
+  border-radius: var(--radius-md);                 /* 8px */
+  cursor: pointer;
+  transition: background var(--transition-duration-state) var(--transition-easing-state);
+}
+
+:host(.dc--no-chart) .dc-button {
+  padding-right: var(--gap-2xl);   /* 14px — extra right padding without Cue */
+}
+
+.dc-button:hover {
+  background: var(--colour-fill-button-emphasis-primary-hover);
+}
+
+/* Open state — panel visible → button shows pressed fill */
+:host(.dc--open) .dc-button,
+.dc-button:active {
+  background: var(--colour-fill-button-emphasis-primary-pressed);
+}
+
+:host(.dc--disabled) .dc-button,
+.dc-button:disabled {
+  background: var(--colour-fill-button-emphasis-primary-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.dc-button__label {
+  /* colour from parent .dc-button */
+  color: inherit;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Cue — divider + chevron (hasChart=True only)
+   Figma: HORIZONTAL, gap:6, size:24×16
+   ══════════════════════════════════════════════════════════ */
+
+.dc-cue {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-sm);    /* 6px */
+}
+
+/* Figma: 2×16 pill, fill colour/neutral/white, 50% opacity */
+.dc-cue__divider {
+  display: block;
+  width: var(--gap-2xs);          /* 2px */
+  height: var(--gap-3xl);         /* 16px */
+  background: var(--colour-neutral-white);
+  opacity: 0.5;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+/* chevron-down inherits colour:inherit → colour-text-inverted-base (white) */
+
+/* ══════════════════════════════════════════════════════════
+   Panel — absolute, right-aligned, opacity transition
+   Figma: VERTICAL, padding:6, bg neutral-default, stroke dropdown-emphasis, radius:12
+   ══════════════════════════════════════════════════════════ */
+
+.dc-panel {
+  position: absolute;
+  top: 100%;                        /* flush — no layout gap breaks the hit area */
+  margin-top: var(--gap-md);        /* gap-md (8px) visual separation from chip */
+  right: 0;
+  z-index: 200;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: var(--gap-sm);           /* 6px — Figma spec */
+  min-width: 297px;
+
+  background: var(--colour-fill-surface-neutral-default);
+  border: var(--stroke-xs) solid var(--colour-stroke-dropdown-emphasis);
+  border-radius: var(--radius-lg);  /* 12px */
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-duration-state) var(--transition-easing-state);
+}
+
+/* Invisible bridge — spans the gap-md between chip and panel
+   so the mouse path never exits :host while crossing the gap */
+.dc-panel::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  height: var(--gap-md);
+}
+
+.dc-panel--open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* CTA buttons inside panel fill full panel width, content left-aligned */
+.dc-panel merces-cta-button {
+  width: 100%;
+}
+
+.dc-panel merces-cta-button ::ng-deep .cta-button__inner {
+  justify-content: flex-start;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Separator — Figma: outer → Frame → Fill
+   Outer: padding L=gap-3xbig(40px) R=gap-2xl(14px) T/B=gap-sm(6px)
+   Frame: padding-left=gap-2xs(2px)
+   Fill:  1px, radius-full, colour/stroke/divider/primary-medium
+   ══════════════════════════════════════════════════════════ */
+
+.dc-separator {
+  padding: var(--gap-sm) var(--gap-2xl) var(--gap-sm) var(--gap-3xbig);
+}
+
+.dc-separator__frame {
+  padding-left: var(--gap-nil);
+}
+
+.dc-separator__fill {
+  height: var(--stroke-xs);          /* 1px */
+  background-color: var(--colour-stroke-divider-primary-medium);
+  border-radius: var(--radius-full);
+}

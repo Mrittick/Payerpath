@@ -1,0 +1,41 @@
+/* Figma: accordion-edit (825:20199)
+   32×32 icon button · padding gap/md · radius/sm · modify icon · purple palette */
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: var(--gap-md);
+  border-radius: var(--radius-sm);
+  box-sizing: border-box;
+  flex-shrink: 0;
+  cursor: pointer;
+  outline: none;
+  color: var(--colour-brand-purple-100);
+  background-color: transparent;
+  transition:
+    background-color 150ms cubic-bezier(0, 0, 0, 1),
+    color            150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:host(:hover:not(.accordion-edit--disabled)) {
+  background-color: var(--colour-brand-purple-900);
+}
+
+:host(:active:not(.accordion-edit--disabled)),
+:host(.accordion-edit--key-pressed:not(.accordion-edit--disabled)) {
+  background-color: var(--colour-brand-purple-700);
+}
+
+:host(.accordion-edit--disabled) {
+  color: var(--colour-brand-purple-700);
+  cursor: not-allowed;
+}
+
+/* keyboard-only focus ring */
+:host(.accordion-edit--keyboard-focus) {
+  outline: var(--stroke-button-focus) solid var(--colour-brand-purple-400);
+  outline-offset: 2px;
+}

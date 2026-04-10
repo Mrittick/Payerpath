@@ -1,0 +1,284 @@
+/* ==========================================================================
+   Dropdown — Trigger + Panel
+   Figma: Dropdown (276:8468) + assembled panel (3328:24435)
+   Ported from React: Dropdown.module.css + DropdownPanel.module.css
+   ========================================================================== */
+
+/* ── Wrapper ── */
+
+:host {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Focus ring (::after pseudo, zero layout impact) ── */
+
+:host::after {
+  content: '';
+  position: absolute;
+  inset: calc(-1 * var(--stroke-button-focus));
+  border-radius: calc(var(--radius-md) + var(--stroke-button-focus));
+  border: var(--stroke-button-focus) solid var(--colour-neutral-null);
+  pointer-events: none;
+  z-index: 1;
+  transition: border-color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:host(.dropdown--keyboard-focus)::after {
+  border-color: var(--colour-stroke-element-focus-brand-enabled-base);
+}
+
+/* ── Disabled ── */
+
+:host(.dropdown--disabled) {
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   Panel-Only Mode
+
+   Parent component acts as the trigger. This host becomes an invisible
+   position:absolute overlay so the panel is anchored to the parent.
+   ========================================================================== */
+
+:host(.dropdown--panel-only) {
+  position: absolute;
+  inset: 0;
+  display: block;
+  pointer-events: none;
+}
+
+/* Suppress focus ring — parent owns focus styling */
+:host(.dropdown--panel-only)::after {
+  display: none;
+}
+
+/* Standard mode, open above: anchor to trigger bottom, open upward.
+   bottom = 100vh − trigger_bottom_from_top + gap_lg (inset from trigger bottom)
+   max-height = trigger_bottom_from_top − gap_lg − gap_md
+     = available space from viewport-top margin up to the panel's bottom edge
+     ensures the panel never extends above gap-md from the viewport top */
+:host(.dropdown--open-above):not(.dropdown--panel-only) .dropdown-panel {
+  top: auto;
+  bottom: calc(100vh - var(--_trigger-bottom-from-top, 0px) + var(--gap-lg));
+  max-height: calc(var(--_trigger-bottom-from-top, 0px) - var(--gap-lg) - var(--gap-md));
+  transform-origin: bottom;
+}
+
+/* Panel-only: override back to absolute — parent trigger owns the geometry */
+:host(.dropdown--panel-only) .dropdown-panel {
+  position: absolute;
+  top: calc(100% + var(--gap-1xs));
+  left: 0;
+  right: 0;
+  width: auto;
+}
+
+/* Panel: above parent trigger */
+:host(.dropdown--panel-only.dropdown--open-above) .dropdown-panel {
+  top: auto;
+  bottom: calc(100% + var(--gap-1xs));
+  transform-origin: bottom;
+}
+
+/* Panel: right-aligned (for narrow triggers with wide panels) */
+:host(.dropdown--panel-only.dropdown--align-right) .dropdown-panel {
+  left: auto;
+  right: 0;
+  min-width: 160px;
+}
+
+/* Re-enable pointer events on the open panel */
+:host(.dropdown--panel-only.dropdown--open) .dropdown-panel {
+  pointer-events: auto;
+}
+
+/* ==========================================================================
+   Trigger Button
+   ========================================================================== */
+
+.dropdown-trigger {
+  appearance: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: var(--gap-lg) var(--gap-lg) var(--gap-lg) var(--gap-2xl);
+  gap: var(--gap-1xl);
+  border-radius: var(--radius-md);
+  text-align: left;
+  background-color: var(--colour-fill-button-dropdown-base-default);
+  font: inherit;
+  transition: background-color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:host(:hover:not(.dropdown--disabled)) .dropdown-trigger {
+  background-color: var(--colour-fill-button-dropdown-base-hover);
+}
+
+:host(.dropdown--disabled) .dropdown-trigger {
+  background-color: var(--colour-fill-button-dropdown-base-disabled);
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   Trigger Text
+   ========================================================================== */
+
+.dropdown-text {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--colour-text-dropdown-label-default);
+  transition: color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+.dropdown-text--placeholder {
+  color: var(--colour-text-dropdown-label-placeholder);
+}
+
+:host(.dropdown--disabled) .dropdown-text {
+  color: var(--colour-text-dropdown-label-disabled);
+}
+
+/* ==========================================================================
+   Chevron
+   ========================================================================== */
+
+.dropdown-chevron {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  color: var(--colour-text-dropdown-label-default);
+  transition: color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:host(.dropdown--disabled) .dropdown-chevron {
+  color: var(--colour-text-dropdown-label-disabled);
+}
+
+/* No chevron rotation — macOS overlay-style dropdown keeps chevron static */
+
+/* ==========================================================================
+   Panel (overlay)
+
+   Always in DOM. Hidden via opacity + pointer-events.
+   CSS transition handles open/close animation (150ms fade + slide).
+   Positioned 10px inset from wrapper edges (matching Figma annotation).
+   ========================================================================== */
+
+/* Standard mode: fixed positioning so overflow:hidden/auto ancestors don't clip
+   the panel. JS sets --_trigger-* to the raw viewport rect of the trigger;
+   CSS applies the Figma inset (gap-lg = 10px) so the panel overlaps the trigger
+   inset 10px on left/right, 10px down from the top — matching Figma exactly.
+   Panel-only mode keeps position:absolute (parent owns the trigger geometry). */
+.dropdown-panel {
+  position: fixed;
+  top:   calc(var(--_trigger-top,  0px) + var(--gap-lg));
+  left:  calc(var(--_trigger-left, 0px) + var(--gap-lg));
+  width: calc(var(--_trigger-width, 100%) - var(--gap-lg) * 2);
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: var(--colour-fill-surface-neutral-default);
+  border: var(--stroke-thin) solid var(--colour-stroke-dropdown-brand);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-M);
+  padding: 0;
+  overflow: hidden;
+
+  /* Hidden by default */
+  opacity: 0;
+  transform: scaleY(0.9);
+  transform-origin: top;
+  pointer-events: none;
+  transition:
+    opacity 200ms cubic-bezier(0, 0, 0, 1),
+    transform 200ms cubic-bezier(0, 0, 0, 1);
+}
+
+:host(.dropdown--open) .dropdown-panel {
+  opacity: 1;
+  transform: scaleY(1);
+  pointer-events: auto;
+}
+
+/* Elevated radius when filter is present */
+.dropdown-panel:has(merces-dropdown-filter) {
+  border-radius: var(--radius-2xl);
+}
+
+/* ==========================================================================
+   Panel — Scrollable Content Area
+
+   Native scrollbar hidden. Items render full-width edge-to-edge.
+   overscroll-behavior: contain prevents scroll chaining to the page.
+   ::before/::after add 8px breathing room at top/bottom of scroll area.
+   ========================================================================== */
+
+.dropdown-panel__content {
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  max-height: var(--dropdown-panel-max-height, 240px);
+  /* Hide native scrollbar — Firefox */
+  scrollbar-width: none;
+}
+
+/* Hide native scrollbar — WebKit (Chrome, Safari, Edge) */
+.dropdown-panel__content::-webkit-scrollbar {
+  display: none;
+}
+
+/* Scroll spacers: phantom 8px breathing room at top/bottom of the scroll flow.
+   Items scroll freely to the panel's clipping edge.
+   ::before suppressed when filter present (panel padding-top handles it). */
+.dropdown-panel__content::before,
+.dropdown-panel__content::after {
+  content: '';
+  display: block;
+  flex-shrink: 0;
+  height: var(--gap-md);
+}
+
+/* Panel padding when fixed elements are present */
+.dropdown-panel:has(merces-dropdown-filter) {
+  padding-top: var(--gap-md);
+}
+.dropdown-panel:has(merces-dropdown-action) {
+  padding-bottom: var(--gap-md);
+}
+
+/* Suppress top scroll spacer when filter is present (panel padding-top handles it) */
+.dropdown-panel:has(merces-dropdown-filter) .dropdown-panel__content::before {
+  display: none;
+}
+
+/* Suppress both spacers when showing the no-results empty state */
+.dropdown-panel__content:has(merces-dropdown-no-results)::before,
+.dropdown-panel__content:has(merces-dropdown-no-results)::after {
+  display: none;
+}
+
+/* Suppress only bottom spacer when content area is empty (action-only panels).
+   ::before (8px) remains to provide the correct top breathing room.
+   Panel padding-bottom already handles the bottom spacing. */
+.dropdown-panel__content:not(:has(*))::after {
+  display: none;
+}
+
+/* Restore panel bottom padding when no-results is shown without an action.
+   Matches Figma token binding: paddingBottom = gap/md on the panel frame. */
+.dropdown-panel:has(merces-dropdown-no-results):not(:has(merces-dropdown-action)) {
+  padding-bottom: var(--gap-md);
+}

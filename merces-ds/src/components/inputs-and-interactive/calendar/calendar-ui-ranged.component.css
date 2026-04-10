@@ -1,0 +1,349 @@
+/* ==========================================================================
+   Calendar UI Ranged — two-panel date range picker
+   Figma: Calendar UI (779:482) Ranged=True / node 782:4261
+
+   Structure:
+     Host (border, shadow, radius — same as single)
+       ├── .cal-panel (left — padding, header, body)
+       ├── .cal-divider (1px separator)
+       └── .cal-panel (right — padding, header, body)
+
+   Key differences from single-date calendar:
+     • Date cells are 34px wide (not 32px) with 0 column gap so range fill is continuous
+     • Weekday cells match at 34px
+     • Three new cell states: range-start, range-middle, range-end
+   ========================================================================== */
+
+/* ── Host ── */
+
+:host {
+  display: inline-flex; /* shrinks to content width — panels + divider */
+  flex-direction: row;
+  width: max-content;
+  box-sizing: border-box;
+  background-color: var(--colour-fill-surface-neutral-default);
+  border: var(--stroke-thin) solid var(--colour-stroke-dropdown-brand);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-M);
+  overflow: hidden; /* clip panels to border-radius */
+}
+
+/* ── Panel (each of the two month views) ── */
+
+.cal-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+  padding: var(--gap-1xl);
+  /* 7 × 34px cells = 238px content + 2 × 12px padding = 262px */
+  width: 262px;
+  box-sizing: border-box;
+}
+
+/* ── Divider ── */
+
+.cal-divider {
+  width: 1px;
+  flex-shrink: 0;
+  align-self: stretch;
+  background-color: var(--colour-stroke-dropdown-brand);
+}
+
+/* ==========================================================================
+   Header — prev / label / next
+   ========================================================================== */
+
+.cal-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-1xs);
+  height: 32px;
+}
+
+/* The --left / --right variants carry a view-transition-name so the label
+   text also cross-fades when the level changes (e.g. "April 2026" → "Year 2026").
+   These live alongside the base class; both rules apply simultaneously. */
+.cal-month-label--left  { view-transition-name: ranged-cal-label-left; }
+.cal-month-label--right { view-transition-name: ranged-cal-label-right; }
+
+/* Now a <button> — reset browser defaults then apply design styles */
+.cal-month-label {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: var(--gap-sm) var(--gap-1xl);
+  background-color: var(--colour-brand-purple-1100);
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--colour-brand-purple-400);
+  cursor: pointer;
+  outline: none;
+  transition:
+    background-color 150ms cubic-bezier(0, 0, 0, 1),
+    color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+.cal-month-label:hover {
+  background-color: var(--colour-brand-purple-400);
+  color: var(--colour-text-inverted-base);
+}
+
+/* At year level the label is static — no pointer, no hover effect */
+.cal-month-label--static {
+  cursor: default;
+}
+.cal-month-label--static:hover {
+  background-color: var(--colour-brand-purple-1100);
+  color: var(--colour-brand-purple-400);
+}
+
+.cal-month-label:focus-visible {
+  outline: var(--stroke-button-focus) solid var(--colour-stroke-element-focus-brand-enabled-base);
+  outline-offset: 0;
+}
+
+/* ==========================================================================
+   Body — single div; View Transitions handles the cross-fade.
+   .cal-body--left / --right carry the view-transition-name so the browser
+   can capture per-panel before/after snapshots independently.
+
+   Note: view-transition-name values must be unique across the whole page.
+   The ::view-transition-* animation rules live in global.css because those
+   pseudo-elements are created at the document root and are unreachable from
+   scoped component CSS.
+   ========================================================================== */
+
+.cal-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+.cal-body--left  { view-transition-name: ranged-cal-body-left; }
+.cal-body--right { view-transition-name: ranged-cal-body-right; }
+
+/* ── Weekday headers — 34px to match ranged date cells ── */
+
+.cal-weekdays {
+  display: flex;
+  flex-direction: row;
+}
+
+.cal-weekday {
+  width: 34px;
+  flex: 0 0 34px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--colour-brand-purple-500);
+}
+
+/* ==========================================================================
+   Date grid
+   No column gap — range fill must be visually continuous across adjacent cells.
+   Row gap: var(--gap-2xs) = 2px, matching single calendar.
+   ========================================================================== */
+
+.cal-dates {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: 0;
+  row-gap: var(--gap-2xs);
+}
+
+/* ── Date cell base ── */
+
+.cal-cell {
+  position: relative;
+  width: 34px;
+  flex: 0 0 34px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  border-radius: var(--radius-calendar-day);
+  color: var(--colour-text-default-link-emphasis);
+  cursor: pointer;
+  outline: none;
+  transition:
+    background-color 150ms cubic-bezier(0, 0, 0, 1),
+    color 150ms cubic-bezier(0, 0, 0, 1),
+    border-radius 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+.cal-cell--out-of-month:not(.cal-cell--range-start):not(.cal-cell--range-end) {
+  color: var(--colour-text-default-link-disabled);
+}
+
+.cal-cell:hover:not(.cal-cell--range-start):not(.cal-cell--range-end):not(.cal-cell--range-middle) {
+  background-color: var(--colour-brand-purple-1100);
+}
+
+.cal-cell:active:not(.cal-cell--range-start):not(.cal-cell--range-end):not(.cal-cell--range-middle) {
+  background-color: var(--colour-brand-purple-900);
+}
+
+.cal-cell:focus-visible {
+  outline: var(--stroke-button-focus) solid var(--colour-stroke-element-focus-brand-enabled-base);
+  outline-offset: 0;
+}
+
+/* ── Range states ── */
+
+/* Start — left side rounded, right side flat (only when a full range exists) */
+.cal-cell--range-start {
+  background-color: var(--colour-brand-purple-400);
+  color: var(--colour-text-inverted-base);
+  border-radius: var(--radius-calendar-day) 0 0 var(--radius-calendar-day);
+}
+
+/* Start alone (no end selected yet) — fully rounded on both sides */
+:host(.cal--range-incomplete) .cal-cell--range-start {
+  border-radius: var(--radius-calendar-day);
+}
+
+/* End — right side rounded, left side flat */
+.cal-cell--range-end {
+  background-color: var(--colour-brand-purple-400);
+  color: var(--colour-text-inverted-base);
+  border-radius: 0 var(--radius-calendar-day) var(--radius-calendar-day) 0;
+}
+
+/* Middle — full-width fill, no rounding */
+.cal-cell--range-middle {
+  background-color: var(--colour-brand-purple-1100);
+  color: var(--colour-text-default-link-emphasis);
+  border-radius: 0;
+}
+
+.cal-cell--range-middle.cal-cell--out-of-month {
+  color: var(--colour-text-default-link-disabled);
+}
+
+/* Hover on start and end — darken the selected bg (white text stays readable) */
+.cal-cell--range-start:hover,
+.cal-cell--range-end:hover {
+  background-color: var(--colour-brand-purple-300);
+}
+
+/* Hover on middle cells — slightly darken; keep dark text (bg is still light) */
+.cal-cell--range-middle:hover {
+  background-color: var(--colour-brand-purple-900);
+  color: var(--colour-text-default-link-emphasis);
+}
+
+/* ── Today indicator dot ── */
+
+.cal-cell__today-dot {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background-color: var(--colour-brand-purple-400);
+  pointer-events: none;
+  transition:
+    border-radius 150ms cubic-bezier(0, 0, 0, 1),
+    background-color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* White dot only on start/end — they have a dark purple bg so white is readable.
+   Middle cells have a light lavender bg — dot stays its default purple colour. */
+.cal-cell--range-start .cal-cell__today-dot,
+.cal-cell--range-end .cal-cell__today-dot {
+  background-color: var(--colour-text-inverted-base);
+}
+
+/* Tombstone on hover/active (same logic as single calendar) */
+.cal-cell:hover .cal-cell__today-dot,
+.cal-cell:active .cal-cell__today-dot,
+.cal-cell--range-start .cal-cell__today-dot,
+.cal-cell--range-end .cal-cell__today-dot {
+  border-radius: var(--radius-full) var(--radius-full) 0 0;
+}
+
+/* ==========================================================================
+   Month / Year picker grids
+   Same token values and layout as the single-date calendar.
+   Each panel has a 238px content width (7 × 34px); cells use flex:1.
+   ========================================================================== */
+
+.cal-picker-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-2xs);
+}
+
+.cal-picker-row {
+  display: flex;
+  flex-direction: row;
+  gap: var(--gap-2xs);
+}
+
+.cal-picker-cell {
+  position: relative; /* anchor for indicator dot */
+  flex: 1;
+  min-width: 0;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: var(--gap-sm); /* space for indicator dot — keeps text visually centred */
+  background-color: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--colour-brand-purple-100);
+  cursor: pointer;
+  outline: none;
+  transition:
+    background-color 150ms cubic-bezier(0, 0, 0, 1),
+    color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+.cal-picker-cell--current {
+  background-color: var(--colour-brand-purple-1100);
+}
+
+.cal-picker-cell:hover {
+  background-color: var(--colour-brand-purple-400);
+  color: var(--colour-text-inverted-base);
+}
+
+.cal-picker-cell:active {
+  background-color: var(--colour-brand-purple-300);
+  color: var(--colour-text-inverted-base);
+}
+
+.cal-picker-cell:focus-visible {
+  outline: var(--stroke-button-focus) solid var(--colour-stroke-element-focus-brand-enabled-base);
+  outline-offset: 0;
+}
+
+/* ── Today indicator dot inside picker cells ── */
+
+.cal-picker-cell__indicator {
+  position: absolute;
+  bottom: var(--gap-sm);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background-color: var(--colour-brand-purple-400);
+  pointer-events: none;
+  transition: background-color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+.cal-picker-cell:hover .cal-picker-cell__indicator,
+.cal-picker-cell:active .cal-picker-cell__indicator {
+  background-color: var(--colour-text-inverted-base);
+}

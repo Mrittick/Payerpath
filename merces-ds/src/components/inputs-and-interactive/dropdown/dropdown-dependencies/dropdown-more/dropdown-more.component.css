@@ -1,0 +1,52 @@
+:host {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--gap-md);
+  padding: var(--gap-lg) var(--gap-2xl);
+  background-color: var(--colour-fill-button-dropdown-item-default);
+  color: var(--colour-text-dropdown-entry-default);
+  cursor: pointer;
+  transition: background-color 300ms ease, color 300ms ease;
+}
+
+/* ── Hover ── */
+:host(.more--hover),
+:host(:hover:not(.more--disabled)) {
+  background-color: var(--colour-fill-button-dropdown-item-hover);
+}
+
+/* ── Pressed ── */
+:host(.more--pressed),
+:host(:active:not(.more--disabled)) {
+  background-color: var(--colour-fill-button-dropdown-item-pressed);
+}
+
+/* ── Disabled ── */
+:host(.more--disabled) {
+  color: var(--colour-text-default-low-emphasis);
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ── Keyboard focus ── */
+:host(.more--keyboard-focus:focus-visible) {
+  outline: var(--stroke-button-focus) solid var(--colour-stroke-element-focus-brand-enabled-base);
+  outline-offset: calc(-1 * var(--stroke-button-focus));
+}
+
+/* ── Text Frame ── */
+
+.text-frame {
+  display: flex;
+  align-items: center;
+  padding-left: var(--gap-4xl);
+}
+
+.more-label {
+  color: inherit;
+}
+
+.more-icon {
+  color: inherit;
+}

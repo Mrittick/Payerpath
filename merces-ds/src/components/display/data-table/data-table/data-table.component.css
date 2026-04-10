@@ -1,0 +1,62 @@
+/* ==========================================================================
+   Data Table
+   Figma: Data Table (4094:16201)
+   Source: Merces | Design System (Fu2tcEQrSrhZZvhGw1aGZ5)
+
+   Tokens:
+     Border:  colour/brand/purple-700  → --colour-brand-purple-700
+     Radius:  radius/md                → --radius-md
+     Stroke:  stroke/xs                → --stroke-xs
+     Gap:     gap/nil (0)              — no gap between headers and rows
+   ========================================================================== */
+
+/* ── Host — the bordered table container ── */
+
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  border-radius: var(--radius-md);
+  border: var(--stroke-xs) solid var(--colour-brand-purple-700);
+  overflow: hidden;
+}
+
+/* ── Scroll container — rows scroll, header sticks ── */
+
+.scroll-container {
+  flex: 1;
+  overflow: auto;
+  min-height: 0;
+  overscroll-behavior: none;
+}
+
+/* ── Inner — CSS Grid container; columns set via [style.grid-template-columns] ── */
+
+.inner {
+  display: grid;
+}
+
+/* ── Sticky header row ── */
+
+.header-row {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+}
+
+/* ── Row removal animation wrapper ── */
+
+.row-wrapper {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+  min-height: 0;
+  overflow: hidden;
+  transition:
+    height  220ms cubic-bezier(0, 0, 0, 1),
+    opacity 220ms cubic-bezier(0, 0, 0, 1);
+}

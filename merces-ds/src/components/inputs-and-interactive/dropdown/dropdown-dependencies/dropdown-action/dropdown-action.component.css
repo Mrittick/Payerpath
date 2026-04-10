@@ -1,0 +1,42 @@
+:host {
+  display: flex;
+  align-items: center;
+}
+
+.action-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--gap-md);
+  width: 100%;
+  padding: var(--gap-lg) var(--gap-3xl);
+  border: none;
+  background-color: var(--colour-fill-button-dropdown-item-default);
+  color: var(--colour-text-checkbox-brand-enabled);
+  cursor: pointer;
+  transition:
+    background-color 150ms cubic-bezier(0, 0, 0, 1),
+    color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* ── Hover ── */
+:host(.action--hover) .action-button,
+:host(:hover) .action-button {
+  background-color: var(--colour-fill-button-dropdown-item-hover);
+}
+
+/* ── Pressed ── */
+:host(.action--pressed) .action-button,
+:host(:active) .action-button {
+  background-color: var(--colour-fill-button-dropdown-item-pressed);
+}
+
+/* ── Keyboard focus ── */
+:host(.action--keyboard-focus:focus-visible) {
+  outline: var(--stroke-button-focus) solid var(--colour-stroke-element-focus-brand-enabled-base);
+  outline-offset: calc(-1 * var(--stroke-button-focus));
+}
+
+.action-label {
+  color: inherit;
+}

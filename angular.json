@@ -1,0 +1,84 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "payerpath": {
+      "projectType": "application",
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "payerpath",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/payerpath",
+            "index": "src/index.html",
+            "browser": "src/main.ts",
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "merces-ds/src/assets/",
+                "output": "/assets/"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/assets/",
+                "output": "/assets/"
+              }
+            ],
+            "styles": [
+              "merces-ds/src/stylesheet/reset.css",
+              "merces-ds/src/stylesheet/tokens/primitives.css",
+              "merces-ds/src/stylesheet/tokens/semantic-tokens.css",
+              "merces-ds/src/stylesheet/tokens/typography.css",
+              "merces-ds/src/stylesheet/tokens/shadows.css",
+              "merces-ds/src/stylesheet/global.css",
+              "src/styles.css"
+            ],
+            "scripts": [],
+            "polyfills": ["zone.js"]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "port": 4201,
+            "proxyConfig": "proxy.conf.json"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "payerpath:build:production"
+            },
+            "development": {
+              "buildTarget": "payerpath:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": false
+  }
+}

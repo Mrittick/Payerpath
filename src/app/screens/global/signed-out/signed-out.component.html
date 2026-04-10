@@ -1,0 +1,44 @@
+<div class="screen">
+
+  <!-- ── Block 01: Graphic panel ── -->
+  <div class="block-01">
+    <div class="graphic">
+      <img class="graphic-image" src="assets/graphic-panel.svg" alt="" aria-hidden="true" />
+    </div>
+  </div>
+
+  <!-- ── Block 02: Content panel ── -->
+  <div class="block-02">
+
+    <!-- Branding -->
+    <div class="branding">
+      <img class="branding-image" src="assets/branding.svg" alt="Payerpath by Veradigm" />
+    </div>
+
+    <!-- Main content -->
+    <div class="main-content">
+
+      <h1 class="heading heading-h1">You are signed out.</h1>
+
+      <div class="divider">
+        <div class="divider-fill"></div>
+      </div>
+
+      <div class="cta">
+        <p class="subtext paragraph-p3">Click on the button below to sign in again.</p>
+
+        <button
+          class="sign-in-button paragraph-ui"
+          type="button"
+          (click)="onSignIn()"
+        >
+          <merces-icon name="sign-in" type="regular" size="base" />
+          <span>Sign in</span>
+          <merces-icon name="chevron-right" type="bold" size="base" />
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</div>

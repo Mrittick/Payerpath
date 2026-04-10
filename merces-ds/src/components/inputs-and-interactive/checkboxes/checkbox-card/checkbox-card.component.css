@@ -1,0 +1,264 @@
+/* ==========================================================================
+   Checkbox Card
+   Figma: Checkbox Card (608:8661) — Brand only; Neutral hook prepared.
+
+   Structure:
+     Host (role=checkbox, focus carrier — full card is interactive)
+       └─ .cb-card__frame  (styled row, carries bg + border, rounded card)
+            ├─ .cb-card__box   (visual checkbox box + icon — decorative, not interactive)
+            │    └─ .cb-card__icon
+            └─ .cb-card__text  (label via ng-content)
+
+   Sizes:
+     Base: card 52h, padding 12, gap 10, radius 12; box 28×28, radius 8, padding 6, icon mini
+     Mini: card 36h, padding 8, gap 8, radius 12; box 20×20, radius 6, padding 4, icon tiny
+
+   Brand only for now. Neutral hook prepared — add styles under .cb-card--neutral when ready.
+   ========================================================================== */
+
+/* ==========================================================================
+   Box geometry — code-only layout tokens derived from Figma absolute coords
+   ========================================================================== */
+
+:host(.cb-card--base) {
+  --cb-card-box-size:    calc(var(--gap-3xl) + var(--gap-sm) * 2);  /* 28px */
+  --cb-card-box-radius:  var(--radius-md);                           /* 8px  */
+  --cb-card-box-pad:     var(--gap-sm);                              /* 6px  */
+  --cb-card-icon-size:   mini;
+}
+
+:host(.cb-card--mini) {
+  --cb-card-box-size:    var(--gap-4xl);                             /* 20px */
+  --cb-card-box-radius:  var(--radius-sm);                           /* 6px  */
+  --cb-card-box-pad:     var(--gap-1xs);                             /* 4px  */
+  --cb-card-icon-size:   tiny;
+}
+
+/* ── Host ── */
+
+:host {
+  display: block;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+}
+
+:host(.cb-card--disabled) {
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   Card frame — the visible container
+   ========================================================================== */
+
+.cb-card__frame {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-style: solid;
+  border-width: var(--stroke-xs);
+  border-radius: var(--radius-lg);   /* 12px — Figma cornerRadius */
+  /* Focus ring on frame — transparent by default, reserved */
+  outline: var(--stroke-button-focus) solid transparent;
+  outline-offset: var(--gap-2xs);
+  transition:
+    background-color 150ms cubic-bezier(0, 0, 0, 1),
+    border-color     150ms cubic-bezier(0, 0, 0, 1),
+    outline-color    150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* Size: Base */
+:host(.cb-card--base) .cb-card__frame {
+  padding: var(--gap-1xl);   /* 12px — Figma padding all sides */
+  gap: var(--gap-lg);        /* 10px — Figma itemSpacing */
+}
+
+/* Size: Mini */
+:host(.cb-card--mini) .cb-card__frame {
+  padding: var(--gap-md);    /* 8px — Figma padding all sides */
+  gap: var(--gap-md);        /* 8px — Figma itemSpacing */
+}
+
+/* ==========================================================================
+   Brand theme — card frame fills and borders
+   ========================================================================== */
+
+/* Unselected — Default */
+:host(.cb-card--unchecked) .cb-card__frame {
+  background-color: var(--colour-fill-button-card-default);
+  border-color: var(--colour-stroke-button-card-checkbox-brand-off-default);
+}
+
+/* Unselected — Hover */
+:host(.cb-card--unchecked:hover:not(.cb-card--disabled)) .cb-card__frame {
+  background-color: var(--colour-fill-button-card-brand-hover);
+  border-color: var(--colour-stroke-button-card-checkbox-brand-off-hover);
+}
+
+/* Unselected — Pressed */
+:host(.cb-card--unchecked:active:not(.cb-card--disabled)) .cb-card__frame {
+  background-color: var(--colour-fill-button-card-brand-pressed);
+  border-color: var(--colour-stroke-button-card-checkbox-brand-off-pressed);
+}
+
+/* Unselected — Disabled */
+:host(.cb-card--unchecked.cb-card--disabled) .cb-card__frame {
+  background-color: var(--colour-fill-button-card-default);
+  border-color: var(--colour-stroke-button-card-checkbox-brand-off-disabled);
+}
+
+/* Selected — Default */
+:host(.cb-card--checked) .cb-card__frame {
+  background-color: var(--colour-fill-button-card-default);
+  border-color: var(--colour-stroke-button-card-checkbox-brand-on-default);
+}
+
+/* Selected — Hover */
+:host(.cb-card--checked:hover:not(.cb-card--disabled)) .cb-card__frame {
+  background-color: var(--colour-fill-button-card-brand-hover);
+  border-color: var(--colour-stroke-button-card-checkbox-brand-on-hover);
+}
+
+/* Selected — Pressed */
+:host(.cb-card--checked:active:not(.cb-card--disabled)) .cb-card__frame {
+  background-color: var(--colour-fill-button-card-brand-pressed);
+  border-color: var(--colour-stroke-button-card-checkbox-brand-on-pressed);
+}
+
+/* Selected — Disabled */
+:host(.cb-card--checked.cb-card--disabled) .cb-card__frame {
+  background-color: var(--colour-fill-button-card-default);
+  border-color: var(--colour-stroke-button-card-checkbox-brand-on-disabled);
+}
+
+/* ==========================================================================
+   Focus ring — keyboard only
+   ========================================================================== */
+
+:host(.cb-card--keyboard-focus) .cb-card__frame {
+  outline-color: var(--colour-stroke-element-focus-brand-enabled-base);
+}
+
+/* ==========================================================================
+   Box — decorative checkbox visual (not independently interactive)
+   ========================================================================== */
+
+.cb-card__box {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--cb-card-box-size);
+  height: var(--cb-card-box-size);
+  border-radius: var(--cb-card-box-radius);
+  border-style: solid;
+  border-width: var(--stroke-button-checkbox-base);
+  box-sizing: border-box;
+  transition:
+    background-color 150ms cubic-bezier(0, 0, 0, 1),
+    border-color     150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* Unchecked box — white fill, brand border */
+:host(.cb-card--unchecked) .cb-card__box {
+  background-color: var(--colour-fill-button-checkbox-brand-unchecked-default);
+  border-color: var(--colour-stroke-button-checkbox-brand-stroke-default);
+}
+
+:host(.cb-card--unchecked:hover:not(.cb-card--disabled)) .cb-card__box {
+  background-color: var(--colour-fill-button-checkbox-brand-unchecked-hover);
+  border-color: var(--colour-stroke-button-checkbox-brand-stroke-hover);
+}
+
+:host(.cb-card--unchecked:active:not(.cb-card--disabled)) .cb-card__box {
+  background-color: var(--colour-fill-button-checkbox-brand-unchecked-pressed);
+  border-color: var(--colour-stroke-button-checkbox-brand-stroke-hover);
+}
+
+:host(.cb-card--unchecked.cb-card--disabled) .cb-card__box {
+  background-color: var(--colour-fill-button-checkbox-brand-unchecked-disabled);
+  border-color: transparent;
+}
+
+/* Checked box — brand fill */
+:host(.cb-card--checked) .cb-card__box {
+  background-color: var(--colour-fill-button-checkbox-brand-checked-default);
+  border-color: transparent;
+}
+
+:host(.cb-card--checked:hover:not(.cb-card--disabled)) .cb-card__box {
+  background-color: var(--colour-fill-button-checkbox-brand-checked-hover);
+  border-color: var(--colour-stroke-button-checkbox-brand-stroke-hover);
+}
+
+:host(.cb-card--checked:active:not(.cb-card--disabled)) .cb-card__box {
+  background-color: var(--colour-fill-button-checkbox-brand-checked-pressed);
+  border-color: var(--colour-stroke-button-checkbox-brand-stroke-hover);
+}
+
+:host(.cb-card--checked.cb-card--disabled) .cb-card__box {
+  background-color: var(--colour-fill-button-checkbox-brand-checked-disabled);
+  border-color: transparent;
+}
+
+/* ==========================================================================
+   Icon — tick
+   ========================================================================== */
+
+.cb-card__icon {
+  transition:
+    opacity 150ms cubic-bezier(0, 0, 0, 1),
+    color   150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* Hidden when unchecked */
+:host(.cb-card--unchecked) .cb-card__icon {
+  opacity: 0;
+}
+
+/* Visible when checked */
+:host(.cb-card--checked) .cb-card__icon {
+  opacity: 1;
+}
+
+/* Icon colour */
+:host(.cb-card--checked:not(:active):not(.cb-card--disabled)) .cb-card__icon {
+  color: var(--colour-icon-checkbox-brand-checked-default);
+}
+
+:host(.cb-card--checked:active:not(.cb-card--disabled)) .cb-card__icon {
+  color: var(--colour-icon-checkbox-brand-checked-pressed);
+}
+
+:host(.cb-card--checked.cb-card--disabled) .cb-card__icon {
+  color: var(--colour-icon-checkbox-brand-checked-disabled);
+}
+
+/* ==========================================================================
+   Text
+   ========================================================================== */
+
+.cb-card__text {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+
+.cb-card__text span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--colour-text-checkbox-brand-enabled);
+  transition: color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:host(.cb-card--disabled) .cb-card__text span {
+  color: var(--colour-text-checkbox-brand-disabled);
+}
+
+/* ==========================================================================
+   Neutral theme — PREPARED (styles pending Figma neutral variant delivery)
+   Add rules here following the Brand pattern above, replacing 'brand' tokens
+   with 'neutral' equivalents, when the neutral card variant is added to Figma.
+   ========================================================================== */

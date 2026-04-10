@@ -1,0 +1,81 @@
+<!-- ══════════════════════════════════════════════════════════════════
+     Report Console
+     Figma: X3ePdrL3EFGOKK6Gb6qbV7 node 1490:75154
+     ══════════════════════════════════════════════════════════════════ -->
+
+<!-- Header — always visible (present in both expanded and collapsed variants) -->
+<header class="rc-header">
+  <h3 class="heading-h3-bold rc-heading">Reports</h3>
+  <merces-toggle-small
+    product="payerpath"
+    [isCollapsed]="!isSidebarToggled()"
+    (toggleClick)="expandedToggle.emit()"
+  />
+</header>
+
+<!-- Body — collapses to height 0 when RC is collapsed, same as rc-actions-slot -->
+<div
+  class="ds-slot rc-body-slot"
+  [class.ds-slot--open]="isExpanded()"
+  [attr.aria-hidden]="!isExpanded()"
+  [attr.inert]="isExpanded() ? null : ''"
+>
+  <div class="ds-slot__inner rc-body">
+
+    <!-- Preset type dropdown
+         Figma node layout_1IY8DP — column, stretch, gap 12px -->
+    <merces-dropdown-group label="Type">
+      <merces-dropdown
+        [unselected]="!selectedPreset()"
+        [selectionText]="dropdownLabel()"
+        placeholder="Select preset"
+      >
+        @for (preset of presets(); track preset.id) {
+          <merces-dropdown-item
+            [label]="preset.label"
+            [checked]="selectedPreset()?.id === preset.id"
+            (selected)="onPresetSelected(preset)"
+          />
+        }
+      </merces-dropdown>
+    </merces-dropdown-group>
+
+    <!-- Actions row — animates in/out when preset type changes
+         Figma node layout_22P0MP — row, stretch, gap 8px -->
+    <div
+      class="ds-slot rc-actions-slot"
+      [class.ds-slot--open]="showActions()"
+      [attr.aria-hidden]="!showActions()"
+      [attr.inert]="showActions() ? null : ''"
+    >
+      <div class="ds-slot__inner rc-actions">
+
+        <!-- "Update Changes" — Custom preset only (Secondary CTA)
+             Figma node 8801:110932: Type=Secondary, Variant=TextOnly -->
+        @if (showUpdate()) {
+          <merces-cta-button
+            intent="brand"
+            type="secondary"
+            size="base"
+            variant="text-only"
+            label="Update Changes"
+            (pressed)="updateChanges.emit()"
+          />
+        }
+
+        <!-- "Save As…" — always present when unsaved (Primary CTA)
+             Figma node 8801:110835: Type=Primary, Variant=TextOnly -->
+        <merces-cta-button
+          intent="brand"
+          type="primary"
+          size="base"
+          variant="text-only"
+          label="Save As…"
+          (pressed)="saveAs.emit()"
+        />
+
+      </div>
+    </div>
+
+  </div>
+</div>

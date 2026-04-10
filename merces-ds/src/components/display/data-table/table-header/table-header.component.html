@@ -1,0 +1,33 @@
+@if (type() === 'checker') {
+  <!-- Checker type: checkbox is purely visual — host is the focus/interaction target -->
+  <span class="th__checkbox-wrap" [attr.inert]="''" aria-hidden="true">
+    <merces-checkbox-table
+      [size]="size()"
+      hierarchy="header"
+      theme="brand"
+      [checked]="isChecked()"
+      [indeterminate]="isIndeterminate()"
+    />
+  </span>
+} @else {
+  <!-- String type: text block + optional sort icon -->
+  <div class="th__text">
+    @if (variant() === 'dual') {
+      <span class="heading-h6 th__extra-text">{{ extraText() }}</span>
+    }
+    <span
+      class="th__main-text"
+      [class.paragraph-ui]="size() === 'base'"
+      [class.paragraph-p4-bold]="size() === 'mini'"
+    >{{ mainText() }}</span>
+  </div>
+
+  @if (showSortIcon()) {
+    <merces-icon
+      [name]="sortIconName()"
+      type="bold"
+      [size]="sortIconSize()"
+      class="th__sort-icon"
+    />
+  }
+}

@@ -1,0 +1,19 @@
+:host {
+  display: inline-flex;
+  line-height: 0;
+}
+
+.branding-container {
+  display: inline-flex;
+}
+
+.branding-container :deep(svg) {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ── Mono colour tokens ──────────────────────────────────────── */
+:host.branding--black  { color: var(--colour-neutral-grey-100); }
+:host.branding--white  { color: var(--colour-neutral-white); }
+:host.branding--purple { color: var(--colour-brand-purple-400); }

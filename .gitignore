@@ -1,0 +1,44 @@
+# Node dependencies
+/node_modules/
+npm-debug.log
+yarn-error.log
+
+# Mac System Files
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Angular
+/.angular/
+/dist/
+/.vscode/
+/out-tsc/
+/bazel-out/
+/.tmp/
+/.idea/
+
+# Demo Specifics
+figma_49_2.json
+segmentation.json
+
+# Environment
+.env
+.env.*
+
+# Logs
+logs
+*.log

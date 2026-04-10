@@ -1,0 +1,67 @@
+<!-- ══════════════════════════════════════════════════════════════════
+     Download Chip
+     Figma: Fu2tcEQrSrhZZvhGw1aGZ5 node 4125:77852
+     hasChart=True  → button + hover panel; hasChart=False → direct button
+     ══════════════════════════════════════════════════════════════════ -->
+
+<!-- Trigger button — always visible -->
+<button
+  class="dc-button"
+  type="button"
+  [disabled]="disabled()"
+  (click)="onButtonClick()"
+>
+  <merces-icon name="download-report" type="regular" size="base" />
+
+  <span class="paragraph-ui dc-button__label">
+    {{ hasChart() ? 'Download' : 'Download XLS Workbook' }}
+  </span>
+
+  <!-- Cue: separator divider + chevron — hasChart=True only
+       Figma: HORIZONTAL, gap:6, Divider 2×16px + Chevron-Down mini bold -->
+  @if (hasChart()) {
+    <span class="dc-cue">
+      <span class="dc-cue__divider"></span>
+      <merces-icon name="chevron-down" type="bold" size="mini" />
+    </span>
+  }
+</button>
+
+<!-- Panel — hasChart=True only, revealed on hover
+     Figma: VERTICAL, padding:6, bg neutral-default, stroke dropdown-emphasis, radius:12
+     Items: All Data (XLS) | Separator | Chart Snapshot (PNG) -->
+@if (hasChart()) {
+  <div
+    class="dc-panel"
+    [class.dc-panel--open]="_panelOpen()"
+    [attr.aria-hidden]="!_panelOpen() || null"
+    [attr.inert]="!_panelOpen() ? '' : null"
+  >
+    <merces-cta-button
+      intent="emphasis"
+      type="quaternary"
+      size="base"
+      variant="icon-left"
+      [icon]="'filetype-xls'"
+      label="All Data (XLS Workbook)"
+      (pressed)="onDownloadAll()"
+    />
+
+    <!-- Separator: outer (padding) → Frame (padding-left gap-2xs) → Fill (1px line) -->
+    <div class="dc-separator">
+      <div class="dc-separator__frame">
+        <div class="dc-separator__fill"></div>
+      </div>
+    </div>
+
+    <merces-cta-button
+      intent="emphasis"
+      type="quaternary"
+      size="base"
+      variant="icon-left"
+      [icon]="'filetype-png'"
+      label="Chart Snapshot (Image Only)"
+      (pressed)="onDownloadChartSnapshot()"
+    />
+  </div>
+}

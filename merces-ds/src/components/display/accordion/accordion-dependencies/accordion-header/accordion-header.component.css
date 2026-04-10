@@ -1,0 +1,188 @@
+/* Figma: Accordion Header- Brand / Emphasis / Danger
+   819:19831 · 1043:5846 · 1043:6243
+   320w × 40h · HORIZONTAL · gap/md · padding gap/lg(t/b) gap/md(l) gap/3xl(r) · radius/md */
+
+/* ── Layout ──────────────────────────────────────────── */
+:host {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: var(--gap-lg) var(--gap-3xl) var(--gap-lg) var(--gap-md);
+  gap: var(--gap-md);
+  border-radius: var(--radius-md);
+  box-sizing: border-box;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  /* 1px transparent border reserves space for Strong hierarchy stroke */
+  border: 1px solid transparent;
+
+  /* ── Flavour colour vars (default = brand) ── */
+  --_h-icon:                   var(--colour-brand-purple-100);
+  --_h-hover-bg:               var(--colour-brand-purple-1000);
+  --_h-pressed-bg:             var(--colour-brand-purple-900);
+  --_h-emph-bg:                var(--colour-brand-purple-1100);
+  --_h-stroke:                 var(--colour-brand-purple-400);
+  --_h-strong-open-bg:         var(--colour-brand-purple-400);
+  --_h-strong-open-hover-bg:   var(--colour-brand-purple-300);
+  --_h-strong-open-pressed-bg: var(--colour-brand-purple-100);
+
+  background-color: transparent;
+  color: var(--_h-icon);
+  transition: background-color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* ── Flavour: emphasis ───────────────────────────────── */
+:host(.accordion-header--emphasis) {
+  --_h-icon:                   var(--colour-brand-green-100);
+  --_h-hover-bg:               var(--colour-brand-green-1000);
+  --_h-pressed-bg:             var(--colour-brand-green-900);
+  --_h-emph-bg:                var(--colour-brand-green-1100);
+  --_h-stroke:                 var(--colour-brand-green-400);
+  --_h-strong-open-bg:         var(--colour-brand-green-400);
+  --_h-strong-open-hover-bg:   var(--colour-brand-green-300);
+  --_h-strong-open-pressed-bg: var(--colour-brand-green-100);
+}
+
+/* ── Flavour: danger ─────────────────────────────────── */
+:host(.accordion-header--danger) {
+  --_h-icon:                   var(--colour-brand-red-100);
+  --_h-hover-bg:               var(--colour-brand-red-1000);
+  --_h-pressed-bg:             var(--colour-brand-red-900);
+  --_h-emph-bg:                var(--colour-brand-red-1100);
+  --_h-stroke:                 var(--colour-brand-red-400);
+  --_h-strong-open-bg:         var(--colour-brand-red-400);
+  --_h-strong-open-hover-bg:   var(--colour-brand-red-300);
+  --_h-strong-open-pressed-bg: var(--colour-brand-red-100);
+}
+
+/* ── Label — exact Figma token bindings ──────────────── */
+.label-text {
+  flex: 1;
+  /* Brand: colour/text/default/link-emphasis (semantic) */
+  color: var(--colour-text-default-link-emphasis);
+}
+
+:host(.accordion-header--emphasis) .label-text {
+  color: var(--colour-brand-green-100);
+}
+
+:host(.accordion-header--danger) .label-text {
+  color: var(--colour-brand-red-100);
+}
+
+/* ── Generic hover / pressed (Base hierarchy all states) */
+:host(:hover) {
+  background-color: var(--_h-hover-bg);
+}
+
+:host(:active) {
+  background-color: var(--_h-pressed-bg);
+}
+
+/* ── Open state: base hierarchy adds emph-bg fill ───── */
+/* Figma isExpanded=True on Base hierarchy: default shows emph-bg;
+   hover/pressed are identical to closed — explicit rules beat the fill above. */
+:host(.accordion-header--open) {
+  background-color: var(--_h-emph-bg);
+}
+
+:host(.accordion-header--open:hover) {
+  background-color: var(--_h-hover-bg);
+}
+
+:host(.accordion-header--open:active) {
+  background-color: var(--_h-pressed-bg);
+}
+
+/* ── Hierarchy: emphasis — always shows emphasis bg ─── */
+/* Both closed and open carry emph-bg as default; hover/pressed override it. */
+:host(.accordion-header--hierarchy-emphasis) {
+  background-color: var(--_h-emph-bg);
+}
+
+:host(.accordion-header--hierarchy-emphasis:hover) {
+  background-color: var(--_h-hover-bg);
+}
+
+:host(.accordion-header--hierarchy-emphasis:active) {
+  background-color: var(--_h-pressed-bg);
+}
+
+/* ── Hierarchy: strong — visible stroke ─────────────── */
+:host(.accordion-header--hierarchy-strong) {
+  border-color: var(--_h-stroke);
+}
+
+/* Danger/Strong+closed: fill + stroke (Brand/Emphasis Strong are stroke-only) */
+:host(.accordion-header--hierarchy-strong.accordion-header--danger) {
+  background-color: var(--_h-emph-bg);
+}
+
+/* Hover/pressed must be explicit — the fill rule above (0,2,0) beats :host(:hover) (0,1,0) */
+:host(.accordion-header--hierarchy-strong.accordion-header--danger:hover) {
+  background-color: var(--_h-hover-bg);
+}
+
+:host(.accordion-header--hierarchy-strong.accordion-header--danger:active) {
+  background-color: var(--_h-pressed-bg);
+}
+
+/* ── Strong+open: dark fill, white text+icon, no stroke */
+/* Figma isExpanded=True + Strong hierarchy: completely different token set.
+   Placed after Danger+Strong rules (equal specificity) → later cascade wins. */
+:host(.accordion-header--hierarchy-strong.accordion-header--open) {
+  border-color: transparent;
+  background-color: var(--_h-strong-open-bg);
+  color: var(--colour-neutral-white);
+}
+
+:host(.accordion-header--hierarchy-strong.accordion-header--open) .label-text {
+  color: var(--colour-neutral-white);
+}
+
+:host(.accordion-header--hierarchy-strong.accordion-header--open:hover) {
+  background-color: var(--_h-strong-open-hover-bg);
+}
+
+:host(.accordion-header--hierarchy-strong.accordion-header--open:active) {
+  background-color: var(--_h-strong-open-pressed-bg);
+}
+
+/* ── Icons group (mirrors Figma "Icons" frame) ───────── */
+/* Contains chevron + optional multi-select checkbox.
+   No gap here — checkbox uses margin-left so spacing collapses when hidden. */
+.icons {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* ── Multi-select checkbox wrapper ───────────────────── */
+/* Always visible when multiSelect=true (open or closed).
+   margin-left provides the gap-sm (6px) between chevron and checkbox,
+   mirroring Figma's Icons frame itemSpacing=6. */
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: var(--gap-sm);
+}
+
+/* ── Keyboard focus ring ─────────────────────────────── */
+:host(.accordion-header--keyboard-focus) {
+  outline: var(--stroke-button-focus) solid var(--_h-stroke);
+  outline-offset: 2px;
+}
+
+/* ── Chevron rotation ────────────────────────────────── */
+/* Applied to the merces-icon element (20×20 square — no layout shift) */
+.chevron {
+  flex-shrink: 0;
+  transform: rotate(0deg);
+  transition: transform 450ms cubic-bezier(0.5, 0, 0, 1);
+}
+
+:host(.accordion-header--open) .chevron {
+  transform: rotate(90deg);
+}

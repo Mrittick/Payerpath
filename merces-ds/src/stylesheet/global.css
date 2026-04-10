@@ -1,0 +1,122 @@
+/* ==========================================================================
+   Global Defaults — Base styles applied to the document
+   ========================================================================== */
+
+:root {
+  /* ── Layout interpolation (enables CSS transitions on auto heights/widths) ── */
+  interpolate-size: allow-keywords;
+
+  /* ── Interaction timing ── */
+  --transition-duration-state: 150ms;
+  --transition-easing-state: cubic-bezier(0, 0, 0, 1);
+  --pressed-min-duration: 250ms; /* transition-in (150ms) + visible hold (100ms) */
+
+  /* ── Layout animation ── */
+  --transition-duration-layout: 450ms;
+  --transition-easing-layout: cubic-bezier(0.5, 0, 0, 1);
+}
+
+/* ==========================================================================
+   DS Layout Slot — global graceful expand/collapse utility
+   Usage:
+     Container: class="ds-slot"  [class.ds-slot--open]="signal()"
+     Inner:     class="ds-slot__inner"  (always a direct child of ds-slot)
+   Gap:
+     Set --ds-slot-gap on .ds-slot (or parent) to add a top spacer.
+     padding-top on .ds-slot__inner is clipped by the parent's overflow:hidden,
+     so it animates correctly with no leak.
+   ========================================================================== */
+
+.ds-slot {
+  height: 0;
+  overflow: hidden;
+  /* interpolate-size: allow-keywords is already on :root — enables height: auto animation */
+  transition: height 300ms cubic-bezier(0, 0, 0, 1);
+}
+
+.ds-slot--open {
+  height: auto;
+}
+
+.ds-slot__inner {
+  padding-top: var(--ds-slot-gap, 0px);
+}
+
+/* Exit: content fades out immediately, no delay */
+.ds-slot__inner > * {
+  opacity: 0;
+  transition: opacity 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* Enter: slight delay so the space opens first, then text fades in */
+.ds-slot--open > .ds-slot__inner > * {
+  opacity: 1;
+  transition: opacity 200ms 80ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* ==========================================================================
+   View Transitions — Ranged Calendar
+   These rules must live here because ::view-transition-* pseudo-elements are
+   created at the document root by the browser and cannot be targeted from
+   within a component's encapsulated stylesheet.
+
+   Strategy:
+     • Disable the group animation (position/size interpolation) so the
+       calendar panel does not try to animate its own bounding-box height —
+       that could clip or overflow the host's border-radius during the
+       transition. Height simply snaps to the new content size instantly.
+     • Only the content images (old and new) animate — a simultaneous
+       75 ms cross-fade matching the single-calendar's dissolve timing.
+   ========================================================================== */
+
+/* Snap bounding-box size instantly — no height/position interpolation */
+::view-transition-group(ranged-cal-body-left),
+::view-transition-group(ranged-cal-body-right),
+::view-transition-group(ranged-cal-label-left),
+::view-transition-group(ranged-cal-label-right) {
+  animation-duration: 0.001ms;
+}
+
+/* Cross-fade: old fades out, new fades in, simultaneously */
+::view-transition-old(ranged-cal-body-left),
+::view-transition-new(ranged-cal-body-left),
+::view-transition-old(ranged-cal-body-right),
+::view-transition-new(ranged-cal-body-right),
+::view-transition-old(ranged-cal-label-left),
+::view-transition-new(ranged-cal-label-left),
+::view-transition-old(ranged-cal-label-right),
+::view-transition-new(ranged-cal-label-right) {
+  animation-duration: 75ms;
+  animation-timing-function: cubic-bezier(0, 0, 0, 1);
+}
+
+/* Respect reduced-motion preference — collapse all view transitions to
+   effectively instant so no motion is perceived */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.001ms !important;
+  }
+}
+
+/* ==========================================================================
+   Icon SVG — prevent UA overflow:hidden from clipping antialiased path edges
+   The browser UA stylesheet applies overflow:hidden to svg:not(:root).
+   At small render sizes, path tips close to the viewBox boundary get clipped
+   at sub-pixel screen positions. This global rule overrides the UA default
+   for SVGs inside the icon component container.
+   ========================================================================== */
+
+.icon-container svg {
+  overflow: visible;
+}
+
+body {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-p3);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-paragraph);
+  color: var(--colour-text-default-base);
+  background-color: var(--colour-fill-surface-neutral-default);
+}

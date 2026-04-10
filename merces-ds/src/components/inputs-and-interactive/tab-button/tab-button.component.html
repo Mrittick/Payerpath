@@ -1,0 +1,16 @@
+<button
+  class="tab-button__inner"
+  type="button"
+  [attr.aria-disabled]="disabled() || null"
+  (pointerdown)="onPointerDown()"
+  (pointerup)="onPointerUp()"
+  (pointerleave)="onPointerUp()"
+  (click)="onClick()"
+>
+  <span
+    class="tab-button__text"
+    [class.paragraph-ui]="hierarchy() === 'level-01' || isCurrent()"
+    [class.paragraph-ui-thin]="hierarchy() === 'level-02' && !isCurrent()"
+    [attr.data-text]="label()"
+  >{{ label() }}</span>
+</button>

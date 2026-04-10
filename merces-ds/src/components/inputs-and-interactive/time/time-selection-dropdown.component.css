@@ -1,0 +1,111 @@
+/* ==========================================================================
+   Time Selection Dropdown
+   Figma: Time Selection Dropdown (781:10075)
+
+   Structure:
+     Host (panel container — border, radius, shadow, fixed width)
+       └── .time-panel__content (scrollable column, 8px vertical padding)
+             └── .time-row (button — icon + time label)
+                   ├── merces-icon[tick] (opacity 0/1 via .time-row--current)
+                   └── .time-row__time (row — label + optional meridian)
+
+   Variant axes → CSS classes:
+     isCurrent: .time-row--current (tick visible)
+     State:     .time-row--disabled (text muted, not interactive)
+   ========================================================================== */
+
+/* ── Host — panel container ── */
+
+:host {
+  display: block;
+  width: var(--gap-3xhuge); /* 160px */
+  border-radius: var(--radius-md);
+  background-color: var(--colour-fill-button-dropdown-item-default);
+  border: var(--stroke-xs) solid var(--colour-stroke-divider-primary-light);
+  box-shadow: var(--shadow-M);
+  overflow: hidden; /* clip rows to rounded corners */
+}
+
+/* ==========================================================================
+   Content — scrollable column of rows
+   ========================================================================== */
+
+.time-panel__content {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: 240px; /* ~6 rows visible before scroll */
+  padding: var(--gap-md) 0; /* 8px top/bottom, no left/right */
+}
+
+/* ==========================================================================
+   Row — individual time entry (button)
+   ========================================================================== */
+
+.time-row {
+  /* Reset button chrome */
+  appearance: none;
+  border: none;
+  outline: none;
+  background-color: var(--colour-fill-button-dropdown-item-default);
+  cursor: pointer;
+
+  /* Layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  gap: var(--gap-md); /* 8px */
+  padding: var(--gap-lg) var(--gap-2xl); /* 10px 14px */
+
+  transition: background-color 100ms cubic-bezier(0, 0, 0, 1);
+}
+
+.time-row:hover:not(.time-row--disabled) {
+  background-color: var(--colour-fill-button-dropdown-item-hover);
+}
+
+.time-row:active:not(.time-row--disabled) {
+  background-color: var(--colour-fill-button-dropdown-item-pressed);
+}
+
+.time-row--disabled {
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   Tick icon — hidden by default, visible on current selection
+   ========================================================================== */
+
+.time-row__tick {
+  flex-shrink: 0;
+  color: var(--colour-text-dropdown-entry-default);
+  opacity: 0;
+  transition: opacity 100ms cubic-bezier(0, 0, 0, 1);
+}
+
+.time-row--current .time-row__tick {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Time label group — HH:MM + optional meridian
+   ========================================================================== */
+
+.time-row__time {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-1xs); /* 4px */
+}
+
+.time-row__label,
+.time-row__meridian {
+  color: var(--colour-text-dropdown-entry-default);
+  transition: color 100ms cubic-bezier(0, 0, 0, 1);
+}
+
+.time-row--disabled .time-row__label,
+.time-row--disabled .time-row__meridian {
+  color: var(--colour-text-dropdown-entry-disabled);
+}

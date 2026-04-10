@@ -1,0 +1,54 @@
+/* ═══════════════════════════════════════════════
+   Global Header
+   Figma: 956:4003
+   ═══════════════════════════════════════════════ */
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--gap-1xl) var(--gap-1xl) var(--gap-1xl) var(--gap-big);
+  background-color: var(--colour-fill-surface-neutral-default);
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 1180px;
+  overflow: visible;
+  /* Ensure shadow and dropdowns render above page content */
+  position: relative;
+  z-index: 10;
+
+  /* code-only: module dropdown fixed width per Figma spec */
+  --_module-dropdown-w: 200px;
+}
+
+/* ── Left section ── */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-3xl);
+  flex: 1;
+}
+
+/* ── Module dropdown fixed width ── */
+.module-dropdown-wrap {
+  width: var(--_module-dropdown-w);
+  flex-shrink: 0;
+}
+
+/* ── Divider ── */
+.header-divider {
+  width: 2px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background-color: var(--colour-stroke-divider-primary-light);
+  flex-shrink: 0;
+}
+
+/* ── Right section ── */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-md);
+  flex: 1;
+  justify-content: flex-end;
+}

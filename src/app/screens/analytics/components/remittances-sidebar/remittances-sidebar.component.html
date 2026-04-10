@@ -1,0 +1,633 @@
+<!-- ══════════════════════════════════════════════════════════════════
+     Remittances Sidebar
+     Layout: Report Console (top) | Section Connector | Custom Filters (bottom)
+     Figma: X3ePdrL3EFGOKK6Gb6qbV7 node 1311:13964
+
+     Expansion model
+     ───────────────
+     • sidebarExpanded — true: sidebar occupies 320px in the layout (toggle state)
+     • sidebarExpanded — false: sidebar occupies 56px in the layout (collapsed)
+     • hoverExpanded — true while mouse is over the collapsed sidebar:
+         the sidebar uses the Figma Hover variant at 320px. isFullyExpanded()
+         drives all content open/close bindings.
+     ══════════════════════════════════════════════════════════════════ -->
+
+<!-- sidebar-wrap — the visual container.
+     Width follows the host so collapsed panels are genuinely 56px wide,
+     not 320px panels clipped down to a rail. -->
+<div class="sidebar-wrap">
+
+  <!-- Section 1 — Report Console
+       Toggle Small inside this component controls entire sidebar expansion.
+       isFullyExpanded() so the body is also open when hover-peeking. -->
+  <payerpath-remittances-report-console
+    [presets]="allPresets"
+    [selectedPreset]="selectedPreset()"
+    [presetType]="presetType()"
+    [isExpanded]="isFullyExpanded()"
+    [isSidebarToggled]="sidebarExpanded()"
+    (presetSelected)="onPresetSelected($event)"
+    (expandedToggle)="onExpandedToggle()"
+    (saveAs)="onSaveAs()"
+    (updateChanges)="onUpdateChanges()"
+  />
+
+  <!-- Section Connector — visual bridge between panels.
+       32px when collapsed (Figma 1311:13984), 48px when expanded. -->
+  <merces-section-connector [size]="isFullyExpanded() ? 48 : 32" />
+
+  <!-- Section 2 — Custom Filters
+       Figma: 8805-106833 — padding 16px 8px 8px, gap 6px (header→body via ds-slot) -->
+  <section class="panel filters-panel">
+
+  <!-- Header: heading + Edit CTA on the left, filter icon on the right
+       Figma: 8805:106834 — horizontal, padding-left 14px, gap 6px -->
+  <header
+    class="panel__header filters-panel__header"
+    [attr.aria-hidden]="!isFullyExpanded()"
+    [attr.inert]="isFullyExpanded() ? null : ''"
+  >
+    <div class="filters-header-left">
+      <h3 class="heading-h3-bold panel__title">Filters</h3>
+      <merces-cta-button
+        intent="brand"
+        type="secondary"
+        size="mini"
+        variant="icon-left"
+        icon="wrench"
+        iconType="bold"
+        label="Edit filters"
+      />
+    </div>
+    <!-- Figma 1311:16402 — plain icon frame (8px padding), not a sub-control -->
+    <div class="filters-header-icon">
+      <merces-icon name="filter" size="base" />
+    </div>
+  </header>
+
+  <!-- Filters body — always at natural height; visibility is opacity-only -->
+  <div
+    class="filters-slot"
+    [attr.aria-hidden]="!isFullyExpanded()"
+    [attr.inert]="isFullyExpanded() ? null : ''"
+  >
+    <div class="filters-body">
+
+      <!-- Date filter dropdowns -->
+      <div class="date-filters">
+
+        <!-- Date Column: Date of Service (default), Date of Service End, Check Date -->
+        <merces-dropdown-group label="Date Column">
+          <merces-dropdown
+            [unselected]="false"
+            [selectionText]="DATE_COLUMN_LABELS[dateColumn()]"
+          >
+            <merces-dropdown-item
+              label="Date of Service"
+              [checked]="dateColumn() === 'date-of-service'"
+              (selected)="onDateColumnChanged('date-of-service')"
+            />
+            <merces-dropdown-item
+              label="Date of Service End"
+              [checked]="dateColumn() === 'date-of-service-end'"
+              (selected)="onDateColumnChanged('date-of-service-end')"
+            />
+            <merces-dropdown-item
+              label="Check Date"
+              [checked]="dateColumn() === 'check-date'"
+              (selected)="onDateColumnChanged('check-date')"
+            />
+          </merces-dropdown>
+        </merces-dropdown-group>
+
+        <!-- Date Range section — Figma: new "Date Range" frame wrapping dropdown + calendar slot.
+             gap-md (8px) between dropdown and the calendar picker when visible.
+             The dropdown-group provides the single "Date Range" label for the whole section. -->
+        <div class="date-range-section">
+
+          <merces-dropdown-group label="Date Range">
+            <merces-dropdown
+              [unselected]="false"
+              [selectionText]="DATE_RANGE_LABELS[dateRange()]"
+            >
+              <merces-dropdown-section label="BY DAYS" />
+              <merces-dropdown-item label="Last 7 Days"    [checked]="dateRange() === 'last-7-days'"   (selected)="onDateRangeChanged('last-7-days')" />
+              <merces-dropdown-item label="Last 30 Days"   [checked]="dateRange() === 'last-30-days'"  (selected)="onDateRangeChanged('last-30-days')" />
+              <merces-dropdown-item label="Last 90 Days"   [checked]="dateRange() === 'last-90-days'"  (selected)="onDateRangeChanged('last-90-days')" />
+              <merces-dropdown-separator />
+              <merces-dropdown-section label="BY MONTHS" />
+              <merces-dropdown-item label="Last Month"     [checked]="dateRange() === 'last-month'"    (selected)="onDateRangeChanged('last-month')" />
+              <merces-dropdown-item label="Last 3 Months"  [checked]="dateRange() === 'last-3-months'" (selected)="onDateRangeChanged('last-3-months')" />
+              <merces-dropdown-item label="Last 6 Months"  [checked]="dateRange() === 'last-6-months'" (selected)="onDateRangeChanged('last-6-months')" />
+              <merces-dropdown-item label="Last 12 Months" [checked]="dateRange() === 'last-12-months'" (selected)="onDateRangeChanged('last-12-months')" />
+              <merces-dropdown-separator />
+              <merces-dropdown-section label="BY YEARS" />
+              <merces-dropdown-item label="This Year"      [checked]="dateRange() === 'this-year'"    (selected)="onDateRangeChanged('this-year')" />
+              <merces-dropdown-item label="Last Year"      [checked]="dateRange() === 'last-year'"    (selected)="onDateRangeChanged('last-year')" />
+              <merces-dropdown-item label="Last 5 Years"   [checked]="dateRange() === 'last-5-years'" (selected)="onDateRangeChanged('last-5-years')" />
+              <merces-dropdown-separator />
+              <merces-dropdown-item label="Custom Date Range" [checked]="dateRange() === 'custom'" (selected)="onDateRangeChanged('custom')" />
+            </merces-dropdown>
+          </merces-dropdown-group>
+
+          <!-- Custom Date Range picker — Figma: "Ranged Date Picker" child of "Date Range" frame.
+               This wrapper owns the expand/collapse animation so the DS calendar can stay untouched.
+               layout="standalone" = Figma Layout=Standalone variant (no label row). -->
+          <div
+            class="date-range-custom-slot"
+            [class.open]="isCustomDateRange()"
+            [attr.aria-hidden]="!isCustomDateRange()"
+            [attr.inert]="isCustomDateRange() ? null : ''"
+          >
+            <div class="date-range-custom-slot__inner">
+              <merces-calendar-ranged
+                layout="standalone"
+                startPlaceholder="Start"
+                endPlaceholder="End"
+                [rangeStart]="customDateRange().start"
+                [rangeEnd]="customDateRange().end"
+                (rangeChanged)="onCustomDateRangeChanged($event)"
+              />
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Divider -->
+      <div class="filter-divider-wrap">
+        <div class="filter-divider"></div>
+      </div>
+
+      <!-- Find filters search — filters the parameters list below -->
+      <merces-search
+        placeholder="Find filters"
+        [(value)]="filterSearch"
+      />
+
+      <!-- Parameters: all 31 custom filter fields
+           Figma: 1162:38523 — gap 16px between items
+           Figma component types:
+             Dropdown     → merces-dropdown-group + merces-dropdown
+             String Field → merces-stringfield-plain-group (padding=span) + merces-stringfield-plain
+             Min-Max      → merces-stringfield-plain-minmax-group (padding=span) + 2× merces-stringfield-plain
+             Date Range   → merces-calendar-ranged (padding=span)
+           Each is wrapped in @if (isVisible(label)) for search filtering.
+           Outer @for on _filterKey toggles off/on during Reset to force
+           all child components to reinitialise at their default state. -->
+      @for (_ of [_filterKey()]; track _) {
+      <div class="parameters">
+
+        <!-- Adjustment Reason Category — Dropdown -->
+        @if (isVisible('Adjustment Reason Category')) {
+          <merces-dropdown-group label="Adjustment Reason Category">
+            <merces-dropdown
+              [unselected]="false"
+              [selectionText]="PARAMETER_DROPDOWN_LABELS[adjustmentReasonCategory()]"
+            >
+              <merces-dropdown-item
+                [label]="PARAMETER_DROPDOWN_LABELS.any"
+                [checked]="adjustmentReasonCategory() === 'any'"
+                (selected)="onAdjustmentReasonCategoryChanged('any')"
+              />
+            </merces-dropdown>
+          </merces-dropdown-group>
+        }
+
+        <!-- Adjustment Reason Codes — String Field -->
+        @if (isVisible('Adjustment Reason Codes')) {
+          <merces-stringfield-plain-group label="Adjustment Reason Codes" padding="span">
+            <merces-stringfield-plain
+              placeholder="Enter Reason Codes"
+              [value]="textFilterValue('adjustmentReasonCodes')"
+              (valueChange)="onTextFilterChanged('adjustmentReasonCodes', $event)"
+            />
+          </merces-stringfield-plain-group>
+        }
+
+        <!-- Billing Provider Names — String Field -->
+        @if (isVisible('Billing Provider Names')) {
+          <merces-stringfield-plain-group label="Billing Provider Names" padding="span">
+            <merces-stringfield-plain
+              placeholder="Enter Billing Provider Names"
+              [value]="textFilterValue('billingProviderNames')"
+              (valueChange)="onTextFilterChanged('billingProviderNames', $event)"
+            />
+          </merces-stringfield-plain-group>
+        }
+
+        <!-- Billing Provider Numbers — String Field -->
+        @if (isVisible('Billing Provider Numbers')) {
+          <merces-stringfield-plain-group label="Billing Provider Numbers" padding="span">
+            <merces-stringfield-plain
+              placeholder="Enter Billing Provider Numbers"
+              [value]="textFilterValue('billingProviderNumbers')"
+              (valueChange)="onTextFilterChanged('billingProviderNumbers', $event)"
+            />
+          </merces-stringfield-plain-group>
+        }
+
+        <!-- Check Number — String Field -->
+        @if (isVisible('Check Number')) {
+          <merces-stringfield-plain-group label="Check Number" padding="span">
+            <merces-stringfield-plain
+              placeholder="Enter Check Numbers"
+              [value]="textFilterValue('checkNumber')"
+              (valueChange)="onTextFilterChanged('checkNumber', $event)"
+            />
+          </merces-stringfield-plain-group>
+        }
+
+        <!-- Claim Control Numbers — String Field -->
+        @if (isVisible('Claim Control Numbers')) {
+          <merces-stringfield-plain-group label="Claim Control Numbers" padding="span">
+            <merces-stringfield-plain
+              placeholder="Enter Claim Control Numbers"
+              [value]="textFilterValue('claimControlNumbers')"
+              (valueChange)="onTextFilterChanged('claimControlNumbers', $event)"
+            />
+          </merces-stringfield-plain-group>
+        }
+
+        <!-- Claim Frequency Codes — String Field -->
+        @if (isVisible('Claim Frequency Codes')) {
+          <merces-stringfield-plain-group label="Claim Frequency Codes" padding="span">
+            <merces-stringfield-plain
+              placeholder="Enter Claim Frequency Codes"
+              [value]="textFilterValue('claimFrequencyCodes')"
+              (valueChange)="onTextFilterChanged('claimFrequencyCodes', $event)"
+            />
+          </merces-stringfield-plain-group>
+        }
+
+        <!-- Claim Status — Dropdown -->
+        @if (isVisible('Claim Status')) {
+          <merces-dropdown-group label="Claim Status">
+            <merces-dropdown
+              [unselected]="false"
+              [selectionText]="PARAMETER_DROPDOWN_LABELS[claimStatus()]"
+            >
+              <merces-dropdown-item
+                [label]="PARAMETER_DROPDOWN_LABELS.any"
+                [checked]="claimStatus() === 'any'"
+                (selected)="onClaimStatusChanged('any')"
+              />
+            </merces-dropdown>
+          </merces-dropdown-group>
+        }
+
+        <!-- Co-insurance — Min/Max String -->
+        @if (isVisible('Co-insurance')) {
+          <merces-stringfield-plain-minmax-group label="Co-insurance" padding="span">
+            <merces-stringfield-plain
+              placeholder="Minimum amt."
+              [value]="minMaxFilterValue('coInsurance', 'min')"
+              (valueChange)="onMinMaxFilterChanged('coInsurance', 'min', $event)"
+            />
+            <merces-stringfield-plain
+              placeholder="Maximum amt."
+              [value]="minMaxFilterValue('coInsurance', 'max')"
+              (valueChange)="onMinMaxFilterChanged('coInsurance', 'max', $event)"
+            />
+          </merces-stringfield-plain-minmax-group>
+        }
+
+        <!-- Co-payment — Min/Max String -->
+        @if (isVisible('Co-payment')) {
+          <merces-stringfield-plain-minmax-group label="Co-payment" padding="span">
+            <merces-stringfield-plain
+              placeholder="Minimum amt."
+              [value]="minMaxFilterValue('coPayment', 'min')"
+              (valueChange)="onMinMaxFilterChanged('coPayment', 'min', $event)"
+            />
+            <merces-stringfield-plain
+              placeholder="Maximum amt."
+              [value]="minMaxFilterValue('coPayment', 'max')"
+              (valueChange)="onMinMaxFilterChanged('coPayment', 'max', $event)"
+            />
+          </merces-stringfield-plain-minmax-group>
+        }
+
+        <!-- Cost Report Days — Min/Max String -->
+        @if (isVisible('Cost Report Days')) {
+          <merces-stringfield-plain-minmax-group label="Cost Report Days" padding="span">
+            <merces-stringfield-plain
+              placeholder="Minimum"
+              [value]="minMaxFilterValue('costReportDays', 'min')"
+              (valueChange)="onMinMaxFilterChanged('costReportDays', 'min', $event)"
+            />
+            <merces-stringfield-plain
+              placeholder="Maximum"
+              [value]="minMaxFilterValue('costReportDays', 'max')"
+              (valueChange)="onMinMaxFilterChanged('costReportDays', 'max', $event)"
+            />
+          </merces-stringfield-plain-minmax-group>
+        }
+
+        <!-- Covered Days — Min/Max String -->
+        @if (isVisible('Covered Days')) {
+          <merces-stringfield-plain-minmax-group label="Covered Days" padding="span">
+            <merces-stringfield-plain
+              placeholder="Minimum"
+              [value]="minMaxFilterValue('coveredDays', 'min')"
+              (valueChange)="onMinMaxFilterChanged('coveredDays', 'min', $event)"
+            />
+            <merces-stringfield-plain
+              placeholder="Maximum"
+              [value]="minMaxFilterValue('coveredDays', 'max')"
+              (valueChange)="onMinMaxFilterChanged('coveredDays', 'max', $event)"
+            />
+          </merces-stringfield-plain-minmax-group>
+        }
+
+        <!-- Date of Service End — Ranged Date Picker -->
+        @if (isVisible('Date of Service End')) {
+          <merces-calendar-ranged
+            label="Date of Service End"
+            startPlaceholder="Start Date"
+            endPlaceholder="End Date"
+            padding="span"
+            [rangeStart]="dateRangeFilterValue('dateOfServiceEnd').start"
+            [rangeEnd]="dateRangeFilterValue('dateOfServiceEnd').end"
+            (rangeChanged)="onDateRangeFilterChanged('dateOfServiceEnd', $event)"
+          />
+        }
+
+        <!-- Deductible — Min/Max String -->
+        @if (isVisible('Deductible')) {
+          <merces-stringfield-plain-minmax-group label="Deductible" padding="span">
+            <merces-stringfield-plain
+              placeholder="Minimum amt."
+              [value]="minMaxFilterValue('deductible', 'min')"
+              (valueChange)="onMinMaxFilterChanged('deductible', 'min', $event)"
+            />
+            <merces-stringfield-plain
+              placeholder="Maximum amt."
+              [value]="minMaxFilterValue('deductible', 'max')"
+              (valueChange)="onMinMaxFilterChanged('deductible', 'max', $event)"
+            />
+          </merces-stringfield-plain-minmax-group>
+        }
+
+        <!-- Diagnosis Related Group — String Field -->
+        @if (isVisible('Diagnosis Related Group')) {
+          <merces-stringfield-plain-group label="Diagnosis Related Group" padding="span">
+            <merces-stringfield-plain
+              placeholder="Enter Related Groups"
+              [value]="textFilterValue('diagnosisRelatedGroup')"
+              (valueChange)="onTextFilterChanged('diagnosisRelatedGroup', $event)"
+            />
+          </merces-stringfield-plain-group>
+        }
+
+        <!-- Facility Codes — String Field -->
+        @if (isVisible('Facility Codes')) {
+          <merces-stringfield-plain-group label="Facility Codes" padding="span">
+            <merces-stringfield-plain
+              placeholder="Enter Facility Codes"
+              [value]="textFilterValue('facilityCodes')"
+              (valueChange)="onTextFilterChanged('facilityCodes', $event)"
+            />
+          </merces-stringfield-plain-group>
+        }
+
+        <!-- MOA Remark Codes — String Field -->
+        @if (isVisible('MOA Remark Codes')) {
+          <merces-stringfield-plain-group label="MOA Remark Codes" padding="span">
+            <merces-stringfield-plain
+              placeholder="Enter MOA Remark Codes"
+              [value]="textFilterValue('moaRemarkCodes')"
+              (valueChange)="onTextFilterChanged('moaRemarkCodes', $event)"
+            />
+          </merces-stringfield-plain-group>
+        }
+
+        <!-- Payers — String Field -->
+        @if (isVisible('Payers')) {
+          <merces-stringfield-plain-group label="Payers" padding="span">
+            <merces-stringfield-plain
+              placeholder="Enter Payer Names"
+              [value]="textFilterValue('payers')"
+              (valueChange)="onTextFilterChanged('payers', $event)"
+            />
+          </merces-stringfield-plain-group>
+        }
+
+        <!-- Payer Acceptance Dates — Ranged Date Picker -->
+        @if (isVisible('Payer Acceptance Dates')) {
+          <merces-calendar-ranged
+            label="Payer Acceptance Dates"
+            startPlaceholder="Start Date"
+            endPlaceholder="End Date"
+            padding="span"
+            [rangeStart]="dateRangeFilterValue('payerAcceptanceDates').start"
+            [rangeEnd]="dateRangeFilterValue('payerAcceptanceDates').end"
+            (rangeChanged)="onDateRangeFilterChanged('payerAcceptanceDates', $event)"
+          />
+        }
+
+        <!-- PPS Capital Amount — Min/Max String -->
+        @if (isVisible('PPS Capital Amount')) {
+          <merces-stringfield-plain-minmax-group label="PPS Capital Amount" padding="span">
+            <merces-stringfield-plain
+              placeholder="Minimum amt."
+              [value]="minMaxFilterValue('ppsCapitalAmount', 'min')"
+              (valueChange)="onMinMaxFilterChanged('ppsCapitalAmount', 'min', $event)"
+            />
+            <merces-stringfield-plain
+              placeholder="Maximum amt."
+              [value]="minMaxFilterValue('ppsCapitalAmount', 'max')"
+              (valueChange)="onMinMaxFilterChanged('ppsCapitalAmount', 'max', $event)"
+            />
+          </merces-stringfield-plain-minmax-group>
+        }
+
+        <!-- PPS Capital Outlier Amount — Min/Max String -->
+        @if (isVisible('PPS Capital Outlier Amount')) {
+          <merces-stringfield-plain-minmax-group label="PPS Capital Outlier Amount" padding="span">
+            <merces-stringfield-plain
+              placeholder="Minimum amt."
+              [value]="minMaxFilterValue('ppsCapitalOutlierAmount', 'min')"
+              (valueChange)="onMinMaxFilterChanged('ppsCapitalOutlierAmount', 'min', $event)"
+            />
+            <merces-stringfield-plain
+              placeholder="Maximum amt."
+              [value]="minMaxFilterValue('ppsCapitalOutlierAmount', 'max')"
+              (valueChange)="onMinMaxFilterChanged('ppsCapitalOutlierAmount', 'max', $event)"
+            />
+          </merces-stringfield-plain-minmax-group>
+        }
+
+        <!-- PPS Operating Outlier Amount — Min/Max String -->
+        @if (isVisible('PPS Operating Outlier Amount')) {
+          <merces-stringfield-plain-minmax-group label="PPS Operating Outlier Amount" padding="span">
+            <merces-stringfield-plain
+              placeholder="Minimum amt."
+              [value]="minMaxFilterValue('ppsOperatingOutlierAmount', 'min')"
+              (valueChange)="onMinMaxFilterChanged('ppsOperatingOutlierAmount', 'min', $event)"
+            />
+            <merces-stringfield-plain
+              placeholder="Maximum amt."
+              [value]="minMaxFilterValue('ppsOperatingOutlierAmount', 'max')"
+              (valueChange)="onMinMaxFilterChanged('ppsOperatingOutlierAmount', 'max', $event)"
+            />
+          </merces-stringfield-plain-minmax-group>
+        }
+
+        <!-- Processed As — String Field -->
+        @if (isVisible('Processed As')) {
+          <merces-stringfield-plain-group label="Processed As" padding="span">
+            <merces-stringfield-plain
+              placeholder="Enter Processed As"
+              [value]="textFilterValue('processedAs')"
+              (valueChange)="onTextFilterChanged('processedAs', $event)"
+            />
+          </merces-stringfield-plain-group>
+        }
+
+        <!-- Rendering Provider Names — String Field -->
+        @if (isVisible('Rendering Provider Names')) {
+          <merces-stringfield-plain-group label="Rendering Provider Names" padding="span">
+            <merces-stringfield-plain
+              placeholder="Enter Rendering Provider Names"
+              [value]="textFilterValue('renderingProviderNames')"
+              (valueChange)="onTextFilterChanged('renderingProviderNames', $event)"
+            />
+          </merces-stringfield-plain-group>
+        }
+
+        <!-- Rendering Provider Numbers — String Field -->
+        @if (isVisible('Rendering Provider Numbers')) {
+          <merces-stringfield-plain-group label="Rendering Provider Numbers" padding="span">
+            <merces-stringfield-plain
+              placeholder="Enter Rendering Provider Numbers"
+              [value]="textFilterValue('renderingProviderNumbers')"
+              (valueChange)="onTextFilterChanged('renderingProviderNumbers', $event)"
+            />
+          </merces-stringfield-plain-group>
+        }
+
+        <!-- Total Allowed — Min/Max String -->
+        @if (isVisible('Total Allowed')) {
+          <merces-stringfield-plain-minmax-group label="Total Allowed" padding="span">
+            <merces-stringfield-plain
+              placeholder="Minimum amt."
+              [value]="minMaxFilterValue('totalAllowed', 'min')"
+              (valueChange)="onMinMaxFilterChanged('totalAllowed', 'min', $event)"
+            />
+            <merces-stringfield-plain
+              placeholder="Maximum amt."
+              [value]="minMaxFilterValue('totalAllowed', 'max')"
+              (valueChange)="onMinMaxFilterChanged('totalAllowed', 'max', $event)"
+            />
+          </merces-stringfield-plain-minmax-group>
+        }
+
+        <!-- Total Billed — Min/Max String -->
+        @if (isVisible('Total Billed')) {
+          <merces-stringfield-plain-minmax-group label="Total Billed" padding="span">
+            <merces-stringfield-plain
+              placeholder="Minimum amt."
+              [value]="minMaxFilterValue('totalBilled', 'min')"
+              (valueChange)="onMinMaxFilterChanged('totalBilled', 'min', $event)"
+            />
+            <merces-stringfield-plain
+              placeholder="Maximum amt."
+              [value]="minMaxFilterValue('totalBilled', 'max')"
+              (valueChange)="onMinMaxFilterChanged('totalBilled', 'max', $event)"
+            />
+          </merces-stringfield-plain-minmax-group>
+        }
+
+        <!-- Total Paid — Min/Max String -->
+        @if (isVisible('Total Paid')) {
+          <merces-stringfield-plain-minmax-group label="Total Paid" padding="span">
+            <merces-stringfield-plain
+              placeholder="Minimum amt."
+              [value]="minMaxFilterValue('totalPaid', 'min')"
+              (valueChange)="onMinMaxFilterChanged('totalPaid', 'min', $event)"
+            />
+            <merces-stringfield-plain
+              placeholder="Maximum amt."
+              [value]="minMaxFilterValue('totalPaid', 'max')"
+              (valueChange)="onMinMaxFilterChanged('totalPaid', 'max', $event)"
+            />
+          </merces-stringfield-plain-minmax-group>
+        }
+
+        <!-- Total PR Dollars — Min/Max String -->
+        @if (isVisible('Total PR Dollars')) {
+          <merces-stringfield-plain-minmax-group label="Total PR Dollars" padding="span">
+            <merces-stringfield-plain
+              placeholder="Minimum amt."
+              [value]="minMaxFilterValue('totalPrDollars', 'min')"
+              (valueChange)="onMinMaxFilterChanged('totalPrDollars', 'min', $event)"
+            />
+            <merces-stringfield-plain
+              placeholder="Maximum amt."
+              [value]="minMaxFilterValue('totalPrDollars', 'max')"
+              (valueChange)="onMinMaxFilterChanged('totalPrDollars', 'max', $event)"
+            />
+          </merces-stringfield-plain-minmax-group>
+        }
+
+        <!-- Type of Bills — String Field -->
+        @if (isVisible('Type of Bills')) {
+          <merces-stringfield-plain-group label="Type of Bills" padding="span">
+            <merces-stringfield-plain
+              placeholder="Enter Type of Bills"
+              [value]="textFilterValue('typeOfBills')"
+              (valueChange)="onTextFilterChanged('typeOfBills', $event)"
+            />
+          </merces-stringfield-plain-group>
+        }
+
+        <!-- DOS End Dates — Ranged Date Picker -->
+        @if (isVisible('DOS End Dates')) {
+          <merces-calendar-ranged
+            label="DOS End Dates"
+            startPlaceholder="Start Date"
+            endPlaceholder="End Date"
+            padding="span"
+            [rangeStart]="dateRangeFilterValue('dosEndDates').start"
+            [rangeEnd]="dateRangeFilterValue('dosEndDates').end"
+            (rangeChanged)="onDateRangeFilterChanged('dosEndDates', $event)"
+          />
+        }
+
+      </div>
+      } <!-- /@for _filterKey -->
+
+      <!-- Actions bar — Reset and Apply
+           Figma: 8805:106851 — equal-width buttons, gap 8px
+           Reset: disabled until any filter has a value (staged or applied).
+           Apply: disabled until there are staged changes not yet committed.
+           Only Apply notifies the report-console of a change. -->
+      <div class="filters-actions">
+        <!-- Figma 1311:16417 — Type=Tertiary, Variant=TextOnly, Size=Base -->
+        <merces-cta-button
+          intent="brand"
+          type="tertiary"
+          variant="text-only"
+          label="Reset"
+          [disabled]="resetDisabled()"
+          (pressed)="onResetFilters()"
+        />
+        <!-- Figma 1311:16418 — Type=Primary, Variant=TextOnly, Size=Base -->
+        <merces-cta-button
+          intent="brand"
+          type="primary"
+          variant="text-only"
+          label="Apply"
+          [disabled]="applyDisabled()"
+          (pressed)="onApply()"
+        />
+      </div>
+
+    </div>
+  </div>
+
+  </section>
+
+</div><!-- /.sidebar-wrap -->

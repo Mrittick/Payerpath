@@ -1,0 +1,303 @@
+/* Figma: Remittances Sidebar — X3ePdrL3EFGOKK6Gb6qbV7 node 1311:13964
+   Three states: Default (320px), Collapsed (56px), Hover (320px).
+
+   Layout model
+   ────────────
+   :host  — the flex-row item. Its width is the actual sidebar width:
+            56px collapsed, 320px expanded/hover, matching the Figma variants.
+
+   .sidebar-wrap — fills the host width. Avoid clipping a 320px panel down to
+                   56px; that hides the report-console toggle and cuts off the
+                   visible right-side border radii in the collapsed state. */
+
+/* ── code-only layout constants ── */
+:host {
+  --_collapsed-width: 56px;
+  --_expanded-width:  320px;
+
+  /* Host is a flex item in the analytics row; flex-direction: column here
+     gives the wrap (and filters-panel flex:1) their vertical fill. */
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: var(--_collapsed-width);
+  overflow: hidden;
+  transition: width var(--transition-duration-layout) var(--transition-easing-layout);
+}
+
+/* Both toggle-expanded and hover-peek expand to the full 320px
+   — the flex siblings in the analytics row reflow to match either way */
+:host(.sidebar--expanded),
+:host(.sidebar--hover-expanded) {
+  width: var(--_expanded-width);
+}
+
+/* ══════════════════════════════════════════════════════════
+   Sidebar wrap
+   ══════════════════════════════════════════════════════════ */
+
+.sidebar-wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex: 1;       /* fill host height — needed for .filters-panel flex:1 to work */
+  min-height: 0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Custom Filters panel
+   ══════════════════════════════════════════════════════════ */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--colour-fill-surface-neutral-default);
+  border-radius: var(--radius-lg);
+  flex-shrink: 0;
+}
+
+/* Figma layout_7QU4AQ: padding 16px 8px 8px, Fill height — expands to fill sidebar */
+.filters-panel {
+  padding: var(--gap-3xl) var(--gap-md) var(--gap-md);
+  flex: 1;             /* flex: 1 overrides .panel's flex-shrink: 0 */
+  min-height: 0;       /* allow flex shrinking */
+  overflow: hidden;
+  transition: padding var(--transition-duration-layout) var(--transition-easing-layout);
+}
+
+/* ══════════════════════════════════════════════════════════
+   Panel header
+   ══════════════════════════════════════════════════════════ */
+
+.panel__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-sm);   /* 6px — Figma itemSpacing, header is MIN not space-between */
+  flex-shrink: 0;
+}
+
+/* Figma layout_1I2PR3: padding-left 14px
+   Transition so the collapse to 0 animates in sync with the sidebar width. */
+.filters-panel__header {
+  padding-left: var(--gap-2xl);
+  transition:
+    opacity var(--transition-duration-layout) var(--transition-easing-layout),
+    padding-left var(--transition-duration-layout) var(--transition-easing-layout);
+}
+
+/* Figma node 1311:16402 — plain icon frame, padding 8px all sides */
+.filters-header-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--gap-md);
+  flex-shrink: 0;
+}
+
+/* Left group within Filters header: Heading + Edit CTA */
+.filters-header-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-md);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  max-width: 250px;
+  transition: max-width var(--transition-duration-layout) var(--transition-easing-layout);
+}
+
+.panel__title {
+  color: var(--colour-text-default-base);
+  margin: 0;
+  flex: 1;   /* fill width — pushes Edit filters button to right of the left group */
+}
+
+/* ══════════════════════════════════════════════════════════
+   Collapsed Filters panel
+   Figma's collapsed sidebar keeps this lower panel blank; only the
+   report-console toggle remains visible above the connector.
+   Hover-expanded reverts automatically (not(.sidebar--hover-expanded)).
+   ══════════════════════════════════════════════════════════ */
+
+:host(.sidebar--collapsed:not(.sidebar--hover-expanded)) .filters-panel {
+  padding: var(--gap-md);
+}
+
+:host(.sidebar--collapsed:not(.sidebar--hover-expanded)) .filters-panel__header {
+  gap: 0;
+  padding-left: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+:host(.sidebar--collapsed:not(.sidebar--hover-expanded)) .filters-header-left {
+  flex: 0 0 0;
+  max-width: 0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Filters body slot
+   Always at natural height — never height-animated.
+   Visibility is controlled entirely by opacity transitions.
+   ══════════════════════════════════════════════════════════ */
+
+/* Figma layout_7QU4AQ gap: 6px between header and body */
+.filters-slot {
+  margin-top: var(--gap-sm);
+  display: flex;
+  flex-direction: column;
+  flex: 1;       /* fills panel height — allows .filters-body flex:1 to work */
+  min-height: 0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Filters body — fills the slot, columns for pinned + scrollable areas
+   ══════════════════════════════════════════════════════════ */
+
+/* Figma layout_G4NN1B: column, gap 10px (gap/lg — was hardcoded 10px in Figma, now token-bound) */
+.filters-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-lg);
+  flex: 1;
+  min-height: 0;
+}
+
+/* Date Range section — Figma "Date Range" wrapper frame.
+   The custom slot owns its own top margin so the gap can animate away too. */
+.date-range-section {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Date Range dropdown — taller panel to accommodate all grouped options */
+.date-range-section merces-dropdown {
+  --dropdown-panel-max-height: 540px;
+}
+
+/* Custom Date Range calendar slot — animate the wrapper itself instead of relying on
+   height:auto + display:none. That avoids the last-pixel snap visible on Reset when
+   the slot collapses while sibling filters are also being recreated. */
+.date-range-custom-slot {
+  display: grid;
+  grid-template-rows: 0fr;
+  margin-top: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    grid-template-rows var(--transition-duration-layout) var(--transition-easing-layout),
+    margin-top var(--transition-duration-layout) var(--transition-easing-layout),
+    opacity var(--transition-duration-layout) var(--transition-easing-layout),
+    visibility 0s linear var(--transition-duration-layout);
+}
+
+.date-range-custom-slot.open {
+  grid-template-rows: 1fr;
+  margin-top: var(--gap-md);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition:
+    grid-template-rows var(--transition-duration-layout) var(--transition-easing-layout),
+    margin-top var(--transition-duration-layout) var(--transition-easing-layout),
+    opacity var(--transition-duration-layout) var(--transition-easing-layout),
+    visibility 0s linear 0s;
+}
+
+.date-range-custom-slot__inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ── Date filter dropdowns — always visible, never scroll
+   Figma layout_ZP5LBE: column, gap 16px ── */
+.date-filters {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-3xl);
+  padding-top: var(--gap-lg);
+  flex-shrink: 0;
+}
+
+
+/* ── Divider — always visible ── */
+.filter-divider-wrap {
+  padding: var(--gap-md);
+  flex-shrink: 0;
+}
+
+.filter-divider {
+  height: var(--stroke-sm);
+  border-radius: var(--radius-full);
+  background-color: var(--colour-stroke-divider-primary-light);
+}
+
+/* ── Search — always visible
+   Figma Search & Filter frame: paddingBottom = gap/md (8px breathing space above parameters) ── */
+merces-search {
+  display: flex;
+  width: 100%;
+  flex-shrink: 0;
+  padding-bottom: var(--gap-md);
+}
+
+/* ── Parameters list — the ONLY scrollable area
+   Figma layout_SCULE8: column, gap 16px ── */
+.parameters {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-3xl);
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  /* Custom scrollbar — brand tokens */
+  scrollbar-width: thin;
+  scrollbar-color: var(--colour-fill-scrollbar-default) transparent;
+}
+
+/* ── Min-max projected content flex fix ──
+   Angular ViewEncapsulation prevents the minmax-group's own
+   ".mmg__inputs > *" rule from reaching projected elements.
+   The sidebar owns the projected merces-stringfield-plain elements
+   (same _ngcontent), so this rule applies correctly. ── */
+merces-stringfield-plain-minmax-group merces-stringfield-plain {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Actions row: Clear + Apply — always visible, pinned to bottom
+   Figma: 8805:106851 — equal-width buttons, gap 8px ── */
+.filters-actions {
+  display: flex;
+  flex-direction: row;
+  gap: var(--gap-md);
+  flex-shrink: 0;
+}
+
+.filters-actions merces-cta-button {
+  flex: 1;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Content visibility — opacity on collapse
+   ──────────────────────────────────────────────────────────
+   .filters-header-left uses max-width collapse (no opacity needed —
+   the shrinking group clips its own content and slides the filter
+   icon into the left rail).
+   .filters-body is at x≈8px (within the 56px clip zone) so it
+   needs an opacity fade to vanish when collapsed.
+   ══════════════════════════════════════════════════════════ */
+
+.filters-body {
+  transition: opacity var(--transition-duration-layout) var(--transition-easing-layout);
+}
+
+:host(.sidebar--collapsed:not(.sidebar--hover-expanded)) .filters-body {
+  opacity: 0;
+  pointer-events: none;
+}

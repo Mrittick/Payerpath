@@ -1,0 +1,258 @@
+/* Figma: Global Navbar — 967:3420 (Payerpath) / 1661:16643 (eChart Coder)
+   Payerpath:    expanded 264px → collapsed 24px
+   eChart Coder: expanded 320px → collapsed 28px
+   Width animates at layout speed (450ms cubic-bezier(0.5, 0, 0, 1)).
+   Sub-item lists animate via grid-template-rows at the same timing. */
+
+/* ════════════════════════════════════════════════════════════
+   HOST — width transition + flex shell (row)
+   ════════════════════════════════════════════════════════════ */
+
+:host {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 264px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background-color: var(--colour-fill-surface-neutral-default);
+  box-shadow: var(--shadow-M);
+  z-index: 1;   /* lifts shadow above adjacent .screen content */
+  transition: width var(--transition-duration-layout) var(--transition-easing-layout);
+
+  /* ── Navbar item theming custom properties ──
+     Cascades through the DOM to merces-navbar-item regardless of Angular's
+     ViewEncapsulation (CSS custom properties are not scoped by encapsulation).
+     Payerpath defaults: */
+  --_nav-item-text: var(--colour-text-default-base);      /* dark — items on light bg */
+  --_nav-item-current-text: var(--colour-text-inverted-base); /* white — current on purple bg */
+  --_nav-category-current-border: transparent;
+  --_nav-category-current-radius: var(--radius-md);       /* 8px */
+}
+
+:host([data-theme="echart-coder"]) {
+  width: 320px;
+  background-color: var(--colour-brand-purple-50);
+  /* Propagate white text to toggle-small, branding, and any non-overriding children. */
+  color: var(--colour-text-inverted-base);
+
+  /* eChart Coder overrides for navbar-item custom properties: */
+  --_nav-item-text: var(--colour-text-inverted-base);     /* white — items on dark purple bg */
+  --_nav-item-current-text: var(--colour-text-default-base); /* dark — current items on white bg */
+  --_nav-category-current-border: var(--colour-stroke-divider-primary-light);
+  --_nav-category-current-radius: var(--radius-lg);       /* 12px */
+}
+
+/* Collapsed: shrink to the toggle-large width */
+:host(.global-navbar--collapsed) {
+  width: 24px;
+}
+
+:host(.global-navbar--collapsed[data-theme="echart-coder"]) {
+  width: 28px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   MAIN WRAPPER — flex:1 column container (header + nav + UAC)
+   ════════════════════════════════════════════════════════════ */
+
+.global-navbar__main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* ════════════════════════════════════════════════════════════
+   CONTENT AREA — scrollable nav list
+   ════════════════════════════════════════════════════════════ */
+
+.global-navbar__content {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* ── Item list ── */
+.global-navbar__items {
+  list-style: none;
+  margin: 0;
+  padding: var(--gap-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md); /* 8px between category groups */
+}
+
+.global-navbar__items > li {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ════════════════════════════════════════════════════════════
+   SUB-ITEM EXPAND / COLLAPSE
+   grid-template-rows: 0fr → 1fr — no explicit heights needed.
+   Figma: SMART_ANIMATE 450ms cubic-bezier(0.5, 0, 0, 1)
+   Uses --transition-duration-layout and --transition-easing-layout.
+   ════════════════════════════════════════════════════════════ */
+
+.global-navbar__subitems {
+  display: grid;
+  grid-template-rows: 0fr;
+  padding-top: 0;
+  /* Animate both the row height and the gap above sub-items together.
+     padding-top on the outer container never bleeds when the row is 0fr. */
+  transition:
+    grid-template-rows var(--transition-duration-layout) var(--transition-easing-layout),
+    padding-top        var(--transition-duration-layout) var(--transition-easing-layout);
+}
+
+.global-navbar__subitems--open {
+  grid-template-rows: 1fr;
+  padding-top: var(--gap-md); /* 8px gap below parent category */
+}
+
+/* Inner list must have overflow:hidden for the row-collapse to clip content */
+.global-navbar__subitems-inner {
+  overflow: hidden;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md); /* 8px between subitems */
+}
+
+/* Sub-item content fade-out: immediate on collapse.
+   Must include all properties that navbar-item animates — transition is not additive;
+   setting only opacity here would strip background-color/color/padding from subitems. */
+.global-navbar__subitems-inner merces-navbar-item {
+  opacity: 0;
+  transition:
+    opacity          var(--transition-duration-state) var(--transition-easing-state),
+    background-color var(--transition-duration-state) var(--transition-easing-state),
+    color            var(--transition-duration-state) var(--transition-easing-state),
+    padding          var(--transition-duration-state) var(--transition-easing-state);
+}
+
+/* Sub-item content fade-in: slight delay so space opens first, then text appears.
+   opacity gets the staggered delay; bg/color/padding use standard state timing. */
+.global-navbar__subitems--open .global-navbar__subitems-inner merces-navbar-item {
+  opacity: 1;
+  transition:
+    opacity          200ms 80ms var(--transition-easing-state),
+    background-color var(--transition-duration-state) var(--transition-easing-state),
+    color            var(--transition-duration-state) var(--transition-easing-state),
+    padding          var(--transition-duration-state) var(--transition-easing-state);
+}
+
+/* Toggle — must never shrink so it always occupies its full width.
+   Figma collapsed: Navbar=0px, Divider=0px, Toggle=24px (Payerpath) / 28px (eChart Coder). */
+merces-toggle-large {
+  flex-shrink: 0;
+}
+
+/* ════════════════════════════════════════════════════════════
+   DIVIDER — 1px vertical separator between content and toggle
+   ════════════════════════════════════════════════════════════ */
+
+.global-navbar__divider {
+  width: 2px;
+  flex-shrink: 1; /* allowed to compress when host is 24px */
+  align-self: stretch;
+  background-color: var(--colour-stroke-divider-neutral-light);
+  transition: opacity var(--transition-duration-state) var(--transition-easing-state);
+}
+
+:host(.global-navbar--collapsed) .global-navbar__divider {
+  opacity: 0;
+}
+
+/* Remove scrollbar column when collapsed — overflow-y: auto holds a ~17px minimum
+   width for the scrollbar track, preventing the content from compressing to 0.
+   Setting hidden when collapsed allows flex to reduce content width to true 0px. */
+:host(.global-navbar--collapsed) .global-navbar__content {
+  overflow-y: hidden;
+}
+
+/* eChart Coder: divider is always hidden — toggle-small in the header handles collapse,
+   toggle-large is hidden when expanded, and Figma specifies Divider=0px for eChart Coder. */
+:host([data-theme="echart-coder"]) .global-navbar__divider {
+  opacity: 0;
+}
+
+/* ════════════════════════════════════════════════════════════
+   eCHART CODER OVERRIDES
+   Figma: 1661:16643
+   Background: colour/brand/purple-50 (dark purple)
+   Outer padding: 24px (gap/big) | Section gap: 32px (gap/1xbig)
+   Category items gap: 16px (gap/3xl) | Sub-items gap: 12px (gap/1xl)
+   ════════════════════════════════════════════════════════════ */
+
+/* Outer container spacing — applies to the column of sections.
+   padding and gap transition in sync with the host width collapse (layout timing)
+   so the main content compresses to 0 before the toggle-large is obscured. */
+:host([data-theme="echart-coder"]) .global-navbar__main {
+  padding: var(--gap-big); /* 24px on all sides */
+  gap: var(--gap-1xbig);   /* 32px between header, nav, and UAC sections */
+  transition:
+    padding var(--transition-duration-layout) var(--transition-easing-layout),
+    gap     var(--transition-duration-layout) var(--transition-easing-layout);
+}
+
+/* On collapse, zero out the padding so the main can compress to 0px width,
+   allowing the toggle-large (28px, flex-shrink:0) to remain fully visible. */
+:host(.global-navbar--collapsed[data-theme="echart-coder"]) .global-navbar__main {
+  padding: 0;
+  gap: 0;
+}
+
+/* Nav items — override Payerpath 8px padding/gap with eChart Coder values */
+:host([data-theme="echart-coder"]) .global-navbar__items {
+  padding: 0; /* outer container (.global-navbar__main) provides the 24px */
+  gap: var(--gap-3xl); /* 16px between category groups */
+}
+
+/* Sub-item spacing overrides */
+:host([data-theme="echart-coder"]) .global-navbar__subitems--open {
+  padding-top: var(--gap-1xl); /* 12px */
+}
+
+:host([data-theme="echart-coder"]) .global-navbar__subitems-inner {
+  gap: var(--gap-1xl); /* 12px between subitems */
+}
+
+/* ── eChart Coder: branding header ── */
+.global-navbar__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+/* Product branding fills available space between left edge and toggle-small */
+.global-navbar__branding {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── eChart Coder: UAC footer ── */
+.global-navbar__uac {
+  flex-shrink: 0;
+}
+
+/* ════════════════════════════════════════════════════════════
+   REDUCED MOTION
+   ════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  :host,
+  .global-navbar__main,
+  .global-navbar__divider,
+  .global-navbar__subitems,
+  .global-navbar__subitems-inner merces-navbar-item {
+    transition-duration: 0.001ms !important;
+  }
+}

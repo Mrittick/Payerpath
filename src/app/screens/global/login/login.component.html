@@ -1,0 +1,84 @@
+<div class="screen">
+
+  <!-- ── Block 01: Graphic panel ── -->
+  <div class="block-01">
+    <div class="graphic">
+      <img class="graphic-image" src="assets/graphic-panel.svg" alt="" aria-hidden="true" />
+    </div>
+  </div>
+
+  <!-- ── Block 02: Content panel ── -->
+  <div class="block-02">
+
+    <!-- Branding -->
+    <div class="branding">
+      <img class="branding-image" src="assets/branding.svg" alt="Payerpath by Veradigm" />
+    </div>
+
+    <!-- Main content -->
+    <div class="main-content">
+
+      <h1 class="heading heading-h1">Sign in</h1>
+
+      <div class="divider">
+        <div class="divider-fill"></div>
+      </div>
+
+      <form class="cta" (submit)="$event.preventDefault(); onSubmit()">
+
+        <div class="fields">
+          <merces-stringfield-plain-group label="Email">
+            <merces-stringfield-plain
+              [value]="email()"
+              (valueChange)="email.set($event)"
+              [validationState]="emailValidation()"
+              [message]="emailMessage()"
+              placeholder=""
+              type="email"
+            />
+          </merces-stringfield-plain-group>
+
+          <merces-stringfield-plain-group label="Username">
+            <merces-stringfield-plain
+              [value]="username()"
+              (valueChange)="username.set($event)"
+              [validationState]="usernameValidation()"
+              [message]="usernameMessage()"
+              placeholder=""
+            />
+          </merces-stringfield-plain-group>
+
+          <merces-stringfield-plain-group label="Password">
+            <merces-stringfield-secure
+              [value]="password()"
+              (valueChange)="password.set($event)"
+              [validationState]="passwordValidation()"
+              [message]="passwordMessage()"
+              placeholder=""
+            />
+          </merces-stringfield-plain-group>
+        </div>
+
+        <div class="cta-bottom">
+          <button
+            class="sign-in-button paragraph-ui"
+            type="submit"
+            [disabled]="loading()"
+          >
+            <merces-icon name="sign-in" type="regular" size="base" />
+            <span>Sign in</span>
+            <merces-icon name="chevron-right" type="bold" size="base" />
+          </button>
+
+          <div class="ds-slot validation-slot" [class.ds-slot--open]="!!formValidationText()">
+            <div class="ds-slot__inner">
+              <p class="validation-text paragraph-ui-thin">{{ formValidationText() }}</p>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</div>

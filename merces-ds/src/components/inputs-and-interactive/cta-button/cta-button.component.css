@@ -1,0 +1,674 @@
+/* ═══════════════════════════════════════════════
+   CTA Button Component
+   Figma: CTA Buttons (15:1619), Span Buttons (1052:2002),
+          Compound Buttons (1063:20896)
+   ═══════════════════════════════════════════════ */
+
+/* ── Host ── */
+
+:host {
+  display: inline-flex;
+}
+
+/* ── Inner Button (shared) ── */
+
+.cta-button__inner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;  /* fill host width when host is stretched (e.g. flex: 1 from parent) */
+  height: 100%; /* fill host height when host is stretched (e.g. align-self: stretch) */
+  border: none;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  box-sizing: border-box;
+  outline: var(--stroke-button-focus) solid transparent;
+  outline-offset: 0px;
+  /* Figma uses DISSOLVE (cross-fade) at 150ms cubic-bezier(0, 0, 0, 1).
+     CSS interpolates color values directly, so the aggressive curve reads as
+     a snap. Softened to cubic-bezier(0.2, 0, 0, 1) at 200ms for perceptible
+     color transitions while preserving the deceleration character. */
+  transition:
+    background-color 200ms cubic-bezier(0.2, 0, 0, 1),
+    box-shadow 200ms cubic-bezier(0.2, 0, 0, 1),
+    color 200ms cubic-bezier(0.2, 0, 0, 1),
+    outline-color 200ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* ── Text ── */
+
+.cta-button__text {
+  white-space: nowrap;
+}
+
+/* ── Icon & Chevron ── */
+
+.cta-button__icon,
+.cta-button__chevron {
+  flex-shrink: 0;
+  transition: color 200ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+
+/* ═══════════════════════════════════════════════
+   PADDING MATRIX
+   Size × Variant × Compact
+   ═══════════════════════════════════════════════ */
+
+/* ── Base Size: Vertical padding = 12px (--gap-1xl) for all ── */
+
+/* text-only: CTA (default) */
+:host(.cta-button--size-base.cta-button--variant-text-only:not(.cta-button--compact)) .cta-button__inner {
+  padding: var(--gap-1xl) var(--gap-4xl);
+  gap: var(--gap-1xl);
+}
+
+/* text-only: Span (compact) */
+:host(.cta-button--size-base.cta-button--variant-text-only.cta-button--compact) .cta-button__inner {
+  padding: var(--gap-1xl) var(--gap-3xl);
+  gap: var(--gap-1xl);
+}
+
+/* icon-right: asymmetric — icon side tighter */
+:host(.cta-button--size-base.cta-button--variant-icon-right) .cta-button__inner {
+  padding: var(--gap-1xl) var(--gap-1xl) var(--gap-1xl) var(--gap-3xl);
+  gap: var(--gap-md);
+}
+
+/* icon-left: mirror of icon-right */
+:host(.cta-button--size-base.cta-button--variant-icon-left) .cta-button__inner {
+  padding: var(--gap-1xl) var(--gap-3xl) var(--gap-1xl) var(--gap-1xl);
+  gap: var(--gap-md);
+}
+
+/* icon-only: square */
+:host(.cta-button--size-base.cta-button--variant-icon-only) .cta-button__inner {
+  padding: var(--gap-1xl);
+}
+
+/* compound (chevron=right, with label) */
+:host(.cta-button--size-base.cta-button--variant-compound.cta-button--chevron-right:not(.cta-button--no-label)) .cta-button__inner {
+  padding: var(--gap-1xl) var(--gap-lg) var(--gap-1xl) var(--gap-1xl);
+  gap: var(--gap-lg);
+}
+
+/* compound (chevron=left, with label) */
+:host(.cta-button--size-base.cta-button--variant-compound.cta-button--chevron-left:not(.cta-button--no-label)) .cta-button__inner {
+  padding: var(--gap-1xl) var(--gap-1xl) var(--gap-1xl) var(--gap-lg);
+  gap: var(--gap-lg);
+}
+
+/* compound (no label) */
+:host(.cta-button--size-base.cta-button--variant-compound.cta-button--no-label) .cta-button__inner {
+  padding: var(--gap-1xl) var(--gap-lg) var(--gap-1xl) var(--gap-1xl);
+  gap: var(--gap-md);
+}
+
+/* ── Mini Size ── */
+
+/* text-only: mini */
+:host(.cta-button--size-mini.cta-button--variant-text-only) .cta-button__inner {
+  padding: var(--gap-sm) var(--gap-1xl);
+  gap: var(--gap-sm);
+}
+
+/* icon-right: mini */
+:host(.cta-button--size-mini.cta-button--variant-icon-right) .cta-button__inner {
+  padding: var(--gap-sm) var(--gap-md) var(--gap-sm) var(--gap-1xl);
+  gap: var(--gap-sm);
+}
+
+/* icon-left: mini (mirror) */
+:host(.cta-button--size-mini.cta-button--variant-icon-left) .cta-button__inner {
+  padding: var(--gap-sm) var(--gap-1xl) var(--gap-sm) var(--gap-md);
+  gap: var(--gap-sm);
+}
+
+/* icon-only: mini */
+:host(.cta-button--size-mini.cta-button--variant-icon-only) .cta-button__inner {
+  padding: var(--gap-md);
+}
+
+/* compound (chevron=right): mini */
+:host(.cta-button--size-mini.cta-button--variant-compound.cta-button--chevron-right) .cta-button__inner {
+  padding: var(--gap-sm) var(--gap-md) var(--gap-sm) var(--gap-lg);
+  gap: var(--gap-md);
+}
+
+/* compound (chevron=left): mini */
+:host(.cta-button--size-mini.cta-button--variant-compound.cta-button--chevron-left) .cta-button__inner {
+  padding: var(--gap-sm) var(--gap-lg) var(--gap-sm) var(--gap-md);
+  gap: var(--gap-md);
+}
+
+
+/* ═══════════════════════════════════════════════
+   SECONDARY TYPE: Border
+   Only Secondary has a visible border.
+   All other types: transparent border to reserve space.
+   ═══════════════════════════════════════════════ */
+
+/* Secondary: inset box-shadow acts as an inside border — no layout shift.
+   Non-secondary types have no border at all. */
+
+
+/* ═══════════════════════════════════════════════
+   COLOR MATRIX
+   Intent × Type × State
+   ═══════════════════════════════════════════════ */
+
+/* ┌──────────────────────────────────────────────
+   │ BRAND
+   └────────────────────────────────────────────── */
+
+/* Primary */
+:host(.cta-button--intent-brand.cta-button--type-primary) .cta-button__inner {
+  background-color: var(--colour-fill-button-brand-primary-default);
+  color: var(--colour-text-inverted-base);
+}
+:host(.cta-button--intent-brand.cta-button--type-primary) .cta-button__inner:hover:not(:disabled) {
+  background-color: var(--colour-fill-button-brand-primary-hover);
+}
+:host(.cta-button--intent-brand.cta-button--type-primary) .cta-button__inner:active:not(:disabled),
+:host(.cta-button--intent-brand.cta-button--type-primary.cta-button--pressed) .cta-button__inner:not(:disabled) {
+  background-color: var(--colour-fill-button-brand-primary-pressed);
+}
+:host(.cta-button--intent-brand.cta-button--type-primary.cta-button--toggled) .cta-button__inner {
+  background-color: var(--colour-fill-button-brand-primary-pressed);
+}
+:host(.cta-button--intent-brand.cta-button--type-primary.cta-button--disabled) .cta-button__inner {
+  background-color: var(--colour-fill-button-brand-primary-disabled);
+  color: var(--colour-brand-purple-600);
+}
+
+/* Secondary */
+:host(.cta-button--intent-brand.cta-button--type-secondary) .cta-button__inner {
+  background-color: var(--colour-fill-button-brand-secondary-default);
+  box-shadow: inset 0 0 0 var(--stroke-button-secondary) var(--colour-stroke-button-cta-brand-secondary-default);
+  color: var(--colour-brand-purple-100);
+}
+:host(.cta-button--intent-brand.cta-button--type-secondary) .cta-button__inner:hover:not(:disabled) {
+  background-color: var(--colour-fill-button-brand-secondary-hover);
+  box-shadow: inset 0 0 0 var(--stroke-button-secondary) var(--colour-stroke-button-cta-brand-secondary-hover);
+}
+:host(.cta-button--intent-brand.cta-button--type-secondary) .cta-button__inner:active:not(:disabled),
+:host(.cta-button--intent-brand.cta-button--type-secondary.cta-button--pressed) .cta-button__inner:not(:disabled) {
+  background-color: var(--colour-fill-button-brand-secondary-pressed);
+  box-shadow: inset 0 0 0 var(--stroke-button-secondary) var(--colour-stroke-button-cta-brand-secondary-pressed);
+}
+:host(.cta-button--intent-brand.cta-button--type-secondary.cta-button--toggled) .cta-button__inner {
+  background-color: var(--colour-fill-button-brand-primary-pressed);
+  box-shadow: none;
+  color: var(--colour-text-inverted-base);
+}
+:host(.cta-button--intent-brand.cta-button--type-secondary.cta-button--disabled) .cta-button__inner {
+  background-color: var(--colour-fill-button-brand-secondary-disabled);
+  box-shadow: inset 0 0 0 var(--stroke-button-secondary) var(--colour-stroke-button-cta-brand-secondary-disabled);
+  color: var(--colour-brand-purple-600);
+}
+
+/* Tertiary */
+:host(.cta-button--intent-brand.cta-button--type-tertiary) .cta-button__inner {
+  background-color: var(--colour-fill-button-brand-tertiary-default);
+  color: var(--colour-brand-purple-100);
+}
+:host(.cta-button--intent-brand.cta-button--type-tertiary) .cta-button__inner:hover:not(:disabled) {
+  background-color: var(--colour-fill-button-brand-tertiary-hover);
+}
+:host(.cta-button--intent-brand.cta-button--type-tertiary) .cta-button__inner:active:not(:disabled),
+:host(.cta-button--intent-brand.cta-button--type-tertiary.cta-button--pressed) .cta-button__inner:not(:disabled) {
+  background-color: var(--colour-fill-button-brand-tertiary-pressed);
+}
+:host(.cta-button--intent-brand.cta-button--type-tertiary.cta-button--toggled) .cta-button__inner {
+  background-color: var(--colour-fill-button-brand-tertiary-pressed);
+}
+:host(.cta-button--intent-brand.cta-button--type-tertiary.cta-button--disabled) .cta-button__inner {
+  background-color: var(--colour-fill-button-brand-tertiary-disabled);
+  color: var(--colour-brand-purple-600);
+}
+
+/* Quaternary */
+:host(.cta-button--intent-brand.cta-button--type-quaternary) .cta-button__inner {
+  background-color: var(--colour-fill-button-brand-quaternary-default);
+  color: var(--colour-brand-purple-100);
+}
+:host(.cta-button--intent-brand.cta-button--type-quaternary) .cta-button__inner:hover:not(:disabled) {
+  background-color: var(--colour-fill-button-brand-quaternary-hover);
+}
+:host(.cta-button--intent-brand.cta-button--type-quaternary) .cta-button__inner:active:not(:disabled),
+:host(.cta-button--intent-brand.cta-button--type-quaternary.cta-button--pressed) .cta-button__inner:not(:disabled) {
+  background-color: var(--colour-fill-button-brand-quaternary-pressed);
+}
+:host(.cta-button--intent-brand.cta-button--type-quaternary.cta-button--toggled) .cta-button__inner {
+  background-color: var(--colour-fill-button-brand-quaternary-pressed);
+}
+:host(.cta-button--intent-brand.cta-button--type-quaternary.cta-button--disabled) .cta-button__inner {
+  background-color: var(--colour-fill-button-brand-quaternary-disabled);
+  color: var(--colour-brand-purple-600);
+}
+
+/* ┌──────────────────────────────────────────────
+   │ NEUTRAL
+   └────────────────────────────────────────────── */
+
+/* Primary */
+:host(.cta-button--intent-neutral.cta-button--type-primary) .cta-button__inner {
+  background-color: var(--colour-fill-button-neutral-primary-default);
+  color: var(--colour-text-inverted-base);
+}
+:host(.cta-button--intent-neutral.cta-button--type-primary) .cta-button__inner:hover:not(:disabled) {
+  background-color: var(--colour-fill-button-neutral-primary-hover);
+}
+:host(.cta-button--intent-neutral.cta-button--type-primary) .cta-button__inner:active:not(:disabled),
+:host(.cta-button--intent-neutral.cta-button--type-primary.cta-button--pressed) .cta-button__inner:not(:disabled) {
+  background-color: var(--colour-fill-button-neutral-primary-pressed);
+}
+:host(.cta-button--intent-neutral.cta-button--type-primary.cta-button--toggled) .cta-button__inner {
+  background-color: var(--colour-fill-button-neutral-primary-pressed);
+}
+:host(.cta-button--intent-neutral.cta-button--type-primary.cta-button--disabled) .cta-button__inner {
+  background-color: var(--colour-fill-button-neutral-primary-disabled);
+  color: var(--colour-neutral-grey-400);
+}
+
+/* Secondary */
+:host(.cta-button--intent-neutral.cta-button--type-secondary) .cta-button__inner {
+  background-color: var(--colour-fill-button-neutral-secondary-default);
+  box-shadow: inset 0 0 0 var(--stroke-button-secondary) var(--colour-stroke-button-cta-neutral-secondary-default);
+  color: var(--colour-neutral-grey-100);
+}
+:host(.cta-button--intent-neutral.cta-button--type-secondary) .cta-button__inner:hover:not(:disabled) {
+  background-color: var(--colour-fill-button-neutral-secondary-hover);
+  box-shadow: inset 0 0 0 var(--stroke-button-secondary) var(--colour-stroke-button-cta-neutral-secondary-hover);
+}
+:host(.cta-button--intent-neutral.cta-button--type-secondary) .cta-button__inner:active:not(:disabled),
+:host(.cta-button--intent-neutral.cta-button--type-secondary.cta-button--pressed) .cta-button__inner:not(:disabled) {
+  background-color: var(--colour-fill-button-neutral-secondary-pressed);
+  box-shadow: inset 0 0 0 var(--stroke-button-secondary) var(--colour-stroke-button-cta-neutral-secondary-pressed);
+}
+:host(.cta-button--intent-neutral.cta-button--type-secondary.cta-button--toggled) .cta-button__inner {
+  background-color: var(--colour-fill-button-neutral-primary-pressed);
+  box-shadow: none;
+  color: var(--colour-text-inverted-base);
+}
+:host(.cta-button--intent-neutral.cta-button--type-secondary.cta-button--disabled) .cta-button__inner {
+  background-color: var(--colour-fill-button-neutral-secondary-disabled);
+  box-shadow: inset 0 0 0 var(--stroke-button-secondary) var(--colour-stroke-button-cta-neutral-secondary-disabled);
+  color: var(--colour-neutral-grey-400);
+}
+
+/* Tertiary */
+:host(.cta-button--intent-neutral.cta-button--type-tertiary) .cta-button__inner {
+  background-color: var(--colour-fill-button-neutral-tertiary-default);
+  color: var(--colour-neutral-grey-100);
+}
+:host(.cta-button--intent-neutral.cta-button--type-tertiary) .cta-button__inner:hover:not(:disabled) {
+  background-color: var(--colour-fill-button-neutral-tertiary-hover);
+}
+:host(.cta-button--intent-neutral.cta-button--type-tertiary) .cta-button__inner:active:not(:disabled),
+:host(.cta-button--intent-neutral.cta-button--type-tertiary.cta-button--pressed) .cta-button__inner:not(:disabled) {
+  background-color: var(--colour-fill-button-neutral-tertiary-pressed);
+}
+:host(.cta-button--intent-neutral.cta-button--type-tertiary.cta-button--toggled) .cta-button__inner {
+  background-color: var(--colour-fill-button-neutral-tertiary-pressed);
+}
+:host(.cta-button--intent-neutral.cta-button--type-tertiary.cta-button--disabled) .cta-button__inner {
+  background-color: var(--colour-fill-button-neutral-tertiary-disabled);
+  color: var(--colour-neutral-grey-400);
+}
+
+/* Quaternary */
+:host(.cta-button--intent-neutral.cta-button--type-quaternary) .cta-button__inner {
+  background-color: var(--colour-fill-button-neutral-quaternary-default);
+  color: var(--colour-neutral-grey-100);
+}
+:host(.cta-button--intent-neutral.cta-button--type-quaternary) .cta-button__inner:hover:not(:disabled) {
+  background-color: var(--colour-fill-button-neutral-quaternary-hover);
+}
+:host(.cta-button--intent-neutral.cta-button--type-quaternary) .cta-button__inner:active:not(:disabled),
+:host(.cta-button--intent-neutral.cta-button--type-quaternary.cta-button--pressed) .cta-button__inner:not(:disabled) {
+  background-color: var(--colour-fill-button-neutral-quaternary-pressed);
+}
+:host(.cta-button--intent-neutral.cta-button--type-quaternary.cta-button--toggled) .cta-button__inner {
+  background-color: var(--colour-fill-button-neutral-quaternary-pressed);
+}
+:host(.cta-button--intent-neutral.cta-button--type-quaternary.cta-button--disabled) .cta-button__inner {
+  background-color: var(--colour-fill-button-neutral-quaternary-disabled);
+  color: var(--colour-neutral-grey-400);
+}
+
+/* ┌──────────────────────────────────────────────
+   │ EMPHASIS
+   └────────────────────────────────────────────── */
+
+/* Primary */
+:host(.cta-button--intent-emphasis.cta-button--type-primary) .cta-button__inner {
+  background-color: var(--colour-fill-button-emphasis-primary-default);
+  color: var(--colour-text-inverted-base);
+}
+:host(.cta-button--intent-emphasis.cta-button--type-primary) .cta-button__inner:hover:not(:disabled) {
+  background-color: var(--colour-fill-button-emphasis-primary-hover);
+}
+:host(.cta-button--intent-emphasis.cta-button--type-primary) .cta-button__inner:active:not(:disabled),
+:host(.cta-button--intent-emphasis.cta-button--type-primary.cta-button--pressed) .cta-button__inner:not(:disabled) {
+  background-color: var(--colour-fill-button-emphasis-primary-pressed);
+}
+:host(.cta-button--intent-emphasis.cta-button--type-primary.cta-button--toggled) .cta-button__inner {
+  background-color: var(--colour-fill-button-emphasis-primary-pressed);
+}
+:host(.cta-button--intent-emphasis.cta-button--type-primary.cta-button--disabled) .cta-button__inner {
+  background-color: var(--colour-fill-button-emphasis-primary-disabled);
+  color: var(--colour-brand-green-600);
+}
+
+/* Secondary */
+:host(.cta-button--intent-emphasis.cta-button--type-secondary) .cta-button__inner {
+  background-color: var(--colour-fill-button-emphasis-secondary-default);
+  box-shadow: inset 0 0 0 var(--stroke-button-secondary) var(--colour-stroke-button-cta-emphasis-secondary-default);
+  color: var(--colour-brand-green-100);
+}
+:host(.cta-button--intent-emphasis.cta-button--type-secondary) .cta-button__inner:hover:not(:disabled) {
+  background-color: var(--colour-fill-button-emphasis-secondary-hover);
+  box-shadow: inset 0 0 0 var(--stroke-button-secondary) var(--colour-stroke-button-cta-emphasis-secondary-hover);
+}
+:host(.cta-button--intent-emphasis.cta-button--type-secondary) .cta-button__inner:active:not(:disabled),
+:host(.cta-button--intent-emphasis.cta-button--type-secondary.cta-button--pressed) .cta-button__inner:not(:disabled) {
+  background-color: var(--colour-fill-button-emphasis-secondary-pressed);
+  box-shadow: inset 0 0 0 var(--stroke-button-secondary) var(--colour-stroke-button-cta-emphasis-secondary-pressed);
+}
+:host(.cta-button--intent-emphasis.cta-button--type-secondary.cta-button--toggled) .cta-button__inner {
+  background-color: var(--colour-fill-button-emphasis-primary-pressed);
+  box-shadow: none;
+  color: var(--colour-text-inverted-base);
+}
+:host(.cta-button--intent-emphasis.cta-button--type-secondary.cta-button--disabled) .cta-button__inner {
+  background-color: var(--colour-fill-button-emphasis-secondary-disabled);
+  box-shadow: inset 0 0 0 var(--stroke-button-secondary) var(--colour-stroke-button-cta-emphasis-secondary-disabled);
+  color: var(--colour-brand-green-600);
+}
+
+/* Tertiary */
+:host(.cta-button--intent-emphasis.cta-button--type-tertiary) .cta-button__inner {
+  background-color: var(--colour-fill-button-emphasis-tertiary-default);
+  color: var(--colour-brand-green-100);
+}
+:host(.cta-button--intent-emphasis.cta-button--type-tertiary) .cta-button__inner:hover:not(:disabled) {
+  background-color: var(--colour-fill-button-emphasis-tertiary-hover);
+}
+:host(.cta-button--intent-emphasis.cta-button--type-tertiary) .cta-button__inner:active:not(:disabled),
+:host(.cta-button--intent-emphasis.cta-button--type-tertiary.cta-button--pressed) .cta-button__inner:not(:disabled) {
+  background-color: var(--colour-fill-button-emphasis-tertiary-pressed);
+}
+:host(.cta-button--intent-emphasis.cta-button--type-tertiary.cta-button--toggled) .cta-button__inner {
+  background-color: var(--colour-fill-button-emphasis-tertiary-pressed);
+}
+:host(.cta-button--intent-emphasis.cta-button--type-tertiary.cta-button--disabled) .cta-button__inner {
+  background-color: var(--colour-fill-button-emphasis-tertiary-disabled);
+  color: var(--colour-brand-green-600);
+}
+
+/* Quaternary */
+:host(.cta-button--intent-emphasis.cta-button--type-quaternary) .cta-button__inner {
+  background-color: var(--colour-fill-button-emphasis-quaternary-default);
+  color: var(--colour-brand-green-100);
+}
+:host(.cta-button--intent-emphasis.cta-button--type-quaternary) .cta-button__inner:hover:not(:disabled) {
+  background-color: var(--colour-fill-button-emphasis-quaternary-hover);
+}
+:host(.cta-button--intent-emphasis.cta-button--type-quaternary) .cta-button__inner:active:not(:disabled),
+:host(.cta-button--intent-emphasis.cta-button--type-quaternary.cta-button--pressed) .cta-button__inner:not(:disabled) {
+  background-color: var(--colour-fill-button-emphasis-quaternary-pressed);
+}
+:host(.cta-button--intent-emphasis.cta-button--type-quaternary.cta-button--toggled) .cta-button__inner {
+  background-color: var(--colour-fill-button-emphasis-quaternary-pressed);
+}
+:host(.cta-button--intent-emphasis.cta-button--type-quaternary.cta-button--disabled) .cta-button__inner {
+  background-color: var(--colour-fill-button-emphasis-quaternary-disabled);
+  color: var(--colour-brand-green-600);
+}
+
+/* ┌──────────────────────────────────────────────
+   │ DANGER
+   └────────────────────────────────────────────── */
+
+/* Primary */
+:host(.cta-button--intent-danger.cta-button--type-primary) .cta-button__inner {
+  background-color: var(--colour-fill-button-danger-primary-default);
+  color: var(--colour-text-inverted-base);
+}
+:host(.cta-button--intent-danger.cta-button--type-primary) .cta-button__inner:hover:not(:disabled) {
+  background-color: var(--colour-fill-button-danger-primary-hover);
+}
+:host(.cta-button--intent-danger.cta-button--type-primary) .cta-button__inner:active:not(:disabled),
+:host(.cta-button--intent-danger.cta-button--type-primary.cta-button--pressed) .cta-button__inner:not(:disabled) {
+  background-color: var(--colour-fill-button-danger-primary-pressed);
+}
+:host(.cta-button--intent-danger.cta-button--type-primary.cta-button--toggled) .cta-button__inner {
+  background-color: var(--colour-fill-button-danger-primary-pressed);
+}
+:host(.cta-button--intent-danger.cta-button--type-primary.cta-button--disabled) .cta-button__inner {
+  background-color: var(--colour-fill-button-danger-primary-disabled);
+  color: var(--colour-brand-red-600);
+}
+
+/* Secondary */
+:host(.cta-button--intent-danger.cta-button--type-secondary) .cta-button__inner {
+  background-color: var(--colour-fill-button-danger-secondary-default);
+  box-shadow: inset 0 0 0 var(--stroke-button-secondary) var(--colour-stroke-button-cta-danger-secondary-default);
+  color: var(--colour-brand-red-100);
+}
+:host(.cta-button--intent-danger.cta-button--type-secondary) .cta-button__inner:hover:not(:disabled) {
+  background-color: var(--colour-fill-button-danger-secondary-hover);
+  box-shadow: inset 0 0 0 var(--stroke-button-secondary) var(--colour-stroke-button-cta-danger-secondary-hover);
+}
+:host(.cta-button--intent-danger.cta-button--type-secondary) .cta-button__inner:active:not(:disabled),
+:host(.cta-button--intent-danger.cta-button--type-secondary.cta-button--pressed) .cta-button__inner:not(:disabled) {
+  background-color: var(--colour-fill-button-danger-secondary-pressed);
+  box-shadow: inset 0 0 0 var(--stroke-button-secondary) var(--colour-stroke-button-cta-danger-secondary-pressed);
+}
+:host(.cta-button--intent-danger.cta-button--type-secondary.cta-button--toggled) .cta-button__inner {
+  background-color: var(--colour-fill-button-danger-primary-pressed);
+  box-shadow: none;
+  color: var(--colour-text-inverted-base);
+}
+:host(.cta-button--intent-danger.cta-button--type-secondary.cta-button--disabled) .cta-button__inner {
+  background-color: var(--colour-fill-button-danger-secondary-disabled);
+  box-shadow: inset 0 0 0 var(--stroke-button-secondary) var(--colour-stroke-button-cta-danger-secondary-disabled);
+  color: var(--colour-brand-red-600);
+}
+
+/* Tertiary */
+:host(.cta-button--intent-danger.cta-button--type-tertiary) .cta-button__inner {
+  background-color: var(--colour-fill-button-danger-tertiary-default);
+  color: var(--colour-brand-red-100);
+}
+:host(.cta-button--intent-danger.cta-button--type-tertiary) .cta-button__inner:hover:not(:disabled) {
+  background-color: var(--colour-fill-button-danger-tertiary-hover);
+}
+:host(.cta-button--intent-danger.cta-button--type-tertiary) .cta-button__inner:active:not(:disabled),
+:host(.cta-button--intent-danger.cta-button--type-tertiary.cta-button--pressed) .cta-button__inner:not(:disabled) {
+  background-color: var(--colour-fill-button-danger-tertiary-pressed);
+}
+:host(.cta-button--intent-danger.cta-button--type-tertiary.cta-button--toggled) .cta-button__inner {
+  background-color: var(--colour-fill-button-danger-tertiary-pressed);
+}
+:host(.cta-button--intent-danger.cta-button--type-tertiary.cta-button--disabled) .cta-button__inner {
+  background-color: var(--colour-fill-button-danger-tertiary-disabled);
+  color: var(--colour-brand-red-600);
+}
+
+/* Quaternary */
+:host(.cta-button--intent-danger.cta-button--type-quaternary) .cta-button__inner {
+  background-color: var(--colour-fill-button-danger-quaternary-default);
+  color: var(--colour-brand-red-100);
+}
+:host(.cta-button--intent-danger.cta-button--type-quaternary) .cta-button__inner:hover:not(:disabled) {
+  background-color: var(--colour-fill-button-danger-quaternary-hover);
+}
+:host(.cta-button--intent-danger.cta-button--type-quaternary) .cta-button__inner:active:not(:disabled),
+:host(.cta-button--intent-danger.cta-button--type-quaternary.cta-button--pressed) .cta-button__inner:not(:disabled) {
+  background-color: var(--colour-fill-button-danger-quaternary-pressed);
+}
+:host(.cta-button--intent-danger.cta-button--type-quaternary.cta-button--toggled) .cta-button__inner {
+  background-color: var(--colour-fill-button-danger-quaternary-pressed);
+}
+:host(.cta-button--intent-danger.cta-button--type-quaternary.cta-button--disabled) .cta-button__inner {
+  background-color: var(--colour-fill-button-danger-quaternary-disabled);
+  color: var(--colour-brand-red-600);
+}
+
+/* ┌──────────────────────────────────────────────
+   │ CAUTION
+   └────────────────────────────────────────────── */
+
+/* Primary */
+:host(.cta-button--intent-caution.cta-button--type-primary) .cta-button__inner {
+  background-color: var(--colour-fill-button-caution-primary-default);
+  color: var(--colour-text-inverted-base);
+}
+:host(.cta-button--intent-caution.cta-button--type-primary) .cta-button__inner:hover:not(:disabled) {
+  background-color: var(--colour-fill-button-caution-primary-hover);
+}
+:host(.cta-button--intent-caution.cta-button--type-primary) .cta-button__inner:active:not(:disabled),
+:host(.cta-button--intent-caution.cta-button--type-primary.cta-button--pressed) .cta-button__inner:not(:disabled) {
+  background-color: var(--colour-fill-button-caution-primary-pressed);
+}
+:host(.cta-button--intent-caution.cta-button--type-primary.cta-button--toggled) .cta-button__inner {
+  background-color: var(--colour-fill-button-caution-primary-pressed);
+}
+:host(.cta-button--intent-caution.cta-button--type-primary.cta-button--disabled) .cta-button__inner {
+  background-color: var(--colour-fill-button-caution-primary-disabled);
+  color: var(--colour-brand-yellow-600);
+}
+
+/* Secondary */
+:host(.cta-button--intent-caution.cta-button--type-secondary) .cta-button__inner {
+  background-color: var(--colour-fill-button-caution-secondary-default);
+  box-shadow: inset 0 0 0 var(--stroke-button-secondary) var(--colour-stroke-button-cta-caution-secondary-default);
+  color: var(--colour-brand-yellow-100);
+}
+:host(.cta-button--intent-caution.cta-button--type-secondary) .cta-button__inner:hover:not(:disabled) {
+  background-color: var(--colour-fill-button-caution-secondary-hover);
+  box-shadow: inset 0 0 0 var(--stroke-button-secondary) var(--colour-stroke-button-cta-caution-secondary-hover);
+}
+:host(.cta-button--intent-caution.cta-button--type-secondary) .cta-button__inner:active:not(:disabled),
+:host(.cta-button--intent-caution.cta-button--type-secondary.cta-button--pressed) .cta-button__inner:not(:disabled) {
+  background-color: var(--colour-fill-button-caution-secondary-pressed);
+  box-shadow: inset 0 0 0 var(--stroke-button-secondary) var(--colour-stroke-button-cta-caution-secondary-pressed);
+}
+:host(.cta-button--intent-caution.cta-button--type-secondary.cta-button--toggled) .cta-button__inner {
+  background-color: var(--colour-fill-button-caution-primary-pressed);
+  box-shadow: none;
+  color: var(--colour-text-inverted-base);
+}
+:host(.cta-button--intent-caution.cta-button--type-secondary.cta-button--disabled) .cta-button__inner {
+  background-color: var(--colour-fill-button-caution-secondary-disabled);
+  box-shadow: inset 0 0 0 var(--stroke-button-secondary) var(--colour-stroke-button-cta-caution-secondary-disabled);
+  color: var(--colour-brand-yellow-600);
+}
+
+/* Tertiary */
+:host(.cta-button--intent-caution.cta-button--type-tertiary) .cta-button__inner {
+  background-color: var(--colour-fill-button-caution-tertiary-default);
+  color: var(--colour-brand-yellow-100);
+}
+:host(.cta-button--intent-caution.cta-button--type-tertiary) .cta-button__inner:hover:not(:disabled) {
+  background-color: var(--colour-fill-button-caution-tertiary-hover);
+}
+:host(.cta-button--intent-caution.cta-button--type-tertiary) .cta-button__inner:active:not(:disabled),
+:host(.cta-button--intent-caution.cta-button--type-tertiary.cta-button--pressed) .cta-button__inner:not(:disabled) {
+  background-color: var(--colour-fill-button-caution-tertiary-pressed);
+}
+:host(.cta-button--intent-caution.cta-button--type-tertiary.cta-button--toggled) .cta-button__inner {
+  background-color: var(--colour-fill-button-caution-tertiary-pressed);
+}
+:host(.cta-button--intent-caution.cta-button--type-tertiary.cta-button--disabled) .cta-button__inner {
+  background-color: var(--colour-fill-button-caution-tertiary-disabled);
+  color: var(--colour-brand-yellow-600);
+}
+
+/* Quaternary */
+:host(.cta-button--intent-caution.cta-button--type-quaternary) .cta-button__inner {
+  background-color: var(--colour-fill-button-caution-quaternary-default);
+  color: var(--colour-brand-yellow-100);
+}
+:host(.cta-button--intent-caution.cta-button--type-quaternary) .cta-button__inner:hover:not(:disabled) {
+  background-color: var(--colour-fill-button-caution-quaternary-hover);
+}
+:host(.cta-button--intent-caution.cta-button--type-quaternary) .cta-button__inner:active:not(:disabled),
+:host(.cta-button--intent-caution.cta-button--type-quaternary.cta-button--pressed) .cta-button__inner:not(:disabled) {
+  background-color: var(--colour-fill-button-caution-quaternary-pressed);
+}
+:host(.cta-button--intent-caution.cta-button--type-quaternary.cta-button--toggled) .cta-button__inner {
+  background-color: var(--colour-fill-button-caution-quaternary-pressed);
+}
+:host(.cta-button--intent-caution.cta-button--type-quaternary.cta-button--disabled) .cta-button__inner {
+  background-color: var(--colour-fill-button-caution-quaternary-disabled);
+  color: var(--colour-brand-yellow-600);
+}
+
+
+/* ═══════════════════════════════════════════════
+   FOCUS RING (:focus-visible only)
+   3px outline OUTSIDE — no layout shift
+   ═══════════════════════════════════════════════ */
+
+:host(.cta-button--intent-brand) .cta-button__inner:focus-visible {
+  outline: var(--stroke-button-focus) solid var(--colour-stroke-element-focus-brand-enabled-base);
+  outline-offset: 0px;
+  border-radius: var(--radius-md);
+}
+:host(.cta-button--intent-brand.cta-button--disabled) .cta-button__inner:focus-visible {
+  outline-color: var(--colour-stroke-element-focus-brand-disabled-primary);
+}
+
+:host(.cta-button--intent-neutral) .cta-button__inner:focus-visible {
+  outline: var(--stroke-button-focus) solid var(--colour-stroke-element-focus-neutral-enabled-base);
+  outline-offset: 0px;
+  border-radius: var(--radius-md);
+}
+:host(.cta-button--intent-neutral.cta-button--disabled) .cta-button__inner:focus-visible {
+  outline-color: var(--colour-stroke-element-focus-neutral-disabled-primary);
+}
+
+:host(.cta-button--intent-emphasis) .cta-button__inner:focus-visible {
+  outline: var(--stroke-button-focus) solid var(--colour-stroke-element-focus-emphasis-enabled-base);
+  outline-offset: 0px;
+  border-radius: var(--radius-md);
+}
+:host(.cta-button--intent-emphasis.cta-button--disabled) .cta-button__inner:focus-visible {
+  outline-color: var(--colour-stroke-element-focus-emphasis-disabled-primary);
+}
+
+:host(.cta-button--intent-danger) .cta-button__inner:focus-visible {
+  outline: var(--stroke-button-focus) solid var(--colour-stroke-element-focus-danger-enabled-base);
+  outline-offset: 0px;
+  border-radius: var(--radius-md);
+}
+:host(.cta-button--intent-danger.cta-button--disabled) .cta-button__inner:focus-visible {
+  outline-color: var(--colour-stroke-element-focus-danger-disabled-primary);
+}
+
+:host(.cta-button--intent-caution) .cta-button__inner:focus-visible {
+  outline: var(--stroke-button-focus) solid var(--colour-stroke-element-focus-caution-enabled-base);
+  outline-offset: 0px;
+  border-radius: var(--radius-md);
+}
+:host(.cta-button--intent-caution.cta-button--disabled) .cta-button__inner:focus-visible {
+  outline-color: var(--colour-stroke-element-focus-caution-disabled-primary);
+}
+
+
+/* ═══════════════════════════════════════════════
+   DISABLED STATE
+   ═══════════════════════════════════════════════ */
+
+:host(.cta-button--disabled) .cta-button__inner {
+  cursor: not-allowed;
+}
+
+/* Prevent hover/active styles when disabled */
+:host(.cta-button--disabled) .cta-button__inner:hover,
+:host(.cta-button--disabled) .cta-button__inner:active {
+  /* Disabled color rules above already set background via specificity */
+}

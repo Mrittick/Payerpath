@@ -1,0 +1,58 @@
+/* ═══════════════════════════════════════════════
+   More Info — Sub-control
+   Figma: 1584:27671
+   Inline text+icon link trigger.
+   ═══════════════════════════════════════════════ */
+
+:host {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-sm);
+  cursor: pointer;
+  user-select: none;
+  color: var(--colour-neutral-grey-100);
+  transition: color 300ms ease;
+}
+
+/* ── Label (uses paragraph/ui-thin token) ── */
+.mi-label {
+  color: var(--colour-text-default-base);
+  text-decoration: none;
+  transition: color 300ms ease, text-decoration-color 300ms ease;
+}
+
+/* ── Hover (switches to paragraph/ui-thin-underlined) ── */
+:host(:hover) {
+  color: var(--colour-brand-purple-300);
+}
+
+:host(:hover) .mi-label {
+  color: var(--colour-brand-purple-300);
+  text-decoration: underline;
+}
+
+/* ── Pressed (stays paragraph/ui-thin-underlined) ── */
+:host(:active) {
+  color: var(--colour-brand-purple-100);
+}
+
+:host(:active) .mi-label {
+  color: var(--colour-brand-purple-100);
+  text-decoration: underline;
+}
+
+/* ── Focus ring (keyboard only) ── */
+:host::after {
+  content: '';
+  position: absolute;
+  inset: calc(-1 * var(--gap-1xs));
+  border-radius: var(--radius-xs);
+  border: var(--stroke-button-focus) solid transparent;
+  pointer-events: none;
+  transition: border-color 300ms ease;
+}
+
+:host(.mi--keyboard-focused)::after {
+  border-color: var(--colour-stroke-element-focus-brand-enabled-base);
+}

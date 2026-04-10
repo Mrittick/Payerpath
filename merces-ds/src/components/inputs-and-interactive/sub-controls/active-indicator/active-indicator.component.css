@@ -1,0 +1,30 @@
+/* ═══════════════════════════════════════════════
+   Active Indicator — Sub-control
+   Figma: 222:9743
+   Passive dot — state driven by parent (Filter).
+   ═══════════════════════════════════════════════ */
+
+:host {
+  display: block;
+  width: var(--gap-1xl);
+  height: var(--gap-1xl);
+  border-radius: var(--radius-full);
+  background-color: var(--colour-brand-red-400);
+  box-sizing: border-box;
+  transition: border-color 300ms ease;
+}
+
+/* ── State: Default — stroke matches Filter default bg ── */
+:host(.ai--default) {
+  border: 2px solid var(--colour-brand-purple-1100);
+}
+
+/* ── State: Hover — stroke matches Filter hover bg ── */
+:host(.ai--hover) {
+  border: 2px solid var(--colour-brand-purple-1000);
+}
+
+/* ── State: Invoked — stroke matches Filter invoked bg ── */
+:host(.ai--invoked) {
+  border: 2px solid var(--colour-neutral-white);
+}

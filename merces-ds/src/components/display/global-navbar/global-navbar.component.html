@@ -1,0 +1,103 @@
+<!-- Figma: Global Navbar — 967:3420 (Payerpath) / 1661:16643 (eChart Coder)
+
+     Structure:
+       Payerpath   — [main: nav] | [divider] | [toggle-large]
+       eChart Coder — [main: header + nav + uac] | [divider] | [toggle-large]
+
+     The .global-navbar__main wrapper takes flex:1 in the row; its internal
+     flex-direction is always column, housing header and UAC for eChart Coder. -->
+
+<div class="global-navbar__main">
+
+  <!-- ── eChart Coder: branding header with product branding + toggle-small ── -->
+  @if (product() === 'echart-coder') {
+    <div class="global-navbar__header">
+      <!-- Product branding — SVG loaded from assets/motifs/echart-coder/vertical-mono.svg -->
+      <merces-branding
+        product="echart-coder"
+        stacking="vertical"
+        type="white"
+        label="eChart Coder"
+        class="global-navbar__branding"
+      />
+      <!-- toggle-small is the collapse/expand control when navbar is expanded -->
+      <merces-toggle-small
+        [isCollapsed]="collapsed()"
+        product="echart-coder"
+        (toggleClick)="_onToggle()"
+      />
+    </div>
+  }
+
+  <!-- ── Primary navigation ── -->
+  <nav class="global-navbar__content" aria-label="Primary navigation">
+    <ul class="global-navbar__items" role="list">
+
+      @for (category of _groupedItems(); track category.id) {
+
+        <li>
+          <!-- Category item: always rendered; icon driven by the active category set -->
+          <merces-navbar-item
+            [label]="category.label"
+            [icon]="category.icon"
+            [iconType]="_getIconType(category)"
+            [isCategory]="true"
+            [type]="_getCategoryType(category)"
+            [isCurrent]="category.hasCurrentPage"
+            (itemClick)="_onCategoryClick(category.id)"
+          />
+
+          <!-- Sub-items: only rendered when the category has registered pages.
+               Height animates via grid-template-rows (450ms layout easing).
+               aria-hidden removes collapsed content from the accessibility tree. -->
+          @if (category.pages.length > 0) {
+            <div
+              class="global-navbar__subitems"
+              [class.global-navbar__subitems--open]="_isExpanded(category.id)"
+              [attr.aria-hidden]="_isExpanded(category.id) ? null : 'true'"
+            >
+              <ul class="global-navbar__subitems-inner" role="list">
+                @for (page of category.pages; track page.id) {
+                  <li>
+                    <merces-navbar-item
+                      hierarchy="subitem"
+                      [label]="page.label"
+                      [isCurrent]="page.isCurrent ?? false"
+                      (itemClick)="_onPageClick(page.id, category.id)"
+                    />
+                  </li>
+                }
+              </ul>
+            </div>
+          }
+        </li>
+
+      }
+
+    </ul>
+  </nav>
+
+  <!-- ── eChart Coder: UAC at the bottom of the main column ── -->
+  @if (product() === 'echart-coder' && uacUserRole()) {
+    <div class="global-navbar__uac">
+      <merces-uac
+        product="echart-coder"
+        [name]="uacUserName()"
+        [role]="uacUserRole()!"
+        [avatarUrl]="uacUserAvatar()"
+      />
+    </div>
+  }
+
+</div>
+
+<!-- Visual separator between main content and toggle strip -->
+<div class="global-navbar__divider" aria-hidden="true"></div>
+
+<!-- Collapse/expand toggle — right strip, always visible even when navbar is collapsed.
+     toggle-large is the sole visible control in the collapsed state for both products. -->
+<merces-toggle-large
+  [action]="collapsed() ? 'toExpand' : 'toCollapse'"
+  [product]="product()"
+  (toggleClick)="_onToggle()"
+/>

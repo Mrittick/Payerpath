@@ -1,0 +1,474 @@
+/* Figma: Analytics → Remittances — 49:2
+   :host fills the shell's .screen slot (flex:1, overflow-y:auto).
+   Layout: row — sidebar (320px fixed) + content card (flex:1). */
+
+:host {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  align-items: stretch;
+  gap: var(--gap-md);           /* 8px between sidebar and content */
+  padding: var(--gap-md);       /* 8px screen-edge breathing room */
+  background-color: var(--colour-fill-surface-neutral-backdrop);
+  overflow: hidden;   /* shell's .screen scrolls; this fills it exactly */
+  min-height: 0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Main content area
+   ══════════════════════════════════════════════════════════ */
+
+.content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 888px;
+  min-height: 0;
+}
+
+/* ── Content card
+   Figma node 52:1756 — white bg, shadow/M, radius 12px ── */
+.content-card {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  background-color: var(--colour-fill-surface-neutral-intermediary);
+  border-radius: var(--radius-lg);   /* 12px */
+  box-shadow: var(--shadow-M);
+  overflow: hidden;                  /* clip table overflow within rounded card */
+}
+
+/* ══════════════════════════════════════════════════════════
+   Header
+   Figma node 88:8206 — HORIZONTAL, no padding, gap:10, center-aligned
+   Full-width bottom border separates header from content body
+   ══════════════════════════════════════════════════════════ */
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;      /* Figma: counterAxisAlignItems CENTER */
+  gap: var(--gap-lg);       /* 10px between Tabs and Plotting */
+  flex-shrink: 0;
+  /* Figma: 1px bottom stroke, colour/neutral/grey-500
+     Uses the same inset box-shadow technique as merces-tab-button level-02
+     so both composite identically at the same Y position (no visual doubling). */
+  box-shadow: inset 0 calc(-1 * var(--stroke-xs)) 0 0 var(--colour-neutral-grey-500);
+}
+
+/* ── Tabs section
+   Figma node 82:7285 — FILL width, HUG height
+   padding top:12 right:8 bottom:0 left:8, gap:0
+   Contains Level02 tabs: Analytics / Claims Data / Service Data ── */
+.header-tabs {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  flex: 1;                  /* FILL — takes remaining header width */
+  min-width: 0;
+  padding: var(--gap-1xl) var(--gap-md) 0;   /* 12 8 0  (left = right = 8) */
+  gap: 0;
+}
+
+/* ── Plotting section
+   Figma node 88:8207 — HUG width, HUG height
+   padding top:0 right:8 bottom:0 left:8, gap:8, center-aligned
+   Contains Level01 tabs + dividers + Edit Columns CTA + Download Chip ── */
+.header-plotting {
+  display: flex;
+  flex-direction: row;
+  align-items: center;      /* Figma: center-aligned */
+  flex-shrink: 0;
+  padding: 0 var(--gap-md);   /* 0 8px 0 8px */
+  gap: var(--gap-md);          /* 8px */
+}
+
+/* Edit Columns CTA — layoutAlign:STRETCH in Figma → fills Plotting height.
+   We neutralise the component's vertical padding here so its intrinsic size (44px)
+   doesn't force the header row to grow. align-self: stretch then safely pulls it 
+   to match the 40px Tab components naturally. */
+.header-plotting merces-cta-button {
+  align-self: stretch;
+}
+
+.header-plotting merces-cta-button ::ng-deep .cta-button__inner {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* ── Plotting divider
+   Figma: 10px wide × FILL height, 2px line, colour/neutral/grey-400
+   Pseudoelement holds the 2px visible line centred within the 10px slot ── */
+.plotting-divider {
+  width: var(--gap-lg);          /* 10px total slot */
+  padding: var(--gap-1xl) var(--gap-1xs);  /* 12px top/bottom, 4px sides — Figma exact */
+  align-self: stretch;           /* FILL — matches sibling tab height */
+  flex-shrink: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.plotting-divider::after {
+  content: '';
+  display: block;
+  width: var(--gap-2xs);         /* 2px line */
+  /* height fills 16px content area (40px container − 12px top − 12px bottom) */
+  background: var(--colour-neutral-grey-400);
+}
+
+/* ══════════════════════════════════════════════════════════
+   Segmentation Area
+   Figma: Segmentation pad=(top:10, right:8, bottom:10, left:8)
+   = gap-lg (10px) vertical, gap-md (8px) horizontal
+   ══════════════════════════════════════════════════════════ */
+
+.segmentation-area {
+  display: flex;
+  flex-direction: column;
+  padding: var(--gap-lg) var(--gap-md);   /* 10px 8px 10px 8px */
+  flex-shrink: 0;
+}
+
+/* Card 
+   Figma node 82:8020
+   Matches table header gap & subtle grouping tokens */
+.segmentation-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: var(--colour-fill-surface-neutral-default);
+  border-radius: var(--radius-md);
+  /* Figma: left=gap-4xl (20px), top/right/bottom=gap-md (8px) */
+  padding: var(--gap-md) var(--gap-md) var(--gap-md) var(--gap-4xl);
+  gap: var(--gap-big);
+}
+
+.segmentation-card merces-dropdown-group {
+  flex: 1;
+  min-width: 300px;
+}
+
+.fsc-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-big);
+  flex: 2; /* takes up roughly 2/3 of space since it holds two fill dropdowns */
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CHARTING
+   Figma: Chart frame pad=(top:nil=0, right:8, bottom:8, left:8)
+   = gap-nil top, gap-md right/bottom/left
+   The .charting section itself IS the Figma "Chart" frame wrapper.
+   ═══════════════════════════════════════════════════════════════ */
+
+.charting {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex: 2;                  /* 40% of remaining space — overridden by inline style when user resizes */
+  min-height: 220px;
+  /* Figma Chart frame padding: top=0(gap-nil), sides+bottom=8px(gap-md) */
+  padding: 0 var(--gap-md) var(--gap-md);
+}
+
+/* ── Section resizer
+   Invisible 8px hit area between Chart and Table.
+   margin:-4px 0 overlaps both neighbours so no height is added to the layout. */
+.section-resizer {
+  height: 8px;
+  margin: -4px 0;
+  position: relative;
+  z-index: 10;
+  cursor: row-resize;
+  flex-shrink: 0;
+}
+
+/* "Frame" inside Chart: 974×358px, corner:8=radius-md,
+   fill=colour/fill/surface/neutral-default,
+   VERTICAL layout, gap:12, padding:20 top/bottom (Figma) */
+.chart-frame {
+  display: flex;
+  flex-direction: row;      /* Charting node inside is HORIZONTAL (Plotting + Series Filter) */
+  gap: 12px;
+  width: 100%;
+  flex: 1;                  /* fill — grows to fill .charting */
+  min-height: 0;
+  padding: 20px 0;          /* Figma Frame pad: top/bottom 20px, left/right 0 */
+  box-sizing: border-box;
+  background-color: var(--colour-fill-surface-neutral-default);
+  border-radius: var(--radius-md);
+}
+
+/* ── Plotting: 760px in Figma, flex:1 here ── */
+.plotting {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Sub Frame: VERTICAL, fills plotting height */
+.plot-subframe {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* Content: rows separated by gap-4xl (20px), scrolls vertically for 100+ rows */
+.plot-content {
+  position: relative;           /* establishes stacking context */
+  z-index: 1;                   /* above the .plot-marking grid lines */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-4xl);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+.plot-content::-webkit-scrollbar { display: none; }
+
+/* Bar-frame: HUG height — determined purely by visible bars + gaps.
+   With all 6 series: 6×4px bars + 5×gap-1xs (4px) gaps = 44px total.
+   Padding: gap-4xl (20px) horizontal, nil vertical.
+   Gap between Billing Provider identifier and Bars: gap-1xl (12px). */
+.plot-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;        /* centre Billing Provider text wrt the bar group */
+  gap: var(--gap-1xl);        /* 12px between identifier and bars */
+  padding: 0 var(--gap-4xl);  /* 0px vertical, 20px horizontal */
+  flex-shrink: 0;             /* rows must not compress — they HUG their content */
+}
+
+/* Billing Provider identifier: 100px fixed, p4-bold, colour/text/default/base */
+.plot-identifier {
+  flex-shrink: 0;
+  width: 100px;
+  font-family: var(--font-family-primary);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.41667em;     /* 17px — p4-bold */
+  color: var(--colour-text-default-base);
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-top: 0;
+}
+
+/* Bars container: fills remaining track width, VERTICAL stack.
+   Uses margin-bottom instead of gap so spacing can animate to 0. */
+.plot-bars {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Bar — 4px tall (fixed spec), grows in from left and collapses out.
+   margin-bottom replaces parent gap so it can animate to 0. */
+.plot-bar {
+  height: 4px;
+  border-radius: 2px;
+  min-width: 2px;
+  flex-shrink: 0;
+  opacity: 1;
+  transform: scaleX(1);
+  transform-origin: left center;
+  margin-bottom: var(--gap-1xs);   /* 4px — same as former gap value */
+  overflow: hidden;
+  transition:
+    height        220ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity       200ms cubic-bezier(0.4, 0, 0.2, 1),
+    margin-bottom 220ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform     240ms cubic-bezier(0.4, 0, 0.2, 1),
+    width         300ms cubic-bezier(0.4, 0, 0.2, 1);  /* smooth rescale animation */
+}
+
+/* Last visible-or-hidden bar: collapse its margin too */
+.plot-bar:last-child {
+  margin-bottom: 0;
+}
+
+/* Hidden state: bar collapses in height + margin, shrinks left, fades out */
+.plot-bar--hidden {
+  height: 0;
+  opacity: 0;
+  margin-bottom: 0;
+  transform: scaleX(0);
+}
+
+/* Bar colours — colour/dataviz/legend/series-01…06 */
+.plot-bar--series-01 { background-color: var(--colour-dataviz-legend-series-01); }
+.plot-bar--series-02 { background-color: var(--colour-dataviz-legend-series-02); }
+.plot-bar--series-03 { background-color: var(--colour-dataviz-legend-series-03); }
+.plot-bar--series-04 { background-color: var(--colour-dataviz-legend-series-04); }
+.plot-bar--series-05 { background-color: var(--colour-dataviz-legend-series-05); }
+.plot-bar--series-06 { background-color: var(--colour-dataviz-legend-series-06); }
+
+/* Magnitude row: HUG height, no padding-top (baseline border is the separator) */
+.plot-magnitude {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+.plot-magnitude-spacer {
+  flex-shrink: 0;
+  /* gap-4xl (20px) pad + 100px identifier + gap-1xl (12px) gap = 132px */
+  width: 132px;
+}
+
+/* End spacer: mirrors the 20px right padding on .plot-marking
+   so reference width of ticks === bar track width */
+.plot-magnitude-end-spacer {
+  flex-shrink: 0;
+  width: var(--gap-4xl);   /* 20px */
+}
+
+/* Ticks container: position:relative so children can use left:% */
+.plot-magnitude-ticks {
+  flex: 1;
+  position: relative;
+  border-top: 1px solid var(--colour-stroke-divider-neutral-medium);
+  height: 25px;    /* 1px border + 8px gap + ~17px text, shrinks to fit */
+  overflow: visible;
+}
+
+/* Tick label: absolutely centred at its value% position */
+.plot-tick {
+  position: absolute;
+  transform: translateX(-50%);  /* centre the 40px label on the gridline */
+  top: 8px;                     /* gap from baseline to text */
+  width: 40px;
+  text-align: center;
+  font-family: var(--font-family-primary);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.41667em;
+  color: var(--colour-text-default-sub);
+}
+
+/* Marking: fixed grid-line overlay — z-index:0 keeps it behind the bar rows */
+.plot-marking {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: stretch;
+  padding-left: 132px;
+  padding-right: var(--gap-4xl);
+  padding-bottom: 26px;  /* magnitude row: 25px height + 1px border = 26px */
+}
+
+.plot-measure {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+/* Gridlines: absolutely positioned within .plot-measure at their value% */
+.plot-measure {
+  position: relative;
+  flex: 1;
+}
+
+.plot-gridline {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  transform: translateX(-50%);  /* centre the 1px line on its value% position */
+  background-color: var(--colour-stroke-divider-neutral-extralight);
+  flex-shrink: 0;
+}
+
+/* Scrollable outer shell — no justify-content so scroll origin stays at top */
+.series-filter {
+  flex-shrink: 0;
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--gap-4xl);   /* nil vertical, 20px horizontal */
+  overflow-y: auto;
+  align-self: stretch;
+  scrollbar-width: none;
+}
+.series-filter::-webkit-scrollbar { display: none; }
+
+/* Inner group: margin:auto centres it when the container has spare height.
+   When content overflows the container height, auto-margins collapse to 0
+   and the list becomes scrollable from the very first item. */
+.series-filter-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);          /* 8px between checkboxes */
+  margin: auto 0;              /* vertical centering that doesn't break scroll */
+}
+
+
+
+
+/* ══════════════════════════════════════════════════════════
+   Table
+   Figma: Table frame pad=(top:nil=0, right:8, bottom:8, left:8)
+   = gap-nil top, gap-md right/bottom/left
+   ══════════════════════════════════════════════════════════ */
+
+.table-area {
+  display: flex;
+  flex-direction: column;
+  flex: 3;                  /* 60% of remaining space (3 out of 2+3) */
+  min-height: 280px;
+  padding: 0 var(--gap-md) var(--gap-md);
+}
+
+/* "Frame" inside Table: 974×412px, corner:8=radius-md,
+   fill=colour/fill/surface/neutral-default,
+   VERTICAL layout, gap:8, padding:8 top/bottom (Figma) */
+.table-frame {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  gap: 8px;
+  padding: 8px 0;           /* Figma Frame pad: top/bottom 8px, left/right 0 */
+  background-color: var(--colour-fill-surface-neutral-default);
+  border-radius: var(--radius-md);   /* corner=8 from Figma */
+  overflow: hidden;         /* clip data table within rounded corners */
+}
+
+/* Body inside Frame: horizontal pad=gap-md (8px), vertical pad=gap-nil (0px)
+   Figma: Table/Frame/Body — sides get 8px, Frame's own 8px top/bottom handles vertical */
+.table-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  padding: 0 var(--gap-md);   /* gap-nil vertical, gap-md horizontal */
+}
+
+/* ══════════════════════════════════════════════════════════
+   Claims Data tab placeholder
+   ══════════════════════════════════════════════════════════ */
+
+.tab-placeholder {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.tab-placeholder__label {
+  color: var(--colour-text-default-sub);
+}

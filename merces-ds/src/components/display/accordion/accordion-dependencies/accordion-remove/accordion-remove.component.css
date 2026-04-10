@@ -1,0 +1,42 @@
+/* Figma: accordion-remove (825:20213)
+   32×32 icon button · padding gap/md · radius/sm · trash icon · red palette */
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: var(--gap-md);
+  border-radius: var(--radius-sm);
+  box-sizing: border-box;
+  flex-shrink: 0;
+  cursor: pointer;
+  outline: none;
+  color: var(--colour-brand-red-300);
+  background-color: transparent;
+  transition:
+    background-color 150ms cubic-bezier(0, 0, 0, 1),
+    color            150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:host(:hover:not(.accordion-remove--disabled)) {
+  background-color: var(--colour-brand-red-800);
+}
+
+:host(:active:not(.accordion-remove--disabled)),
+:host(.accordion-remove--key-pressed:not(.accordion-remove--disabled)) {
+  background-color: var(--colour-brand-red-600);
+  color: var(--colour-brand-red-200);
+}
+
+:host(.accordion-remove--disabled) {
+  color: var(--colour-brand-red-700);
+  cursor: not-allowed;
+}
+
+/* keyboard-only focus ring */
+:host(.accordion-remove--keyboard-focus) {
+  outline: var(--stroke-button-focus) solid var(--colour-brand-red-400);
+  outline-offset: 2px;
+}

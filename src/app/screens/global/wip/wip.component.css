@@ -1,0 +1,37 @@
+:host {
+  display: flex;
+  flex: 1;
+}
+
+/* Body — content area wrapper (mirrors Figma "Body" layer) */
+.body {
+  display: flex;
+  flex: 1;
+  background-color: var(--colour-fill-surface-neutral-backdrop);
+  padding: var(--gap-md);
+}
+
+/* Main — white card (mirrors Figma "Main" layer) */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-1xbig);
+  background-color: var(--colour-fill-surface-neutral-default);
+  border-radius: var(--radius-lg);
+}
+
+.wip-badge {
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+  border-radius: var(--radius-3xl);
+  box-shadow: var(--shadow-M);
+}
+
+.wip-text {
+  color: var(--colour-text-default-low-emphasis);
+  margin: 0;
+}

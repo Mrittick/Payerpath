@@ -1,0 +1,154 @@
+/* Figma: Report Console — X3ePdrL3EFGOKK6Gb6qbV7 node 1490:75154
+   Variants: isExpanded=True/False × Preset Class=Default/Custom × Preset Type=Saved/Unsaved
+   Width is inherited from the sidebar host (320px expanded, 56px collapsed). */
+
+/* ── Host
+   layout_ANBJF8: column, align-stretch, padding 10/8/8
+   No gap on host — the 16px top gap is owned by the rc-body-slot ds-slot.
+   Body collapses to height 0 via ds-slot when RC is collapsed. ── */
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: var(--gap-lg) var(--gap-md) var(--gap-md);  /* 10 8 8 */
+  background-color: var(--colour-fill-surface-neutral-default);
+  border-radius: var(--radius-lg);
+  flex-shrink: 0;
+  transition: padding var(--transition-duration-layout) var(--transition-easing-layout);
+}
+
+/* ══════════════════════════════════════════════════════════
+   Header
+   layout_V24ODW: row, space-between, align-center, padding-left 12px
+   ══════════════════════════════════════════════════════════ */
+
+.rc-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: var(--gap-1xl);  /* 12px */
+  /* Animate padding-left → 0 so the toggle slides left without snapping */
+  transition: padding-left var(--transition-duration-layout) var(--transition-easing-layout);
+}
+
+.rc-heading {
+  color: var(--colour-text-default-base);
+  margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  /* tight ceiling — "Reports" text is ~75px; max-width animates to 0 on collapse
+     so the heading shrinks + fades and the toggle slides smoothly to the left */
+  max-width: 100px;
+  transition:
+    opacity var(--transition-duration-layout) var(--transition-easing-layout),
+    max-width var(--transition-duration-layout) var(--transition-easing-layout);
+}
+
+/* ══════════════════════════════════════════════════════════
+   Body — ds-slot gap override
+   layout_RF6KIY gap between dropdown-group and actions: 8px
+   ══════════════════════════════════════════════════════════ */
+
+/* layout_ANBJF8 gap: 16px between Header and Body
+   ds-slot collapses to height 0 when closed; timing overrides match the
+   sidebar width animation so the collapse is synchronized, not jarring. */
+.rc-body-slot {
+  --ds-slot-gap: var(--gap-3xl);   /* 16px top gap owned by the slot */
+  transition-duration: var(--transition-duration-layout);
+  transition-timing-function: var(--transition-easing-layout);
+}
+
+/* layout_RF6KIY: column, stretch, gap 8px
+   Gap lives in .rc-actions-slot so the slot animates clean from zero height */
+.rc-body {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Actions slot — animates open/close with layout timing
+   ══════════════════════════════════════════════════════════ */
+
+/* 8px top gap matches layout_RF6KIY.
+   Override global .ds-slot's height:auto interpolation here: grid rows produce
+   reliable 450ms layout reflow, so the filters panel underneath glides instead
+   of snapping when Preset Type toggles Saved ⇄ Unsaved. */
+.rc-actions-slot {
+  --ds-slot-gap: 0px;
+  display: grid;
+  grid-template-rows: 0fr;
+  height: auto;
+  margin-top: 0;
+  overflow: hidden;
+  transition:
+    grid-template-rows var(--transition-duration-layout) var(--transition-easing-layout),
+    margin-top var(--transition-duration-layout) var(--transition-easing-layout);
+}
+
+.rc-actions-slot.ds-slot--open {
+  grid-template-rows: 1fr;
+  height: auto;
+  margin-top: var(--gap-md);
+}
+
+.rc-actions-slot > .ds-slot__inner {
+  min-height: 0;
+  overflow: hidden;
+  padding-top: 0;
+}
+
+.rc-actions-slot > .ds-slot__inner > * {
+  opacity: 0;
+  transition: opacity var(--transition-duration-layout) var(--transition-easing-layout);
+}
+
+.rc-actions-slot.ds-slot--open > .ds-slot__inner > * {
+  opacity: 1;
+  transition: opacity var(--transition-duration-layout) var(--transition-easing-layout);
+}
+
+/* ══════════════════════════════════════════════════════════
+   Actions row
+   layout_22P0MP: row, stretch, gap 8px
+   ══════════════════════════════════════════════════════════ */
+
+.rc-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: var(--gap-md);            /* 8px */
+}
+
+/* Each CTA button fills equal share of the row
+   layout_QR65XT: column, stretch, fill horizontal */
+.rc-actions merces-cta-button {
+  flex: 1;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Collapsed state — sidebar is 56px, host inner area is 40×40.
+   Figma 1311:13984: only the Hide/Show toggle (sidebar-expand icon) is
+   visible.  The heading is hidden and the header loses its left padding
+   so the toggle (40×40) fills the full 40px inner area.
+   ══════════════════════════════════════════════════════════ */
+
+:host(.rc--collapsed) .rc-header {
+  padding-left: 0;
+}
+
+:host(.rc--collapsed) {
+  padding: var(--gap-md);
+}
+
+/* Heading collapses its max-width to 0 and fades simultaneously —
+   toggle slides left as the heading shrinks away */
+:host(.rc--collapsed) .rc-heading {
+  opacity: 0;
+  max-width: 0;
+  pointer-events: none;
+}
+
+/* rc-body-slot collapse is handled by ds-slot (height → 0) with layout timing.
+   No separate opacity rule needed — height 0 removes it from the layout entirely. */

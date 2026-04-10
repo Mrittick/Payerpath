@@ -1,0 +1,312 @@
+/* ==========================================================================
+   Checkbox
+   Figma: Checkbox - Brand (119:5296) / Checkbox - Neutral (3968:6120)
+
+   Structure:
+     Host (role=checkbox, focus carrier)
+       ├─ .checkbox__box   (visual box — carries fill, border, focus ring, icon)
+       │    └─ .checkbox__icon  (tick/dash via merces-icon, hidden when unchecked)
+       └─ .checkbox__label  (only when group=true)
+   ========================================================================== */
+
+/* ── Host ── */
+
+:host {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+}
+
+:host(.checkbox--disabled) {
+  cursor: not-allowed;
+}
+
+/* Group=True: label visible → add gap (Base=10px, Mini=8px per Figma itemSpacing) */
+:host(.checkbox--group.checkbox--base) {
+  gap: var(--gap-lg);
+}
+
+:host(.checkbox--group.checkbox--mini) {
+  gap: var(--gap-md);
+}
+
+/* ==========================================================================
+   Box — the checkbox visual, carries fill, border, focus ring
+   ========================================================================== */
+
+.checkbox__box {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-style: solid;
+  border-radius: var(--radius-sm);
+  /* Focus ring reserved as transparent outline — no layout shift */
+  outline: var(--stroke-button-focus) solid transparent;
+  outline-offset: var(--gap-2xs);
+  transition:
+    background-color 150ms cubic-bezier(0, 0, 0, 1),
+    border-color 150ms cubic-bezier(0, 0, 0, 1),
+    outline-color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* Size: Mini */
+:host(.checkbox--mini) .checkbox__box {
+  width: var(--gap-4xl);
+  height: var(--gap-4xl);
+  border-width: var(--stroke-button-checkbox-base);
+}
+
+/* Size: Base — icon (16px = --gap-3xl) + padding 6px × 2 (--gap-sm) = 28px */
+:host(.checkbox--base) .checkbox__box {
+  width: calc(var(--gap-3xl) + var(--gap-sm) * 2);
+  height: calc(var(--gap-3xl) + var(--gap-sm) * 2);
+  border-radius: var(--radius-md);
+  border-width: var(--stroke-button-checkbox-base);
+}
+
+/* ==========================================================================
+   Icon — tick or dash inside the box
+   ========================================================================== */
+
+.checkbox__icon {
+  transition:
+    opacity 150ms cubic-bezier(0, 0, 0, 1),
+    color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* Hidden when unchecked */
+:host(.checkbox--unchecked) .checkbox__icon {
+  opacity: 0;
+}
+
+/* Visible when checked or mixed */
+:host(.checkbox--checked) .checkbox__icon,
+:host(.checkbox--mixed) .checkbox__icon {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Brand theme — box states
+   ========================================================================== */
+
+/* Unchecked — Default */
+:host(.checkbox--brand.checkbox--unchecked) .checkbox__box {
+  background-color: var(--colour-fill-button-checkbox-brand-unchecked-default);
+  border-color: var(--colour-stroke-button-checkbox-brand-stroke-default);
+}
+
+/* Unchecked — Hover */
+:host(.checkbox--brand.checkbox--unchecked:hover:not(.checkbox--disabled)) .checkbox__box {
+  background-color: var(--colour-fill-button-checkbox-brand-unchecked-hover);
+  border-color: var(--colour-stroke-button-checkbox-brand-stroke-hover);
+}
+
+/* Unchecked — Pressed */
+:host(.checkbox--brand.checkbox--unchecked:active:not(.checkbox--disabled)) .checkbox__box {
+  background-color: var(--colour-fill-button-checkbox-brand-unchecked-pressed);
+  border-color: var(--colour-stroke-button-checkbox-brand-stroke-hover);
+}
+
+/* Unchecked — Disabled */
+:host(.checkbox--brand.checkbox--unchecked.checkbox--disabled) .checkbox__box {
+  background-color: var(--colour-fill-button-checkbox-brand-unchecked-disabled);
+  border-color: transparent;
+}
+
+/* Checked/Mixed — Default (same fill tokens) */
+:host(.checkbox--brand.checkbox--checked) .checkbox__box,
+:host(.checkbox--brand.checkbox--mixed) .checkbox__box {
+  background-color: var(--colour-fill-button-checkbox-brand-checked-default);
+  border-color: transparent;
+}
+
+/* Checked/Mixed — Hover */
+:host(.checkbox--brand.checkbox--checked:hover:not(.checkbox--disabled)) .checkbox__box,
+:host(.checkbox--brand.checkbox--mixed:hover:not(.checkbox--disabled)) .checkbox__box {
+  background-color: var(--colour-fill-button-checkbox-brand-checked-hover);
+  border-color: var(--colour-stroke-button-checkbox-brand-stroke-hover);
+}
+
+/* Checked/Mixed — Pressed */
+:host(.checkbox--brand.checkbox--checked:active:not(.checkbox--disabled)) .checkbox__box,
+:host(.checkbox--brand.checkbox--checked.checkbox--pressed:not(.checkbox--disabled)) .checkbox__box,
+:host(.checkbox--brand.checkbox--mixed:active:not(.checkbox--disabled)) .checkbox__box,
+:host(.checkbox--brand.checkbox--mixed.checkbox--pressed:not(.checkbox--disabled)) .checkbox__box {
+  background-color: var(--colour-fill-button-checkbox-brand-checked-pressed);
+  border-color: var(--colour-stroke-button-checkbox-brand-stroke-hover);
+}
+
+/* Checked/Mixed — Disabled */
+:host(.checkbox--brand.checkbox--checked.checkbox--disabled) .checkbox__box,
+:host(.checkbox--brand.checkbox--mixed.checkbox--disabled) .checkbox__box {
+  background-color: var(--colour-fill-button-checkbox-brand-checked-disabled);
+  border-color: transparent;
+}
+
+/* ==========================================================================
+   Brand theme — icon colours
+   ========================================================================== */
+
+/* Default + Hover: white icon on dark/mid fill */
+:host(.checkbox--brand.checkbox--checked:not(:active):not(.checkbox--pressed):not(.checkbox--disabled)) .checkbox__icon,
+:host(.checkbox--brand.checkbox--mixed:not(:active):not(.checkbox--pressed):not(.checkbox--disabled)) .checkbox__icon {
+  color: var(--colour-icon-checkbox-brand-checked-default);
+}
+
+/* Pressed: dark icon on light pressed fill */
+:host(.checkbox--brand.checkbox--checked:active:not(.checkbox--disabled)) .checkbox__icon,
+:host(.checkbox--brand.checkbox--checked.checkbox--pressed:not(.checkbox--disabled)) .checkbox__icon,
+:host(.checkbox--brand.checkbox--mixed:active:not(.checkbox--disabled)) .checkbox__icon,
+:host(.checkbox--brand.checkbox--mixed.checkbox--pressed:not(.checkbox--disabled)) .checkbox__icon {
+  color: var(--colour-icon-checkbox-brand-checked-pressed);
+}
+
+/* Disabled */
+:host(.checkbox--brand.checkbox--checked.checkbox--disabled) .checkbox__icon,
+:host(.checkbox--brand.checkbox--mixed.checkbox--disabled) .checkbox__icon {
+  color: var(--colour-icon-checkbox-brand-checked-disabled);
+}
+
+/* ==========================================================================
+   Brand theme — label colour
+   ========================================================================== */
+
+:host(.checkbox--brand) .checkbox__label span {
+  color: var(--colour-text-checkbox-brand-enabled);
+  transition: color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:host(.checkbox--brand.checkbox--disabled) .checkbox__label span {
+  color: var(--colour-text-checkbox-brand-disabled);
+}
+
+/* ==========================================================================
+   Brand theme — focus ring (keyboard only)
+   ========================================================================== */
+
+:host(.checkbox--keyboard-focus.checkbox--brand) .checkbox__box {
+  outline-color: var(--colour-stroke-element-focus-brand-enabled-base);
+}
+
+/* ==========================================================================
+   Neutral theme — box states
+   ========================================================================== */
+
+/* Unchecked — Default */
+:host(.checkbox--neutral.checkbox--unchecked) .checkbox__box {
+  background-color: var(--colour-fill-button-checkbox-neutral-unchecked-default);
+  border-color: var(--colour-stroke-button-checkbox-neutral-stroke-default);
+}
+
+/* Unchecked — Hover */
+:host(.checkbox--neutral.checkbox--unchecked:hover:not(.checkbox--disabled)) .checkbox__box {
+  background-color: var(--colour-fill-button-checkbox-neutral-unchecked-hover);
+  border-color: var(--colour-stroke-button-checkbox-neutral-stroke-hover);
+}
+
+/* Unchecked — Pressed */
+:host(.checkbox--neutral.checkbox--unchecked:active:not(.checkbox--disabled)) .checkbox__box {
+  background-color: var(--colour-fill-button-checkbox-neutral-unchecked-pressed);
+  border-color: var(--colour-stroke-button-checkbox-neutral-stroke-hover);
+}
+
+/* Unchecked — Disabled */
+:host(.checkbox--neutral.checkbox--unchecked.checkbox--disabled) .checkbox__box {
+  background-color: var(--colour-fill-button-checkbox-neutral-unchecked-disabled);
+  border-color: transparent;
+}
+
+/* Checked/Mixed — Default */
+:host(.checkbox--neutral.checkbox--checked) .checkbox__box,
+:host(.checkbox--neutral.checkbox--mixed) .checkbox__box {
+  background-color: var(--colour-fill-button-checkbox-neutral-checked-default);
+  border-color: transparent;
+}
+
+/* Checked/Mixed — Hover */
+:host(.checkbox--neutral.checkbox--checked:hover:not(.checkbox--disabled)) .checkbox__box,
+:host(.checkbox--neutral.checkbox--mixed:hover:not(.checkbox--disabled)) .checkbox__box {
+  background-color: var(--colour-fill-button-checkbox-neutral-checked-hover);
+  border-color: var(--colour-stroke-button-checkbox-neutral-stroke-hover);
+}
+
+/* Checked/Mixed — Pressed */
+:host(.checkbox--neutral.checkbox--checked:active:not(.checkbox--disabled)) .checkbox__box,
+:host(.checkbox--neutral.checkbox--checked.checkbox--pressed:not(.checkbox--disabled)) .checkbox__box,
+:host(.checkbox--neutral.checkbox--mixed:active:not(.checkbox--disabled)) .checkbox__box,
+:host(.checkbox--neutral.checkbox--mixed.checkbox--pressed:not(.checkbox--disabled)) .checkbox__box {
+  background-color: var(--colour-fill-button-checkbox-neutral-checked-pressed);
+  border-color: var(--colour-stroke-button-checkbox-neutral-stroke-hover);
+}
+
+/* Checked/Mixed — Disabled */
+:host(.checkbox--neutral.checkbox--checked.checkbox--disabled) .checkbox__box,
+:host(.checkbox--neutral.checkbox--mixed.checkbox--disabled) .checkbox__box {
+  background-color: var(--colour-fill-button-checkbox-neutral-checked-disabled);
+  border-color: transparent;
+}
+
+/* ==========================================================================
+   Neutral theme — icon colours
+   ========================================================================== */
+
+/* Default + Hover: white icon on dark fill */
+:host(.checkbox--neutral.checkbox--checked:not(:active):not(.checkbox--pressed):not(.checkbox--disabled)) .checkbox__icon,
+:host(.checkbox--neutral.checkbox--mixed:not(:active):not(.checkbox--pressed):not(.checkbox--disabled)) .checkbox__icon {
+  color: var(--colour-icon-checkbox-neutral-checked-default);
+}
+
+/* Pressed: dark icon on light pressed fill */
+:host(.checkbox--neutral.checkbox--checked:active:not(.checkbox--disabled)) .checkbox__icon,
+:host(.checkbox--neutral.checkbox--checked.checkbox--pressed:not(.checkbox--disabled)) .checkbox__icon,
+:host(.checkbox--neutral.checkbox--mixed:active:not(.checkbox--disabled)) .checkbox__icon,
+:host(.checkbox--neutral.checkbox--mixed.checkbox--pressed:not(.checkbox--disabled)) .checkbox__icon {
+  color: var(--colour-icon-checkbox-neutral-checked-pressed);
+}
+
+/* Disabled */
+:host(.checkbox--neutral.checkbox--checked.checkbox--disabled) .checkbox__icon,
+:host(.checkbox--neutral.checkbox--mixed.checkbox--disabled) .checkbox__icon {
+  color: var(--colour-icon-checkbox-neutral-checked-disabled);
+}
+
+/* ==========================================================================
+   Neutral theme — label colour
+   ========================================================================== */
+
+:host(.checkbox--neutral) .checkbox__label span {
+  color: var(--colour-text-checkbox-neutral-enabled);
+  transition: color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:host(.checkbox--neutral.checkbox--disabled) .checkbox__label span {
+  color: var(--colour-text-checkbox-neutral-disabled);
+}
+
+/* ==========================================================================
+   Neutral theme — focus ring (keyboard only)
+   ========================================================================== */
+
+:host(.checkbox--keyboard-focus.checkbox--neutral) .checkbox__box {
+  outline-color: var(--colour-stroke-element-focus-neutral-enabled-base);
+}
+
+/* ==========================================================================
+   Label
+   ========================================================================== */
+
+.checkbox__label {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.checkbox__label span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
