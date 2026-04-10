@@ -1,13 +1,15 @@
-# Node dependencies
-/node_modules/
-npm-debug.log
-yarn-error.log
-
-# Mac System Files
+# macOS
 .DS_Store
 .AppleDouble
 .LSOverride
+
+# Icon must end with two \r
+Icon?
+
+# Thumbnails
 ._*
+
+# Files that might appear in the root of a volume
 .DocumentRevisions-V100
 .fseventsd
 .Spotlight-V100
@@ -15,29 +17,10 @@ yarn-error.log
 .Trashes
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
 .AppleDB
 .AppleDesktop
 Network Trash Folder
 Temporary Items
 .apdisk
-
-# Angular
-/.angular/
-/dist/
-/.vscode/
-/out-tsc/
-/bazel-out/
-/.tmp/
-/.idea/
-
-# Demo Specifics
-figma_49_2.json
-segmentation.json
-
-# Environment
-.env
-.env.*
-
-# Logs
-logs
-*.log
