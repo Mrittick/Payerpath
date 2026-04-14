@@ -4,12 +4,13 @@ import { provideRouter, withHashLocation, withViewTransitions } from '@angular/r
 import { lastValueFrom } from 'rxjs';
 import { routes } from './app.routes';
 import { tokenInterceptor } from './interceptors/token.interceptor';
+import { githubPagesMockInterceptor } from './interceptors/github-pages-mock.interceptor';
 import { AuthService } from './services/auth.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideHttpClient(withInterceptors([tokenInterceptor])),
+    provideHttpClient(withInterceptors([githubPagesMockInterceptor, tokenInterceptor])),
     provideRouter(routes, withHashLocation(), withViewTransitions()),
     {
       provide:    APP_INITIALIZER,
