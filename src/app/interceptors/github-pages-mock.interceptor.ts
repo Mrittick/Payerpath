@@ -15,7 +15,7 @@ export const githubPagesMockInterceptor: HttpInterceptorFn = (req, next) => {
     const { username, password } = req.body as any;
     
     // Fetch the JSON directly from the deployed assets
-    const profileReq = new HttpRequest('GET', `/database/users/${username}/profile.json`);
+    const profileReq = new HttpRequest('GET', `/database/users/${username.toLowerCase()}/profile.json`);
     
     return next(profileReq).pipe(
       catchError(() => throwError(() => new Error('User not found'))),
