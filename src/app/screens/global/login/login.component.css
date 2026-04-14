@@ -7,14 +7,14 @@
   display: flex;
   flex-direction: row;
   width: 100vw;
-  min-height: 100vh;
+  height: 100vh;          /* pinned to viewport — document never grows past it */
   background-color: var(--colour-neutral-white);
 }
 
 /* ── Block 01: Graphic panel ── */
 .block-01 {
   width: 50%;
-  min-height: 100vh;
+  height: 100%;           /* fills the pinned screen height */
   padding: var(--gap-md);
   flex-shrink: 0;
 }
@@ -36,13 +36,14 @@
 /* ── Block 02: Content panel ── */
 .block-02 {
   width: 50%;
-  min-height: 100vh;
+  height: 100%;           /* fills the pinned screen height */
   padding: var(--gap-3xbig);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center;  /* centres content in the viewport */
   align-items: flex-start;
   gap: var(--gap-huge);
+  overflow-y: auto;         /* scroll within the panel if viewport is too short */
   background-color: var(--colour-neutral-white);
 }
 
@@ -160,12 +161,11 @@
   .block-01 {
     width: 100%;
     height: 50vh;
-    min-height: unset;
   }
 
   .block-02 {
     width: 100%;
-    min-height: unset;
+    height: auto;
     padding-top: var(--gap-big);
     padding-bottom: var(--gap-big);
   }
