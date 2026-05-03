@@ -459,16 +459,102 @@
 }
 
 /* ══════════════════════════════════════════════════════════
-   Claims Data tab placeholder
+   Table footer — Paginator
+   Figma Footer 185:4462 — VERTICAL, pad=0/8/0/8, gap=6px
    ══════════════════════════════════════════════════════════ */
 
-.tab-placeholder {
+.table-footer {
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--gap-md);   /* 0 top/bottom, 8px sides */
+  gap: var(--gap-sm);         /* 6px between divider and paginator */
+  flex-shrink: 0;
+}
+
+/* Divider — Figma 191:5653
+   Total 10px: 4px padding top + 2px line + 4px padding bottom
+   Colour: colour/stroke/divider/primary-light */
+.table-footer__divider {
+  padding: var(--gap-1xs) 0;  /* 4px top/bottom */
+}
+
+.table-footer__divider::after {
+  content: '';
+  display: block;
+  height: var(--gap-2xs);     /* 2px */
+  background: var(--colour-stroke-divider-primary-light);
+}
+
+/* Paginator wrapper — Figma 185:4463, padding: 0/16/0/0 */
+.table-footer__paginator {
+  padding-right: var(--gap-3xl);  /* 16px */
+}
+
+/* ══════════════════════════════════════════════════════════
+   Claims Data / Service Data — empty state
+   Figma trail: Global Body → Body → Main → Table → Frame → Body → Data Table
+   ══════════════════════════════════════════════════════════ */
+
+/* Table (216:7019) — VERTICAL, pad=8 all sides, fills remaining card height */
+.tab-empty {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  padding: var(--gap-md);   /* 8px all sides */
+}
+
+/* Frame (216:7020) — VERTICAL, bg=neutral-default, radius-md,
+   pad=8/0/8/0 (top/bottom=8, sides=0), gap=8, clips rounded corners */
+.tab-empty__card {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  background-color: var(--colour-fill-surface-neutral-default);
+  border-radius: var(--radius-md);    /* corner=8 */
+  padding: var(--gap-md) 0;           /* 8px top/bottom, 0 sides */
+  gap: var(--gap-md);                 /* 8px between header and body */
+  overflow: hidden;
+}
+
+/* Body (216:7023) — VERTICAL, pad=0/8/0/8, gap=8, fills remaining Frame height */
+.tab-empty__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  padding: 0 var(--gap-md);    /* 0 vertical, 8px horizontal */
+  gap: var(--gap-md);
+}
+
+/* Data Table (216:9784) — fills Body, radius-xs, stroke-xs purple-700, fill purple-1100.
+   border (not inset box-shadow) so the stroke occupies the border-box area
+   and is never painted over by children.
+   background-color set here (parent layer) so the frame owns its fill,
+   not the merces-table-no-data child.
+   overflow:hidden clips children to the rounded corners. */
+.tab-empty__data {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  border-radius: var(--radius-xs);
+  border: var(--stroke-xs) solid var(--colour-brand-purple-700);
+  background-color: var(--colour-brand-purple-1100);
+  overflow: hidden;
+}
+
+.loader-container {
   display: flex;
   flex: 1;
   align-items: center;
   justify-content: center;
+  min-height: 500px;
+  padding: var(--gap-md);
 }
 
-.tab-placeholder__label {
-  color: var(--colour-text-default-sub);
+.loader-container object {
+  width: 80px;
+  height: 80px;
 }

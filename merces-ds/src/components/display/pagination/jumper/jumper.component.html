@@ -1,0 +1,21 @@
+<span class="jumper__label paragraph-ui-thin">...</span>
+
+@if (_rendered()) {
+  <div
+    class="jumper__panel"
+    [class.jumper__panel--open]="_open()"
+    role="listbox"
+    [style.position]="'fixed'"
+    [style.bottom.px]="_panelPos()?.bottom"
+    [style.left.px]="_panelPos()?.left"
+    [style.max-height.px]="_panelPos()?.maxHeight"
+    (click)="$event.stopPropagation()"
+    (scroll)="onPanelScroll($event)"
+  >
+    <div class="jumper__panel-spacer" [style.height.px]="_visibleWindow().topSpacer"></div>
+    @for (page of _visibleWindow().pages; track page) {
+      <merces-dropdown-item [label]="(page | number:'1.0-0') ?? ('' + page)" (selected)="select(page)" />
+    }
+    <div class="jumper__panel-spacer" [style.height.px]="_visibleWindow().bottomSpacer"></div>
+  </div>
+}

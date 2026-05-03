@@ -56,13 +56,11 @@
 
 /* Standard mode, open above: anchor to trigger bottom, open upward.
    bottom = 100vh − trigger_bottom_from_top + gap_lg (inset from trigger bottom)
-   max-height = trigger_bottom_from_top − gap_lg − gap_md
-     = available space from viewport-top margin up to the panel's bottom edge
-     ensures the panel never extends above gap-md from the viewport top */
+   max-height is computed by TS from the nearest outer clipping boundary, so
+   dropdowns stay below app chrome such as the global header. */
 :host(.dropdown--open-above):not(.dropdown--panel-only) .dropdown-panel {
   top: auto;
   bottom: calc(100vh - var(--_trigger-bottom-from-top, 0px) + var(--gap-lg));
-  max-height: calc(var(--_trigger-bottom-from-top, 0px) - var(--gap-lg) - var(--gap-md));
   transform-origin: bottom;
 }
 
@@ -183,6 +181,7 @@
   top:   calc(var(--_trigger-top,  0px) + var(--gap-lg));
   left:  calc(var(--_trigger-left, 0px) + var(--gap-lg));
   width: calc(var(--_trigger-width, 100%) - var(--gap-lg) * 2);
+  max-height: var(--_dropdown-panel-max-height, var(--dropdown-panel-max-height, var(--gap-4xhuge)));
   z-index: 1000;
 
   display: flex;
@@ -230,7 +229,7 @@
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
-  max-height: var(--dropdown-panel-max-height, 240px);
+  max-height: var(--_dropdown-panel-max-height, var(--dropdown-panel-max-height, var(--gap-4xhuge)));
   /* Hide native scrollbar — Firefox */
   scrollbar-width: none;
 }

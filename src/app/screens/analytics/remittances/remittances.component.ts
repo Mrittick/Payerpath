@@ -2,9 +2,11 @@
    Layout: sidebar (left, 320px) + main content card (right, flex:1).
    Pagination and Status Bars are deferred — to be built later. */
 
-import { ChangeDetectionStrategy, Component, computed, ElementRef, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, signal, OnDestroy } from '@angular/core';
 import { DataTableComponent } from '@merces/components/display/data-table/data-table/data-table.component';
 import type { DataTableColumn } from '@merces/components/display/data-table/data-table/data-table.types';
+import { TableNoDataComponent } from '@merces/components/display/data-table/table-no-data/table-no-data.component';
+import { PaginatorComponent } from '@merces/components/display/pagination/paginator/paginator.component';
 import { CtaButtonComponent } from '@merces/components/inputs-and-interactive/cta-button/cta-button.component';
 import { TabButtonComponent } from '@merces/components/inputs-and-interactive/tab-button/tab-button.component';
 import { DropdownGroupComponent } from '@merces/components/inputs-and-interactive/dropdown/dropdown-group/dropdown-group.component';
@@ -15,7 +17,8 @@ import type { CheckboxDatavizSeries } from '@merces/components/inputs-and-intera
 import { DownloadChipComponent } from '../components/download-chip/download-chip.component';
 import { RemittancesSidebarComponent } from '../components/remittances-sidebar/remittances-sidebar.component';
 import { DEFAULT_PRESETS } from './data/presets';
-import { REMITTANCES_RECORDS, CHART_SERIES_DEFS, CHART_GROUPS } from './data/records';
+import { CHART_SERIES_DEFS } from './data/records';
+import type { ChartGroup } from './data/records';
 
 type RemittancesTab    = 'analytics' | 'claims-data' | 'service-data';
 type RemittancesPlot   = 'chart' | 'date-series';
@@ -30,6 +33,8 @@ type RemittancesPlot   = 'chart' | 'date-series';
     CtaButtonComponent,
     DownloadChipComponent,
     DataTableComponent,
+    TableNoDataComponent,
+    PaginatorComponent,
     DropdownGroupComponent,
     DropdownComponent,
     DropdownItemComponent,
@@ -38,7 +43,61 @@ type RemittancesPlot   = 'chart' | 'date-series';
   templateUrl: './remittances.component.html',
   styleUrl: './remittances.component.css',
 })
-export class AnalyticsRemittancesComponent {
+export class AnalyticsRemittancesComponent implements OnDestroy {
+  protected readonly isLoading = signal(true);
+  private worker: Worker | null = null;
+  private loadTimer: any;
+  private readonly _globalMaxValues = signal<Record<string, number>>({});
+  
+  constructor() {
+    if (typeof Worker !== 'undefined') {
+      this.worker = new Worker(new URL('./data/remittances.worker', import.meta.url));
+      
+      this.worker.onmessage = ({ data }) => {
+        if (data.type === 'DATA_READY') {
+          clearTimeout(this.loadTimer);
+          this._globalMaxValues.set(data.globalMaxValues);
+          this._chartGroups.set(data.chartGroups);
+          this._paginatedRows.set(data.paginatedRows);
+          this.totalItems.set(data.totalItems);
+          this.isLoading.set(false);
+        }
+      };
+
+      effect(() => {
+        // Track dependencies
+        const page = this.currentPage();
+        const size = this.pageSize();
+        const sortKey = this.tableSortKey();
+        const sortDir = this.tableSortDir();
+        const cLimit = this.chartLimit();
+        
+        if (this.totalItems() === 0) {
+          this.isLoading.set(true);
+        } else {
+          clearTimeout(this.loadTimer);
+          this.loadTimer = setTimeout(() => this.isLoading.set(true), 150);
+        }
+
+        this.worker?.postMessage({
+          type: 'LOAD_DATA',
+          sortKey,
+          sortDir,
+          page,
+          pageSize: size,
+          chartLimit: cLimit
+        });
+      });
+    } else {
+      console.warn('Web Workers are not supported in this environment.');
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.worker) {
+      this.worker.terminate();
+    }
+  }
   /* ── Header tab state ── */
   protected readonly activeTab        = signal<RemittancesTab>('analytics');
   protected readonly activePlottingTab = signal<RemittancesPlot>('chart');
@@ -90,13 +149,35 @@ export class AnalyticsRemittancesComponent {
 
   /* ── Table sort state — mirrored to chart row order.
      Defaults to Billing Provider ascending, matching the table's [defaultSort] binding. */
-  private readonly _tableSortKey = signal<string | null>('billingProvider');
-  private readonly _tableSortDir = signal<'ascending' | 'descending'>('ascending');
+  protected readonly tableSortKey = signal<string | null>('billingProvider');
+  protected readonly tableSortDir = signal<'ascending' | 'descending'>('ascending');
 
   /** Called by (sortChange) on the data table — mirrors sort state into signals. */
   protected onTableSortChange(e: { key: string | null; direction: 'ascending' | 'descending' | 'none' }): void {
-    this._tableSortKey.set(e.key);
-    if (e.direction !== 'none') this._tableSortDir.set(e.direction);
+    if (e.direction === 'none') {
+      // 'none' resets to the default sort (billingProvider ascending).
+      // This prevents the worker from entering insertion-order mode, which would
+      // cause the DataTable's local sort to operate on only the first 25 base records
+      // rather than the full globally-sorted 50k dataset.
+      this.tableSortKey.set('billingProvider');
+      this.tableSortDir.set('ascending');
+    } else {
+      this.tableSortKey.set(e.key);
+      this.tableSortDir.set(e.direction);
+    }
+  }
+
+  /* ── Chart limit for infinite scroll ── */
+  protected readonly chartLimit = signal(100);
+
+  protected onChartScroll(e: Event): void {
+    const target = e.target as HTMLElement;
+    // Load more when scrolled within 50px of the bottom
+    if (Math.abs(target.scrollHeight - target.clientHeight - target.scrollTop) < 50) {
+      if (this.chartGroups().length === this.chartLimit() && this.chartLimit() < this.totalItems()) {
+        this.chartLimit.update(v => v + 100);
+      }
+    }
   }
 
   /** Maps data table column keys to the corresponding chart group sort value.
@@ -111,26 +192,10 @@ export class AnalyticsRemittancesComponent {
     days120plus:     '06',
   };
 
-  /** Chart groups sorted in sync with the table's active sort — full parity for all columns. */
-  protected readonly chartGroups = computed(() => {
-    const key = this._tableSortKey();
-    const dir = this._tableSortDir();
-    if (!key) return CHART_GROUPS;  // no active sort — default insertion order
-
-    const seriesId = this._COL_TO_SERIES[key];
-
-    return [...CHART_GROUPS].sort((a, b) => {
-      let cmp: number;
-      if (seriesId === null || seriesId === undefined) {
-        // billingProvider: lexicographic / numeric string compare on groupId
-        cmp = a.groupId.localeCompare(b.groupId, undefined, { numeric: true });
-      } else {
-        // numeric series value compare
-        cmp = (a.seriesValues[seriesId] ?? 0) - (b.seriesValues[seriesId] ?? 0);
-      }
-      return dir === 'ascending' ? cmp : -cmp;
-    });
-  });
+  private readonly _chartGroups = signal<ChartGroup[]>([]);
+  
+  /** Chart groups fetched from the worker (top 100). */
+  protected readonly chartGroups = computed(() => this._chartGroups());
 
   protected onToggleSeries(seriesId: string): void {
     const active = new Set(this.activeSeriesIds());
@@ -161,11 +226,10 @@ export class AnalyticsRemittancesComponent {
     const active = this.activeSeriesIds();
     if (active.size === 0) return 1000; // safe floor when everything is hidden
     let rawMax = 0;
-    for (const group of CHART_GROUPS) {
-      for (const id of active) {
-        const val = group.seriesValues[id] ?? 0;
-        if (val > rawMax) rawMax = val;
-      }
+    const gMax = this._globalMaxValues();
+    for (const id of active) {
+      const val = gMax[id] ?? 0;
+      if (val > rawMax) rawMax = val;
     }
     const step = this._niceStep(rawMax, 9);
     return Math.ceil(rawMax / step) * step;
@@ -208,6 +272,13 @@ export class AnalyticsRemittancesComponent {
     { key: 'days120plus',     label: '120+ days',          width: 120, minWidth: 120 },
   ];
 
-  /* ── Row data — swap REMITTANCES_RECORDS for an API call once backend is wired ── */
-  protected readonly rows = REMITTANCES_RECORDS;
+  /* ── Pagination ── */
+  protected readonly currentPage = signal(1);
+  protected readonly pageSize    = signal(25);
+  protected readonly totalItems  = signal(0);
+
+  /* ── Row data — populated by Web Worker ── */
+  private readonly _paginatedRows = signal<any[]>([]);
+  
+  protected readonly paginatedRows = computed(() => this._paginatedRows());
 }

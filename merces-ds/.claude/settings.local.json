@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__figma-console__figma_analyze_component_set",
+      "mcp__figma-console__figma_get_text_styles",
+      "mcp__figma-console__figma_execute",
+      "mcp__figma-console__figma_lint_design",
+      "Bash(lsof -i :4200 -sTCP:LISTEN)",
+      "mcp__figma-console__figma_list_open_files",
+      "Bash(npx ng *)",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "Bash(ng build *)",
+      "mcp__Claude_Preview__preview_start",
+      "mcp__figma-console__figma_search_components"
+    ]
+  }
+}

@@ -1,6 +1,7 @@
 import {
   Component,
   ChangeDetectionStrategy,
+  input,
   signal,
   viewChild,
   HostListener,
@@ -31,6 +32,9 @@ export class HelpDropdownComponent {
   /* ── Panel reference ── */
   private readonly _dropdown = viewChild.required(DropdownComponent);
 
+  readonly helpHref = input<string>('https://veradigm.com/support/');
+  readonly contactSupportHref = input<string>('mailto:mrittick.choudhury@veradigm.com');
+
   protected readonly _isHovered = signal(false);
   protected readonly _isPressed = signal(false);
   protected readonly _isOpen    = signal(false);
@@ -60,4 +64,12 @@ export class HelpDropdownComponent {
 
   @HostListener('keydown.escape')
   onEscape(): void { this._dropdown().close(); }
+
+  protected onHelp(): void {
+    window.open(this.helpHref(), '_blank', 'noopener,noreferrer');
+  }
+
+  protected onContactSupport(): void {
+    window.open(this.contactSupportHref(), '_blank', 'noopener,noreferrer');
+  }
 }

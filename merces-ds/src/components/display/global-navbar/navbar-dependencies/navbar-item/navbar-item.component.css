@@ -38,8 +38,7 @@
 }
 
 :host(.navbar-item--disabled) {
-  pointer-events: none;
-  cursor: default;
+  cursor: not-allowed;
   color: var(--colour-text-default-disabled);
 }
 

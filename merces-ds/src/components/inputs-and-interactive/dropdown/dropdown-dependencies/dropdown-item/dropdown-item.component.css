@@ -54,8 +54,7 @@
 
 :host(.dropdown-item--disabled) {
   color: var(--colour-text-checkbox-brand-disabled);
-  cursor: default;
-  pointer-events: none;
+  cursor: not-allowed;
 }
 
 /* ==========================================================================

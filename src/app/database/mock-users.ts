@@ -34,7 +34,7 @@ export const MOCK_USER_REGISTRY: Record<string, UserProfile> = {
     email: 'david.swiezy@veradigm.com',
     username: 'dswiezy',
     password: 'merces',
-    role: 'analyst'
+    role: 'manager'
   },
   'dknize': {
     id: 'dknize',
@@ -42,7 +42,7 @@ export const MOCK_USER_REGISTRY: Record<string, UserProfile> = {
     email: 'don.knize@veradigm.com',
     username: 'dknize',
     password: 'merces',
-    role: 'analyst'
+    role: 'manager'
   },
   'gjindal': {
     id: 'gjindal',
@@ -50,7 +50,7 @@ export const MOCK_USER_REGISTRY: Record<string, UserProfile> = {
     email: 'gaurav.jindal@veradigm.com',
     username: 'gjindal',
     password: 'merces',
-    role: 'analyst'
+    role: 'manager'
   },
   'yhe': {
     id: 'yhe',
@@ -58,6 +58,6 @@ export const MOCK_USER_REGISTRY: Record<string, UserProfile> = {
     email: 'yudong.he@veradigm.com',
     username: 'yhe',
     password: 'merces',
-    role: 'analyst'
+    role: 'manager'
   }
 };

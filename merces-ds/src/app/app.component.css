@@ -575,6 +575,13 @@
   color: var(--colour-text-default-disabled);
 }
 
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-3xl);
+  color: var(--colour-text-default-base);
+}
+
 .preview-cell {
   display: flex;
   flex-direction: column;
@@ -1209,4 +1216,122 @@ input.copier-demo-input:focus-visible {
 @keyframes modal-slide-out {
   from { opacity: 1; transform: translateY(0); }
   to { opacity: 0; transform: translateY(var(--gap-md)); }
+}
+
+/* ═══════════════════════════════════════════ */
+/* Pagination demo (shared across sub-views)  */
+/* ═══════════════════════════════════════════ */
+
+.pagination-meta {
+  color: var(--colour-text-default-disabled);
+  padding: 0 var(--gap-4xl);
+}
+
+/* Grid column helpers for 2- and 3-item rows */
+.pagination-grid-2col {
+  grid-template-columns: auto repeat(2, auto);
+}
+
+.pagination-grid-3col {
+  grid-template-columns: auto repeat(3, auto);
+}
+
+/* Jumper state cells (static display for sub-component audit) */
+.demo-jumper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  color: var(--colour-text-default-base);
+  flex-shrink: 0;
+}
+
+.demo-jumper--hover  { background: var(--colour-brand-purple-1000); }
+.demo-jumper--active { background: var(--colour-brand-purple-600); }
+
+/* Pages algorithm visualisation */
+.demo-pages-strip {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-1xs);
+  flex-wrap: wrap;
+}
+
+.pagination-algo-row {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-3xl);
+  padding: var(--gap-md) 0;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--colour-stroke-divider-neutral-light);
+}
+
+.pagination-algo-row:first-of-type { border-top: none; }
+
+.pagination-algo-row--interactive {
+  background: var(--colour-fill-surface-neutral-default);
+  margin: 0 calc(-1 * var(--gap-4xl));
+  padding: var(--gap-md) var(--gap-4xl);
+  border-top: 1px solid var(--colour-stroke-divider-neutral-light);
+  border-bottom: 1px solid var(--colour-stroke-divider-neutral-light);
+}
+
+.pagination-algo-label {
+  min-width: 200px;
+}
+
+.pagination-page-picker {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm);
+  flex-wrap: wrap;
+  padding: var(--gap-md) var(--gap-4xl);
+  background: var(--colour-fill-surface-neutral-default);
+  margin: 0 calc(-1 * var(--gap-4xl));
+  border-bottom: 1px solid var(--colour-stroke-divider-neutral-light);
+}
+
+/* Count display */
+.pagination-count-row {
+  color: var(--colour-text-default-base);
+  padding: var(--gap-md) 0;
+}
+
+/* Pages — Long variant demo */
+.pages-long {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-1xl);
+}
+
+.pages-long__label {
+  color: var(--colour-text-default-base);
+}
+
+.pages-long__field {
+  width: 90px;
+}
+
+.pages-long__submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--colour-brand-purple-400);
+  transition: opacity 0.15s ease;
+  outline: none;
+  border-radius: var(--radius-sm);
+}
+
+.pages-long__submit:hover  { opacity: 0.75; }
+.pages-long__submit:active { opacity: 0.5; }
+
+.pages-long__submit:focus-visible {
+  outline: var(--stroke-button-focus) solid var(--colour-stroke-element-focus-brand-enabled-base);
+  outline-offset: 2px;
 }

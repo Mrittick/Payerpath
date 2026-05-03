@@ -54,6 +54,11 @@ import { GlobalHeaderComponent } from '../components/display/global-header/globa
 import { GlobalNavbarComponent } from '../components/display/global-navbar/global-navbar.component';
 import { AccordionComponent } from '../components/display/accordion/accordion.component';
 import { AccordionGroupComponent } from '../components/display/accordion/accordion-group.component';
+import { PaginatorComponent, buildPageSlots } from '../components/display/pagination/paginator/paginator.component';
+import { JumperComponent } from '../components/display/pagination/jumper/jumper.component';
+import { NavButtonComponent } from '../components/display/pagination/nav-button/nav-button.component';
+import { PagerButtonComponent } from '../components/display/pagination/pager-button/pager-button.component';
+import { ItemsPerPageComponent } from '../components/display/pagination/items-per-page/items-per-page.component';
 import type { NavbarPage as NavbarPageDef } from '../components/display/global-navbar/global-navbar.types';
 import type { NavbarCategoryId as NavbarCatId } from '../components/display/global-navbar/global-navbar.types';
 import type { UserRole } from '../components/display/uac/uac.types';
@@ -93,7 +98,7 @@ interface NavGroup {
 @Component({
   selector: 'merces-root',
   standalone: true,
-  imports: [IconComponent, SearchComponent, ClearComponent, DoneComponent, ChevronBadgeComponent, ActiveIndicatorComponent, FilterComponent, MoreInfoComponent, CopierComponent, MaskToggleComponent, CtaButtonComponent, TabButtonComponent, SelectionChipComponent, DropdownItemComponent, DropdownSeparatorComponent, DropdownSectionComponent, DropdownActionComponent, DropdownMoreComponent, DropdownFilterComponent, DropdownNoResultsComponent, DropdownComponent, DropdownGroupComponent, ModalFieldComponent, ModalFieldGroupComponent, MinMaxModalGroupComponent, CheckboxComponent, CheckboxTableComponent, CheckboxDatavizComponent, CheckboxCardComponent, RadioPickerComponent, SwitchComponent, SwitchCardComponent, StringfieldPlainComponent, StringfieldMessageComponent, StringfieldClearAllComponent, StringfieldPlainGroupComponent, StringfieldPlainMinMaxGroupComponent, StringfieldSecureComponent, CalendarComponent, CalendarUiComponent, CalendarUiRangedComponent, CalendarRangedComponent, TimePickerComponent, TimePickerRangedComponent, BrandingComponent, LoaderComponent, UacComponent, GlobalHeaderComponent, GlobalNavbarComponent, AccordionComponent, AccordionGroupComponent, TableHeaderComponent, TableEntryComponent, TableRowComponent, TableNoDataComponent, DataTableComponent],
+  imports: [IconComponent, SearchComponent, ClearComponent, DoneComponent, ChevronBadgeComponent, ActiveIndicatorComponent, FilterComponent, MoreInfoComponent, CopierComponent, MaskToggleComponent, CtaButtonComponent, TabButtonComponent, SelectionChipComponent, DropdownItemComponent, DropdownSeparatorComponent, DropdownSectionComponent, DropdownActionComponent, DropdownMoreComponent, DropdownFilterComponent, DropdownNoResultsComponent, DropdownComponent, DropdownGroupComponent, ModalFieldComponent, ModalFieldGroupComponent, MinMaxModalGroupComponent, CheckboxComponent, CheckboxTableComponent, CheckboxDatavizComponent, CheckboxCardComponent, RadioPickerComponent, SwitchComponent, SwitchCardComponent, StringfieldPlainComponent, StringfieldMessageComponent, StringfieldClearAllComponent, StringfieldPlainGroupComponent, StringfieldPlainMinMaxGroupComponent, StringfieldSecureComponent, CalendarComponent, CalendarUiComponent, CalendarUiRangedComponent, CalendarRangedComponent, TimePickerComponent, TimePickerRangedComponent, BrandingComponent, LoaderComponent, UacComponent, GlobalHeaderComponent, GlobalNavbarComponent, AccordionComponent, AccordionGroupComponent, TableHeaderComponent, TableEntryComponent, TableRowComponent, TableNoDataComponent, DataTableComponent, PaginatorComponent, NavButtonComponent, PagerButtonComponent, ItemsPerPageComponent, JumperComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -317,6 +322,15 @@ export class AppComponent implements AfterViewInit {
             { id: 'data-table-simple',     label: 'Simple Data'     },
             { id: 'data-table-checkboxes', label: 'With Checkboxes' },
             { id: 'data-table-nested',     label: 'Nested'          },
+          ],
+        },
+        {
+          id: 'pagination',
+          label: 'Pagination',
+          keywords: ['pager', 'paginator', 'items per page', 'nav', 'jumper', 'count', 'pages'],
+          subItems: [
+            { id: 'pagination-main', label: 'Paginator' },
+            { id: 'pagination-sub',  label: 'Sub Components' },
           ],
         },
       ],
@@ -670,6 +684,44 @@ export class AppComponent implements AfterViewInit {
   simpleRowHeight      = signal<number | undefined>(undefined);
   checkboxes1RowHeight = signal<number | undefined>(undefined);
   checkboxes2RowHeight = signal<number | undefined>(undefined);
+
+  protected readonly Math = Math;
+
+  // ── Pagination — Main demo ──
+  paginationPage        = signal(4);
+  paginationPageSize    = signal(10);
+  paginationVariant     = signal<'default' | 'long' | 'hybrid'>('default');
+  readonly paginationTotalItems = 50322;
+
+  // ── Pagination — Sub-component demos ──
+  // Pages algorithm: interactive current-page for the windowed demo
+  paginationSubPage = signal(4);
+
+  // Static slot arrays for the algorithm rows (no reactive deps)
+  readonly paginationSlots3          = buildPageSlots(1,  3);
+  readonly paginationSlots7          = buildPageSlots(1,  7);
+  readonly paginationSlotsNearStart  = buildPageSlots(4,  25);
+  readonly paginationSlotsMiddle     = buildPageSlots(13, 25);
+  readonly paginationSlotsNearEnd    = buildPageSlots(22, 25);
+
+  isPageJumper(slot: any): boolean { return typeof slot === 'object' && slot !== null; }
+  // Reactive slot array for the interactive near-start row
+  readonly paginationSlotsLive = computed(() => buildPageSlots(this.paginationSubPage(), 25));
+
+  // Long variant demo
+  paginationLongPage  = signal(5);
+  paginationLongInput = signal('');
+
+  jumpLongPage(): void {
+    const p = parseInt(this.paginationLongInput(), 10);
+    if (!isNaN(p)) {
+      this.paginationLongPage.set(Math.max(1, Math.min(p, 25)));
+      this.paginationLongInput.set('');
+    }
+  }
+
+  // Items Per Page sub-demo
+  paginationSubIppValue = signal(10);
 
   /** Entry labels for the group demos (fixed 3-item set for clarity). */
   readonly accordionGroupEntries: string[][] = [

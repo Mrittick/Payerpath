@@ -197,10 +197,9 @@ export class DropdownComponent implements OnDestroy {
    * CSS applies the Figma inset (var(--gap-lg)) on left/right/top so the panel
    * overlaps the trigger — keeping all design logic in tokens, not in TS.
    *
-   * Also detects whether the panel would overflow the viewport bottom and sets
-   * _computedOpenAbove so the panel opens upward instead, staying gap-md (8px)
-   * away from the viewport edge. Token values are read from computed styles so
-   * no px values are hardcoded here.
+   * Also detects whether the panel would overflow its usable overlay boundary
+   * and sets _computedOpenAbove so the panel opens upward instead.
+   * Token values are read from computed styles so no px values are hardcoded here.
    */
   private _positionPanel(): void {
     const trigger = (this._el.nativeElement as HTMLElement)
@@ -209,27 +208,67 @@ export class DropdownComponent implements OnDestroy {
     const el = this._el.nativeElement as HTMLElement;
 
     // Read token values from CSS at runtime — no hardcoded pixels
-    const rootStyle  = getComputedStyle(document.documentElement);
-    const gapLg = parseFloat(rootStyle.getPropertyValue('--gap-lg')) || 10; // inset
-    const gapMd = parseFloat(rootStyle.getPropertyValue('--gap-md')) || 8;  // viewport margin
+    const gapLg = this._readPxToken('--gap-lg');      // inset
+    const gapMd = this._readPxToken('--gap-md');      // boundary margin
+    const minHeight = this._readPxToken('--gap-3xbig');
+    const defaultMaxHeight = this._readPxToken('--gap-4xhuge');
 
-    const vh = window.innerHeight;
+    const boundary = this._overlayBoundary();
+    const safeTop = boundary.top + gapMd;
+    const safeBottom = boundary.bottom - gapMd;
 
-    // Space available below: from (trigger top + inset) to (viewport bottom - margin)
-    const spaceBelow = vh - (rect.top + gapLg) - gapMd;
-    // Space available above: from (viewport top + margin) to (trigger bottom - inset)
-    const spaceAbove = (rect.top + rect.height - gapLg) - gapMd;
+    // Space available below: from (trigger top + inset) to safe overlay bottom.
+    const spaceBelow = safeBottom - (rect.top + gapLg);
+    // Space available above: from safe overlay top to (trigger bottom - inset).
+    const spaceAbove = (rect.top + rect.height - gapLg) - safeTop;
 
     // Read the panel's CSS max-height (cascaded — respects per-instance overrides).
     // Only flip above when the panel genuinely won't fit below; prefer below otherwise.
     const panelMaxHeight =
-      parseFloat(getComputedStyle(el).getPropertyValue('--dropdown-panel-max-height')) || 240;
+      parseFloat(getComputedStyle(el).getPropertyValue('--dropdown-panel-max-height')) || defaultMaxHeight;
     const openAbove = spaceBelow < panelMaxHeight;
+    const availableHeight = openAbove ? spaceAbove : spaceBelow;
+    const panelHeight = Math.max(minHeight, Math.min(panelMaxHeight, availableHeight));
     this._computedOpenAbove.set(openAbove);
 
     el.style.setProperty('--_trigger-top',            `${rect.top}px`);
     el.style.setProperty('--_trigger-bottom-from-top', `${rect.top + rect.height}px`);
     el.style.setProperty('--_trigger-left',            `${rect.left}px`);
     el.style.setProperty('--_trigger-width',           `${rect.width}px`);
+    el.style.setProperty('--_dropdown-panel-max-height', `${panelHeight}px`);
+  }
+
+  private _readPxToken(name: string): number {
+    const value = parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name));
+    return Number.isFinite(value) ? value : 0;
+  }
+
+  /**
+   * Standard dropdown panels use fixed positioning so card-level overflow does
+   * not clip them. They still need to respect the outer app surface, though:
+   * in Payerpath the shell body starts below the global header, so viewport-top
+   * is not a safe overlay boundary.
+   */
+  private _overlayBoundary(): { top: number; bottom: number } {
+    const viewport = { top: 0, bottom: window.innerHeight };
+    let boundary = viewport;
+    let ancestor = (this._el.nativeElement as HTMLElement).parentElement;
+
+    while (ancestor && ancestor !== document.documentElement) {
+      const style = getComputedStyle(ancestor);
+      const overflow = `${style.overflow} ${style.overflowX} ${style.overflowY}`;
+      if (/(auto|scroll|hidden|clip)/.test(overflow)) {
+        const rect = ancestor.getBoundingClientRect();
+        if (rect.width > 0 && rect.height > 0) {
+          boundary = {
+            top: Math.max(viewport.top, rect.top),
+            bottom: Math.min(viewport.bottom, rect.bottom),
+          };
+        }
+      }
+      ancestor = ancestor.parentElement;
+    }
+
+    return boundary.bottom > boundary.top ? boundary : viewport;
   }
 }

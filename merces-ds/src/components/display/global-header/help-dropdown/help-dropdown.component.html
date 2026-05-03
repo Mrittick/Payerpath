@@ -15,6 +15,16 @@
   (opened)="_isOpen.set(true)"
   (closed)="_isOpen.set(false)"
 >
-  <merces-dropdown-item mode="single-select" orientation="right" label="Help" />
-  <merces-dropdown-item mode="single-select" orientation="right" label="Contact Support" />
+  <merces-dropdown-item
+    mode="single-select"
+    orientation="right"
+    label="Help"
+    (selected)="onHelp()"
+  />
+  <merces-dropdown-item
+    mode="single-select"
+    orientation="right"
+    label="Contact Support"
+    (selected)="onContactSupport()"
+  />
 </merces-dropdown>

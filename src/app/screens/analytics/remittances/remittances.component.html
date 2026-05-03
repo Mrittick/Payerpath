@@ -118,6 +118,15 @@
         </div>
       </section>
 
+      <div class="content-body" style="position: relative; display: flex; flex-direction: column; flex: 1; min-height: 0;">
+        @if (isLoading()) {
+          <div class="loader-container" aria-label="Loading data" 
+               [style.background-color]="totalItems() === 0 ? 'var(--colour-fill-surface-neutral-intermediary)' : 'var(--colour-fill-surface-neutral-backdrop)'"
+               [style.opacity]="totalItems() === 0 ? '1' : '0.8'"
+               style="position: absolute; inset: 0; z-index: 100; margin: 0; min-height: unset; padding: 0; border-radius: inherit; display: flex; align-items: center; justify-content: center;">
+            <object data="assets/veradigm-loader.html" type="text/html" width="80" height="80"></object>
+          </div>
+        }
       <!-- ═══════════════════════════════════════════════════════════════
            Chart section wrapper — pad=(nil,8,8,8) on .charting
            "Frame" inside Chart: 974×358, corner=8=radius-md,
@@ -130,120 +139,150 @@
         aria-label="Grouped horizontal bar chart">
         <div class="chart-frame">
 
-          <!-- Plotting — Sub Frame + Marking overlap via position:relative/absolute -->
-          <div class="plotting">
+            <!-- Plotting — Sub Frame + Marking overlap via position:relative/absolute -->
+            <div class="plotting">
 
-            <!-- Sub Frame: Content rows + Magnitude, pad-bottom:30px (Figma) -->
-            <div class="plot-subframe">
+              <!-- Sub Frame: Content rows + Magnitude, pad-bottom:30px (Figma) -->
+              <div class="plot-subframe">
 
-              <!-- Content rows — each row: 44px tall, HORIZONTAL gap:12, pad:0 20px -->
-              <div class="plot-content">
-                @for (group of chartGroups(); track group.groupId) {
-                  <div class="plot-row">
-                    <!-- Identifier: 100px fixed, text left (Figma) -->
-                    <span class="plot-identifier">{{ group.groupId }}</span>
+                <!-- Content rows — each row: 44px tall, HORIZONTAL gap:12, pad:0 20px -->
+                <div class="plot-content" (scroll)="onChartScroll($event)">
+                  @for (group of chartGroups(); track group.groupId) {
+                    <div class="plot-row">
+                      <!-- Identifier: 100px fixed, text left (Figma) -->
+                      <span class="plot-identifier">{{ group.groupId }}</span>
 
-                    <!-- Bars: always in DOM — hidden via .plot-bar--hidden for CSS animation -->
-                    <div class="plot-bars">
-                      @for (series of chartSeriesDefs; track series.id) {
-                        <div
-                          [class]="'plot-bar plot-bar--series-' + series.id"
-                          [class.plot-bar--hidden]="!activeSeriesIds().has(series.id)"
-                          [style.width]="getBarWidthPercent(group.seriesValues[series.id], _chartMax())"
-                          [attr.aria-label]="series.label + ': ' + group.seriesValues[series.id]"
-                          [attr.aria-hidden]="!activeSeriesIds().has(series.id)"
-                        ></div>
-                      }
+                      <!-- Bars: always in DOM — hidden via .plot-bar--hidden for CSS animation -->
+                      <div class="plot-bars">
+                        @for (series of chartSeriesDefs; track series.id) {
+                          <div
+                            [class]="'plot-bar plot-bar--series-' + series.id"
+                            [class.plot-bar--hidden]="!activeSeriesIds().has(series.id)"
+                            [style.width]="getBarWidthPercent(group.seriesValues[series.id], _chartMax())"
+                            [attr.aria-label]="series.label + ': ' + group.seriesValues[series.id]"
+                            [attr.aria-hidden]="!activeSeriesIds().has(series.id)"
+                          ></div>
+                        }
+                      </div>
+
+                      <!-- Buffer — fills remaining track width (Figma) -->
+                      <div class="plot-buffer"></div>
                     </div>
-
-                    <!-- Buffer — fills remaining track width (Figma) -->
-                    <div class="plot-buffer"></div>
-                  </div>
-                }
-              </div>
-
-              <!-- Magnitude row: baseline + tick labels at exact value positions -->
-              <div class="plot-magnitude">
-                <span class="plot-magnitude-spacer"></span>
-                <div class="plot-magnitude-ticks">
-                  @for (tick of xAxisTicks(); track tick.label) {
-                    <!-- Centered at its value% position — aligns with gridline and bar scale -->
-                    <span class="plot-tick" [style.left.%]="tick.percent">{{ tick.label }}</span>
                   }
                 </div>
-                <!-- End spacer: matches the 20px right padding on .plot-marking
-                     so the ticks reference width === bar track width -->
-                <span class="plot-magnitude-end-spacer"></span>
+
+                <!-- Magnitude row: baseline + tick labels at exact value positions -->
+                <div class="plot-magnitude">
+                  <span class="plot-magnitude-spacer"></span>
+                  <div class="plot-magnitude-ticks">
+                    @for (tick of xAxisTicks(); track tick.label) {
+                      <!-- Centered at its value% position — aligns with gridline and bar scale -->
+                      <span class="plot-tick" [style.left.%]="tick.percent">{{ tick.label }}</span>
+                    }
+                  </div>
+                  <!-- End spacer: matches the 20px right padding on .plot-marking
+                       so the ticks reference width === bar track width -->
+                  <span class="plot-magnitude-end-spacer"></span>
+                </div>
+
+              </div><!-- /plot-subframe -->
+
+              <!-- Marking — grid lines at exact value% positions, behind bars -->
+              <div class="plot-marking" aria-hidden="true">
+                <div class="plot-measure">
+                  @for (tick of xAxisTicks(); track tick.label) {
+                    <!-- 1px line centered at its value% — no slot wrapper needed -->
+                    <div class="plot-gridline" [style.left.%]="tick.percent"></div>
+                  }
+                </div>
               </div>
 
-            </div><!-- /plot-subframe -->
+            </div><!-- /plotting -->
 
-            <!-- Marking — grid lines at exact value% positions, behind bars -->
-            <div class="plot-marking" aria-hidden="true">
-              <div class="plot-measure">
-                @for (tick of xAxisTicks(); track tick.label) {
-                  <!-- 1px line centered at its value% — no slot wrapper needed -->
-                  <div class="plot-gridline" [style.left.%]="tick.percent"></div>
+            <!-- Series Filter — scrollable, centred when space allows -->
+            <aside class="series-filter">
+              <!-- Inner wrapper: margin:auto centres when unconstrained;
+                   degrades to top-aligned scroll when content overflows -->
+              <div class="series-filter-list">
+                @for (series of chartSeriesDefs; track series.id) {
+                  <merces-checkbox-dataviz
+                    [series]="$any(series.id)"
+                    [label]="series.label"
+                    [checked]="activeSeriesIds().has(series.id)"
+                    (changed)="onToggleSeries(series.id)" />
                 }
               </div>
+            </aside>
+
+          </div><!-- /chart-frame -->
+        </section>
+
+
+        <!-- Invisible resizer — 8px hit area, -4px margins to avoid layout impact -->
+        <div class="section-resizer" (mousedown)="onResizerMouseDown($event)"></div>
+
+        <!-- Table section wrapper -->
+        <section class="table-area">
+          <div class="table-frame">
+            <!-- Body: horizontal pad=gap-md, vertical pad=gap-nil
+                 Frame's 8px top/bottom pad provides the vertical breathing room -->
+            <div class="table-body">
+              <merces-data-table
+                [columns]="columns"
+                [rows]="paginatedRows()"
+                [showSelection]="false"
+                [defaultSort]="{ key: 'billingProvider', direction: 'ascending' }"
+                (sortChange)="onTableSortChange($event)"
+              />
             </div>
 
-          </div><!-- /plotting -->
-
-          <!-- Series Filter — scrollable, centred when space allows -->
-          <aside class="series-filter">
-            <!-- Inner wrapper: margin:auto centres when unconstrained;
-                 degrades to top-aligned scroll when content overflows -->
-            <div class="series-filter-list">
-              @for (series of chartSeriesDefs; track series.id) {
-                <merces-checkbox-dataviz
-                  [series]="$any(series.id)"
-                  [label]="series.label"
-                  [checked]="activeSeriesIds().has(series.id)"
-                  (changed)="onToggleSeries(series.id)" />
-              }
-            </div>
-          </aside>
-
-        </div><!-- /chart-frame -->
-      </section>
-
-
-      <!-- Invisible resizer — 8px hit area, -4px margins to avoid layout impact -->
-      <div class="section-resizer" (mousedown)="onResizerMouseDown($event)"></div>
-
-      <!-- Table section wrapper -->
-      <section class="table-area">
-        <div class="table-frame">
-          <!-- Body: horizontal pad=gap-md, vertical pad=gap-nil
-               Frame's 8px top/bottom pad provides the vertical breathing room -->
-          <div class="table-body">
-            <merces-data-table
-              [columns]="columns"
-              [rows]="rows"
-              [showSelection]="false"
-              [defaultSort]="{ key: 'billingProvider', direction: 'ascending' }"
-              (sortChange)="onTableSortChange($event)"
-            />
+            <!-- Footer: Divider + Paginator
+                 Figma Footer 185:4462 — VERTICAL, pad=0/8/0/8, gap=6px
+                 Divider 191:5653 — 10px total, 2px line, 4px spacing
+                 Paginator 185:4463 — pad=0/16/0/0 -->
+            <footer class="table-footer">
+              <div class="table-footer__divider" aria-hidden="true"></div>
+              <div class="table-footer__paginator">
+                <merces-paginator
+                  [totalItems]="totalItems()"
+                  [page]="currentPage()"
+                  (pageChange)="currentPage.set($event)"
+                  [pageSize]="pageSize()"
+                  (pageSizeChange)="pageSize.set($event)"
+                  pagesVariant="hybrid"
+                />
+              </div>
+            </footer>
           </div>
-        </div>
       </section>
-
+      </div>
     }
 
     @if (activeTab() === 'claims-data') {
-      <section class="tab-placeholder" aria-label="Claims data">
-        <span class="paragraph-ui-thin tab-placeholder__label">
-          Claims data — coming soon
-        </span>
+      <!-- Figma 216:7019 → 216:7020 → 216:7023 — Claims Data tab -->
+      <section class="tab-empty" aria-label="Claims data">
+        <div class="tab-empty__card">
+          <!-- Body 216:7023 — pad=0/8/0/8 -->
+          <div class="tab-empty__body">
+            <!-- Data Table 216:9784 — bg=purple-1100, stroke-xs purple-700, radius-xs -->
+            <div class="tab-empty__data">
+              <merces-table-no-data />
+            </div>
+          </div>
+        </div>
       </section>
     }
 
     @if (activeTab() === 'service-data') {
-      <section class="tab-placeholder" aria-label="Service data">
-        <span class="paragraph-ui-thin tab-placeholder__label">
-          Service data — coming soon
-        </span>
+      <!-- Figma 216:7010 / 216:9784 — Service Data tab -->
+      <section class="tab-empty" aria-label="Service data">
+        <div class="tab-empty__card">
+          <div class="tab-empty__body">
+            <div class="tab-empty__data">
+              <merces-table-no-data />
+            </div>
+          </div>
+        </div>
       </section>
     }
 

@@ -4205,6 +4205,246 @@
         <p class="paragraph-p4 content-subtitle">Coming soon.</p>
       }
 
+      <!-- ═══ Pagination — Main ═══ -->
+      @case ('pagination-main') {
+        <h2 class="heading-h3 content-title">Paginator</h2>
+        <p class="paragraph-p4 content-subtitle">Composed paginator — nav, pages, items-per-page, entry count. 247 entries starting at page 4.</p>
+
+        <div class="tab-header">
+          <div class="flavour-tabs">
+            <merces-tab-button hierarchy="level-02" size="mini" label="Default Range"
+              [isCurrent]="paginationVariant() === 'default'"
+              (pressed)="paginationVariant.set('default')" />
+            <merces-tab-button hierarchy="level-02" size="mini" label="Long Range"
+              [isCurrent]="paginationVariant() === 'long'"
+              (pressed)="paginationVariant.set('long')" />
+            <merces-tab-button hierarchy="level-02" size="mini" label="Hybrid"
+              [isCurrent]="paginationVariant() === 'hybrid'"
+              (pressed)="paginationVariant.set('hybrid')" />
+          </div>
+        </div>
+
+        <div class="button-grid">
+          <div class="button-grid-section">
+            <merces-paginator
+              [totalItems]="paginationTotalItems"
+              [(page)]="paginationPage"
+              [(pageSize)]="paginationPageSize"
+              [pagesVariant]="paginationVariant()"
+            />
+          </div>
+          <p class="paragraph-p4 pagination-meta">
+            Page {{ paginationPage() }} of {{ Math.ceil(paginationTotalItems / paginationPageSize()) }}
+            &nbsp;·&nbsp; Rows {{ (paginationPage() - 1) * paginationPageSize() + 1 }}–{{ Math.min(paginationPage() * paginationPageSize(), paginationTotalItems) }} of {{ paginationTotalItems }}
+            &nbsp;·&nbsp; {{ paginationPageSize() }} per page
+          </p>
+        </div>
+      }
+
+      <!-- ═══ Pagination — Sub Components ═══ -->
+      @case ('pagination-sub') {
+        <h2 class="heading-h3 content-title">Sub Components</h2>
+        <p class="paragraph-p4 content-subtitle">All six building blocks of the paginator — discrete states shown statically; interactive CSS states (hover, pressed, open) visible on interaction.</p>
+
+        <div class="button-grid">
+
+          <!-- ── 1. Pager ── -->
+          <div class="button-grid-section">
+            <h3 class="heading-h5">Pager</h3>
+            <p class="paragraph-p4 preview-caption">Page number button. Hover (purple-1100 bg) and Pressed states are interactive CSS.</p>
+            <div class="button-grid-table pagination-grid-2col">
+              <span></span>
+              <span class="paragraph-p4 button-grid-header">Default</span>
+              <span class="paragraph-p4 button-grid-header">Active</span>
+
+              <span class="paragraph-p4-bold button-grid-row-label">State</span>
+              <merces-pager-button [page]="7" />
+              <merces-pager-button [page]="7" [active]="true" />
+            </div>
+          </div>
+
+          <!-- ── 2. Navigation ── -->
+          <div class="button-grid-section">
+            <h3 class="heading-h5">Navigation</h3>
+            <p class="paragraph-p4 preview-caption">Arrow nav buttons — 4 directions × 2 static states. Hover (purple-400 bg) and Pressed (purple-100 bg) are interactive CSS.</p>
+            <div class="button-grid-table">
+              <span></span>
+              <span class="paragraph-p4 button-grid-header">Start</span>
+              <span class="paragraph-p4 button-grid-header">Previous</span>
+              <span class="paragraph-p4 button-grid-header">Next</span>
+              <span class="paragraph-p4 button-grid-header">End</span>
+
+              <span class="paragraph-p4-bold button-grid-row-label">Default</span>
+              <merces-nav-button type="start" />
+              <merces-nav-button type="previous" />
+              <merces-nav-button type="next" />
+              <merces-nav-button type="end" />
+
+              <span class="paragraph-p4-bold button-grid-row-label">Disabled</span>
+              <merces-nav-button type="start"    [disabled]="true" />
+              <merces-nav-button type="previous" [disabled]="true" />
+              <merces-nav-button type="next"     [disabled]="true" />
+              <merces-nav-button type="end"      [disabled]="true" />
+            </div>
+          </div>
+
+          <!-- ── 3. Jumper ── -->
+          <div class="button-grid-section">
+            <h3 class="heading-h5">Jumper</h3>
+            <p class="paragraph-p4 preview-caption">Ellipsis between page groups. Hover for the filled background; click to open the page-jump dropdown and select an in-between page.</p>
+            <div class="button-grid-table pagination-grid-2col">
+              <span></span>
+              <span class="paragraph-p4 button-grid-header">from=6, to=24</span>
+              <span class="paragraph-p4 button-grid-header">from=2, to=20</span>
+
+              <span class="paragraph-p4-bold button-grid-row-label">Interactive</span>
+              <merces-jumper [from]="6" [to]="24" />
+              <merces-jumper [from]="2" [to]="20" />
+            </div>
+          </div>
+
+          <!-- ── 4. Pages ── -->
+          <div class="button-grid-section">
+            <h3 class="heading-h5">Pages</h3>
+            <p class="paragraph-p4 preview-caption">Windowed slot algorithm — max 7 slots. ≤ 7 total pages: all shown. &gt; 7: windowed with live jumper(s) at start, middle, or end depending on current page.</p>
+
+            <div class="pagination-algo-row">
+              <span class="paragraph-p4-bold button-grid-row-label pagination-algo-label">3 total / p1</span>
+              <div class="demo-pages-strip">
+                @for (slot of paginationSlots3; track $index) {
+                  @if (isPageJumper(slot)) {
+                    <merces-jumper [from]="$any(slot).from" [to]="$any(slot).to" />
+                  } @else {
+                    <merces-pager-button [page]="$any(slot)" [active]="$any(slot) === 1" />
+                  }
+                }
+              </div>
+            </div>
+
+            <div class="pagination-algo-row">
+              <span class="paragraph-p4-bold button-grid-row-label pagination-algo-label">7 total / p1</span>
+              <div class="demo-pages-strip">
+                @for (slot of paginationSlots7; track $index) {
+                  @if (isPageJumper(slot)) {
+                    <merces-jumper [from]="$any(slot).from" [to]="$any(slot).to" />
+                  } @else {
+                    <merces-pager-button [page]="$any(slot)" [active]="$any(slot) === 1" />
+                  }
+                }
+              </div>
+            </div>
+
+            <div class="pagination-algo-row">
+              <span class="paragraph-p4-bold button-grid-row-label pagination-algo-label">25 total / near start (p4)</span>
+              <div class="demo-pages-strip">
+                @for (slot of paginationSlotsNearStart; track $index) {
+                  @if (isPageJumper(slot)) {
+                    <merces-jumper [from]="$any(slot).from" [to]="$any(slot).to" />
+                  } @else {
+                    <merces-pager-button [page]="$any(slot)" [active]="$any(slot) === 4" />
+                  }
+                }
+              </div>
+            </div>
+
+            <div class="pagination-algo-row">
+              <span class="paragraph-p4-bold button-grid-row-label pagination-algo-label">25 total / middle (p13)</span>
+              <div class="demo-pages-strip">
+                @for (slot of paginationSlotsMiddle; track $index) {
+                  @if (isPageJumper(slot)) {
+                    <merces-jumper [from]="$any(slot).from" [to]="$any(slot).to" />
+                  } @else {
+                    <merces-pager-button [page]="$any(slot)" [active]="$any(slot) === 13" />
+                  }
+                }
+              </div>
+            </div>
+
+            <div class="pagination-algo-row">
+              <span class="paragraph-p4-bold button-grid-row-label pagination-algo-label">25 total / near end (p22)</span>
+              <div class="demo-pages-strip">
+                @for (slot of paginationSlotsNearEnd; track $index) {
+                  @if (isPageJumper(slot)) {
+                    <merces-jumper [from]="$any(slot).from" [to]="$any(slot).to" />
+                  } @else {
+                    <merces-pager-button [page]="$any(slot)" [active]="$any(slot) === 22" />
+                  }
+                }
+              </div>
+            </div>
+
+            <!-- Long variant: current page + "Go to:" label + input + enter icon -->
+            <div class="pagination-algo-row">
+              <span class="paragraph-p4-bold button-grid-row-label pagination-algo-label">Long — p{{ paginationLongPage() }}</span>
+              <div class="pages-long">
+                <merces-pager-button [page]="paginationLongPage()" [active]="true" />
+                <span class="paragraph-ui pages-long__label">Go to:</span>
+                <div class="pages-long__field">
+                  <merces-stringfield-plain
+                    placeholder="Page"
+                    [(value)]="paginationLongInput"
+                    (keydown.enter)="jumpLongPage()"
+                  />
+                </div>
+                <button class="pages-long__submit" (click)="jumpLongPage()" aria-label="Go to page">
+                  <merces-icon name="enter" size="base" />
+                </button>
+              </div>
+            </div>
+
+            <!-- Interactive: user picks page to see live slot output -->
+            <div class="pagination-algo-row pagination-algo-row--interactive">
+              <span class="paragraph-p4-bold button-grid-row-label pagination-algo-label">25 total / live — p{{ paginationSubPage() }}</span>
+              <div class="demo-pages-strip">
+                @for (slot of paginationSlotsLive(); track $index) {
+                  @if (isPageJumper(slot)) {
+                    <merces-jumper [from]="$any(slot).from" [to]="$any(slot).to" (pressed)="paginationSubPage.set($event)" />
+                  } @else {
+                    <merces-pager-button [page]="$any(slot)" [active]="$any(slot) === paginationSubPage()" (pressed)="paginationSubPage.set($any(slot))" />
+                  }
+                }
+              </div>
+            </div>
+            <div class="pagination-page-picker">
+              <span class="paragraph-p4 preview-caption">Jump to page:</span>
+              @for (p of [1,3,4,5,10,13,20,22,24,25]; track p) {
+                <merces-tab-button hierarchy="level-02" size="mini" [label]="'' + p" [isCurrent]="paginationSubPage() === p" (pressed)="paginationSubPage.set(p)" />
+              }
+            </div>
+          </div>
+
+          <!-- ── 5. Items Per Page ── -->
+          <div class="button-grid-section">
+            <h3 class="heading-h5">Items Per Page</h3>
+            <p class="paragraph-p4 preview-caption">Custom dropdown for page size. Hover and Open states are interactive — click the default instance to open the panel.</p>
+            <div class="button-grid-table pagination-grid-2col">
+              <span></span>
+              <span class="paragraph-p4 button-grid-header">Default</span>
+              <span class="paragraph-p4 button-grid-header">Disabled</span>
+
+              <span class="paragraph-p4-bold button-grid-row-label">State</span>
+              <merces-items-per-page [value]="paginationSubIppValue()" (valueChange)="paginationSubIppValue.set($event)" />
+              <merces-items-per-page [value]="10" [disabled]="true" />
+            </div>
+            <p class="paragraph-p4 preview-caption">Selected: {{ paginationSubIppValue() }} rows per page</p>
+          </div>
+
+          <!-- ── 6. Count ── -->
+          <div class="button-grid-section">
+            <h3 class="heading-h5">Count</h3>
+            <p class="paragraph-p4 preview-caption">Entry range display — no interactive states. Pattern: START – END of TOTAL entries.</p>
+            <div class="pagination-count-row paragraph-ui-thin">
+              {{ (paginationSubPage() - 1) * paginationSubIppValue() + 1 }}
+              &ndash;
+              {{ Math.min(paginationSubPage() * paginationSubIppValue(), 247) }}
+              of 247 entries
+            </div>
+            <p class="paragraph-p4 preview-caption">Updates live with the page and items-per-page selections above.</p>
+          </div>
+
+        </div>
+      }
+
     }
   </main>
 

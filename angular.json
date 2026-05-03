@@ -43,7 +43,10 @@
               "src/styles.css"
             ],
             "scripts": [],
-            "polyfills": ["zone.js"]
+            "polyfills": [
+              "zone.js"
+            ],
+            "webWorkerTsConfig": "tsconfig.worker.json"
           },
           "configurations": {
             "production": {
