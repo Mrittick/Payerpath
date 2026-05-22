@@ -6,6 +6,7 @@
 .copilot/
 CLAUDE.md
 AGENTS.md
+CLAUDE_MEMORY_TRANSPORT.md
 *.cursorrules
 
 # ============================================================
