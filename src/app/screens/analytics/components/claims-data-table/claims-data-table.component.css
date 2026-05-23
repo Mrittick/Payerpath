@@ -23,7 +23,7 @@
 
 :host {
   --_cdt-sticky-left-w:  58px;
-  --_cdt-sticky-right-w: 48px;
+  --_cdt-sticky-right-w: 40px;
 
   /* Shadows — Figma DROP_SHADOW opacity 0.08
      Left sticky:   X:4  Y:0 radius:12
@@ -330,8 +330,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Figma: nil padding all sides; 3xs right offsets the parent right-border for optical centering */
-  padding: var(--gap-nil) var(--gap-3xs) var(--gap-nil) var(--gap-nil);
+  /* Figma: nil padding all sides — at spec width (41px) no offset needed */
+  padding: var(--gap-nil);
   background: inherit;
   box-shadow: var(--_cdt-shadow-right);
   overflow: visible;

@@ -4,7 +4,7 @@
   justify-content: center;
   color: currentColor;
   line-height: 0;
-  transition: color 300ms ease;
+  transition: color 150ms cubic-bezier(0, 0, 0, 1);
 
   --icon-size-huge: 32px;
   --icon-size-large: 24px;
@@ -24,7 +24,7 @@
   width: 100%;
   height: 100%;
   aspect-ratio: 1 / 1;
-  transition: fill 300ms ease;
+  transition: fill 150ms cubic-bezier(0, 0, 0, 1);
 }
 
 .icon-size-huge { --_icon-size: var(--icon-size-huge); }
