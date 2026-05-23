@@ -27,6 +27,7 @@ import { ToggleSmallComponent } from './navbar-dependencies/toggle-small/toggle-
 import { UacComponent } from '../uac/uac.component';
 import type { UserRole } from '../uac/uac.types';
 import { BrandingComponent } from '../branding/branding.component';
+import { OverlayScrollComponent } from '../overlay-scroll/overlay-scroll.component';
 
 /** Internal resolved shape: a category merged with its matching registered pages. */
 interface NavbarGroupedItem extends NavbarCategoryDef {
@@ -38,7 +39,7 @@ interface NavbarGroupedItem extends NavbarCategoryDef {
   selector: 'merces-global-navbar',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NavbarItemComponent, ToggleLargeComponent, ToggleSmallComponent, UacComponent, BrandingComponent],
+  imports: [NavbarItemComponent, ToggleLargeComponent, ToggleSmallComponent, UacComponent, BrandingComponent, OverlayScrollComponent],
   templateUrl: './global-navbar.component.html',
   styleUrl: './global-navbar.component.css',
   host: {

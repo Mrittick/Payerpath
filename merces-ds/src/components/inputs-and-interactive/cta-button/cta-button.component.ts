@@ -7,7 +7,7 @@ import {
   signal,
 } from '@angular/core';
 import { IconComponent } from '../../../assets/icon/icon.component';
-import { IconName, IconType } from '../../../assets/icon/icon.types';
+import { IconName, IconType, IconSize } from '../../../assets/icon/icon.types';
 import {
   CtaButtonIntent,
   CtaButtonType,
@@ -71,6 +71,9 @@ export class CtaButtonComponent {
   readonly chevronPosition = input<CtaButtonChevronPosition>('right');
   readonly showLabel = input<boolean>(true);
 
+  /* ── Icon size override ── */
+  readonly iconSize = input<IconSize | undefined>(undefined);
+
   /* ── Behaviour ── */
   readonly compact = input<boolean>(false);
   readonly disabled = input<boolean>(false);
@@ -80,7 +83,10 @@ export class CtaButtonComponent {
   readonly pressed = output<void>();
 
   /* ── Derived ── */
-  readonly iconSize = computed(() => this.size() === 'mini' ? 'mini' : 'base');
+  /* Resolves icon size: explicit iconSize input > size default (mini→16px, base→20px) */
+  protected readonly _resolvedIconSize = computed<IconSize>(() =>
+    this.iconSize() ?? (this.size() === 'mini' ? 'mini' : 'base')
+  );
 
   readonly chevronIconName = computed<IconName>(() =>
     this.chevronPosition() === 'left' ? 'chevron-left' : 'chevron-right'

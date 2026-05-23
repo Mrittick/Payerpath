@@ -67,6 +67,20 @@
 }
 
 <!-- ══════════════════════════════════════════════════
+     Choice · Justified
+     Figma: Main Content > [Item]
+     No selection indicator. No More Info.
+     ══════════════════════════════════════════════════ -->
+@else if (isChoice()) {
+  <div class="main-content">
+    <span
+      class="paragraph-ui item-text"
+      [class.item-text--truncate]="truncateText()"
+    >{{ label() }}</span>
+  </div>
+}
+
+<!-- ══════════════════════════════════════════════════
      MultiSelect · Right
      Figma: Main Content > [Text, (Icon-Info)], Checkbox > Box > [Tick]
      MoreInfo: Icon-Info is INSIDE Main Content

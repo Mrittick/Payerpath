@@ -112,6 +112,21 @@
   overflow: visible;
 }
 
+/* ==========================================================================
+   Scrollbars — blanket suppression of the OS native scrollbar.
+   Any element that needs visible scroll feedback must use merces-overlay-scroll.
+   Applies to both vertical and horizontal axes on all engines.
+   ========================================================================== */
+
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
 body {
   font-family: var(--font-family-primary);
   font-size: var(--font-size-p3);

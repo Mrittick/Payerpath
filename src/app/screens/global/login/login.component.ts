@@ -107,7 +107,7 @@ export class LoginComponent {
           }
         } else {
           this.passwordValidation.set('error');
-          this.passwordMessage.set('Incorrect password.');
+          this.passwordMessage.set('Unable to verify credentials, please try again.');
         }
         this.loading.set(false);
       },

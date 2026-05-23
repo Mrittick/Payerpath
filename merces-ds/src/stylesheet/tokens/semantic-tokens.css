@@ -1,5 +1,5 @@
 /* Semantic Tokens — Figma "Semantic Tokens" collection */
-/* 424 tokens | 2 modes: Payerpath (default), eChart Coder */
+/* 444 tokens | 2 modes: Payerpath (default), eChart Coder */
 /* Source: Figma file Fu2tcEQrSrhZZvhGw1aGZ5 */
 
 :root {
@@ -21,95 +21,115 @@
   --colour-fill-scrollbar-hover: hsla(0, 0%, 60%, 1);
   --colour-fill-scrollbar-pressed: hsla(0, 0%, 40%, 1);
 
-  /* ── colour/fill/button/brand (16) ── */
+  /* ── colour/fill/button/brand (20) ── */
   --colour-fill-button-brand-primary-default: hsla(255, 28%, 44%, 1);
   --colour-fill-button-brand-primary-hover: hsla(255, 32%, 36%, 1);
   --colour-fill-button-brand-primary-pressed: hsla(255, 44%, 24%, 1);
   --colour-fill-button-brand-primary-disabled: hsla(259, 20%, 96%, 1);
+  --colour-fill-button-brand-primary-toggle: var(--colour-brand-purple-darken);
   --colour-fill-button-brand-secondary-default: hsla(0, 0%, 100%, 1);
   --colour-fill-button-brand-secondary-hover: hsla(259, 20%, 96%, 1);
   --colour-fill-button-brand-secondary-pressed: hsla(255, 20%, 92%, 1);
   --colour-fill-button-brand-secondary-disabled: hsla(0, 0%, 100%, 1);
+  --colour-fill-button-brand-secondary-toggle: var(--colour-brand-purple-darken);
   --colour-fill-button-brand-tertiary-default: hsla(259, 20%, 96%, 1);
   --colour-fill-button-brand-tertiary-hover: hsla(255, 20%, 92%, 1);
   --colour-fill-button-brand-tertiary-pressed: hsla(256, 22%, 86%, 1);
   --colour-fill-button-brand-tertiary-disabled: hsla(0, 0%, 100%, 1);
-  --colour-fill-button-brand-quaternary-default: hsla(0, 0%, 100%, 1);
+  --colour-fill-button-brand-tertiary-toggle: var(--colour-brand-purple-darken);
+  --colour-fill-button-brand-quaternary-default: hsla(0, 0%, 100%, 0);
   --colour-fill-button-brand-quaternary-hover: hsla(259, 20%, 96%, 1);
   --colour-fill-button-brand-quaternary-pressed: hsla(255, 20%, 92%, 1);
   --colour-fill-button-brand-quaternary-disabled: hsla(0, 0%, 100%, 1);
+  --colour-fill-button-brand-quaternary-toggle: var(--colour-brand-purple-darken);
 
-  /* ── colour/fill/button/neutral (16) ── */
+  /* ── colour/fill/button/neutral (20) ── */
   --colour-fill-button-neutral-primary-default: hsla(0, 0%, 20%, 1);
   --colour-fill-button-neutral-primary-hover: hsla(0, 0%, 10%, 1);
   --colour-fill-button-neutral-primary-pressed: hsla(0, 0%, 0%, 1);
   --colour-fill-button-neutral-primary-disabled: hsla(0, 0%, 96%, 1);
+  --colour-fill-button-neutral-primary-toggle: var(--colour-neutral-darken-1);
   --colour-fill-button-neutral-secondary-default: hsla(0, 0%, 100%, 1);
   --colour-fill-button-neutral-secondary-hover: hsla(0, 0%, 92%, 1);
   --colour-fill-button-neutral-secondary-pressed: hsla(0, 0%, 80%, 1);
   --colour-fill-button-neutral-secondary-disabled: hsla(0, 0%, 100%, 1);
+  --colour-fill-button-neutral-secondary-toggle: var(--colour-neutral-darken-1);
   --colour-fill-button-neutral-tertiary-default: hsla(0, 0%, 96%, 1);
   --colour-fill-button-neutral-tertiary-hover: hsla(0, 0%, 92%, 1);
   --colour-fill-button-neutral-tertiary-pressed: hsla(0, 0%, 80%, 1);
   --colour-fill-button-neutral-tertiary-disabled: hsla(0, 0%, 100%, 1);
+  --colour-fill-button-neutral-tertiary-toggle: var(--colour-neutral-darken-1);
   --colour-fill-button-neutral-quaternary-default: hsla(0, 0%, 100%, 1);
   --colour-fill-button-neutral-quaternary-hover: hsla(0, 0%, 94%, 1);
   --colour-fill-button-neutral-quaternary-pressed: hsla(0, 0%, 80%, 1);
   --colour-fill-button-neutral-quaternary-disabled: hsla(0, 0%, 100%, 1);
+  --colour-fill-button-neutral-quaternary-toggle: var(--colour-neutral-darken-1);
 
-  /* ── colour/fill/button/emphasis (16) ── */
+  /* ── colour/fill/button/emphasis (20) ── */
   --colour-fill-button-emphasis-primary-default: hsla(103, 50%, 36%, 1);
   --colour-fill-button-emphasis-primary-hover: hsla(103, 48%, 32%, 1);
   --colour-fill-button-emphasis-primary-pressed: hsla(103, 88%, 12%, 1);
   --colour-fill-button-emphasis-primary-disabled: hsla(103, 63%, 97%, 1);
+  --colour-fill-button-emphasis-primary-toggle: var(--colour-brand-green-darken);
   --colour-fill-button-emphasis-secondary-default: hsla(0, 0%, 100%, 1);
   --colour-fill-button-emphasis-secondary-hover: hsla(103, 40%, 90%, 1);
   --colour-fill-button-emphasis-secondary-pressed: hsla(103, 34%, 83%, 1);
   --colour-fill-button-emphasis-secondary-disabled: hsla(0, 0%, 100%, 1);
+  --colour-fill-button-emphasis-secondary-toggle: var(--colour-brand-green-darken);
   --colour-fill-button-emphasis-tertiary-default: hsla(103, 50%, 95%, 1);
   --colour-fill-button-emphasis-tertiary-hover: hsla(103, 40%, 90%, 1);
   --colour-fill-button-emphasis-tertiary-pressed: hsla(103, 34%, 83%, 1);
   --colour-fill-button-emphasis-tertiary-disabled: hsla(0, 0%, 100%, 1);
+  --colour-fill-button-emphasis-tertiary-toggle: var(--colour-brand-green-darken);
   --colour-fill-button-emphasis-quaternary-default: hsla(0, 0%, 100%, 0);
   --colour-fill-button-emphasis-quaternary-hover: hsla(103, 40%, 90%, 1);
   --colour-fill-button-emphasis-quaternary-pressed: hsla(103, 34%, 83%, 1);
   --colour-fill-button-emphasis-quaternary-disabled: hsla(0, 0%, 100%, 0);
+  --colour-fill-button-emphasis-quaternary-toggle: var(--colour-brand-green-darken);
 
-  /* ── colour/fill/button/danger (16) ── */
+  /* ── colour/fill/button/danger (20) ── */
   --colour-fill-button-danger-primary-default: hsla(4, 85%, 62%, 1);
   --colour-fill-button-danger-primary-hover: hsla(4, 64%, 48%, 1);
   --colour-fill-button-danger-primary-pressed: hsla(4, 90%, 30%, 1);
   --colour-fill-button-danger-primary-disabled: hsla(4, 95%, 98%, 1);
+  --colour-fill-button-danger-primary-toggle: var(--colour-brand-red-darken);
   --colour-fill-button-danger-secondary-default: hsla(0, 0%, 100%, 1);
   --colour-fill-button-danger-secondary-hover: hsla(4, 36%, 92%, 1);
   --colour-fill-button-danger-secondary-pressed: hsla(4, 44%, 88%, 1);
   --colour-fill-button-danger-secondary-disabled: hsla(0, 0%, 100%, 1);
+  --colour-fill-button-danger-secondary-toggle: var(--colour-brand-red-darken);
   --colour-fill-button-danger-tertiary-default: hsla(4, 95%, 98%, 1);
   --colour-fill-button-danger-tertiary-hover: hsla(4, 36%, 92%, 1);
   --colour-fill-button-danger-tertiary-pressed: hsla(4, 44%, 88%, 1);
   --colour-fill-button-danger-tertiary-disabled: hsla(0, 0%, 100%, 1);
+  --colour-fill-button-danger-tertiary-toggle: var(--colour-brand-red-darken);
   --colour-fill-button-danger-quaternary-default: hsla(0, 0%, 100%, 1);
   --colour-fill-button-danger-quaternary-hover: hsla(4, 36%, 92%, 1);
   --colour-fill-button-danger-quaternary-pressed: hsla(4, 44%, 88%, 1);
   --colour-fill-button-danger-quaternary-disabled: hsla(0, 0%, 100%, 1);
+  --colour-fill-button-danger-quaternary-toggle: var(--colour-brand-red-darken);
 
-  /* ── colour/fill/button/caution (16) ── */
+  /* ── colour/fill/button/caution (20) ── */
   --colour-fill-button-caution-primary-default: hsla(37, 92%, 51%, 1);
   --colour-fill-button-caution-primary-hover: hsla(37, 84%, 40%, 1);
   --colour-fill-button-caution-primary-pressed: hsla(37, 100%, 20%, 1);
   --colour-fill-button-caution-primary-disabled: hsla(37, 81%, 96%, 1);
+  --colour-fill-button-caution-primary-toggle: var(--colour-brand-yellow-darken);
   --colour-fill-button-caution-secondary-default: hsla(0, 0%, 100%, 1);
   --colour-fill-button-caution-secondary-hover: hsla(37, 81%, 96%, 1);
   --colour-fill-button-caution-secondary-pressed: hsla(37, 75%, 92%, 1);
   --colour-fill-button-caution-secondary-disabled: hsla(0, 0%, 100%, 1);
+  --colour-fill-button-caution-secondary-toggle: var(--colour-brand-yellow-darken);
   --colour-fill-button-caution-tertiary-default: hsla(37, 81%, 96%, 1);
   --colour-fill-button-caution-tertiary-hover: hsla(37, 75%, 92%, 1);
   --colour-fill-button-caution-tertiary-pressed: hsla(37, 84%, 88%, 1);
   --colour-fill-button-caution-tertiary-disabled: hsla(0, 0%, 100%, 1);
+  --colour-fill-button-caution-tertiary-toggle: var(--colour-brand-yellow-darken);
   --colour-fill-button-caution-quaternary-default: hsla(0, 0%, 100%, 1);
   --colour-fill-button-caution-quaternary-hover: hsla(37, 75%, 92%, 1);
   --colour-fill-button-caution-quaternary-pressed: hsla(37, 84%, 88%, 1);
   --colour-fill-button-caution-quaternary-disabled: hsla(0, 0%, 100%, 1);
+  --colour-fill-button-caution-quaternary-toggle: var(--colour-brand-yellow-darken);
 
   /* ── colour/fill/button (13) ── */
   --colour-fill-button-menu-default: hsla(0, 0%, 100%, 1);

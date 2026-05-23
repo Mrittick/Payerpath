@@ -1,0 +1,424 @@
+/* ══════════════════════════════════════════════════════════════════
+   Claims Data Table
+   Figma: Main Table 1158-33915 | Expanded Table 1158-33916
+   File: X3ePdrL3EFGOKK6Gb6qbV7
+
+   Grid architecture (mirrors merces-data-table internals):
+     .cdt-inner         → CSS Grid: 58px sticky-left + 11 data cols
+     merces-table-row   → subgrid, grid-column: 1/-1  (DS component)
+     merces-table-entry → grid item in subgrid         (DS component)
+     merces-table-header→ grid item in header subgrid  (DS component)
+
+   Expansion:
+     .cdt-expansion-row → grid-column: 1/-1, flex row
+     .cdt-exp-spacer    → sticky-left SIBLING of overflow:hidden wrapper
+     .cdt-exp-animated  → grid-template-rows: 0fr→1fr animation
+
+   Inner expanded table:
+     .cdt-exp-grid      → CSS Grid: 7 data cols + 48px sticky-right
+     merces-table-row   → subgrid, grid-column: 1/-1  (DS component)
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── Component-level design tokens (code-only) ── */
+
+:host {
+  --_cdt-sticky-left-w:  58px;
+  --_cdt-sticky-right-w: 48px;
+
+  /* Shadows — Figma DROP_SHADOW opacity 0.08
+     Left sticky:   X:4  Y:0 radius:12
+     Right sticky:  X:-4 Y:0 radius:12
+     Options panel: X:0  Y:12 radius:24 */
+  --_cdt-shadow-left:    4px 0 12px 0 hsla(0, 0%, 0%, 0.08);
+  --_cdt-shadow-right:  -4px 0 12px 0 hsla(0, 0%, 0%, 0.08);
+  --_cdt-shadow-overlay: 0 12px 24px 0 hsla(0, 0%, 0%, 0.08);
+
+  display: flex;
+  flex-direction: column;
+  flex: 1;       /* fill available height in column-flex .claims-frame */
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Outer container — matches merces-data-table :host
+   ══════════════════════════════════════════════════════════ */
+
+.cdt-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border-radius: var(--radius-md);
+  border: var(--stroke-xs) solid var(--colour-brand-purple-700);
+  overflow: hidden;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Scroll container — matches merces-data-table .scroll-container
+   ══════════════════════════════════════════════════════════ */
+
+.cdt-scroll {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden; /* clips overlay tracks to table bounds */
+  container-type: inline-size; /* exposes 100cqi for viewport-constrained expanded panel */
+  --overlay-scroll-overscroll: none;
+}
+
+/* ══════════════════════════════════════════════════════════
+   CSS Grid container — 58px sticky-left + 11 data columns
+   Template set via [style.grid-template-columns] binding.
+   Mirrors merces-data-table .inner.
+   ══════════════════════════════════════════════════════════ */
+
+.cdt-inner {
+  display: grid;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Sticky header row
+   ══════════════════════════════════════════════════════════ */
+
+.cdt-header-row {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+}
+
+/* ── Main table row height: 56px (Figma) ──
+   DS merces-table-row is content-driven (no height in DS CSS).
+   min-height on the grid row enforces Figma spec without touching the DS. */
+
+.cdt-inner > merces-table-row {
+  min-height: 56px;
+}
+
+/* ── Main table header height: 40px fixed (Figma) ── */
+
+.cdt-header-row merces-table-header {
+  height: 40px;
+}
+
+/* Expand column header: matches merces-table-header appearance
+   background-color, border-right, padding tokens all sourced from table-header.component.css */
+
+.cdt-hcell-expand {
+  position: sticky;
+  left: 0;
+  z-index: 4;                                          /* above sticky rows (z-index:3) */
+  width: var(--_cdt-sticky-left-w);
+  background-color: var(--colour-brand-purple-500);
+  border-right: var(--stroke-xs) solid var(--colour-neutral-white);
+}
+
+/* ══════════════════════════════════════════════════════════
+   Sticky-left expand cell (inside merces-table-row)
+   merces-table-row host carries the row background-color.
+   background:inherit picks it up through the DOM tree.
+   ══════════════════════════════════════════════════════════ */
+
+.cdt-cell-expand {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: inherit;
+  box-shadow: var(--_cdt-shadow-left);
+  /* Right border visual: shadow provides separation, no explicit border needed */
+}
+
+/* ── Expand icon: rotates the icon SVG only, button layout stays fixed ── */
+
+.cdt-expand-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cdt-expand-icon ::ng-deep merces-icon {
+  transition: transform 300ms cubic-bezier(0.5, 0, 0, 1);
+}
+
+.cdt-expand-icon--open ::ng-deep merces-icon {
+  transform: rotate(90deg);
+}
+
+/* ══════════════════════════════════════════════════════════
+   Expansion row
+   Must span all 12 grid columns and use flex internally
+   so the sticky-left spacer lives outside overflow:hidden.
+   ══════════════════════════════════════════════════════════ */
+
+.cdt-expansion-row {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: row;
+}
+
+/* Sticky-left spacer — visual continuation of the expand column
+   background matches the inner expansion area (backdrop), not the row. */
+
+.cdt-exp-spacer {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  width: var(--_cdt-sticky-left-w);
+  flex-shrink: 0;
+  background-color: var(--colour-fill-surface-neutral-default);
+  /* No shadow — expanded panel has no H-scroll separation to signal */
+}
+
+/* ── Height animation: 0fr (collapsed) → 1fr (expanded) ── */
+
+.cdt-exp-animated {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 300ms cubic-bezier(0.5, 0, 0, 1);
+}
+
+.cdt-exp-animated--open {
+  grid-template-rows: 1fr;
+}
+
+.cdt-exp-inner {
+  overflow: hidden;
+  min-height: 0;
+  /* Sticky to viewport left (after spacer) + capped at visible scroll-area width.
+     Prevents the expanded panel from stretching to full main-table width so the
+     Edit button and sticky-right column are always in the visible area. */
+  position: sticky;
+  left: var(--_cdt-sticky-left-w);
+  max-width: calc(100cqi - var(--_cdt-sticky-left-w));
+}
+
+/* ══════════════════════════════════════════════════════════
+   Expanded table shell
+   Figma: 1158-33916 VERTICAL pad:8/8/8/8 gap:8
+   ══════════════════════════════════════════════════════════ */
+
+.cdt-exp-table {
+  display: flex;
+  flex-direction: column;
+  padding: var(--gap-md);
+  gap: var(--gap-md);
+  background-color: var(--colour-fill-surface-neutral-default);
+}
+
+/* ── Control Frame: Service Status + Edit Display Columns ──
+   Figma: 5988:61294 — nil horizontal / 2xs vertical padding, 44px hug ── */
+
+.cdt-exp-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  padding: var(--gap-2xs) var(--gap-nil);
+}
+
+.cdt-exp-controls merces-dropdown-group {
+  width: 300px;
+  flex-shrink: 0;
+}
+
+/* Edit Service Columns button — Figma: 5988:61296 h-[40px]
+   Root cause of 44px bug: DS .cta-button__inner uses height:100%, which only resolves
+   against a *definite* host height (an explicit CSS height property, not a flex-allocated one).
+   Fix: set height:40px explicitly on the host so height:100% inside resolves to 40px. */
+
+.cdt-exp-edit-btn-wrap {
+  height: 40px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: stretch;
+}
+
+.cdt-exp-edit-btn-wrap merces-cta-button {
+  flex: 1 0 0;
+  height: 40px; /* explicit height → inner button's height:100% resolves to 40px */
+}
+
+/* ── Content: flex wrapper around the bordered nested table ── */
+
+.cdt-exp-content {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Inner expanded table — CSS Grid
+   7 fill columns (Figma min-widths) + 48px sticky-right.
+   grid-template-columns bound via svcGridTemplate() in template.
+   merces-table-row and merces-table-header use subgrid here.
+   ══════════════════════════════════════════════════════════ */
+
+.cdt-exp-grid {
+  display: grid;
+  border-radius: var(--radius-md);
+  border: var(--stroke-xs) solid var(--colour-brand-purple-700);
+  overflow: hidden;
+}
+
+/* Sub-header row: subgrid, spans all 8 columns */
+
+.cdt-exp-hrow {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+}
+
+/* ── Sub-table header height: 50px fixed (Figma) ── */
+
+.cdt-exp-hrow merces-table-header {
+  height: 50px;
+}
+
+/* Figma: last sub-table header (Payer, 1158:33667) has no right border —
+   adjacent to the sticky-right options column; border-right is on :host directly */
+
+.cdt-exp-hrow merces-table-header:last-of-type {
+  border-right: none;
+}
+
+/* Entry rows: same rule — last data cell (Payer) has no right border
+   (Payer entry is adjacent to the sticky-right options cell; same visual logic as header) */
+
+.cdt-exp-grid merces-table-row merces-table-entry:last-of-type {
+  border-right: none;
+}
+
+/* Sticky-right header cell in expanded table */
+
+.cdt-exp-hcell-options {
+  position: sticky;
+  right: 0;
+  z-index: 2;
+  width: var(--_cdt-sticky-right-w);
+  background-color: var(--colour-brand-purple-500);
+  /* No border-left — shadow on data cells provides sufficient column separation */
+  box-shadow: var(--_cdt-shadow-right);
+}
+
+/* ══════════════════════════════════════════════════════════
+   Sticky-right options cell (inside merces-table-row)
+   background:inherit picks up alternating row color from
+   merces-table-row host (same mechanism as cdt-cell-expand).
+   overflow:visible lets the panel escape the cell's bounds.
+   ══════════════════════════════════════════════════════════ */
+
+/* Raise z-index above sticky header row (z-index:3) when panel is open */
+.cdt-exp-options-cell--active {
+  z-index: 10;
+}
+
+.cdt-exp-options-cell {
+  position: sticky;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Figma: nil padding all sides; 3xs right offsets the parent right-border for optical centering */
+  padding: var(--gap-nil) var(--gap-3xs) var(--gap-nil) var(--gap-nil);
+  background: inherit;
+  box-shadow: var(--_cdt-shadow-right);
+  overflow: visible;
+}
+
+/* Positioned anchor — position:relative for the options panel.
+   Sized to contain the 32×32 button; click bubbles from button to here. */
+
+.cdt-options-anchor {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: visible;
+}
+
+/* Figma: 32×32 fixed button — explicit host size so inner height:100% resolves correctly */
+
+.cdt-options-anchor merces-cta-button {
+  width: 32px;
+  height: 32px;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Entry Options panel
+   Figma: Overlay/Entry Options 9043-104376 190×96
+   position:fixed — viewport-anchored so it escapes the
+   overflow:hidden on .cdt-exp-grid without clipping.
+   top/right/bottom are bound via [style.*] in the template
+   (calculated from getBoundingClientRect on click).
+   ══════════════════════════════════════════════════════════ */
+
+.cdt-options-panel {
+  position: fixed;
+  z-index: 200;
+  width: 190px;
+
+  background-color: var(--colour-fill-surface-neutral-default);
+  border: var(--stroke-xs) solid var(--colour-stroke-dropdown-brand);
+  border-radius: var(--radius-md);
+  box-shadow: var(--_cdt-shadow-overlay);
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+.cdt-options-panel--open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cdt-options-panel__content {
+  display: flex;
+  flex-direction: column;
+  padding: var(--gap-md) 0;
+}
+
+/* ── Option items ── */
+
+.cdt-options-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 40px;
+  padding: 0 var(--gap-2xl);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--colour-text-checkbox-brand-enabled);
+  text-align: left;
+  white-space: nowrap;
+  transition: background-color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+.cdt-options-item:hover {
+  background-color: var(--colour-fill-button-dropdown-item-hover);
+}
+
+.cdt-options-item:active {
+  background-color: var(--colour-fill-button-dropdown-item-pressed);
+}
+
+.cdt-options-item:disabled {
+  color: var(--colour-text-checkbox-brand-disabled);
+  cursor: default;
+  pointer-events: none;
+}

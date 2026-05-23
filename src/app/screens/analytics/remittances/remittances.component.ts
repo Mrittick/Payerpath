@@ -16,9 +16,12 @@ import { CheckboxDatavizComponent } from '@merces/components/inputs-and-interact
 import type { CheckboxDatavizSeries } from '@merces/components/inputs-and-interactive/checkboxes/checkbox-dataviz/checkbox-dataviz.types';
 import { DownloadChipComponent } from '../components/download-chip/download-chip.component';
 import { RemittancesSidebarComponent } from '../components/remittances-sidebar/remittances-sidebar.component';
+import { ClaimsDataTableComponent } from '../components/claims-data-table/claims-data-table.component';
 import { DEFAULT_PRESETS } from './data/presets';
 import { CHART_SERIES_DEFS } from './data/records';
 import type { ChartGroup } from './data/records';
+import { CLAIMS_DATA } from './data/claims-data';
+import type { ClaimsDataRow } from '../components/claims-data-table/claims-data.types';
 
 type RemittancesTab    = 'analytics' | 'claims-data' | 'service-data';
 type RemittancesPlot   = 'chart' | 'date-series';
@@ -39,6 +42,7 @@ type RemittancesPlot   = 'chart' | 'date-series';
     DropdownComponent,
     DropdownItemComponent,
     CheckboxDatavizComponent,
+    ClaimsDataTableComponent,
   ],
   templateUrl: './remittances.component.html',
   styleUrl: './remittances.component.css',
@@ -253,6 +257,17 @@ export class AnalyticsRemittancesComponent implements OnDestroy {
       ticks.push({ label, percent });
     }
     return ticks;
+  });
+
+  /* ── Claims Data ── */
+  protected readonly claimsCurrentPage  = signal(1);
+  protected readonly claimsPageSize     = signal(25);
+  protected readonly claimsTotalItems   = CLAIMS_DATA.length;
+
+  protected readonly paginatedClaimsRows = computed(() => {
+    const page = this.claimsCurrentPage();
+    const size = this.claimsPageSize();
+    return CLAIMS_DATA.slice((page - 1) * size, page * size);
   });
 
   /* ── Stub handlers — wired up when chart/download features land ── */

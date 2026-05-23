@@ -17,6 +17,7 @@ import type { DropdownItemMode, DropdownItemOrientation } from '../dropdown-item
     '[class.separator--single-right]': 'mode() === "single-select" && orientation() === "right"',
     '[class.separator--multi-left]':   'mode() === "multi-select"  && orientation() === "left"',
     '[class.separator--multi-right]':  'mode() === "multi-select"  && orientation() === "right"',
+    '[class.separator--choice]':       'mode() === "choice"',
   },
 })
 export class DropdownSeparatorComponent {

@@ -245,19 +245,14 @@ merces-search {
 }
 
 /* ── Parameters list — the ONLY scrollable area
-   Figma layout_SCULE8: column, gap 16px ── */
+   Figma layout_SCULE8: column, gap 16px
+   Overflow/scrollbar managed by payerpath-overlay-scroll component.
+   --overlay-scroll-gap is the component's public API for item spacing. ── */
 .parameters {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap-3xl);
   flex: 1;
   min-height: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  /* Custom scrollbar — brand tokens */
-  scrollbar-width: thin;
-  scrollbar-color: var(--colour-fill-scrollbar-default) transparent;
+  --overlay-scroll-gap: var(--gap-3xl);
+  --overlay-scroll-overflow-x: hidden;
 }
 
 /* ── Min-max projected content flex fix ──

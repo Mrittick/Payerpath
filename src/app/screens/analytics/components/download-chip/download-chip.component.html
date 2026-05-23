@@ -13,18 +13,21 @@
 >
   <merces-icon name="download-report" type="regular" size="base" />
 
-  <span class="paragraph-ui dc-button__label">
-    {{ hasChart() ? 'Download' : 'Download XLS Workbook' }}
+  <!-- Two labels always in DOM — cross-fade via CSS opacity transition.
+       The active label is position:relative (drives button width);
+       the inactive label is position:absolute (fades out over the top).
+       Both transition together for a smooth Figma-like dissolve. -->
+  <span class="dc-button__labels">
+    <span class="dc-button__label dc-button__label--chart paragraph-ui">Download</span>
+    <span class="dc-button__label dc-button__label--no-chart paragraph-ui">Download XLS Workbook</span>
   </span>
 
-  <!-- Cue: separator divider + chevron — hasChart=True only
+  <!-- Cue: always in DOM — collapses via max-width+opacity when hasChart=false.
        Figma: HORIZONTAL, gap:6, Divider 2×16px + Chevron-Down mini bold -->
-  @if (hasChart()) {
-    <span class="dc-cue">
-      <span class="dc-cue__divider"></span>
-      <merces-icon name="chevron-down" type="bold" size="mini" />
-    </span>
-  }
+  <span class="dc-cue">
+    <span class="dc-cue__divider"></span>
+    <merces-icon name="chevron-down" type="bold" size="mini" />
+  </span>
 </button>
 
 <!-- Panel — hasChart=True only, revealed on hover

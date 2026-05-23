@@ -31,6 +31,7 @@
 
   <!-- ── Primary navigation ── -->
   <nav class="global-navbar__content" aria-label="Primary navigation">
+    <merces-overlay-scroll>
     <ul class="global-navbar__items" role="list">
 
       @for (category of _groupedItems(); track category.id) {
@@ -75,6 +76,7 @@
       }
 
     </ul>
+    </merces-overlay-scroll>
   </nav>
 
   <!-- ── eChart Coder: UAC at the bottom of the main column ── -->

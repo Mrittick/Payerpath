@@ -24,11 +24,8 @@
 
 /* ── Scroll container — rows scroll, header sticks ── */
 
-.scroll-container {
-  flex: 1;
-  overflow: auto;
-  min-height: 0;
-  overscroll-behavior: none;
+merces-overlay-scroll {
+  --overlay-scroll-overscroll: none;
 }
 
 /* ── Inner — CSS Grid container; columns set via [style.grid-template-columns] ── */

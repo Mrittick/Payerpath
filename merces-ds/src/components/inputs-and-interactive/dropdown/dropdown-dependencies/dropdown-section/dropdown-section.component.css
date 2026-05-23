@@ -18,6 +18,10 @@
   padding: var(--gap-lg) var(--gap-3xbig);
 }
 
+:host(.section--choice) {
+  padding: var(--gap-lg) var(--gap-3xbig) var(--gap-lg) var(--gap-2xl);
+}
+
 /* ── Text Frame ── */
 
 .text-frame {

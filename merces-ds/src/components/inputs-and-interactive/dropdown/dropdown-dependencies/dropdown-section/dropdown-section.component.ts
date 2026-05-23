@@ -17,6 +17,7 @@ import type { DropdownItemMode, DropdownItemOrientation } from '../dropdown-item
     '[class.section--single-right]': 'mode() === "single-select" && orientation() === "right"',
     '[class.section--multi-left]':   'mode() === "multi-select"  && orientation() === "left"',
     '[class.section--multi-right]':  'mode() === "multi-select"  && orientation() === "right"',
+    '[class.section--choice]':       'mode() === "choice"',
   },
 })
 export class DropdownSectionComponent {

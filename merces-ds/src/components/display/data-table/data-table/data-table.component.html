@@ -1,7 +1,7 @@
 @if (isEmpty()) {
   <merces-table-no-data />
 } @else {
-  <div class="scroll-container">
+  <merces-overlay-scroll>
     <div class="inner" [style.grid-template-columns]="gridTemplate()">
 
       <!-- ── Sticky header row ── -->
@@ -62,5 +62,5 @@
       }
 
     </div>
-  </div>
+  </merces-overlay-scroll>
 }

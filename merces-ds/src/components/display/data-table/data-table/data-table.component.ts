@@ -4,11 +4,12 @@ import { TableHeaderComponent } from '../table-header/table-header.component';
 import { TableRowComponent } from '../table-row/table-row.component';
 import { TableEntryComponent } from '../table-entry/table-entry.component';
 import { TableNoDataComponent } from '../table-no-data/table-no-data.component';
+import { OverlayScrollComponent } from '../../overlay-scroll/overlay-scroll.component';
 
 @Component({
   selector: 'merces-data-table',
   standalone: true,
-  imports: [TableHeaderComponent, TableRowComponent, TableEntryComponent, TableNoDataComponent],
+  imports: [TableHeaderComponent, TableRowComponent, TableEntryComponent, TableNoDataComponent, OverlayScrollComponent],
   templateUrl: './data-table.component.html',
   styleUrl: './data-table.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

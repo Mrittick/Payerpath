@@ -2,16 +2,16 @@
    Primitives — Raw palette values from Figma
    Source: Merces | Design System (Fu2tcEQrSrhZZvhGw1aGZ5)
    Collection: Primitives
-   Total tokens: 116
+   Total tokens: 122
 
    Groups:
-     colour/neutral .............. 15
-     colour/brand ................ 45
-       purple .................... 12
-       red ....................... 11
-       yellow .................... 11
-       green ..................... 11
-     colour/dataviz .............. 40
+     colour/neutral .............. 16
+     colour/brand ................ 49
+       purple .................... 13
+       red ....................... 12
+       yellow .................... 12
+       green ..................... 12
+     colour/dataviz .............. 41
      colour/dataviz/legacy ....... 8
      stroke ...................... 7
      text ........................ 1
@@ -20,7 +20,7 @@
 :root {
 
   /* ———————————————————————————————————————————
-     colour/neutral (15)
+     colour/neutral (16)
      ——————————————————————————————————————————— */
   --colour-neutral-black: hsla(0, 0%, 0%, 1);
   --colour-neutral-grey-100: hsla(0, 0%, 10%, 1);
@@ -37,6 +37,7 @@
   --colour-neutral-white-alpha-1: hsla(0, 0%, 100%, 0.14);
   --colour-neutral-white-alpha-2: hsla(0, 0%, 100%, 0.2);
   --colour-neutral-null: hsla(0, 0%, 100%, 0);
+  --colour-neutral-darken-1: hsla(0, 0%, 0%, 0.06);
 
   /* ———————————————————————————————————————————
      colour/brand/purple (12)
@@ -53,9 +54,10 @@
   --colour-brand-purple-900: hsla(256, 22%, 86%, 1);
   --colour-brand-purple-1000: hsla(255, 20%, 92%, 1);
   --colour-brand-purple-1100: hsla(259, 20%, 96%, 1);
+  --colour-brand-purple-darken: hsla(255, 28%, 44%, 0.08);
 
   /* ———————————————————————————————————————————
-     colour/brand/red (11)
+     colour/brand/red (12)
      ——————————————————————————————————————————— */
   --colour-brand-red-100: hsla(4, 90%, 20%, 1);
   --colour-brand-red-200: hsla(4, 90%, 30%, 1);
@@ -68,9 +70,10 @@
   --colour-brand-red-900: hsla(4, 36%, 92%, 1);
   --colour-brand-red-1000: hsla(4, 95%, 98%, 1);
   --colour-brand-red-1100: hsla(4, 98%, 99%, 1);
+  --colour-brand-red-darken: hsla(4, 64%, 48%, 0.08);
 
   /* ———————————————————————————————————————————
-     colour/brand/yellow (11)
+     colour/brand/yellow (12)
      ——————————————————————————————————————————— */
   --colour-brand-yellow-100: hsla(37, 100%, 20%, 1);
   --colour-brand-yellow-200: hsla(37, 88%, 30%, 1);
@@ -83,9 +86,10 @@
   --colour-brand-yellow-900: hsla(37, 75%, 92%, 1);
   --colour-brand-yellow-1000: hsla(37, 81%, 96%, 1);
   --colour-brand-yellow-1100: hsla(37, 100%, 98%, 1);
+  --colour-brand-yellow-darken: hsla(37, 84%, 40%, 0.08);
 
   /* ———————————————————————————————————————————
-     colour/brand/green (11)
+     colour/brand/green (12)
      ——————————————————————————————————————————— */
   --colour-brand-green-100: hsla(103, 88%, 12%, 1);
   --colour-brand-green-200: hsla(103, 24%, 24%, 1);
@@ -98,9 +102,10 @@
   --colour-brand-green-900: hsla(103, 40%, 90%, 1);
   --colour-brand-green-1000: hsla(103, 50%, 95%, 1);
   --colour-brand-green-1100: hsla(103, 63%, 97%, 1);
+  --colour-brand-green-darken: hsla(103, 50%, 36%, 0.08);
 
   /* ———————————————————————————————————————————
-     colour/dataviz (40)
+     colour/dataviz (41)
      ——————————————————————————————————————————— */
   /* coral */
   --colour-dataviz-coral-default: hsla(8, 100%, 64%, 1);
@@ -120,6 +125,7 @@
   --colour-dataviz-parrot-translucent: hsla(72, 100%, 72%, 0.2);
   --colour-dataviz-parrot-emphasis: hsla(72, 80%, 52%, 1);
   --colour-dataviz-parrot-focus: hsla(72, 92%, 36%, 1);
+  --colour-dataviz-parrot-strong: hsla(72, 88%, 32%, 1);
   /* turquoise */
   --colour-dataviz-turquoise-default: hsla(168, 100%, 41%, 1);
   --colour-dataviz-turquoise-hint: hsla(168, 100%, 94%, 1);

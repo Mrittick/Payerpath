@@ -1,5 +1,7 @@
 export type IconName =
   | 'archive'
+  | 'arrow-diagonal-down'
+  | 'arrow-diagonal-up'
   | 'arrow-down'
   | 'arrow-left'
   | 'arrow-right'
@@ -19,6 +21,8 @@ export type IconName =
   | 'dashboard'
   | 'date-picker'
   | 'detach'
+  | 'dots-horizontal'
+  | 'dots-vertical'
   | 'download'
   | 'download-cloud'
   | 'download-email'
@@ -26,6 +30,8 @@ export type IconName =
   | 'download-remote'
   | 'download-report'
   | 'enter'
+  | 'exclamation'
+  | 'exclamation-ring'
   | 'eye-generic'
   | 'eye-hidden'
   | 'eye-visible'
@@ -40,6 +46,7 @@ export type IconName =
   | 'hyperlink'
   | 'information'
   | 'information-circle'
+  | 'information-ring'
   | 'invoice'
   | 'link'
   | 'link-alt'
@@ -92,6 +99,8 @@ export type IconSize = 'huge' | 'large' | 'base' | 'mini' | 'tiny';
 
 export const ICON_TYPE_MAP: Record<IconName, IconType[]> = {
   'archive': ['regular', 'bold', 'filled'],
+  'arrow-diagonal-down': ['regular', 'bold'],
+  'arrow-diagonal-up': ['regular', 'bold'],
   'arrow-down': ['regular', 'bold'],
   'arrow-left': ['regular', 'bold'],
   'arrow-right': ['regular', 'bold'],
@@ -111,6 +120,8 @@ export const ICON_TYPE_MAP: Record<IconName, IconType[]> = {
   'dashboard': ['regular', 'bold', 'filled'],
   'date-picker': ['regular', 'filled'],
   'detach': ['regular', 'bold'],
+  'dots-horizontal': ['regular', 'bold'],
+  'dots-vertical': ['regular', 'bold'],
   'download': ['regular', 'bold'],
   'download-cloud': ['regular', 'bold', 'filled'],
   'download-email': ['regular', 'bold', 'filled'],
@@ -118,6 +129,8 @@ export const ICON_TYPE_MAP: Record<IconName, IconType[]> = {
   'download-remote': ['regular', 'bold', 'filled'],
   'download-report': ['regular', 'bold', 'filled'],
   'enter': ['regular', 'bold'],
+  'exclamation': ['regular', 'bold'],
+  'exclamation-ring': ['regular', 'bold', 'filled'],
   'eye-generic': ['regular', 'bold', 'filled'],
   'eye-hidden': ['regular', 'bold', 'filled'],
   'eye-visible': ['regular', 'bold', 'filled'],
@@ -132,6 +145,7 @@ export const ICON_TYPE_MAP: Record<IconName, IconType[]> = {
   'hyperlink': ['regular', 'bold'],
   'information': ['regular', 'bold'],
   'information-circle': ['regular', 'bold', 'filled'],
+  'information-ring': ['regular', 'bold', 'filled'],
   'invoice': ['regular', 'bold', 'filled'],
   'link': ['regular', 'bold'],
   'link-alt': ['regular', 'bold'],

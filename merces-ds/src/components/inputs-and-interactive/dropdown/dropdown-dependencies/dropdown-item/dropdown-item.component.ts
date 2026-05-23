@@ -25,6 +25,7 @@ import {
     'role': 'option',
     '[class.dropdown-item--single-select]': 'mode() === "single-select"',
     '[class.dropdown-item--multi-select]': 'mode() === "multi-select"',
+    '[class.dropdown-item--choice]': 'mode() === "choice"',
     '[class.dropdown-item--left]': 'orientation() === "left"',
     '[class.dropdown-item--right]': 'orientation() === "right"',
     '[class.dropdown-item--checked]': 'checked()',
@@ -56,6 +57,7 @@ export class DropdownItemComponent {
   /* ── Computed ── */
   readonly isSingleSelect = computed(() => this.mode() === 'single-select');
   readonly isMultiSelect = computed(() => this.mode() === 'multi-select');
+  readonly isChoice = computed(() => this.mode() === 'choice');
   readonly isLeft = computed(() => this.orientation() === 'left');
   readonly isDisabled = computed(() => this.state() === 'disabled');
 

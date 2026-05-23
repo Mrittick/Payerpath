@@ -196,8 +196,8 @@ export class AppComponent implements AfterViewInit {
           label: 'Tab Button',
           subItems: [
             { id: 'tab-button-use-case', label: 'Use Case' },
-            { id: 'tab-button-level01',  label: 'Level 01 — Pill' },
-            { id: 'tab-button-level02',  label: 'Level 02 — Underline' },
+            { id: 'tab-button-level01',  label: 'Level 01 — Underline' },
+            { id: 'tab-button-level02',  label: 'Level 02 — Pill' },
             { id: 'tab-button-focus',    label: 'Focus Ring' },
           ],
         },

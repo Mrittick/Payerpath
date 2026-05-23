@@ -3,6 +3,9 @@
   flex-direction: column;
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
+  /* min-width lives on .body (which has overflow:hidden) so it never
+     causes page-level overflow — keeping macOS in overlay scrollbar mode */
 }
 
 .page-divider {
@@ -19,6 +22,7 @@
   flex: 1;
   min-height: 0;
   overflow: hidden;
+  min-width: 1600px;
   background-color: var(--colour-fill-surface-neutral-intermediary);
 }
 

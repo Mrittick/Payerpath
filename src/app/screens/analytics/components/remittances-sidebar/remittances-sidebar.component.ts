@@ -24,6 +24,7 @@ import { StringfieldPlainGroupComponent } from '@merces/components/data-entry/st
 import { StringfieldPlainMinMaxGroupComponent } from '@merces/components/data-entry/stringfield-plain/stringfield-plain-minmax-group/stringfield-plain-minmax-group.component';
 import { CalendarRangedComponent } from '@merces/components/data-entry/calendar/calendar-ranged.component';
 import { SearchComponent } from '@merces/components/inputs-and-interactive/sub-controls/search/search.component';
+import { OverlayScrollComponent } from '@merces/components/display/overlay-scroll/overlay-scroll.component';
 import { DEFAULT_PRESETS } from '../../remittances/data/presets';
 import type { ReportPreset, PresetType } from '../../remittances/data/presets';
 
@@ -163,6 +164,7 @@ function createDefaultFilterSnapshot(): RemittancesFilterSnapshot {
     StringfieldPlainMinMaxGroupComponent,
     CalendarRangedComponent,
     SearchComponent,
+    OverlayScrollComponent,
   ],
   templateUrl: './remittances-sidebar.component.html',
   styleUrl: './remittances-sidebar.component.css',

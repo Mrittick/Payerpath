@@ -32,7 +32,9 @@
   border: none;
   border-radius: var(--radius-md);                 /* 8px */
   cursor: pointer;
-  transition: background var(--transition-duration-state) var(--transition-easing-state);
+  transition:
+    background var(--transition-duration-state) var(--transition-easing-state),
+    padding-right 300ms cubic-bezier(0, 0, 0, 1);
 }
 
 :host(.dc--no-chart) .dc-button {
@@ -56,21 +58,89 @@
   pointer-events: none;
 }
 
+/* ══════════════════════════════════════════════════════════
+   Labels — cross-fade between "Download" and "Download XLS Workbook"
+   The active label is position:relative (drives button width);
+   the inactive label overlays it absolutely and fades away.
+   Position switching is instant (CSS can't transition it) but the
+   300ms opacity cross-fade masks it — matching Figma's dissolve.
+
+   display:flex eliminates the inline "strut" — without it, the
+   wrapper inherits the button's ~16px font-size creating a ~22px
+   line-box that inflates button height from 40px to 42px.
+   As a flex column the wrapper height = the in-flow label's own
+   20px line-height, giving: 10px pad + 20px labels + 10px pad = 40px.
+   ══════════════════════════════════════════════════════════ */
+
+.dc-button__labels {
+  position: relative;          /* bounds the absolute inactive label */
+  overflow: hidden;            /* clips the wider label when fading out */
+  display: flex;               /* block formatting context — kills strut */
+  flex-direction: column;
+}
+
 .dc-button__label {
-  /* colour from parent .dc-button */
   color: inherit;
+  white-space: nowrap;
+  transition: opacity 300ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* ── Default state: hasChart=false (.dc--no-chart on host) ──
+   "Download XLS Workbook" in flow; "Download" positioned absolute, hidden */
+.dc-button__label--chart {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.dc-button__label--no-chart {
+  display: block;
+  opacity: 1;
+}
+
+/* ── hasChart=true (host does NOT have .dc--no-chart) ──
+   "Download" in flow; "Download XLS Workbook" positioned absolute, hidden */
+:host:not(.dc--no-chart) .dc-button__label--chart {
+  position: relative;
+  opacity: 1;
+  pointer-events: auto;
+}
+:host:not(.dc--no-chart) .dc-button__label--no-chart {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* ══════════════════════════════════════════════════════════
-   Cue — divider + chevron (hasChart=True only)
-   Figma: HORIZONTAL, gap:6, size:24×16
+   Cue — always in DOM; collapses via max-width+opacity
+   Figma: HORIZONTAL, gap:6, Divider 2×16px + Chevron-Down mini bold
    ══════════════════════════════════════════════════════════ */
 
 .dc-cue {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: var(--gap-sm);    /* 6px */
+  gap: var(--gap-sm);           /* 6px */
+  overflow: hidden;
+  /* hasChart=true default: cue fully expanded */
+  max-width: 40px;              /* safely wider than the cue's natural width */
+  margin-left: 0;               /* baseline — transitions to negative to cancel flex gap */
+  opacity: 1;
+  transition:
+    max-width   300ms cubic-bezier(0, 0, 0, 1),
+    margin-left 300ms cubic-bezier(0, 0, 0, 1),
+    opacity     200ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* hasChart=false: cue collapses; negative margin cancels the phantom flex gap
+   so the button hugs at 219px instead of the erroneous 226px (219 + 8px ghost gap) */
+:host(.dc--no-chart) .dc-cue {
+  max-width: 0;
+  margin-left: calc(-1 * var(--gap-md));   /* -8px — exactly cancels the parent's gap */
+  opacity: 0;
 }
 
 /* Figma: 2×16 pill, fill colour/neutral/white, 50% opacity */

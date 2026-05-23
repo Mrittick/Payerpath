@@ -1,0 +1,228 @@
+<!-- ══════════════════════════════════════════════════════════════════
+     Claims Data Table
+     Figma: Main Table 1158-33915 | Expanded Table 1158-33916
+
+     Layout: CSS Grid (same as merces-data-table internals)
+       Column 1:   58px sticky-left  — custom expand button cell
+       Columns 2–12: 11 data columns — merces-table-header / merces-table-entry
+     Expansion:   flex row — sticky-left spacer + 0fr→1fr animated panel
+     Inner table: CSS Grid (4 data cols + 48px sticky-right)
+     ══════════════════════════════════════════════════════════════════ -->
+
+<div class="cdt-container">
+  <div class="cdt-scroll">
+    <merces-overlay-scroll>
+
+    <!-- ── CSS Grid: 1 sticky-left col + 11 data cols ── -->
+    <div class="cdt-inner" [style.grid-template-columns]="gridTemplate()">
+
+      <!-- ════════════════════════════════════════════════════
+           Sticky header row
+           ════════════════════════════════════════════════════ -->
+      <div class="cdt-header-row" role="row">
+
+        <!-- Empty expand-column header — matches merces-table-header visually -->
+        <div class="cdt-hcell-expand" role="columnheader" aria-label="Expand"></div>
+
+        <!-- 11 sortable column headers — DS merces-table-header with full sort UX -->
+        @for (col of COLUMNS; track col.key) {
+          <merces-table-header
+            type="string"
+            variant="single"
+            size="mini"
+            [mainText]="col.label"
+            [sortOrder]="sortOrderFor(col.key)"
+            (sortOrderChange)="onSortChange(col.key, $event)"
+          />
+        }
+      </div>
+
+      <!-- ════════════════════════════════════════════════════
+           Data rows + expansion rows
+           ════════════════════════════════════════════════════ -->
+      @for (row of sortedRows(); track row.id; let i = $index) {
+
+        <!-- ── Main data row ──
+             merces-table-row spans all columns via subgrid (grid-column: 1/-1).
+             Projected children occupy the 12-column subgrid tracks. -->
+        <merces-table-row
+          size="mini"
+          [alternating]="i % 2 !== 0"
+          [attr.aria-expanded]="isExpanded(row.id)"
+        >
+          <!-- Col 1: sticky-left expand button — background inherits from merces-table-row host -->
+          <div class="cdt-cell-expand">
+            <div class="cdt-expand-icon" [class.cdt-expand-icon--open]="isExpanded(row.id)">
+              <merces-cta-button
+                intent="brand"
+                type="primary"
+                size="mini"
+                variant="icon-only"
+                icon="chevron-right"
+                iconType="bold"
+                [attr.aria-label]="isExpanded(row.id) ? 'Collapse row' : 'Expand row'"
+                (pressed)="toggleRow(row.id)"
+              />
+            </div>
+          </div>
+
+          <!-- Cols 2–12: data cells — DS merces-table-entry with hover state, text overflow -->
+          @for (col of COLUMNS; track col.key) {
+            <merces-table-entry
+              type="string"
+              size="mini"
+              [text]="$any(row)[col.key]"
+            />
+          }
+        </merces-table-row>
+
+        <!-- ── Expansion row ──
+             Spans all 12 grid columns.
+             Flex row: sticky-left spacer | 0fr→1fr animated panel.
+             Spacer is a sibling of the overflow:hidden wrapper so sticky works. -->
+        <div class="cdt-expansion-row">
+
+          <!-- Sticky-left spacer — preserves column visual continuity on H-scroll -->
+          <div class="cdt-exp-spacer"></div>
+
+          <!-- Height-animated panel: grid-template-rows 0fr → 1fr -->
+          <div class="cdt-exp-animated" [class.cdt-exp-animated--open]="isExpanded(row.id)">
+            <div class="cdt-exp-inner">
+
+              <!-- ── Expanded table shell ──
+                   Figma: node 1158-33916 — VERTICAL pad:8/8/8/8 gap:8 -->
+              <div class="cdt-exp-table">
+
+                <!-- Control Frame: Service Status dropdown + deferred Edit Display Columns
+                     Figma: 5988:61294 HORIZONTAL 1584×44 -->
+                <div class="cdt-exp-controls">
+                  <merces-dropdown-group label="Service Status" layout="horizontal">
+                    <merces-dropdown [selectionText]="getStatus(row.id)" [unselected]="false">
+                      <merces-dropdown-item
+                        label="All"
+                        [checked]="getStatus(row.id) === 'All'"
+                        (selected)="setStatus(row.id, 'All')"
+                      />
+                      <merces-dropdown-separator />
+                      <merces-dropdown-item
+                        label="Denied"
+                        [checked]="getStatus(row.id) === 'Denied'"
+                        (selected)="setStatus(row.id, 'Denied')"
+                      />
+                      <merces-dropdown-item
+                        label="Others"
+                        [checked]="getStatus(row.id) === 'Others'"
+                        (selected)="setStatus(row.id, 'Others')"
+                      />
+                    </merces-dropdown>
+                  </merces-dropdown-group>
+
+                  <!-- Edit Service Columns — 40px fixed via clip wrapper (Figma: 5988:61296) -->
+                  <div class="cdt-exp-edit-btn-wrap">
+                    <merces-cta-button
+                      intent="brand"
+                      type="primary"
+                      size="base"
+                      variant="icon-left"
+                      icon="table"
+                      label="Edit Service Columns"
+                      (pressed)="onEditDisplayColumns()"
+                    />
+                  </div>
+                </div>
+
+                <!-- ── Content: bordered nested table ──
+                     CSS Grid: 7 equal cols + 48px sticky-right
+                     Figma: 1158:33659 HORIZONTAL 1584×378 -->
+                <div class="cdt-exp-content">
+                  <div class="cdt-exp-grid" [style.grid-template-columns]="svcGridTemplate()">
+
+                    <!-- Sub-header row — Figma: 1158:33660 -->
+                    <div class="cdt-exp-hrow">
+                      @for (col of SVC_COLS; track col.key) {
+                        <merces-table-header
+                          size="mini"
+                          type="string"
+                          variant="dual"
+                          [extraText]="col.extra"
+                          [mainText]="col.main"
+                          [sortOrder]="svcSortOrderFor(col.key)"
+                          (sortOrderChange)="onSvcSortChange(col.key, $event)"
+                        />
+                      }
+                      <!-- Sticky-right header: empty — matches header bg, white left border -->
+                      <div class="cdt-exp-hcell-options" role="columnheader" aria-label="Row options"></div>
+                    </div>
+
+                    <!-- Service data rows — Figma: 1158:33668 rows at 41px each -->
+                    @for (svc of sortedServices(row); track svc.id; let j = $index) {
+
+                      <!-- merces-table-row: subgrid spans all 8 inner columns -->
+                      <merces-table-row size="mini" [alternating]="j % 2 !== 0">
+
+                        <!-- 7 service data cells driven by SVC_COLS key order -->
+                        @for (col of SVC_COLS; track col.key) {
+                          <merces-table-entry size="mini" type="string" [text]="$any(svc)[col.key]" />
+                        }
+
+                        <!-- Sticky-right: triple-dot button + entry options overlay
+                             Figma: Options cell 9042:103251 — 48×41
+                             background:inherit picks up alternating color from merces-table-row host -->
+                        <div class="cdt-exp-options-cell" [class.cdt-exp-options-cell--active]="openOptionsId() === svc.id">
+                          <!-- Positioned anchor for the options panel -->
+                          <div class="cdt-options-anchor" (click)="openOptions(svc.id, $event)">
+                            <!-- Figma: CTA-Brand, Quaternary, Mini, IconOnly, Dots-Vertical Bold Tiny, 32×32 -->
+                            <merces-cta-button
+                              intent="brand"
+                              type="quaternary"
+                              size="mini"
+                              variant="icon-only"
+                              icon="dots-vertical"
+                              iconType="bold"
+                              iconSize="tiny"
+                              [toggled]="openOptionsId() === svc.id"
+                              aria-label="Row options"
+                            />
+                          </div>
+                        </div>
+
+                      </merces-table-row>
+                    }
+
+                  </div><!-- /cdt-exp-grid -->
+                </div><!-- /cdt-exp-content -->
+              </div><!-- /cdt-exp-table -->
+
+            </div><!-- /cdt-exp-inner -->
+          </div><!-- /cdt-exp-animated -->
+        </div><!-- /cdt-expansion-row -->
+
+      }<!-- /@for -->
+
+    </div><!-- /cdt-inner -->
+    </merces-overlay-scroll>
+  </div><!-- /cdt-scroll -->
+</div><!-- /cdt-container -->
+
+<!-- Entry options panel — hoisted to :host root so position:fixed z-index:200
+     is in the global stacking context, not inside a sticky stacking context.
+     Figma: 9043-104376 190×96 | 150ms cubic-bezier(0,0,0,1) dissolve -->
+<div
+  class="cdt-options-panel"
+  [class.cdt-options-panel--open]="openOptionsId() !== null"
+  [style.top.px]="panelTop()"
+  [style.bottom.px]="panelBottom()"
+  [style.right.px]="panelRight()"
+  role="listbox"
+>
+  <div class="cdt-options-panel__content">
+    <button class="cdt-options-item paragraph-ui" role="option"
+            (click)="openOptionsId.set(null)">
+      View EOB Details
+      <merces-icon name="arrow-diagonal-up" size="base" type="regular" />
+    </button>
+    <button class="cdt-options-item paragraph-ui" role="option" disabled>
+      More details
+    </button>
+  </div>
+</div>

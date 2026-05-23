@@ -177,7 +177,7 @@
            Outer @for on _filterKey toggles off/on during Reset to force
            all child components to reinitialise at their default state. -->
       @for (_ of [_filterKey()]; track _) {
-      <div class="parameters">
+      <merces-overlay-scroll class="parameters">
 
         <!-- Adjustment Reason Category — Dropdown -->
         @if (isVisible('Adjustment Reason Category')) {
@@ -596,7 +596,7 @@
           />
         }
 
-      </div>
+      </merces-overlay-scroll>
       } <!-- /@for _filterKey -->
 
       <!-- Actions bar — Reset and Apply

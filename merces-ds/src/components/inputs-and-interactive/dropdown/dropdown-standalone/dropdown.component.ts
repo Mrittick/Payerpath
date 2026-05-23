@@ -122,7 +122,7 @@ export class DropdownComponent implements OnDestroy {
   onContentClick(event: Event): void {
     const target = event.target as HTMLElement;
     const item = target.closest('merces-dropdown-item');
-    if (item && !item.classList.contains('dropdown-item--disabled') && this.mode() === 'single-select') {
+    if (item && !item.classList.contains('dropdown-item--disabled') && (this.mode() === 'single-select' || this.mode() === 'choice')) {
       setTimeout(() => {
         this.open.set(false);
         this.closed.emit();

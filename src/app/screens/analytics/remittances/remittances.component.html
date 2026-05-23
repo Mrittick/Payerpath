@@ -18,23 +18,23 @@
          ══════════════════════════════════════════════════════════ -->
     <header class="header">
 
-      <!-- Tabs — Analytics / Claims Data / Service Data (Level02)
+      <!-- Tabs — Analytics / Claims Data / Service Data (Level01)
            Figma node 82:7285 — padding 12/8/0/8, FILL width -->
       <div class="header-tabs" role="tablist">
         <merces-tab-button
-          hierarchy="level-02"
+          hierarchy="level-01"
           label="Analytics"
           [isCurrent]="activeTab() === 'analytics'"
           (pressed)="activeTab.set('analytics')"
         />
         <merces-tab-button
-          hierarchy="level-02"
+          hierarchy="level-01"
           label="Claims Data"
           [isCurrent]="activeTab() === 'claims-data'"
           (pressed)="activeTab.set('claims-data')"
         />
         <merces-tab-button
-          hierarchy="level-02"
+          hierarchy="level-01"
           label="Service Data"
           [isCurrent]="activeTab() === 'service-data'"
           (pressed)="activeTab.set('service-data')"
@@ -45,13 +45,13 @@
            Figma node 88:8207 — padding 0/8/0/8, gap:8, HUG width, center-aligned -->
       <div class="header-plotting">
         <merces-tab-button
-          hierarchy="level-01"
+          hierarchy="level-02"
           label="Chart"
           [isCurrent]="activePlottingTab() === 'chart'"
           (pressed)="activePlottingTab.set('chart')"
         />
         <merces-tab-button
-          hierarchy="level-01"
+          hierarchy="level-02"
           label="Date Series"
           [isCurrent]="activePlottingTab() === 'date-series'"
           (pressed)="activePlottingTab.set('date-series')"
@@ -74,9 +74,11 @@
         <!-- Divider 2 -->
         <div class="plotting-divider" aria-hidden="true"></div>
 
-        <!-- Download Chip — State=Default, hasChart=True -->
+        <!-- Download Chip — hasChart driven by active tab:
+             Analytics → true (chart exists, show snapshot option)
+             Claims Data / Service Data → false (no chart, direct XLS download) -->
         <payerpath-download-chip
-          [hasChart]="true"
+          [hasChart]="activeTab() === 'analytics'"
           (downloadAll)="onDownloadAll()"
           (downloadChartSnapshot)="onDownloadChartSnapshot()"
         />
@@ -259,16 +261,33 @@
     }
 
     @if (activeTab() === 'claims-data') {
-      <!-- Figma 216:7019 → 216:7020 → 216:7023 — Claims Data tab -->
-      <section class="tab-empty" aria-label="Claims data">
-        <div class="tab-empty__card">
-          <!-- Body 216:7023 — pad=0/8/0/8 -->
-          <div class="tab-empty__body">
-            <!-- Data Table 216:9784 — bg=purple-1100, stroke-xs purple-700, radius-xs -->
-            <div class="tab-empty__data">
-              <merces-table-no-data />
-            </div>
+      <!-- Figma 831:30232 — Claims Data tab
+           Table 831:30247: padding gap-md all sides, no fill
+           Frame 831:30248: fill neutral-default, radius-md, pad gap-md v / gap-nil h, gap gap-md
+           Body  1158:35640: flex:1, pad 0 gap-md (horizontal)
+           Footer 831:30253: Divider 831:30254 (10px) + Paginator 831:30256 (40px), gap 10px -->
+      <section class="claims-section" aria-label="Claims data">
+        <div class="claims-frame">
+
+          <!-- Body 1158:35640 — fills Frame, 0 vertical pad, gap-md horizontal -->
+          <div class="claims-body">
+            <payerpath-claims-data-table [rows]="paginatedClaimsRows()" />
           </div>
+
+          <!-- Footer 831:30253 -->
+          <footer class="table-footer">
+            <div class="table-footer__divider" aria-hidden="true"></div>
+            <div class="table-footer__paginator">
+              <merces-paginator
+                [totalItems]="claimsTotalItems"
+                [page]="claimsCurrentPage()"
+                (pageChange)="claimsCurrentPage.set($event)"
+                [pageSize]="claimsPageSize()"
+                (pageSizeChange)="claimsPageSize.set($event)"
+                pagesVariant="hybrid"
+              />
+            </div>
+          </footer>
         </div>
       </section>
     }

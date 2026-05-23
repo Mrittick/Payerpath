@@ -96,70 +96,27 @@
         <p class="paragraph-p4 content-subtitle">Mirrors the Figma "Tabs" container — click to switch, watch for zero layout shift</p>
         <div class="preview-card">
           <div class="tabs-bar">
-            <merces-tab-button hierarchy="level-02" size="base" label="Analytics"   [isCurrent]="demoTab() === 'analytics'" (pressed)="demoTab.set('analytics')" />
-            <merces-tab-button hierarchy="level-02" size="base" label="Claims Data" [isCurrent]="demoTab() === 'claims'"    (pressed)="demoTab.set('claims')" />
-            <merces-tab-button hierarchy="level-02" size="base" label="Service Data"[isCurrent]="demoTab() === 'service'"   (pressed)="demoTab.set('service')" />
+            <merces-tab-button hierarchy="level-01" size="base" label="Analytics"   [isCurrent]="demoTab() === 'analytics'" (pressed)="demoTab.set('analytics')" />
+            <merces-tab-button hierarchy="level-01" size="base" label="Claims Data" [isCurrent]="demoTab() === 'claims'"    (pressed)="demoTab.set('claims')" />
+            <merces-tab-button hierarchy="level-01" size="base" label="Service Data"[isCurrent]="demoTab() === 'service'"   (pressed)="demoTab.set('service')" />
           </div>
         </div>
       }
 
-      <!-- ═══ Tab Button — Level 01 Pill ═══ -->
+      <!-- ═══ Tab Button — Level 01 Underline ═══ -->
       @case ('tab-button-level01') {
-        <h2 class="heading-h3 content-title">Level 01 — Pill</h2>
-        <p class="paragraph-p4 content-subtitle">Pill-style tab — 2 sizes, default / current / disabled states</p>
-        <div class="preview-row">
-          <div class="preview-card">
-            <h3 class="heading-h5">Base</h3>
-            <div class="preview-flex">
-              <div class="preview-cell">
-                <merces-tab-button hierarchy="level-01" size="base" label="Default" />
-                <span class="paragraph-p4 preview-cell-label">default</span>
-              </div>
-              <div class="preview-cell">
-                <merces-tab-button hierarchy="level-01" size="base" label="Current" [isCurrent]="true" />
-                <span class="paragraph-p4 preview-cell-label">isCurrent</span>
-              </div>
-              <div class="preview-cell">
-                <merces-tab-button hierarchy="level-01" size="base" label="Disabled" [disabled]="true" />
-                <span class="paragraph-p4 preview-cell-label">disabled</span>
-              </div>
-            </div>
-            <p class="paragraph-p4 preview-caption">Hover and press the default tab to see state transitions</p>
-          </div>
-          <div class="preview-card">
-            <h3 class="heading-h5">Mini</h3>
-            <div class="preview-flex">
-              <div class="preview-cell">
-                <merces-tab-button hierarchy="level-01" size="mini" label="Default" />
-                <span class="paragraph-p4 preview-cell-label">default</span>
-              </div>
-              <div class="preview-cell">
-                <merces-tab-button hierarchy="level-01" size="mini" label="Current" [isCurrent]="true" />
-                <span class="paragraph-p4 preview-cell-label">isCurrent</span>
-              </div>
-              <div class="preview-cell">
-                <merces-tab-button hierarchy="level-01" size="mini" label="Disabled" [disabled]="true" />
-                <span class="paragraph-p4 preview-cell-label">disabled</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      }
-
-      <!-- ═══ Tab Button — Level 02 Underline ═══ -->
-      @case ('tab-button-level02') {
-        <h2 class="heading-h3 content-title">Level 02 — Underline</h2>
+        <h2 class="heading-h3 content-title">Level 01 — Underline</h2>
         <p class="paragraph-p4 content-subtitle">Underline-style tab — 2 sizes, zero layout shift on weight transition</p>
         <div class="preview-row">
           <div class="preview-card">
             <h3 class="heading-h5">Base</h3>
             <div class="preview-flex">
               <div class="preview-cell">
-                <merces-tab-button hierarchy="level-02" size="base" label="Analytics" />
+                <merces-tab-button hierarchy="level-01" size="base" label="Analytics" />
                 <span class="paragraph-p4 preview-cell-label">default</span>
               </div>
               <div class="preview-cell">
-                <merces-tab-button hierarchy="level-02" size="base" label="Analytics" [isCurrent]="true" />
+                <merces-tab-button hierarchy="level-01" size="base" label="Analytics" [isCurrent]="true" />
                 <span class="paragraph-p4 preview-cell-label">isCurrent</span>
               </div>
             </div>
@@ -169,12 +126,55 @@
             <h3 class="heading-h5">Mini</h3>
             <div class="preview-flex">
               <div class="preview-cell">
-                <merces-tab-button hierarchy="level-02" size="mini" label="Reports" />
+                <merces-tab-button hierarchy="level-01" size="mini" label="Reports" />
                 <span class="paragraph-p4 preview-cell-label">default</span>
               </div>
               <div class="preview-cell">
-                <merces-tab-button hierarchy="level-02" size="mini" label="Reports" [isCurrent]="true" />
+                <merces-tab-button hierarchy="level-01" size="mini" label="Reports" [isCurrent]="true" />
                 <span class="paragraph-p4 preview-cell-label">isCurrent</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- ═══ Tab Button — Level 02 Pill ═══ -->
+      @case ('tab-button-level02') {
+        <h2 class="heading-h3 content-title">Level 02 — Pill</h2>
+        <p class="paragraph-p4 content-subtitle">Pill-style tab — 2 sizes, default / current / disabled states</p>
+        <div class="preview-row">
+          <div class="preview-card">
+            <h3 class="heading-h5">Base</h3>
+            <div class="preview-flex">
+              <div class="preview-cell">
+                <merces-tab-button hierarchy="level-02" size="base" label="Default" />
+                <span class="paragraph-p4 preview-cell-label">default</span>
+              </div>
+              <div class="preview-cell">
+                <merces-tab-button hierarchy="level-02" size="base" label="Current" [isCurrent]="true" />
+                <span class="paragraph-p4 preview-cell-label">isCurrent</span>
+              </div>
+              <div class="preview-cell">
+                <merces-tab-button hierarchy="level-02" size="base" label="Disabled" [disabled]="true" />
+                <span class="paragraph-p4 preview-cell-label">disabled</span>
+              </div>
+            </div>
+            <p class="paragraph-p4 preview-caption">Hover and press the default tab to see state transitions</p>
+          </div>
+          <div class="preview-card">
+            <h3 class="heading-h5">Mini</h3>
+            <div class="preview-flex">
+              <div class="preview-cell">
+                <merces-tab-button hierarchy="level-02" size="mini" label="Default" />
+                <span class="paragraph-p4 preview-cell-label">default</span>
+              </div>
+              <div class="preview-cell">
+                <merces-tab-button hierarchy="level-02" size="mini" label="Current" [isCurrent]="true" />
+                <span class="paragraph-p4 preview-cell-label">isCurrent</span>
+              </div>
+              <div class="preview-cell">
+                <merces-tab-button hierarchy="level-02" size="mini" label="Disabled" [disabled]="true" />
+                <span class="paragraph-p4 preview-cell-label">disabled</span>
               </div>
             </div>
           </div>
@@ -187,8 +187,8 @@
         <p class="paragraph-p4 content-subtitle">Keyboard-only focus — tab into the buttons to see the ring</p>
         <div class="preview-card">
           <div class="preview-flex">
-            <merces-tab-button hierarchy="level-01" size="base" label="Focus Me" />
             <merces-tab-button hierarchy="level-02" size="base" label="Focus Me" />
+            <merces-tab-button hierarchy="level-01" size="base" label="Focus Me" />
           </div>
         </div>
       }
@@ -268,12 +268,12 @@
         <div class="tab-header">
           <div class="flavour-tabs">
             @for (f of flavours; track f) {
-              <merces-tab-button hierarchy="level-02" size="mini" [label]="f" [isCurrent]="activeFlavour() === f" (pressed)="activeFlavour.set(f)" />
+              <merces-tab-button hierarchy="level-01" size="mini" [label]="f" [isCurrent]="activeFlavour() === f" (pressed)="activeFlavour.set(f)" />
             }
           </div>
           <div class="size-toggle">
-            <merces-tab-button hierarchy="level-01" size="mini" label="Base" [isCurrent]="activeSize() === 'base'" (pressed)="activeSize.set('base')" />
-            <merces-tab-button hierarchy="level-01" size="mini" label="Mini" [isCurrent]="activeSize() === 'mini'" (pressed)="activeSize.set('mini')" />
+            <merces-tab-button hierarchy="level-02" size="mini" label="Base" [isCurrent]="activeSize() === 'base'" (pressed)="activeSize.set('base')" />
+            <merces-tab-button hierarchy="level-02" size="mini" label="Mini" [isCurrent]="activeSize() === 'mini'" (pressed)="activeSize.set('mini')" />
           </div>
         </div>
 
@@ -350,6 +350,42 @@
             </div>
           </div>
 
+          <!-- Toggle state -->
+          <div class="button-grid-section">
+            <h3 class="heading-h5">Toggle</h3>
+            <div class="button-grid-table">
+              <span></span>
+              <span class="paragraph-p4 button-grid-header">TextOnly</span>
+              <span class="paragraph-p4 button-grid-header">IconOnly</span>
+              <span class="paragraph-p4 button-grid-header">IconRight</span>
+              <span class="paragraph-p4 button-grid-header">IconLeft</span>
+
+              <span class="paragraph-p4-bold button-grid-row-label">Primary</span>
+              <merces-cta-button [size]="activeSize()" [intent]="activeFlavour()" type="primary" variant="text-only" label="Button" [toggled]="true" />
+              <merces-cta-button [size]="activeSize()" [intent]="activeFlavour()" type="primary" variant="icon-only" label="Action" icon="generic" [toggled]="true" />
+              <merces-cta-button [size]="activeSize()" [intent]="activeFlavour()" type="primary" variant="icon-right" label="Button" icon="generic" [toggled]="true" />
+              <merces-cta-button [size]="activeSize()" [intent]="activeFlavour()" type="primary" variant="icon-left" label="Button" icon="generic" [toggled]="true" />
+
+              <span class="paragraph-p4-bold button-grid-row-label">Secondary</span>
+              <merces-cta-button [size]="activeSize()" [intent]="activeFlavour()" type="secondary" variant="text-only" label="Button" [toggled]="true" />
+              <merces-cta-button [size]="activeSize()" [intent]="activeFlavour()" type="secondary" variant="icon-only" label="Action" icon="generic" [toggled]="true" />
+              <merces-cta-button [size]="activeSize()" [intent]="activeFlavour()" type="secondary" variant="icon-right" label="Button" icon="generic" [toggled]="true" />
+              <merces-cta-button [size]="activeSize()" [intent]="activeFlavour()" type="secondary" variant="icon-left" label="Button" icon="generic" [toggled]="true" />
+
+              <span class="paragraph-p4-bold button-grid-row-label">Tertiary</span>
+              <merces-cta-button [size]="activeSize()" [intent]="activeFlavour()" type="tertiary" variant="text-only" label="Button" [toggled]="true" />
+              <merces-cta-button [size]="activeSize()" [intent]="activeFlavour()" type="tertiary" variant="icon-only" label="Action" icon="generic" [toggled]="true" />
+              <merces-cta-button [size]="activeSize()" [intent]="activeFlavour()" type="tertiary" variant="icon-right" label="Button" icon="generic" [toggled]="true" />
+              <merces-cta-button [size]="activeSize()" [intent]="activeFlavour()" type="tertiary" variant="icon-left" label="Button" icon="generic" [toggled]="true" />
+
+              <span class="paragraph-p4-bold button-grid-row-label">Quaternary</span>
+              <merces-cta-button [size]="activeSize()" [intent]="activeFlavour()" type="quaternary" variant="text-only" label="Button" [toggled]="true" />
+              <merces-cta-button [size]="activeSize()" [intent]="activeFlavour()" type="quaternary" variant="icon-only" label="Action" icon="generic" [toggled]="true" />
+              <merces-cta-button [size]="activeSize()" [intent]="activeFlavour()" type="quaternary" variant="icon-right" label="Button" icon="generic" [toggled]="true" />
+              <merces-cta-button [size]="activeSize()" [intent]="activeFlavour()" type="quaternary" variant="icon-left" label="Button" icon="generic" [toggled]="true" />
+            </div>
+          </div>
+
           <!-- Focus test -->
           <div class="button-grid-section">
             <h3 class="heading-h5">Focus</h3>
@@ -369,19 +405,19 @@
         <div class="tab-header">
           <div class="flavour-tabs">
             @for (f of flavours; track f) {
-              <merces-tab-button hierarchy="level-02" size="mini" [label]="f" [isCurrent]="activeFlavour() === f" (pressed)="activeFlavour.set(f)" />
+              <merces-tab-button hierarchy="level-01" size="mini" [label]="f" [isCurrent]="activeFlavour() === f" (pressed)="activeFlavour.set(f)" />
             }
           </div>
           <div class="size-toggle">
-            <merces-tab-button hierarchy="level-01" size="mini" label="Base" [isCurrent]="activeSize() === 'base'" (pressed)="activeSize.set('base')" />
-            <merces-tab-button hierarchy="level-01" size="mini" label="Mini" [isCurrent]="activeSize() === 'mini'" (pressed)="activeSize.set('mini')" />
+            <merces-tab-button hierarchy="level-02" size="mini" label="Base" [isCurrent]="activeSize() === 'base'" (pressed)="activeSize.set('base')" />
+            <merces-tab-button hierarchy="level-02" size="mini" label="Mini" [isCurrent]="activeSize() === 'mini'" (pressed)="activeSize.set('mini')" />
           </div>
         </div>
 
         <div class="button-grid">
           <div class="button-grid-section">
             <h3 class="heading-h5">Default</h3>
-            <div class="button-grid-table">
+            <div class="button-grid-table button-grid-table--stretch">
               <span></span>
               <span class="paragraph-p4 button-grid-header">TextOnly</span>
               <span class="paragraph-p4 button-grid-header">IconOnly</span>
@@ -416,7 +452,7 @@
 
           <div class="button-grid-section">
             <h3 class="heading-h5">Disabled</h3>
-            <div class="button-grid-table">
+            <div class="button-grid-table button-grid-table--stretch">
               <span></span>
               <span class="paragraph-p4 button-grid-header">TextOnly</span>
               <span class="paragraph-p4 button-grid-header">IconOnly</span>
@@ -467,12 +503,12 @@
         <div class="tab-header">
           <div class="flavour-tabs">
             @for (f of flavours; track f) {
-              <merces-tab-button hierarchy="level-02" size="mini" [label]="f" [isCurrent]="activeFlavour() === f" (pressed)="activeFlavour.set(f)" />
+              <merces-tab-button hierarchy="level-01" size="mini" [label]="f" [isCurrent]="activeFlavour() === f" (pressed)="activeFlavour.set(f)" />
             }
           </div>
           <div class="size-toggle">
-            <merces-tab-button hierarchy="level-01" size="mini" label="Base" [isCurrent]="activeSize() === 'base'" (pressed)="activeSize.set('base')" />
-            <merces-tab-button hierarchy="level-01" size="mini" label="Mini" [isCurrent]="activeSize() === 'mini'" (pressed)="activeSize.set('mini')" />
+            <merces-tab-button hierarchy="level-02" size="mini" label="Base" [isCurrent]="activeSize() === 'base'" (pressed)="activeSize.set('base')" />
+            <merces-tab-button hierarchy="level-02" size="mini" label="Mini" [isCurrent]="activeSize() === 'mini'" (pressed)="activeSize.set('mini')" />
           </div>
         </div>
 
@@ -1178,7 +1214,7 @@
       <!-- ═══ Dropdown — Item ═══ -->
       @case ('dropdown-item') {
         <h2 class="heading-h3 content-title">Dropdown Item</h2>
-        <p class="paragraph-p4 content-subtitle">128 variants — Mode × Orientation × Type × State × More Info × TruncateText</p>
+        <p class="paragraph-p4 content-subtitle">136 variants — Mode × Orientation × Type × State × More Info × TruncateText</p>
 
         <!-- SingleSelect — Left -->
         <div class="preview-card preview-card--wide">
@@ -1230,6 +1266,18 @@
               <merces-dropdown-item mode="multi-select" orientation="right" label="Unchecked Default" />
               <merces-dropdown-item mode="multi-select" orientation="right" [checked]="true" label="Checked Default" />
               <merces-dropdown-item mode="multi-select" orientation="right" state="disabled" label="Disabled" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Choice — Justified -->
+        <div class="preview-card preview-card--wide">
+          <h3 class="heading-h5">Choice · Justified</h3>
+          <div class="preview-row" style="max-width: 240px;">
+            <div class="preview-col">
+              <merces-dropdown-item mode="choice" label="Default" />
+              <merces-dropdown-item mode="choice" state="disabled" label="Disabled" />
+              <merces-dropdown-item mode="choice" [truncateText]="true" label="This is a very long label that should truncate with ellipsis" />
             </div>
           </div>
         </div>
@@ -1353,6 +1401,17 @@
                 <merces-dropdown-action label="Done" (pressed)="msSimple.open.set(false)" />
               </merces-dropdown>
             </div>
+
+            <!-- Choice Simple -->
+            <div class="preview-col" style="gap: 8px; flex: 1; min-width: 0;">
+              <span class="paragraph-p4">Choice</span>
+              <merces-dropdown mode="choice" placeholder="Select" [unselected]="!ss('ch-simple')()" [selectionText]="ss('ch-simple')()">
+                <merces-dropdown-item mode="choice" label="Apple" [checked]="ss('ch-simple')() === 'Apple'" (selected)="selectSingle('ch-simple', 'Apple')" />
+                <merces-dropdown-item mode="choice" label="Orange" [checked]="ss('ch-simple')() === 'Orange'" (selected)="selectSingle('ch-simple', 'Orange')" />
+                <merces-dropdown-item mode="choice" label="Lemon" [checked]="ss('ch-simple')() === 'Lemon'" (selected)="selectSingle('ch-simple', 'Lemon')" />
+                <merces-dropdown-item mode="choice" label="Kiwi" state="disabled" />
+              </merces-dropdown>
+            </div>
           </div>
         </div>
 
@@ -1390,6 +1449,22 @@
                 <merces-dropdown-item mode="multi-select" label="Diabetes" [checked]="ms('ms-cat')().has('Diabetes')" (selected)="toggleMulti('ms-cat', 'Diabetes')" />
                 <merces-dropdown-item mode="multi-select" label="Cancer" [checked]="ms('ms-cat')().has('Cancer')" (selected)="toggleMulti('ms-cat', 'Cancer')" />
                 <merces-dropdown-action label="Done" (pressed)="msCat.open.set(false)" />
+              </merces-dropdown>
+            </div>
+
+            <!-- Choice Categorised -->
+            <div class="preview-col" style="gap: 8px; flex: 1; min-width: 0;">
+              <span class="paragraph-p4">Choice</span>
+              <merces-dropdown mode="choice" placeholder="Select" [unselected]="!ss('ch-cat')()" [selectionText]="ss('ch-cat')()">
+                <merces-dropdown-section mode="choice" label="Communicable" />
+                <merces-dropdown-item mode="choice" label="Cholera" [checked]="ss('ch-cat')() === 'Cholera'" (selected)="selectSingle('ch-cat', 'Cholera')" />
+                <merces-dropdown-item mode="choice" label="Rabies" [checked]="ss('ch-cat')() === 'Rabies'" (selected)="selectSingle('ch-cat', 'Rabies')" />
+                <merces-dropdown-item mode="choice" label="COVID-19" [checked]="ss('ch-cat')() === 'COVID-19'" (selected)="selectSingle('ch-cat', 'COVID-19')" />
+                <merces-dropdown-item mode="choice" label="Measles" state="disabled" />
+                <merces-dropdown-separator mode="choice" />
+                <merces-dropdown-section mode="choice" label="Non-Communicable" />
+                <merces-dropdown-item mode="choice" label="Diabetes" [checked]="ss('ch-cat')() === 'Diabetes'" (selected)="selectSingle('ch-cat', 'Diabetes')" />
+                <merces-dropdown-item mode="choice" label="Cancer" [checked]="ss('ch-cat')() === 'Cancer'" (selected)="selectSingle('ch-cat', 'Cancer')" />
               </merces-dropdown>
             </div>
           </div>
@@ -1446,6 +1521,29 @@
                   <merces-dropdown-no-results />
                 }
                 <merces-dropdown-action label="Done" (pressed)="msSearch.open.set(false)" />
+              </merces-dropdown>
+            </div>
+
+            <!-- Choice + Search -->
+            <div class="preview-col" style="gap: 8px; flex: 1; min-width: 0;">
+              <span class="paragraph-p4">Choice</span>
+              <merces-dropdown mode="choice" placeholder="Select" [unselected]="!ss('ch-search')()" [selectionText]="ss('ch-search')()">
+                <merces-dropdown-filter [searchValue]="filterVal('ch-search')()" (searchValueChange)="filterVal('ch-search').set($event)" />
+                @if (matchesFilter('ch-search', 'Apple')) {
+                  <merces-dropdown-item mode="choice" label="Apple" [checked]="ss('ch-search')() === 'Apple'" (selected)="selectSingle('ch-search', 'Apple')" />
+                }
+                @if (matchesFilter('ch-search', 'Orange')) {
+                  <merces-dropdown-item mode="choice" label="Orange" [checked]="ss('ch-search')() === 'Orange'" (selected)="selectSingle('ch-search', 'Orange')" />
+                }
+                @if (matchesFilter('ch-search', 'Lemon')) {
+                  <merces-dropdown-item mode="choice" label="Lemon" [checked]="ss('ch-search')() === 'Lemon'" (selected)="selectSingle('ch-search', 'Lemon')" />
+                }
+                @if (matchesFilter('ch-search', 'Kiwi')) {
+                  <merces-dropdown-item mode="choice" label="Kiwi" state="disabled" />
+                }
+                @if (hasNoMatches('ch-search', ['Apple', 'Orange', 'Lemon', 'Kiwi'])) {
+                  <merces-dropdown-no-results />
+                }
               </merces-dropdown>
             </div>
           </div>
@@ -1528,6 +1626,41 @@
                 <merces-dropdown-action label="Done" (pressed)="msSearchCat.open.set(false)" />
               </merces-dropdown>
             </div>
+
+            <!-- Choice + Search + Categories -->
+            <div class="preview-col" style="gap: 8px; flex: 1; min-width: 0;">
+              <span class="paragraph-p4">Choice</span>
+              <merces-dropdown mode="choice" placeholder="Select" [unselected]="!ss('ch-search-cat')()" [selectionText]="ss('ch-search-cat')()">
+                <merces-dropdown-filter [searchValue]="filterVal('ch-search-cat')()" (searchValueChange)="filterVal('ch-search-cat').set($event)" />
+                @if (sectionHasMatches('ch-search-cat', ['Cholera', 'Rabies', 'COVID-19', 'Measles'])) {
+                  <merces-dropdown-section mode="choice" label="Communicable" />
+                }
+                @if (matchesFilter('ch-search-cat', 'Cholera')) {
+                  <merces-dropdown-item mode="choice" label="Cholera" [checked]="ss('ch-search-cat')() === 'Cholera'" (selected)="selectSingle('ch-search-cat', 'Cholera')" />
+                }
+                @if (matchesFilter('ch-search-cat', 'Rabies')) {
+                  <merces-dropdown-item mode="choice" label="Rabies" [checked]="ss('ch-search-cat')() === 'Rabies'" (selected)="selectSingle('ch-search-cat', 'Rabies')" />
+                }
+                @if (matchesFilter('ch-search-cat', 'COVID-19')) {
+                  <merces-dropdown-item mode="choice" label="COVID-19" [checked]="ss('ch-search-cat')() === 'COVID-19'" (selected)="selectSingle('ch-search-cat', 'COVID-19')" />
+                }
+                @if (matchesFilter('ch-search-cat', 'Measles')) {
+                  <merces-dropdown-item mode="choice" label="Measles" state="disabled" />
+                }
+                @if (sectionHasMatches('ch-search-cat', ['Cholera', 'Rabies', 'COVID-19', 'Measles']) && sectionHasMatches('ch-search-cat', ['Diabetes'])) {
+                  <merces-dropdown-separator mode="choice" />
+                }
+                @if (sectionHasMatches('ch-search-cat', ['Diabetes'])) {
+                  <merces-dropdown-section mode="choice" label="Non-Communicable" />
+                }
+                @if (matchesFilter('ch-search-cat', 'Diabetes')) {
+                  <merces-dropdown-item mode="choice" label="Diabetes" [checked]="ss('ch-search-cat')() === 'Diabetes'" (selected)="selectSingle('ch-search-cat', 'Diabetes')" />
+                }
+                @if (hasNoMatches('ch-search-cat', ['Cholera', 'Rabies', 'COVID-19', 'Measles', 'Diabetes'])) {
+                  <merces-dropdown-no-results />
+                }
+              </merces-dropdown>
+            </div>
           </div>
         </div>
 
@@ -1582,6 +1715,29 @@
                   <merces-dropdown-no-results />
                 }
                 <merces-dropdown-action label="Done" (pressed)="msFilter.open.set(false)" />
+              </merces-dropdown>
+            </div>
+
+            <!-- Choice + Search + Filter -->
+            <div class="preview-col" style="gap: 8px; flex: 1; min-width: 0;">
+              <span class="paragraph-p4">Choice</span>
+              <merces-dropdown mode="choice" placeholder="Select" [unselected]="!ss('ch-filter')()" [selectionText]="ss('ch-filter')()">
+                <merces-dropdown-filter [hasFilter]="true" [searchValue]="filterVal('ch-filter')()" (searchValueChange)="filterVal('ch-filter').set($event)" />
+                @if (matchesFilter('ch-filter', 'Apple')) {
+                  <merces-dropdown-item mode="choice" label="Apple" [checked]="ss('ch-filter')() === 'Apple'" (selected)="selectSingle('ch-filter', 'Apple')" />
+                }
+                @if (matchesFilter('ch-filter', 'Orange')) {
+                  <merces-dropdown-item mode="choice" label="Orange" [checked]="ss('ch-filter')() === 'Orange'" (selected)="selectSingle('ch-filter', 'Orange')" />
+                }
+                @if (matchesFilter('ch-filter', 'Lemon')) {
+                  <merces-dropdown-item mode="choice" label="Lemon" [checked]="ss('ch-filter')() === 'Lemon'" (selected)="selectSingle('ch-filter', 'Lemon')" />
+                }
+                @if (matchesFilter('ch-filter', 'Kiwi')) {
+                  <merces-dropdown-item mode="choice" label="Kiwi" state="disabled" />
+                }
+                @if (hasNoMatches('ch-filter', ['Apple', 'Orange', 'Lemon', 'Kiwi'])) {
+                  <merces-dropdown-no-results />
+                }
               </merces-dropdown>
             </div>
           </div>
@@ -1662,6 +1818,44 @@
                   <merces-dropdown-no-results />
                 }
                 <merces-dropdown-action label="Done" (pressed)="msFilterCat.open.set(false)" />
+              </merces-dropdown>
+            </div>
+
+            <!-- Choice + Search + Filter + Categories -->
+            <div class="preview-col" style="gap: 8px; flex: 1; min-width: 0;">
+              <span class="paragraph-p4">Choice</span>
+              <merces-dropdown mode="choice" placeholder="Select" [unselected]="!ss('ch-filter-cat')()" [selectionText]="ss('ch-filter-cat')()">
+                <merces-dropdown-filter [hasFilter]="true" [searchValue]="filterVal('ch-filter-cat')()" (searchValueChange)="filterVal('ch-filter-cat').set($event)" />
+                @if (sectionHasMatches('ch-filter-cat', ['Cholera', 'Rabies', 'COVID-19', 'Measles'])) {
+                  <merces-dropdown-section mode="choice" label="Communicable" />
+                }
+                @if (matchesFilter('ch-filter-cat', 'Cholera')) {
+                  <merces-dropdown-item mode="choice" label="Cholera" [checked]="ss('ch-filter-cat')() === 'Cholera'" (selected)="selectSingle('ch-filter-cat', 'Cholera')" />
+                }
+                @if (matchesFilter('ch-filter-cat', 'Rabies')) {
+                  <merces-dropdown-item mode="choice" label="Rabies" [checked]="ss('ch-filter-cat')() === 'Rabies'" (selected)="selectSingle('ch-filter-cat', 'Rabies')" />
+                }
+                @if (matchesFilter('ch-filter-cat', 'COVID-19')) {
+                  <merces-dropdown-item mode="choice" label="COVID-19" [checked]="ss('ch-filter-cat')() === 'COVID-19'" (selected)="selectSingle('ch-filter-cat', 'COVID-19')" />
+                }
+                @if (matchesFilter('ch-filter-cat', 'Measles')) {
+                  <merces-dropdown-item mode="choice" label="Measles" state="disabled" />
+                }
+                @if (sectionHasMatches('ch-filter-cat', ['Cholera', 'Rabies', 'COVID-19', 'Measles']) && sectionHasMatches('ch-filter-cat', ['Diabetes', 'Cancer'])) {
+                  <merces-dropdown-separator mode="choice" />
+                }
+                @if (sectionHasMatches('ch-filter-cat', ['Diabetes', 'Cancer'])) {
+                  <merces-dropdown-section mode="choice" label="Non-Communicable" />
+                }
+                @if (matchesFilter('ch-filter-cat', 'Diabetes')) {
+                  <merces-dropdown-item mode="choice" label="Diabetes" [checked]="ss('ch-filter-cat')() === 'Diabetes'" (selected)="selectSingle('ch-filter-cat', 'Diabetes')" />
+                }
+                @if (matchesFilter('ch-filter-cat', 'Cancer')) {
+                  <merces-dropdown-item mode="choice" label="Cancer" [checked]="ss('ch-filter-cat')() === 'Cancer'" (selected)="selectSingle('ch-filter-cat', 'Cancer')" />
+                }
+                @if (hasNoMatches('ch-filter-cat', ['Cholera', 'Rabies', 'COVID-19', 'Measles', 'Diabetes', 'Cancer'])) {
+                  <merces-dropdown-no-results />
+                }
               </merces-dropdown>
             </div>
           </div>
@@ -2288,12 +2482,12 @@
 
         <div class="tab-header">
           <div class="flavour-tabs">
-            <merces-tab-button hierarchy="level-02" size="mini" label="Brand"   [isCurrent]="tableTheme() === 'brand'"   (pressed)="tableTheme.set('brand')" />
-            <merces-tab-button hierarchy="level-02" size="mini" label="Neutral" [isCurrent]="tableTheme() === 'neutral'" (pressed)="tableTheme.set('neutral')" />
+            <merces-tab-button hierarchy="level-01" size="mini" label="Brand"   [isCurrent]="tableTheme() === 'brand'"   (pressed)="tableTheme.set('brand')" />
+            <merces-tab-button hierarchy="level-01" size="mini" label="Neutral" [isCurrent]="tableTheme() === 'neutral'" (pressed)="tableTheme.set('neutral')" />
           </div>
           <div class="size-toggle">
-            <merces-tab-button hierarchy="level-01" size="mini" label="Base" [isCurrent]="tableSize() === 'base'" (pressed)="tableSize.set('base')" />
-            <merces-tab-button hierarchy="level-01" size="mini" label="Mini" [isCurrent]="tableSize() === 'mini'" (pressed)="tableSize.set('mini')" />
+            <merces-tab-button hierarchy="level-02" size="mini" label="Base" [isCurrent]="tableSize() === 'base'" (pressed)="tableSize.set('base')" />
+            <merces-tab-button hierarchy="level-02" size="mini" label="Mini" [isCurrent]="tableSize() === 'mini'" (pressed)="tableSize.set('mini')" />
           </div>
         </div>
 
@@ -2926,11 +3120,11 @@
 
         <div class="tab-header">
           <div class="flavour-tabs">
-            <merces-tab-button hierarchy="level-02" size="base" label="String Field" [isCurrent]="sfCoreTab() === 'field'" (pressed)="sfCoreTab.set('field')" />
-            <merces-tab-button hierarchy="level-02" size="base" label="Groups" [isCurrent]="sfCoreTab() === 'groups'" (pressed)="sfCoreTab.set('groups')" />
+            <merces-tab-button hierarchy="level-01" size="base" label="String Field" [isCurrent]="sfCoreTab() === 'field'" (pressed)="sfCoreTab.set('field')" />
+            <merces-tab-button hierarchy="level-01" size="base" label="Groups" [isCurrent]="sfCoreTab() === 'groups'" (pressed)="sfCoreTab.set('groups')" />
           </div>
           <div class="size-toggle">
-            <merces-tab-button hierarchy="level-01" size="mini" label="Plain" [isCurrent]="true" />
+            <merces-tab-button hierarchy="level-02" size="mini" label="Plain" [isCurrent]="true" />
           </div>
         </div>
 
@@ -3076,8 +3270,8 @@
 
         <div class="tab-header">
           <div class="flavour-tabs">
-            <merces-tab-button hierarchy="level-02" size="base" label="Message" [isCurrent]="sfSubTab() === 'message'" (pressed)="sfSubTab.set('message')" />
-            <merces-tab-button hierarchy="level-02" size="base" label="Clear All" [isCurrent]="sfSubTab() === 'clear-all'" (pressed)="sfSubTab.set('clear-all')" />
+            <merces-tab-button hierarchy="level-01" size="base" label="Message" [isCurrent]="sfSubTab() === 'message'" (pressed)="sfSubTab.set('message')" />
+            <merces-tab-button hierarchy="level-01" size="base" label="Clear All" [isCurrent]="sfSubTab() === 'clear-all'" (pressed)="sfSubTab.set('clear-all')" />
           </div>
         </div>
 
@@ -3142,7 +3336,7 @@
 
         <div class="tab-header">
           <div class="flavour-tabs">
-            <merces-tab-button hierarchy="level-02" size="base" label="Password Field" [isCurrent]="ssfCoreTab() === 'field'" (pressed)="ssfCoreTab.set('field')" />
+            <merces-tab-button hierarchy="level-01" size="base" label="Password Field" [isCurrent]="ssfCoreTab() === 'field'" (pressed)="ssfCoreTab.set('field')" />
           </div>
         </div>
 
@@ -3218,13 +3412,13 @@
         <div class="tab-row" role="tablist" aria-label="Date field variant">
           <merces-tab-button
             label="Specific"
-            hierarchy="level-02"
+            hierarchy="level-01"
             [isCurrent]="calendarFieldTab() === 'specific'"
             (pressed)="calendarFieldTab.set('specific')"
           />
           <merces-tab-button
             label="Ranged"
-            hierarchy="level-02"
+            hierarchy="level-01"
             [isCurrent]="calendarFieldTab() === 'ranged'"
             (pressed)="calendarFieldTab.set('ranged')"
           />
@@ -3376,13 +3570,13 @@
         <div class="tab-row" role="tablist" aria-label="Calendar UI variant">
           <merces-tab-button
             label="Specific"
-            hierarchy="level-02"
+            hierarchy="level-01"
             [isCurrent]="calendarUiTab() === 'specific'"
             (pressed)="calendarUiTab.set('specific')"
           />
           <merces-tab-button
             label="Ranged"
-            hierarchy="level-02"
+            hierarchy="level-01"
             [isCurrent]="calendarUiTab() === 'ranged'"
             (pressed)="calendarUiTab.set('ranged')"
           />
@@ -3429,13 +3623,13 @@
         <div class="tab-row" role="tablist" aria-label="Composition">
           <merces-tab-button
             label="Single"
-            hierarchy="level-02"
+            hierarchy="level-01"
             [isCurrent]="timePicker12hrTab() === 'single'"
             (pressed)="timePicker12hrTab.set('single')"
           />
           <merces-tab-button
             label="Ranged"
-            hierarchy="level-02"
+            hierarchy="level-01"
             [isCurrent]="timePicker12hrTab() === 'ranged'"
             (pressed)="timePicker12hrTab.set('ranged')"
           />
@@ -3598,13 +3792,13 @@
         <div class="tab-row" role="tablist" aria-label="Composition">
           <merces-tab-button
             label="Single"
-            hierarchy="level-02"
+            hierarchy="level-01"
             [isCurrent]="timePicker24hrTab() === 'single'"
             (pressed)="timePicker24hrTab.set('single')"
           />
           <merces-tab-button
             label="Ranged"
-            hierarchy="level-02"
+            hierarchy="level-01"
             [isCurrent]="timePicker24hrTab() === 'ranged'"
             (pressed)="timePicker24hrTab.set('ranged')"
           />
@@ -3996,13 +4190,13 @@
         <!-- Tab header: mode (left) · flavour (right) -->
         <div class="tab-header">
           <div class="flavour-tabs">
-            <merces-tab-button hierarchy="level-02" size="mini" label="Multi"     [isCurrent]="accordionMode() === 'multi'"     (pressed)="accordionMode.set('multi')"     />
-            <merces-tab-button hierarchy="level-02" size="mini" label="Exclusive" [isCurrent]="accordionMode() === 'exclusive'" (pressed)="accordionMode.set('exclusive')" />
+            <merces-tab-button hierarchy="level-01" size="mini" label="Multi"     [isCurrent]="accordionMode() === 'multi'"     (pressed)="accordionMode.set('multi')"     />
+            <merces-tab-button hierarchy="level-01" size="mini" label="Exclusive" [isCurrent]="accordionMode() === 'exclusive'" (pressed)="accordionMode.set('exclusive')" />
           </div>
           <div class="size-toggle">
-            <merces-tab-button hierarchy="level-01" size="mini" label="Brand"    [isCurrent]="accordionFlavour() === 'brand'"    (pressed)="accordionFlavour.set('brand')"    />
-            <merces-tab-button hierarchy="level-01" size="mini" label="Emphasis" [isCurrent]="accordionFlavour() === 'emphasis'" (pressed)="accordionFlavour.set('emphasis')" />
-            <merces-tab-button hierarchy="level-01" size="mini" label="Danger"   [isCurrent]="accordionFlavour() === 'danger'"   (pressed)="accordionFlavour.set('danger')"   />
+            <merces-tab-button hierarchy="level-02" size="mini" label="Brand"    [isCurrent]="accordionFlavour() === 'brand'"    (pressed)="accordionFlavour.set('brand')"    />
+            <merces-tab-button hierarchy="level-02" size="mini" label="Emphasis" [isCurrent]="accordionFlavour() === 'emphasis'" (pressed)="accordionFlavour.set('emphasis')" />
+            <merces-tab-button hierarchy="level-02" size="mini" label="Danger"   [isCurrent]="accordionFlavour() === 'danger'"   (pressed)="accordionFlavour.set('danger')"   />
           </div>
         </div>
 
@@ -4212,13 +4406,13 @@
 
         <div class="tab-header">
           <div class="flavour-tabs">
-            <merces-tab-button hierarchy="level-02" size="mini" label="Default Range"
+            <merces-tab-button hierarchy="level-01" size="mini" label="Default Range"
               [isCurrent]="paginationVariant() === 'default'"
               (pressed)="paginationVariant.set('default')" />
-            <merces-tab-button hierarchy="level-02" size="mini" label="Long Range"
+            <merces-tab-button hierarchy="level-01" size="mini" label="Long Range"
               [isCurrent]="paginationVariant() === 'long'"
               (pressed)="paginationVariant.set('long')" />
-            <merces-tab-button hierarchy="level-02" size="mini" label="Hybrid"
+            <merces-tab-button hierarchy="level-01" size="mini" label="Hybrid"
               [isCurrent]="paginationVariant() === 'hybrid'"
               (pressed)="paginationVariant.set('hybrid')" />
           </div>
@@ -4408,7 +4602,7 @@
             <div class="pagination-page-picker">
               <span class="paragraph-p4 preview-caption">Jump to page:</span>
               @for (p of [1,3,4,5,10,13,20,22,24,25]; track p) {
-                <merces-tab-button hierarchy="level-02" size="mini" [label]="'' + p" [isCurrent]="paginationSubPage() === p" (pressed)="paginationSubPage.set(p)" />
+                <merces-tab-button hierarchy="level-01" size="mini" [label]="'' + p" [isCurrent]="paginationSubPage() === p" (pressed)="paginationSubPage.set(p)" />
               }
             </div>
           </div>

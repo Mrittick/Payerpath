@@ -18,6 +18,10 @@
   padding: var(--gap-lg) var(--gap-2xl) var(--gap-lg) var(--gap-3xbig);
 }
 
+:host(.separator--choice) {
+  padding: var(--gap-lg) var(--gap-2xl);
+}
+
 /* ── Track & Line ── */
 
 .separator-track {

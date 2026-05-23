@@ -545,6 +545,59 @@
   overflow: hidden;
 }
 
+/* Claims Data → "Table" (831:30247): padding gap-md all sides, no fill. */
+.claims-section {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  padding: var(--gap-md);
+}
+
+/* Claims Data → "Frame" (831:30248):
+   fill: colour/fill/surface/neutral-default, radius-md,
+   padding: gap-md top/bottom, gap-nil left/right,
+   gap: gap-md, vertical stacking, top-left alignment. */
+.claims-frame {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  background-color: var(--colour-fill-surface-neutral-default);
+  border-radius: var(--radius-md);
+  padding: var(--gap-md) var(--gap-nil);
+  gap: var(--gap-md);
+  overflow: hidden;
+}
+
+/* Claims Data → "Body" (1158:35640):
+   Hugs content height (flex-basis:auto = max-content rows), shrinks when frame is too small.
+   flex-grow:0 prevents expanding into free space — the footer fills that instead. */
+.claims-body {
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 auto;
+  min-height: 0;
+  padding: 0 var(--gap-md);
+}
+
+/* Footer: grows to fill all free space left by the body (few-rows case).
+   flex-shrink:0 ensures it never collapses when the body is overflowing the frame.
+   Figma 831:30253 gap: Divider ends y:10, Paginator starts y:20 → 10px = gap-lg. */
+.claims-frame .table-footer {
+  flex: 1 0 auto;
+  gap: var(--gap-lg);
+}
+
+/* Divider: fills the footer's remaining height above the paginator.
+   display:flex + justify-content:flex-end anchors the ::after 2px line to the bottom
+   so it sits directly above the paginator rather than floating at the top of the space. */
+.claims-frame .table-footer__divider {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
 .loader-container {
   display: flex;
   flex: 1;

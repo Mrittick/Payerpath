@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-const sourcePath = path.resolve(__dirname, '../../Vibecode/Claude/Applications/merces-ds/angular/src');
+const sourcePath = path.resolve(__dirname, '../../Production/merces-ds/angular/src');
 const destinationPath = path.resolve(__dirname, './merces-ds/src');
 
 console.log('🔄 Synchronizing Merces Design System...');

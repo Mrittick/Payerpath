@@ -9,8 +9,8 @@
 >
   <span
     class="tab-button__text"
-    [class.paragraph-ui]="hierarchy() === 'level-01' || isCurrent()"
-    [class.paragraph-ui-thin]="hierarchy() === 'level-02' && !isCurrent()"
+    [class.paragraph-ui]="hierarchy() === 'level-02' || isCurrent() || disabled()"
+    [class.paragraph-ui-thin]="hierarchy() === 'level-01' && !isCurrent() && !disabled()"
     [attr.data-text]="label()"
   >{{ label() }}</span>
 </button>

@@ -435,11 +435,9 @@
 
 .button-grid-table {
   display: grid;
-  grid-template-columns: auto repeat(4, auto);
+  grid-template-columns: max-content repeat(4, max-content);
   gap: var(--gap-3xl) var(--gap-3xl);
   align-items: center;
-  width: max-content;
-  min-width: 100%;
 }
 
 .button-grid-header {
@@ -453,7 +451,13 @@
 }
 
 .button-grid-table--3col {
-  grid-template-columns: auto repeat(3, auto);
+  grid-template-columns: max-content repeat(3, max-content);
+}
+
+.button-grid-table--stretch {
+  min-width: 100%;
+  /* label | TextOnly (spans) | IconOnly (fixed square) | IconRight (spans) | IconLeft (spans) */
+  grid-template-columns: max-content auto max-content auto auto;
 }
 
 /* ═══════════════════════════════════════════ */
