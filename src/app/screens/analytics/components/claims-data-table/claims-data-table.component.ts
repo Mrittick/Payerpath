@@ -77,16 +77,17 @@ export class ClaimsDataTableComponent {
     { key: 'payer',                 label: 'Payer',                   minWidth: 160 },
   ] as const;
 
-  // ── CSS Grid template — 58px sticky-left + 11 proportional columns ─────────
+  // ── CSS Grid template — 58px sticky-left + 11 proportional columns + 40px sticky-right ─────
   protected readonly gridTemplate = computed(() =>
     `var(--_cdt-sticky-left-w) ` +
-    this.COLUMNS.map(c => `minmax(${c.minWidth}px, ${c.minWidth}fr)`).join(' ')
+    this.COLUMNS.map(c => `minmax(${c.minWidth}px, ${c.minWidth}fr)`).join(' ') +
+    ` var(--_cdt-sticky-right-w)`
   );
 
-  // ── Sub-table grid template — 7 fill columns + 48px sticky-right ─────────
+  // ── Sub-table grid template — 7 fill columns + 41px sticky-right ─────────
   protected readonly svcGridTemplate = computed(() =>
     this.SVC_COLS.map(c => `minmax(${c.minWidth}px, 1fr)`).join(' ') +
-    ` var(--_cdt-sticky-right-w)`
+    ` var(--_cdt-sticky-right-exp-w)`
   );
 
   // ── Main table sort state ──────────────────────────────────────────────────
@@ -154,10 +155,12 @@ export class ClaimsDataTableComponent {
   private readonly _expandedIds = signal(new Set<string>());
   private readonly _statusMap   = signal(new Map<string, string>());
 
-  protected readonly openOptionsId  = signal<string | null>(null);
+  protected readonly openOptionsId     = signal<string | null>(null); /* svc-row panel */
+  protected readonly openMainOptionsId = signal<string | null>(null); /* main-row panel */
 
-  /* Panel fixed-position state — calculated on click, bound via [style.*] in template.
-     position:fixed escapes all overflow:hidden ancestors (including .cdt-exp-grid). */
+  /* Panel fixed-position state — shared; only one panel open at a time.
+     Calculated on click, bound via [style.*] in template.
+     position:fixed escapes all overflow:hidden ancestors. */
   protected readonly panelTop    = signal<number | null>(null);
   protected readonly panelBottom = signal<number | null>(null);
   protected readonly panelRight  = signal<number>(0);
@@ -184,15 +187,10 @@ export class ClaimsDataTableComponent {
     this._statusMap.set(m);
   }
 
-  protected openOptions(svcId: string, event: MouseEvent): void {
-    event.stopPropagation();
-    if (this.openOptionsId() === svcId) {
-      this.openOptionsId.set(null);
-      return;
-    }
-    const el    = event.currentTarget as HTMLElement;
-    const rect  = el.getBoundingClientRect();
-    const GAP   = 8; /* --gap-md */
+  private _positionPanel(event: MouseEvent): void {
+    const el      = event.currentTarget as HTMLElement;
+    const rect    = el.getBoundingClientRect();
+    const GAP     = 8; /* --gap-md */
     /* Flip upward when < 112px of viewport below trigger (96px panel + 8px gap + 8px buffer) */
     const flipped = window.innerHeight - rect.bottom < 112;
     this.panelRight.set(window.innerWidth - rect.right);
@@ -203,12 +201,28 @@ export class ClaimsDataTableComponent {
       this.panelBottom.set(null);
       this.panelTop.set(rect.bottom + GAP);
     }
+  }
+
+  protected openOptions(svcId: string, event: MouseEvent): void {
+    event.stopPropagation();
+    this.openMainOptionsId.set(null);
+    if (this.openOptionsId() === svcId) { this.openOptionsId.set(null); return; }
+    this._positionPanel(event);
     this.openOptionsId.set(svcId);
+  }
+
+  protected openMainOptions(rowId: string, event: MouseEvent): void {
+    event.stopPropagation();
+    this.openOptionsId.set(null);
+    if (this.openMainOptionsId() === rowId) { this.openMainOptionsId.set(null); return; }
+    this._positionPanel(event);
+    this.openMainOptionsId.set(rowId);
   }
 
   @HostListener('document:click')
   onDocClick(): void {
-    if (this.openOptionsId() !== null) this.openOptionsId.set(null);
+    if (this.openOptionsId()     !== null) this.openOptionsId.set(null);
+    if (this.openMainOptionsId() !== null) this.openMainOptionsId.set(null);
   }
 
   protected onEditDisplayColumns(): void {}

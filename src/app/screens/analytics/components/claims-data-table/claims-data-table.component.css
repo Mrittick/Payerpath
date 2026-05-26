@@ -4,7 +4,7 @@
    File: X3ePdrL3EFGOKK6Gb6qbV7
 
    Grid architecture (mirrors merces-data-table internals):
-     .cdt-inner         → CSS Grid: 58px sticky-left + 11 data cols
+     .cdt-inner         → CSS Grid: 58px sticky-left + 11 data cols + 40px sticky-right
      merces-table-row   → subgrid, grid-column: 1/-1  (DS component)
      merces-table-entry → grid item in subgrid         (DS component)
      merces-table-header→ grid item in header subgrid  (DS component)
@@ -22,8 +22,9 @@
 /* ── Component-level design tokens (code-only) ── */
 
 :host {
-  --_cdt-sticky-left-w:  58px;
-  --_cdt-sticky-right-w: 40px;
+  --_cdt-sticky-left-w:      58px;
+  --_cdt-sticky-right-w:     56px; /* main table — matches 56px row height */
+  --_cdt-sticky-right-exp-w: 41px; /* sub-table  — Figma spec               */
 
   /* Shadows — Figma DROP_SHADOW opacity 0.08
      Left sticky:   X:4  Y:0 radius:12
@@ -108,6 +109,11 @@
 /* Expand column header: matches merces-table-header appearance
    background-color, border-right, padding tokens all sourced from table-header.component.css */
 
+.cdt-hcell-expand,
+.cdt-hcell-options {
+  background-color: var(--colour-brand-purple-500);
+}
+
 .cdt-hcell-expand {
   position: sticky;
   left: 0;
@@ -133,6 +139,40 @@
   background: inherit;
   box-shadow: var(--_cdt-shadow-left);
   /* Right border visual: shadow provides separation, no explicit border needed */
+}
+
+/* Sticky-right options header — main table */
+
+.cdt-hcell-options {
+  position: sticky;
+  right: 0;
+  z-index: 4;                          /* above sticky rows (z-index:3), matches expand header */
+  width: var(--_cdt-sticky-right-w);
+  box-shadow: var(--_cdt-shadow-right);
+}
+
+/* ── Sticky-right options cell — main table rows ── */
+
+.cdt-cell-options--active {
+  z-index: 10;
+}
+
+.cdt-cell-options {
+  position: sticky;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--gap-nil);
+  background: inherit;
+  box-shadow: var(--_cdt-shadow-right);
+  overflow: visible;
+}
+
+/* Last data entry in main rows has no right border — adjacent to sticky-right options cell */
+.cdt-inner > merces-table-row merces-table-entry:last-of-type {
+  border-right: none;
 }
 
 /* ── Expand icon: rotates the icon SVG only, button layout stays fixed ── */
@@ -305,7 +345,7 @@
   position: sticky;
   right: 0;
   z-index: 2;
-  width: var(--_cdt-sticky-right-w);
+  width: var(--_cdt-sticky-right-exp-w);
   background-color: var(--colour-brand-purple-500);
   /* No border-left — shadow on data cells provides sufficient column separation */
   box-shadow: var(--_cdt-shadow-right);

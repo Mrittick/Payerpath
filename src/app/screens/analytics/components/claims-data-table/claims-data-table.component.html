@@ -13,7 +13,7 @@
   <div class="cdt-scroll">
     <merces-overlay-scroll>
 
-    <!-- ── CSS Grid: 1 sticky-left col + 11 data cols ── -->
+    <!-- ── CSS Grid: 1 sticky-left col + 11 data cols + 1 sticky-right col ── -->
     <div class="cdt-inner" [style.grid-template-columns]="gridTemplate()">
 
       <!-- ════════════════════════════════════════════════════
@@ -35,6 +35,9 @@
             (sortOrderChange)="onSortChange(col.key, $event)"
           />
         }
+
+        <!-- Sticky-right options header — empty, matches header bg -->
+        <div class="cdt-hcell-options" role="columnheader" aria-label="Row options"></div>
       </div>
 
       <!-- ════════════════════════════════════════════════════
@@ -74,6 +77,23 @@
               [text]="$any(row)[col.key]"
             />
           }
+
+          <!-- Col 13: sticky-right options cell -->
+          <div class="cdt-cell-options" [class.cdt-cell-options--active]="openMainOptionsId() === row.id">
+            <div class="cdt-options-anchor" (click)="openMainOptions(row.id, $event)">
+              <merces-cta-button
+                intent="brand"
+                type="quaternary"
+                size="mini"
+                variant="icon-only"
+                icon="dots-vertical"
+                iconType="bold"
+                iconSize="tiny"
+                [toggled]="openMainOptionsId() === row.id"
+                aria-label="Row options"
+              />
+            </div>
+          </div>
         </merces-table-row>
 
         <!-- ── Expansion row ──
@@ -204,8 +224,7 @@
   </div><!-- /cdt-scroll -->
 </div><!-- /cdt-container -->
 
-<!-- Entry options panel — hoisted to :host root so position:fixed z-index:200
-     is in the global stacking context, not inside a sticky stacking context.
+<!-- Service-row options panel — hoisted to :host root (position:fixed z-index:200)
      Figma: 9043-104376 190×96 | 150ms cubic-bezier(0,0,0,1) dissolve -->
 <div
   class="cdt-options-panel"
@@ -218,6 +237,27 @@
   <div class="cdt-options-panel__content">
     <button class="cdt-options-item paragraph-ui" role="option"
             (click)="openOptionsId.set(null)">
+      View EOB Details
+      <merces-icon name="arrow-diagonal-up" size="base" type="regular" />
+    </button>
+    <button class="cdt-options-item paragraph-ui" role="option" disabled>
+      More details
+    </button>
+  </div>
+</div>
+
+<!-- Main-row options panel — same position mechanism, separate open state -->
+<div
+  class="cdt-options-panel"
+  [class.cdt-options-panel--open]="openMainOptionsId() !== null"
+  [style.top.px]="panelTop()"
+  [style.bottom.px]="panelBottom()"
+  [style.right.px]="panelRight()"
+  role="listbox"
+>
+  <div class="cdt-options-panel__content">
+    <button class="cdt-options-item paragraph-ui" role="option"
+            (click)="openMainOptionsId.set(null)">
       View EOB Details
       <merces-icon name="arrow-diagonal-up" size="base" type="regular" />
     </button>
