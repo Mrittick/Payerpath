@@ -3,7 +3,14 @@
    vertical and horizontal axes. Zero layout impact on all platforms.
 
    Consumer API — set on the host element:
-     merces-overlay-scroll { --overlay-scroll-gap: var(--gap-3xl); }
+     --overlay-scroll-gap          gap between content items (default: 0px)
+     --overlay-scroll-overscroll   overscroll-behavior (default: contain)
+     --overlay-scroll-track-y-top  offset from top before vertical track starts,
+                                   e.g. sticky header height (default: 0px).
+                                   An additional --overlay-scroll-track-end-gap
+                                   is always added on top of this value.
+     --overlay-scroll-track-end-gap inset at each track end — bottom of vertical,
+                                   left+right of horizontal (default: 4px)
    ── */
 
 :host {
@@ -45,10 +52,12 @@
 
 .os-track-y {
   position: absolute;
-  top: 0;
+  top: calc(var(--overlay-scroll-track-y-top, 0px) + var(--overlay-scroll-track-end-gap, 4px));
   right: 3px;
-  bottom: 0;
+  /* bottom clears the horizontal track footprint (3px offset + 4px height = 7px) + end gap */
+  bottom: calc(var(--overlay-scroll-track-end-gap, 4px) + 7px);
   width: 4px;
+  z-index: 5; /* above sticky columns (max z-index:4) inside the scroll viewport */
   border-radius: var(--radius-full);
   opacity: 0;
   cursor: pointer;
@@ -95,10 +104,12 @@
 
 .os-track-x {
   position: absolute;
-  left: 0;
-  right: 0;
+  left: var(--overlay-scroll-track-end-gap, 4px);
+  /* right clears the vertical track footprint (3px offset + 4px width = 7px) + end gap */
+  right: calc(var(--overlay-scroll-track-end-gap, 4px) + 7px);
   bottom: 3px;
   height: 4px;
+  z-index: 5; /* above sticky columns (max z-index:4) inside the scroll viewport */
   border-radius: var(--radius-full);
   opacity: 0;
   cursor: pointer;

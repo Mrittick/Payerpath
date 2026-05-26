@@ -51,7 +51,7 @@
   flex: 1;
   min-height: 0;
   overflow: hidden;
-  border-right: var(--stroke-xs) solid var(--colour-brand-purple-700);
+  border-right: var(--_te-col-separator, var(--stroke-xs) solid var(--colour-brand-purple-700));
 }
 
 /* ==========================================================================

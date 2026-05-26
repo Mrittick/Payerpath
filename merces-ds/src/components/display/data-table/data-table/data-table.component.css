@@ -26,6 +26,7 @@
 
 merces-overlay-scroll {
   --overlay-scroll-overscroll: none;
+  --overlay-scroll-track-y-top: 40px; /* offset below the 40px sticky header row */
 }
 
 /* ── Inner — CSS Grid container; columns set via [style.grid-template-columns] ── */
@@ -43,6 +44,16 @@ merces-overlay-scroll {
   display: grid;
   grid-template-columns: subgrid;
   grid-column: 1 / -1;
+}
+
+/* ── Last column — no right border; the table's own border is the visual boundary ── */
+
+.header-row merces-table-header:last-of-type {
+  border-right: none;
+}
+
+.inner merces-table-row merces-table-entry:last-of-type {
+  --_te-col-separator: none;
 }
 
 /* ── Row removal animation wrapper ── */

@@ -67,6 +67,7 @@
   overflow: hidden; /* clips overlay tracks to table bounds */
   container-type: inline-size; /* exposes 100cqi for viewport-constrained expanded panel */
   --overlay-scroll-overscroll: none;
+  --overlay-scroll-track-y-top: 40px; /* offset below the 40px sticky header row */
 }
 
 /* ══════════════════════════════════════════════════════════
