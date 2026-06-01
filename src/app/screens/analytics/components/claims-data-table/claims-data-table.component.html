@@ -25,7 +25,7 @@
         <div class="cdt-hcell-expand" role="columnheader" aria-label="Expand"></div>
 
         <!-- 11 sortable column headers — DS merces-table-header with full sort UX -->
-        @for (col of COLUMNS; track col.key) {
+        @for (col of COLUMNS; track col.key; let i = $index) {
           <merces-table-header
             type="string"
             variant="single"
@@ -33,6 +33,9 @@
             [mainText]="col.label"
             [sortOrder]="sortOrderFor(col.key)"
             (sortOrderChange)="onSortChange(col.key, $event)"
+            [resizable]="true"
+            (resizeStart)="startResize(i, $event)"
+            (resizeReset)="resetColumnWidth(i)"
           />
         }
 
@@ -153,13 +156,21 @@
 
                 <!-- ── Content: bordered nested table ──
                      CSS Grid: 7 equal cols + 48px sticky-right
-                     Figma: 1158:33659 HORIZONTAL 1584×378 -->
+                     Figma: 1158:33659 HORIZONTAL 1584×378
+
+                     The scroll wrapper is conditionally mounted: while collapsed,
+                     the merces-overlay-scroll DOM is absent so a wide _svcColWidthsPx
+                     can't force a flex-layout regression that exposes the sub-table.
+                     isSubMounted lags isExpanded by 300ms on close so the collapse
+                     animation plays with content still in place. -->
                 <div class="cdt-exp-content">
+                  @if (isSubMounted(row.id)) {
+                  <merces-overlay-scroll class="cdt-exp-scroll">
                   <div class="cdt-exp-grid" [style.grid-template-columns]="svcGridTemplate()">
 
                     <!-- Sub-header row — Figma: 1158:33660 -->
                     <div class="cdt-exp-hrow">
-                      @for (col of SVC_COLS; track col.key) {
+                      @for (col of SVC_COLS; track col.key; let i = $index) {
                         <merces-table-header
                           size="mini"
                           type="string"
@@ -168,6 +179,9 @@
                           [mainText]="col.main"
                           [sortOrder]="svcSortOrderFor(col.key)"
                           (sortOrderChange)="onSvcSortChange(col.key, $event)"
+                          [resizable]="true"
+                          (resizeStart)="startSvcResize(i, $event)"
+                          (resizeReset)="resetSvcColumnWidth(i)"
                         />
                       }
                       <!-- Sticky-right header: empty — matches header bg, white left border -->
@@ -210,6 +224,8 @@
                     }
 
                   </div><!-- /cdt-exp-grid -->
+                  </merces-overlay-scroll>
+                  }
                 </div><!-- /cdt-exp-content -->
               </div><!-- /cdt-exp-table -->
 

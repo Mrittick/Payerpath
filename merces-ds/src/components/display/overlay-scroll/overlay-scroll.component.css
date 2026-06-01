@@ -5,6 +5,12 @@
    Consumer API — set on the host element:
      --overlay-scroll-gap          gap between content items (default: 0px)
      --overlay-scroll-overscroll   overscroll-behavior (default: contain)
+     --overlay-scroll-overflow-x   overflow-x on the viewport (default: auto).
+                                   Set to "hidden" to suppress horizontal scrolling
+                                   so wheel events on that axis bubble to ancestors.
+     --overlay-scroll-overflow-y   overflow-y on the viewport (default: auto).
+                                   Set to "hidden" to suppress vertical scrolling
+                                   so wheel events on that axis bubble to ancestors.
      --overlay-scroll-track-y-top  offset from top before vertical track starts,
                                    e.g. sticky header height (default: 0px).
                                    An additional --overlay-scroll-track-end-gap
@@ -27,7 +33,7 @@
 .os-viewport {
   flex: 1;
   min-height: 0;
-  overflow-y: auto;
+  overflow-y: var(--overlay-scroll-overflow-y, auto);
   overflow-x: var(--overlay-scroll-overflow-x, auto);
   overscroll-behavior: var(--overlay-scroll-overscroll, contain);
   scrollbar-width: none;

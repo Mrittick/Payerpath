@@ -51,6 +51,11 @@ export class TableHeaderComponent {
   /* ── Outputs ── */
   readonly sortOrderChange = output<TableHeaderSortOrder>();
   readonly selectionChange = output<boolean>();
+  readonly resizeStart     = output<MouseEvent>();
+  readonly resizeReset     = output<void>();
+
+  /* ── Resize input ── */
+  readonly resizable = input<boolean>(false);
 
   /* ── Derived ── */
   readonly isChecked       = computed(() => this.selectionState() === 'all');
@@ -64,8 +69,10 @@ export class TableHeaderComponent {
   );
 
   /* ── Keyboard focus tracking ── */
-  private _keyboardFocused = false;
-  private _focusFromMouse  = false;
+  private _keyboardFocused    = false;
+  private _focusFromMouse     = false;
+  /** Set by resize handle mousedown; suppresses the click that follows. */
+  private _suppressNextClick  = false;
 
   @HostBinding('class.th--keyboard-focus')
   get keyboardFocused(): boolean { return this._keyboardFocused; }
@@ -73,6 +80,23 @@ export class TableHeaderComponent {
   @HostListener('mousedown') onMouseDown(): void {
     this._focusFromMouse = true;
     this._keyboardFocused = false;
+    // Clear any stale suppress flag from a prior drag (mousedown bubbles up
+    // from direct header clicks but NOT from the resize handle, which calls
+    // stopPropagation — so this only fires for genuine header interactions).
+    this._suppressNextClick = false;
+  }
+
+  onResizeMousedown(e: MouseEvent): void {
+    e.preventDefault();
+    e.stopPropagation(); // prevents this mousedown from reaching @HostListener('mousedown')
+    this._suppressNextClick = true;
+    this.resizeStart.emit(e);
+  }
+
+  onResizeDblClick(e: MouseEvent): void {
+    e.preventDefault();
+    e.stopPropagation();
+    this.resizeReset.emit();
   }
 
   @HostListener('focus') onFocus(): void {
@@ -85,6 +109,7 @@ export class TableHeaderComponent {
   }
 
   @HostListener('click') onClick(): void {
+    if (this._suppressNextClick) { this._suppressNextClick = false; return; }
     if (this.type() === 'string') {
       this.sortOrderChange.emit(this._nextSortOrder());
     } else {

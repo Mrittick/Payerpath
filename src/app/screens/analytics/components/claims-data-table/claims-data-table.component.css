@@ -240,6 +240,12 @@
   position: sticky;
   left: var(--_cdt-sticky-left-w);
   max-width: calc(100cqi - var(--_cdt-sticky-left-w));
+  /* Paint containment guarantees the wipe animation clips descendants at this
+     element's bounds. overflow:hidden alone proved unreliable at narrow viewports
+     where position:sticky becomes active AND a descendant merces-overlay-scroll
+     introduces its own horizontal scroll container — that combination caused
+     the sub-table to paint outside the partially-opened expansion area. */
+  contain: paint;
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -299,17 +305,35 @@
 }
 
 /* ══════════════════════════════════════════════════════════
-   Inner expanded table — CSS Grid
-   7 fill columns (Figma min-widths) + 48px sticky-right.
+   Inner expanded table — scroll wrapper + CSS Grid
+   merces-overlay-scroll owns the border/radius and provides
+   horizontal (and optional vertical) scroll with custom tracks.
    grid-template-columns bound via svcGridTemplate() in template.
    merces-table-row and merces-table-header use subgrid here.
    ══════════════════════════════════════════════════════════ */
 
-.cdt-exp-grid {
-  display: grid;
+/* Scroll wrapper — carries the visual border/radius that .cdt-exp-grid
+   previously owned. The overlay-scroll :host already has overflow:hidden
+   which clips children at the rounded corners. */
+
+.cdt-exp-scroll {
+  --overlay-scroll-overscroll: none;
+  /* Vertical track starts below the 50px sub-table sticky header (if it ever renders) */
+  --overlay-scroll-track-y-top: 50px;
+  /* Sub-table is always content-sized ("hug") — no vertical scroll needed.
+     Setting overflow-y: hidden lets vertical wheel events bubble up to the
+     parent Claims table instead of being trapped here. Horizontal scrolling
+     (overflow-x: auto, the default) is preserved. */
+  --overlay-scroll-overflow-y: hidden;
   border-radius: var(--radius-md);
   border: var(--stroke-xs) solid var(--colour-brand-purple-700);
-  overflow: hidden;
+}
+
+.cdt-exp-grid {
+  display: grid;
+  /* No overflow set (default: visible). Overflowing column tracks register in
+     .os-viewport's scrollWidth, enabling horizontal scroll. Corner clipping is
+     handled upstream by .cdt-exp-scroll whose host already has overflow:hidden. */
 }
 
 /* Sub-header row: subgrid, spans all 8 columns */

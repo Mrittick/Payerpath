@@ -11,6 +11,8 @@ import {
   signal,
 } from '@angular/core';
 
+type WheelAxis = 'x' | 'y';
+
 @Component({
   selector: 'merces-overlay-scroll',
   standalone: true,
@@ -23,6 +25,7 @@ export class OverlayScrollComponent implements AfterViewInit, OnDestroy {
   @ViewChild('content')  private readonly _ct!: ElementRef<HTMLElement>;
 
   private readonly _zone = inject(NgZone);
+  private readonly _el   = inject<ElementRef<HTMLElement>>(ElementRef);
 
   /* ── Vertical ── */
   protected readonly hasScrollY = signal(false);
@@ -47,12 +50,55 @@ export class OverlayScrollComponent implements AfterViewInit, OnDestroy {
       this._ro = new ResizeObserver(() => this._zone.run(() => this._sync()));
       this._ro.observe(this._vp.nativeElement);
       this._ro.observe(this._ct.nativeElement);
+      // Wheel handler with passive:false so we can preventDefault when an axis
+      // is disabled (overflow: hidden). Without this, Chrome converts vertical
+      // wheels to horizontal scrolls when overflow-x is auto and there's
+      // horizontal overflow — trapping the user's intended vertical scroll.
+      this._vp.nativeElement.addEventListener('wheel', this._onWheel, { passive: false });
     });
     this._sync();
   }
 
   ngOnDestroy(): void {
     this._ro?.disconnect();
+    this._vp?.nativeElement.removeEventListener('wheel', this._onWheel);
+  }
+
+  /** Forwards wheel input on disabled axes to the nearest scrollable ancestor.
+   *  Defined as a class field so it has a stable reference for add/removeEventListener. */
+  private _onWheel = (e: WheelEvent): void => {
+    const style = window.getComputedStyle(this._vp.nativeElement);
+    if (e.deltaY !== 0 && style.overflowY === 'hidden') {
+      const ancestor = this._findScrollableAncestor('y');
+      if (ancestor) {
+        e.preventDefault();
+        ancestor.scrollTop += e.deltaY;
+      }
+      return;
+    }
+    if (e.deltaX !== 0 && style.overflowX === 'hidden') {
+      const ancestor = this._findScrollableAncestor('x');
+      if (ancestor) {
+        e.preventDefault();
+        ancestor.scrollLeft += e.deltaX;
+      }
+    }
+  };
+
+  private _findScrollableAncestor(axis: WheelAxis): HTMLElement | null {
+    let el: HTMLElement | null = this._el.nativeElement.parentElement;
+    while (el) {
+      const s = window.getComputedStyle(el);
+      if (axis === 'y') {
+        const oy = s.overflowY;
+        if ((oy === 'auto' || oy === 'scroll') && el.scrollHeight > el.clientHeight) return el;
+      } else {
+        const ox = s.overflowX;
+        if ((ox === 'auto' || ox === 'scroll') && el.scrollWidth > el.clientWidth) return el;
+      }
+      el = el.parentElement;
+    }
+    return null;
   }
 
   protected onScroll(): void {

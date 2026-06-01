@@ -30,4 +30,13 @@
       class="th__sort-icon"
     />
   }
+
+  @if (resizable()) {
+    <div
+      class="th__resize-handle"
+      (mousedown)="onResizeMousedown($event)"
+      (dblclick)="onResizeDblClick($event)"
+      aria-hidden="true"
+    ></div>
+  }
 }

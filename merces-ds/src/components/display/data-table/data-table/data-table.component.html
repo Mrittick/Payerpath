@@ -15,7 +15,7 @@
             (selectionChange)="toggleAll($event)"
           />
         }
-        @for (col of columns(); track col.key) {
+        @for (col of columns(); track col.key; let i = $index) {
           <merces-table-header
             type="string"
             [variant]="col.extraLabel ? 'dual' : 'single'"
@@ -23,7 +23,10 @@
             [mainText]="col.label"
             [extraText]="col.extraLabel ?? ''"
             [sortOrder]="(_sortColKey() === col.key) ? _sortDir() : 'none'"
+            [resizable]="!col.frozen"
             (sortOrderChange)="handleSort(col.key, $event)"
+            (resizeStart)="startResize(i, $event)"
+            (resizeReset)="resetColumnWidth(i)"
           />
         }
       </div>

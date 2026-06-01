@@ -58,7 +58,12 @@ export class ShellComponent implements OnInit {
     { id: 'view-claims',             label: 'View Claims',               categoryId: 'claims'      },
     { id: 'workers-comp',            label: "Workers' Comp",             categoryId: 'claims'      },
     // Patients
-    { id: 'patient-demographics',    label: 'Patient Demographics',      categoryId: 'patients'    },
+    { id: 'appointment-reminders',        label: 'Appointment Reminders',         categoryId: 'patients' },
+    { id: 'eligibility-check',            label: 'Eligibility Check',             categoryId: 'patients' },
+    { id: 'checkin-payment-collection',   label: 'Check-in / Payment Collection', categoryId: 'patients' },
+    { id: 'patient-demographics',         label: 'Patient Demographics',          categoryId: 'patients' },
+    { id: 'payment-portal',               label: 'Payment Portal',                categoryId: 'patients' },
+    { id: 'payment-assurance',            label: 'Payment Assurance',             categoryId: 'patients' },
     // Reports
     { id: 'audit-trail',             label: 'Audit Trail Report',        categoryId: 'reports'     },
     { id: 'billing-summary',         label: 'Billing Summary',           categoryId: 'reports'     },

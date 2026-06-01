@@ -77,18 +77,50 @@ export class ClaimsDataTableComponent {
     { key: 'payer',                 label: 'Payer',                   minWidth: 160 },
   ] as const;
 
-  // ── CSS Grid template — 58px sticky-left + 11 proportional columns + 40px sticky-right ─────
-  protected readonly gridTemplate = computed(() =>
-    `var(--_cdt-sticky-left-w) ` +
-    this.COLUMNS.map(c => `minmax(${c.minWidth}px, ${c.minWidth}fr)`).join(' ') +
-    ` var(--_cdt-sticky-right-w)`
-  );
+  // ── Column resize state — main table ─────────────────────────────────────
+  /** Sparse map of column index → explicit px width. Only resized columns
+   *  appear here; the rest stay on their fr-based auto-distribution. */
+  private readonly _colWidthsPx = signal<Map<number, number>>(new Map());
+  private _resizeDrag: { colIndex: number; startX: number; startWidth: number } | null = null;
+
+  // ── Column resize state — sub-table ──────────────────────────────────────
+  private readonly _svcColWidthsPx = signal<Map<number, number>>(new Map());
+  private _svcResizeDrag: { colIndex: number; startX: number; startWidth: number } | null = null;
+
+  // ── CSS Grid template — 58px sticky-left + 11 proportional columns + 56px sticky-right ──
+  protected readonly gridTemplate = computed(() => {
+    const left   = 'var(--_cdt-sticky-left-w)';
+    const right  = 'var(--_cdt-sticky-right-w)';
+    const widths = this._colWidthsPx();
+    const cols   = this.COLUMNS;
+    return left + ' ' + cols.map((c, i) => {
+      const min      = c.minWidth;
+      const explicit = widths.get(i);
+      if (explicit !== undefined) {
+        return `${Math.max(min, explicit)}px`;
+      }
+      // Unresized columns keep proportional fr distribution.
+      return `minmax(${min}px, ${min}fr)`;
+    }).join(' ') + ' ' + right;
+  });
 
   // ── Sub-table grid template — 7 fill columns + 41px sticky-right ─────────
-  protected readonly svcGridTemplate = computed(() =>
-    this.SVC_COLS.map(c => `minmax(${c.minWidth}px, 1fr)`).join(' ') +
-    ` var(--_cdt-sticky-right-exp-w)`
-  );
+  protected readonly svcGridTemplate = computed(() => {
+    const right  = 'var(--_cdt-sticky-right-exp-w)';
+    const widths = this._svcColWidthsPx();
+    const cols   = this.SVC_COLS;
+    return cols.map((c, i) => {
+      const min      = c.minWidth;
+      const explicit = widths.get(i);
+      if (explicit !== undefined) {
+        return `${Math.max(min, explicit)}px`;
+      }
+      // Proportional fr — matches the main table's distribution so columns keep
+      // natural ratios. Unresized columns continue to auto-distribute even when
+      // sibling columns are locked to px widths.
+      return `minmax(${min}px, ${min}fr)`;
+    }).join(' ') + ' ' + right;
+  });
 
   // ── Main table sort state ──────────────────────────────────────────────────
   protected readonly sortKey = signal<string | null>(null);
@@ -153,6 +185,14 @@ export class ClaimsDataTableComponent {
 
   // ── Expand / collapse state ────────────────────────────────────────────────
   private readonly _expandedIds = signal(new Set<string>());
+  /** Rows whose sub-table scroll container is mounted in the DOM.
+   *  Diverges from _expandedIds on close: we keep the DOM alive for the
+   *  300ms collapse animation so the content collapses with the panel
+   *  instead of vanishing instantly, then unmount.
+   *  Critical: avoids the "wide collapsed sub-grid breaks layout" bug — when
+   *  a resize sets a wide _svcColWidthsPx, collapsed rows without their
+   *  merces-overlay-scroll have nothing to leak into the visible area. */
+  private readonly _mountedSubIds = signal(new Set<string>());
   private readonly _statusMap   = signal(new Map<string, string>());
 
   protected readonly openOptionsId     = signal<string | null>(null); /* svc-row panel */
@@ -171,10 +211,29 @@ export class ClaimsDataTableComponent {
     return this._expandedIds().has(rowId);
   }
 
+  protected isSubMounted(rowId: string): boolean {
+    return this._mountedSubIds().has(rowId);
+  }
+
   protected toggleRow(rowId: string): void {
-    const s = new Set(this._expandedIds());
-    s.has(rowId) ? s.delete(rowId) : s.add(rowId);
-    this._expandedIds.set(s);
+    const isOpen = this._expandedIds().has(rowId);
+    if (isOpen) {
+      // Collapsing — flip expansion class immediately so the CSS height
+      // transition fires; keep the DOM mounted so the content collapses
+      // with the animation, then unmount after the 300ms transition.
+      this._expandedIds.update(s => { const n = new Set(s); n.delete(rowId); return n; });
+      setTimeout(() => {
+        // Guard against rapid re-open within the animation window.
+        if (!this._expandedIds().has(rowId)) {
+          this._mountedSubIds.update(m => { const n = new Set(m); n.delete(rowId); return n; });
+        }
+      }, 300);
+    } else {
+      // Opening — mount + expand in the same tick so the panel animates open
+      // with content already in place.
+      this._mountedSubIds.update(m => { const n = new Set(m); n.add(rowId); return n; });
+      this._expandedIds.update(s => { const n = new Set(s); n.add(rowId); return n; });
+    }
   }
 
   protected getStatus(rowId: string): string {
@@ -226,4 +285,103 @@ export class ClaimsDataTableComponent {
   }
 
   protected onEditDisplayColumns(): void {}
+
+  // ── Column resize ─────────────────────────────────────────────────────────
+
+  /** Returns a column to its fr-based auto-distribution by removing its
+   *  explicit width from the sparse map. */
+  protected resetColumnWidth(colIndex: number): void {
+    this._colWidthsPx.update(m => {
+      if (!m.has(colIndex)) return m;
+      const next = new Map(m);
+      next.delete(colIndex);
+      return next;
+    });
+  }
+
+  protected startResize(colIndex: number, event: MouseEvent): void {
+    // Read the column's currently rendered width as the drag's starting point —
+    // works whether the column is currently fr-distributed or already locked to px.
+    const root = this._el.nativeElement as HTMLElement;
+    const header = root
+      .querySelectorAll<HTMLElement>('.cdt-header-row merces-table-header.th--string')[colIndex];
+    if (!header) return;
+    const startWidth = header.getBoundingClientRect().width;
+    this._resizeDrag = { colIndex, startX: event.clientX, startWidth };
+
+    document.body.style.cursor     = 'col-resize';
+    document.body.style.userSelect = 'none';
+
+    const onMove = (e: MouseEvent) => {
+      if (!this._resizeDrag) return;
+      const { colIndex: ci, startX, startWidth: sw } = this._resizeDrag;
+      const min = this.COLUMNS[ci].minWidth;
+      const w   = Math.max(min, sw + (e.clientX - startX));
+      this._colWidthsPx.update(m => {
+        const next = new Map(m);
+        next.set(ci, w);
+        return next;
+      });
+    };
+
+    const onUp = () => {
+      this._resizeDrag = null;
+      document.body.style.cursor     = '';
+      document.body.style.userSelect = '';
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup',   onUp);
+    };
+
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup',   onUp);
+  }
+
+  // ── Sub-table column resize ───────────────────────────────────────────────
+
+  protected resetSvcColumnWidth(colIndex: number): void {
+    this._svcColWidthsPx.update(m => {
+      if (!m.has(colIndex)) return m;
+      const next = new Map(m);
+      next.delete(colIndex);
+      return next;
+    });
+  }
+
+  protected startSvcResize(colIndex: number, event: MouseEvent): void {
+    const root = this._el.nativeElement as HTMLElement;
+    // Read this column's rendered width from any currently-open sub-table.
+    // (All sub-tables share svcGridTemplate, so any open one is correct.)
+    const header = Array.from(
+      root.querySelectorAll<HTMLElement>('.cdt-exp-animated--open .cdt-exp-hrow merces-table-header.th--string')
+    ).slice(0, this.SVC_COLS.length)[colIndex];
+    if (!header) return;
+    const startWidth = header.getBoundingClientRect().width;
+    this._svcResizeDrag = { colIndex, startX: event.clientX, startWidth };
+
+    document.body.style.cursor     = 'col-resize';
+    document.body.style.userSelect = 'none';
+
+    const onMove = (e: MouseEvent) => {
+      if (!this._svcResizeDrag) return;
+      const { colIndex: ci, startX, startWidth: sw } = this._svcResizeDrag;
+      const min = this.SVC_COLS[ci].minWidth;
+      const w   = Math.max(min, sw + (e.clientX - startX));
+      this._svcColWidthsPx.update(m => {
+        const next = new Map(m);
+        next.set(ci, w);
+        return next;
+      });
+    };
+
+    const onUp = () => {
+      this._svcResizeDrag = null;
+      document.body.style.cursor     = '';
+      document.body.style.userSelect = '';
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup',   onUp);
+    };
+
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup',   onUp);
+  }
 }

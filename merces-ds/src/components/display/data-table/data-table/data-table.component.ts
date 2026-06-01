@@ -55,9 +55,31 @@ export class DataTableComponent {
   }
 
   // ── Grid layout ───────────────────────────────────────────────────────────
+
+  /** Sparse map of column index → explicit px width. A column appears in this
+   *  map only after the user has dragged it. Columns that aren't in the map
+   *  remain on their fr-based auto-distribution, so resizing one column doesn't
+   *  freeze the rest at their snapshotted widths. Double-click on a column's
+   *  handle removes its entry, returning it to fr-based sizing. */
+  private readonly _colWidthsPx = signal<Map<number, number>>(new Map());
+
+  private _resizeDrag: { colIndex: number; startX: number; startWidth: number } | null = null;
+
   readonly gridTemplate = computed(() => {
     const selCol = this.showSelection() ? 'min-content ' : '';
-    return selCol + this.columns().map(c => `minmax(${c.minWidth ?? 100}px, ${c.width}fr)`).join(' ');
+    const widths = this._colWidthsPx();
+    const cols   = this.columns();
+    return selCol + cols.map((c, i) => {
+      const min      = c.minWidth ?? 100;
+      const explicit = widths.get(i);
+      if (explicit !== undefined) {
+        const clamped = c.maxWidth ? Math.min(Math.max(min, explicit), c.maxWidth) : Math.max(min, explicit);
+        return `${clamped}px`;
+      }
+      // Unresized columns keep their fr-based share of the remaining space —
+      // any column the user hasn't touched still auto-distributes naturally.
+      return `minmax(${min}px, ${c.width}fr)`;
+    }).join(' ');
   });
 
   // ── Derived ───────────────────────────────────────────────────────────────
@@ -157,7 +179,61 @@ export class DataTableComponent {
     this._sel.set(new Set());
     this._leavingRows.set(new Set());
     this._sortColKey.set(null);
+    this._colWidthsPx.set(new Map());
     this.selectionChange.emit([]);
+  }
+
+  // ── Column resize ─────────────────────────────────────────────────────────
+
+  /** Returns a column to its fr-based auto-distribution by removing its
+   *  explicit width from the sparse map. */
+  resetColumnWidth(colIndex: number): void {
+    this._colWidthsPx.update(m => {
+      if (!m.has(colIndex)) return m;
+      const next = new Map(m);
+      next.delete(colIndex);
+      return next;
+    });
+  }
+
+  startResize(colIndex: number, event: MouseEvent): void {
+    // Read this column's currently rendered width as the drag's starting point.
+    // Whether the column was previously fr-distributed or already locked to px,
+    // its bounding-box width is what the user sees right now.
+    const header = this._el.nativeElement
+      .querySelectorAll<HTMLElement>('merces-table-header.th--string')[colIndex];
+    if (!header) return;
+    const startWidth = header.getBoundingClientRect().width;
+    this._resizeDrag = { colIndex, startX: event.clientX, startWidth };
+
+    document.body.style.cursor    = 'col-resize';
+    document.body.style.userSelect = 'none';
+
+    const onMove = (e: MouseEvent) => {
+      if (!this._resizeDrag) return;
+      const { colIndex: ci, startX, startWidth: sw } = this._resizeDrag;
+      const col = this.columns()[ci];
+      const min = col.minWidth ?? 100;
+      const max = col.maxWidth;
+      let w = Math.max(min, sw + (e.clientX - startX));
+      if (max !== undefined) w = Math.min(w, max);
+      this._colWidthsPx.update(m => {
+        const next = new Map(m);
+        next.set(ci, w);
+        return next;
+      });
+    };
+
+    const onUp = () => {
+      this._resizeDrag = null;
+      document.body.style.cursor     = '';
+      document.body.style.userSelect = '';
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup',   onUp);
+    };
+
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup',   onUp);
   }
 
   isRowSelected(row: DataTableRow): boolean {

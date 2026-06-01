@@ -16,6 +16,7 @@
 /* ── Host — shared foundation ── */
 
 :host {
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -102,3 +103,23 @@
 .th__checkbox-wrap {
   display: contents;
 }
+
+/* ==========================================================================
+   Resize handle
+   8px hit area straddling the right border; 2px visual line on hover/drag.
+   Lives only on string headers (resizable() === true).
+   ========================================================================== */
+
+.th__resize-handle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 100%;
+  cursor: col-resize;
+  z-index: 2;
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end;
+}
+
