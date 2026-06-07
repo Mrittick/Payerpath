@@ -29,6 +29,7 @@ export type IconName =
   | 'download-local'
   | 'download-remote'
   | 'download-report'
+  | 'empty'
   | 'enter'
   | 'exclamation'
   | 'exclamation-ring'
@@ -128,6 +129,7 @@ export const ICON_TYPE_MAP: Record<IconName, IconType[]> = {
   'download-local': ['regular', 'bold'],
   'download-remote': ['regular', 'bold', 'filled'],
   'download-report': ['regular', 'bold', 'filled'],
+  'empty': ['regular', 'bold', 'filled'],
   'enter': ['regular', 'bold'],
   'exclamation': ['regular', 'bold'],
   'exclamation-ring': ['regular', 'bold', 'filled'],
@@ -154,7 +156,7 @@ export const ICON_TYPE_MAP: Record<IconName, IconType[]> = {
   'location-gps': ['regular', 'bold', 'filled'],
   'modify': ['regular', 'bold', 'filled'],
   'more': ['regular', 'bold'],
-  'no-data': ['regular'],
+  'no-data': ['regular', 'filled'],
   'plus': ['regular', 'bold'],
   'print': ['regular', 'bold', 'filled'],
   'question': ['regular', 'bold'],

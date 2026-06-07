@@ -1004,11 +1004,21 @@ input.copier-demo-input:focus-visible {
 }
 
 .about-cover {
+  position: relative;
   line-height: 0;
   flex: 0 1 auto;
   display: flex;
   align-items: flex-start;
   min-height: 0;
+}
+
+.about-cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-md);
+  box-shadow: inset 0 0 0 var(--stroke-xs) var(--colour-brand-purple-700);
+  pointer-events: none;
 }
 
 .about-cover-img {
