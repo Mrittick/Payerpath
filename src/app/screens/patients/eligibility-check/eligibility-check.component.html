@@ -38,12 +38,13 @@
     <div class="header-actions">
 
       <!-- Time Period — Dropdown Group, label "Show Transactions for", horizontal layout -->
-      <merces-dropdown-group class="time-period" label="Show Transactions for" layout="horizontal">
-        <merces-dropdown selectionText="Last 90 Days" [unselected]="false">
-          <merces-dropdown-item label="Last 7 Days"    [checked]="false" />
-          <merces-dropdown-item label="Last 30 Days"   [checked]="false" />
-          <merces-dropdown-item label="Last 90 Days"   [checked]="true"  />
-          <merces-dropdown-item label="Last 12 Months" [checked]="false" />
+      <merces-dropdown-group class="time-period" label="Show Transactions from" layout="horizontal">
+        <merces-dropdown [selectionText]="timePeriodLabel()" [unselected]="false">
+          <merces-dropdown-item label="Last 7 Days"    [checked]="timePeriod() === 'last-7-days'"    (selected)="setTimePeriod('last-7-days')" />
+          <merces-dropdown-item label="Last 30 Days"   [checked]="timePeriod() === 'last-30-days'"   (selected)="setTimePeriod('last-30-days')" />
+          <merces-dropdown-item label="Last 90 Days"   [checked]="timePeriod() === 'last-90-days'"   (selected)="setTimePeriod('last-90-days')" />
+          <merces-dropdown-item label="Last 12 Months" [checked]="timePeriod() === 'last-12-months'" (selected)="setTimePeriod('last-12-months')" />
+          <merces-dropdown-item label="All Time"       [checked]="timePeriod() === 'all-time'"       (selected)="setTimePeriod('all-time')" />
         </merces-dropdown>
       </merces-dropdown-group>
 

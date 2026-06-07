@@ -31,6 +31,28 @@ import type { EcRowData } from './components/data-table-entryrow/data-table-entr
 import { HttpClient } from '@angular/common/http';
 import { EcDetailTrayComponent } from './components/detail-tray/detail-tray.component';
 
+// ── Time-period filter options ────────────────────────────────────────────────
+type TimePeriod = 'last-7-days' | 'last-30-days' | 'last-90-days' | 'last-12-months' | 'all-time';
+
+const TIME_PERIOD_LABELS: Record<TimePeriod, string> = {
+  'last-7-days':    'Last 7 Days',
+  'last-30-days':   'Last 30 Days',
+  'last-90-days':   'Last 90 Days',
+  'last-12-months': 'Last 12 Months',
+  'all-time':       'All Time',
+};
+
+const VALID_TIME_PERIODS = Object.keys(TIME_PERIOD_LABELS) as TimePeriod[];
+
+function storedTimePeriod(): TimePeriod {
+  const v = localStorage.getItem('ec.timePeriod');
+  return VALID_TIME_PERIODS.includes(v as TimePeriod) ? (v as TimePeriod) : 'last-90-days';
+}
+
+function storedDiscoveredOnly(): boolean {
+  return localStorage.getItem('ec.discoveredOnly') === 'true';
+}
+
 // ── Column definitions ────────────────────────────────────────────────────────
 // Widths match the Figma frame widths exactly (px). The first entry is the
 // checkbox/selection column; the rest are data columns in order.
@@ -82,8 +104,13 @@ export class EligibilityCheckComponent {
   private readonly _rows = signal<EcRowData[]>([]);
 
   // ── Tab + action bar state ───────────────────────────────────────────────────
-  protected readonly activeTab     = signal<'eligibility-check-list' | 'payer-response-status'>('eligibility-check-list');
-  protected readonly discoveredOnly = signal<boolean>(false);
+  protected readonly activeTab      = signal<'eligibility-check-list' | 'payer-response-status'>('eligibility-check-list');
+  protected readonly discoveredOnly = signal<boolean>(storedDiscoveredOnly());
+
+  // ── Time-period filter ────────────────────────────────────────────────────────
+  protected readonly timePeriod      = signal<TimePeriod>(storedTimePeriod());
+  protected readonly timePeriodLabel = computed(() => TIME_PERIOD_LABELS[this.timePeriod()]);
+  protected setTimePeriod(v: TimePeriod): void { this.timePeriod.set(v); }
 
   // ── Detail tray ──────────────────────────────────────────────────────────────
   protected readonly trayRow = signal<EcRowData | null>(null);
@@ -131,6 +158,23 @@ export class EligibilityCheckComponent {
 
     if (this.discoveredOnly()) rows = rows.filter(r => r.found);
 
+    // Time-period filter — transactionDate format is MM/DD/YYYY
+    const period = this.timePeriod();
+    if (period !== 'all-time') {
+      const cutoff = new Date();
+      cutoff.setHours(0, 0, 0, 0);
+      switch (period) {
+        case 'last-7-days':    cutoff.setDate(cutoff.getDate() - 7);        break;
+        case 'last-30-days':   cutoff.setDate(cutoff.getDate() - 30);       break;
+        case 'last-90-days':   cutoff.setDate(cutoff.getDate() - 90);       break;
+        case 'last-12-months': cutoff.setFullYear(cutoff.getFullYear() - 1); break;
+      }
+      rows = rows.filter(r => {
+        const d = this._parseDate(r.transactionDate);
+        return d !== null && d >= cutoff;
+      });
+    }
+
     const name = this.searchName().trim().toLowerCase();
     if (name) rows = rows.filter(r => r.patientName.toLowerCase().includes(name));
 
@@ -170,9 +214,12 @@ export class EligibilityCheckComponent {
     return rows;
   });
 
-  // ── Constructor — fetch rows, reset page on filter change ───────────────────
+  // ── Constructor — fetch rows, persist prefs, reset page on filter change ─────
   constructor() {
     this._http.get<EcRowData[]>('/api/eligibility-check').subscribe(rows => this._rows.set(rows));
+
+    effect(() => localStorage.setItem('ec.timePeriod',    this.timePeriod()));
+    effect(() => localStorage.setItem('ec.discoveredOnly', String(this.discoveredOnly())));
 
     effect(() => {
       this.filteredRows();                      // tracks all filter signals
@@ -185,6 +232,14 @@ export class EligibilityCheckComponent {
     const dd   = String(d.getDate()).padStart(2, '0');
     const yyyy = String(d.getFullYear());
     return `${mm}/${dd}/${yyyy}`;
+  }
+
+  private _parseDate(s: string): Date | null {
+    const parts = s.split('/');
+    if (parts.length !== 3) return null;
+    const [mm, dd, yyyy] = parts.map(Number);
+    if (!mm || !dd || !yyyy) return null;
+    return new Date(yyyy, mm - 1, dd);
   }
 
   // ── Pagination ───────────────────────────────────────────────────────────────

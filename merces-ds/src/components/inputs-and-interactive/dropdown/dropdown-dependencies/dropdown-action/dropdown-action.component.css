@@ -1,8 +1,6 @@
 :host {
   display: flex;
   align-items: center;
-  padding-top: var(--gap-md);
-  padding-bottom: var(--gap-1xs);
 }
 
 .action-button {
@@ -11,10 +9,10 @@
   align-items: center;
   gap: var(--gap-md);
   width: 100%;
-  padding: var(--gap-lg) var(--gap-3xl);
+  padding: var(--gap-lg) var(--gap-2xl);
   border: none;
-  background-color: var(--colour-brand-purple-1100);
-  color: var(--colour-text-default-link-enabled);
+  background-color: var(--colour-fill-button-dropdown-item-default);
+  color: var(--colour-text-checkbox-brand-enabled);
   cursor: pointer;
   transition:
     background-color 150ms cubic-bezier(0, 0, 0, 1),
@@ -24,15 +22,13 @@
 /* ── Hover ── */
 :host(.action--hover) .action-button,
 :host(:hover) .action-button {
-  background-color: var(--colour-brand-purple-400);
-  color: var(--colour-neutral-white);
+  background-color: var(--colour-fill-button-dropdown-item-hover);
 }
 
 /* ── Pressed ── */
 :host(.action--pressed) .action-button,
 :host(:active) .action-button {
-  background-color: var(--colour-brand-purple-100);
-  color: var(--colour-neutral-white);
+  background-color: var(--colour-fill-button-dropdown-item-pressed);
 }
 
 /* ── Keyboard focus ── */
