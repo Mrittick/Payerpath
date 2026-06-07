@@ -742,8 +742,9 @@
 
       @case ('search') {
         <h2 class="heading-h3 content-title">Search</h2>
-        <p class="paragraph-p4 content-subtitle">Sub-control — 2 sizes, auto mode (value-driven), keyboard focus</p>
+        <p class="paragraph-p4 content-subtitle">Sub-control — 2 palettes, 2 sizes, auto mode (value-driven), keyboard focus</p>
 
+        <h3 class="heading-h4 content-section-label">Palette: Brand</h3>
         <div class="preview-row">
           <div class="preview-card preview-card--wide">
             <h3 class="heading-h5">Base Size</h3>
@@ -778,6 +779,46 @@
               <div class="preview-labeled">
                 <span class="paragraph-p4 preview-label">Disabled</span>
                 <merces-search size="compact" [disabled]="true" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="heading-h4 content-section-label">Palette: Neutral</h3>
+        <div class="preview-row">
+          <div class="preview-card preview-card--wide">
+            <h3 class="heading-h5">Base Size</h3>
+            <div class="preview-stack">
+              <div class="preview-labeled">
+                <span class="paragraph-p4 preview-label">Interactive</span>
+                <merces-search size="base" palette="neutral" [(value)]="demoQueryNeutral" />
+              </div>
+              <div class="preview-labeled">
+                <span class="paragraph-p4 preview-label">Pre-filled</span>
+                <merces-search size="base" palette="neutral" [(value)]="demoQueryNeutralPrefilled" />
+              </div>
+              <div class="preview-labeled">
+                <span class="paragraph-p4 preview-label">Disabled</span>
+                <merces-search size="base" palette="neutral" [disabled]="true" />
+              </div>
+            </div>
+            <p class="paragraph-p4 preview-caption">Inactive hover: text sub → base, stroke widens. Active hover: bg darkens, stroke stays 1px.</p>
+          </div>
+
+          <div class="preview-card preview-card--wide">
+            <h3 class="heading-h5">Compact Size</h3>
+            <div class="preview-stack">
+              <div class="preview-labeled">
+                <span class="paragraph-p4 preview-label">Interactive</span>
+                <merces-search size="compact" palette="neutral" [(value)]="demoQueryNeutralCompact" />
+              </div>
+              <div class="preview-labeled">
+                <span class="paragraph-p4 preview-label">Pre-filled</span>
+                <merces-search size="compact" palette="neutral" [(value)]="demoQueryNeutralCompactPrefilled" />
+              </div>
+              <div class="preview-labeled">
+                <span class="paragraph-p4 preview-label">Disabled</span>
+                <merces-search size="compact" palette="neutral" [disabled]="true" />
               </div>
             </div>
           </div>

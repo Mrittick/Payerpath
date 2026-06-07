@@ -289,3 +289,21 @@ merces-overlay-scroll .os-viewport {
 .footer-paginator {
   padding-right: var(--gap-3xl);               /* 16px */
 }
+
+/* ── Search cell background — rest state override ─────────────────────────────
+   The DS neutral palette uses --colour-neutral-grey-900 as the frame background,
+   which clashes with the white search row surface.
+
+   Selector anatomy:
+     .ec-table__search-row         — scopes the override to this table only
+     ::ng-deep                     — pierces Angular's emulated encapsulation
+     .search--palette-neutral      — only affects neutral-palette instances
+     .search--inactive             — no text value AND not disabled (DS host class)
+     :not(.search--editing)        — exclude focused/typing state
+     :not(:hover)                  — exclude hover state
+   All other states (active/filled, hover, editing, disabled) either lack
+   .search--inactive or are guarded by :not(), so the DS's own rules still win.
+   ────────────────────────────────────────────────────────────────────────────── */
+.ec-table__search-row ::ng-deep merces-search.search--palette-neutral.search--inactive:not(.search--editing):not(:hover) .search-frame {
+  background-color: var(--colour-fill-surface-neutral-default);
+}

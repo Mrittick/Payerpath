@@ -1155,6 +1155,10 @@ export class AppComponent implements AfterViewInit {
   demoQueryPrefilled = 'Invoices 2024';
   demoQueryCompact = '';
   demoQueryCompactPrefilled = 'Q3 Report';
+  demoQueryNeutral = '';
+  demoQueryNeutralPrefilled = 'Chart summary';
+  demoQueryNeutralCompact = '';
+  demoQueryNeutralCompactPrefilled = 'Q4 data';
 
   // ── Demo data (Dropdown page) ─────────────────
 

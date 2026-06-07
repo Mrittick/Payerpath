@@ -13,6 +13,7 @@ import { IconComponent } from '../../../../assets/icon/icon.component';
 import { ClearComponent } from '../clear/clear.component';
 
 export type SearchSize = 'base' | 'compact';
+export type SearchPalette = 'brand' | 'neutral';
 
 @Component({
   selector: 'merces-search',
@@ -30,11 +31,15 @@ export type SearchSize = 'base' | 'compact';
     '[class.search--editing]': 'editing()',
     '[class.search--keyboard-focus]': 'keyboardFocused()',
     '[class.search--clearing]': 'clearing()',
+    '[class.search--palette-neutral]': 'palette() === "neutral"',
   },
 })
 export class SearchComponent {
   /** Visual size variant. */
   readonly size = input<SearchSize>('base');
+
+  /** Colour palette — 'brand' (default, purple) or 'neutral' (greys). */
+  readonly palette = input<SearchPalette>('brand');
 
   /** Whether the component is disabled. */
   readonly disabled = input<boolean>(false);

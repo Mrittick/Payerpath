@@ -1,5 +1,5 @@
 import { HttpInterceptorFn, HttpRequest, HttpResponse } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, from, of, throwError } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
 // ── GitHub Pages Deployment Mock ──
@@ -76,6 +76,17 @@ export const githubPagesMockInterceptor: HttpInterceptorFn = (req, next) => {
       }
     }
     return throwError(() => new Error('Unauthorized'));
+  }
+
+  // Mock GET /api/eligibility-check
+  // Loads the pre-generated static snapshot from assets so the table renders on GitHub Pages.
+  if (req.url.endsWith('/api/eligibility-check') && req.method === 'GET') {
+    return from(
+      fetch('assets/mock/eligibility-check.json').then(r => {
+        if (!r.ok) throw new Error(`Mock asset fetch failed: ${r.status}`);
+        return r.json() as Promise<unknown[]>;
+      }),
+    ).pipe(map(data => new HttpResponse({ body: data, status: 200 })));
   }
 
   return next(req);

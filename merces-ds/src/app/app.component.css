@@ -266,6 +266,11 @@
   margin-top: calc(-1 * var(--gap-lg));
 }
 
+.content-section-label {
+  color: var(--colour-text-default-base);
+  margin-top: var(--gap-3xl);
+}
+
 .tab-row {
   display: flex;
   flex-direction: row;
