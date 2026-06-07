@@ -1,0 +1,14 @@
+<!-- Card: label left, circle right -->
+@if (type() === 'card') {
+  <span class="br__label paragraph-p4-bold">{{ _label() }}</span>
+}
+
+<span class="br__circle">
+  <merces-icon [name]="_iconName()" [type]="_iconType()" [size]="_iconSize()" />
+</span>
+
+<!-- Label: always in DOM for symbol/group — CSS transitions it in/out.
+     Card type uses the separate label above (left of circle), so exclude it here. -->
+@if (type() !== 'card') {
+  <span class="br__label paragraph-ui-thin">{{ _label() }}</span>
+}

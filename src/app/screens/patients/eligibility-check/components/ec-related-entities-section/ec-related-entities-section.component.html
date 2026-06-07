@@ -1,0 +1,63 @@
+<!-- Figma: Related Entities accordion card (4166:28070)
+     VERTICAL · gap:8 · pad:8 · radius:12 · white · shadow-M
+     Accordion body has NO padding (pad:0) — table handles its own spacing. -->
+
+<merces-accordion-header
+  [label]="label()"
+  [isOpen]="open()"
+  (headerClick)="toggle()"
+/>
+
+<!-- Body clip — grid-template-rows 0fr → 1fr with margin-top -->
+<div class="body-clip" [attr.aria-hidden]="!open()">
+  <div class="body-inner">
+
+    <!-- Related Entities table: VERTICAL, pad:8/0/8/0, radius:8, white,
+         stroke rgba(204,204,204) w:1 INSIDE -->
+    <div class="re-table">
+
+      <!-- Header: HORIZONTAL, pad:4/12/4/12, gap:8 -->
+      <div class="re-head">
+        <span class="paragraph-p4-bold">Benefit</span>
+        <span class="paragraph-p4-bold">Entity</span>
+      </div>
+
+      <!-- Divider: 1px rgba(153,153,153), margin:4/12/4/12 -->
+      <div class="re-divider" aria-hidden="true"></div>
+
+      <!-- Body: alternating groups -->
+      <div class="re-body">
+        @for (entry of entities(); track $index; let isOdd = $odd) {
+
+          <!-- Group: VERTICAL, pad:4/12/4/12, gap:8, alternating background -->
+          <div class="re-group" [class.re-group--alt]="isOdd">
+
+            <!-- Entry: HORIZONTAL, gap:8 -->
+            <div class="re-entry">
+
+              <!-- Benefit column: Figma w:320, 12px fw:500 -->
+              <span class="paragraph-p4">{{ entry.benefit }}</span>
+
+              <!-- Entity column: VERTICAL, gap:4 (Primary Payer + Address sub-rows) -->
+              <div class="re-entity">
+                <div class="re-entity-row">
+                  <span class="paragraph-p4 re-entity-label">Primary Payer:</span>
+                  <span class="paragraph-p4">{{ entry.primaryPayer }}</span>
+                </div>
+                <div class="re-entity-row">
+                  <span class="paragraph-p4 re-entity-label">Address:</span>
+                  <span class="paragraph-p4 re-entity-address">{{ entry.address }}</span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        }
+      </div>
+
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<!-- Figma: Main/Content Frame — Accordion Section variants (4166:27655)
+     Uses DS AccordionHeaderComponent (brand/base) for toggle — colours already match Figma:
+     closed = transparent bg, open = colour-brand-purple-1100 (hsla 259,20%,96% ≈ rgba 244,243,247) -->
+
+<merces-accordion-header
+  [label]="label()"
+  [isOpen]="open()"
+  (headerClick)="toggle()"
+/>
+
+<!-- Body clip — grid-template-rows 0fr → 1fr with margin-top, mirrors DS technique -->
+<div class="body-clip" [attr.aria-hidden]="!open()">
+  <div class="body-inner">
+    <div class="body-container">
+      @for (row of rows(); track row.label) {
+        <div class="data-row">
+          <span class="row-label paragraph-ui">{{ row.label }}</span>
+          <span class="row-value paragraph-ui-thin">{{ row.value ?? '—' }}</span>
+        </div>
+      }
+    </div>
+  </div>
+</div>

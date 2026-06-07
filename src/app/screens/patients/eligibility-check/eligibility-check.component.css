@@ -1,0 +1,291 @@
+/* ==========================================================================
+   Eligibility Check screen
+   Figma: Ih3R3vpiDSxMpnARgrXOW6 node 4053:4118
+
+   :host   = Main Content (4053:4124) — neutral-backdrop, 8px pad, HORIZONTAL
+   .content-card  = Content Frame (4053:4125) — neutral-intermediary, shadow-M, radius-lg
+   .card-header   = Header (4053:4137) — white, bottom stroke, HORIZONTAL
+   .card-body     = Body (4053:4151) — no fill, VERTICAL, 8px pad/gap
+   .body-content  = Content (4053:4152) — white, mixed radii, VERTICAL
+   .ec-table-wrap = Data table (fills .body-content above the footer)
+   .content-footer = Footer (4053:4154) — VERTICAL, gap:6, pad 0/8/0/0
+   ========================================================================== */
+
+/* ── Main Content (4053:4124) — backdrop, 8px pad, horizontal row ── */
+:host {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  min-height: 0;
+  gap: var(--gap-md);
+  padding: var(--gap-md);
+  background-color: var(--colour-fill-surface-neutral-backdrop);
+  overflow: hidden;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Content Frame (4053:4125)
+   Figma: neutral-intermediary fill, shadow-M, radius-lg, FILL×FILL
+   ══════════════════════════════════════════════════════════ */
+
+.content-card {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  background-color: var(--colour-fill-surface-neutral-intermediary);
+  border-radius: var(--radius-lg);   /* 12px */
+  box-shadow: var(--shadow-M);
+  overflow: hidden;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Header (4053:4137)
+   Figma: HORIZONTAL, gap:10, white fill, 1px bottom stroke grey-500
+   Two sections: Tabs (FILL) + Actions (HUG)
+   ══════════════════════════════════════════════════════════ */
+
+.card-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-lg);        /* 10px — Figma gap:10 */
+  flex-shrink: 0;
+  background-color: var(--colour-fill-surface-neutral-default);
+  /* Figma: 1px bottom stroke, colour/neutral/grey-500 (strokeAlign: INSIDE) */
+  box-shadow: inset 0 calc(-1 * var(--stroke-xs)) 0 0 var(--colour-neutral-grey-500);
+}
+
+/* Tabs (4053:4138)
+   Figma: FILL width, HUG height, padding t:12 r:8 b:0 l:8, gap:0 */
+.header-tabs {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  flex: 1;
+  min-width: 0;
+  padding: var(--gap-1xl) var(--gap-md) 0;   /* 12px 8px 0 */
+  gap: 0;
+}
+
+/* Actions (4053:4141)
+   Figma: HUG, HORIZONTAL, gap:8, padding t:0 r:10 b:0 l:10 */
+.header-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-shrink: 0;
+  gap: var(--gap-md);        /* 8px */
+  padding: 0 var(--gap-lg);  /* 0 top/bottom, 10px left/right */
+}
+
+/* Time Period dropdown group — Figma: 360×40px */
+.time-period {
+  width: 360px;
+}
+
+/* CTA buttons in Actions bar — Figma: 40×40px (all icon-only variants) */
+.header-actions merces-cta-button {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+/* Actions divider (4053:4143 etc.)
+   Figma: 22×40px frame, padding t:12 r:10 b:12 l:10, child fill 2×16px, colour/neutral/grey-400 */
+.actions-divider {
+  flex-shrink: 0;
+  width: 22px;
+  padding: var(--gap-1xl) var(--gap-lg);  /* 12px 10px */
+  align-self: stretch;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.actions-divider::after {
+  content: '';
+  display: block;
+  width: var(--gap-2xs);                  /* 2px line */
+  background-color: var(--colour-neutral-grey-400);
+}
+
+/* ══════════════════════════════════════════════════════════
+   Body (4053:4151)
+   Figma: VERTICAL, gap:8, padding:8, no fill, FILL×FILL
+   ══════════════════════════════════════════════════════════ */
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  gap: var(--gap-md);        /* 8px */
+  padding: var(--gap-md);    /* 8px all sides */
+}
+
+/* ══════════════════════════════════════════════════════════
+   Content (4053:4152)
+   Figma: white fill, VERTICAL gap:8, padding:8,
+   corner-radius: tl:12 tr:12 bl:8 br:8, FILL×FILL
+   ══════════════════════════════════════════════════════════ */
+
+.body-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  gap: var(--gap-md);        /* 8px */
+  padding: var(--gap-md);    /* 8px all sides */
+  background-color: var(--colour-fill-surface-neutral-default);
+  /* Figma: tl=12 tr=12 bl=8 br=8 → CSS TL TR BR BL */
+  border-radius: var(--radius-lg) var(--radius-lg) var(--radius-md) var(--radius-md);
+  box-shadow: var(--shadow-M);
+  overflow: hidden;
+}
+
+/* ══════════════════════════════════════════════════════════
+   EC Table wrap (data table instance inside .body-content)
+   Figma: 1px stroke colour/brand/purple-700, corner 8px.
+   flex: 0 1 auto → hugs content height when few rows;
+   flex-shrink kicks in when rows overflow available space,
+   constraining the height and triggering overlay-scroll.
+   border: renders outside content box — visible alongside
+   every row, unlike inset box-shadow which rows would cover.
+   ══════════════════════════════════════════════════════════ */
+
+.ec-table-wrap {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  flex: 0 1 auto;
+  border: var(--stroke-xs) solid var(--colour-brand-purple-700);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+payerpath-ec-entry-row {
+  cursor: pointer !important;
+}
+
+/* The viewport div inside overlay-scroll resets cursor to 'auto' (OS arrow) over
+   empty areas, overriding the row's cursor: pointer. Pass-through by setting it
+   explicitly so row children' pointer cursor is never masked. */
+merces-overlay-scroll .os-viewport {
+  cursor: pointer !important;
+}
+
+/* Grid container — columns injected via [style.grid-template-columns] */
+.ec-table {
+  display: grid;
+}
+
+/* ── Sticky header row ── */
+.ec-table__header-row {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+}
+
+/* Last header: no right border */
+.ec-table__header-row payerpath-ec-table-header:last-of-type {
+  border-right: none;
+}
+
+/* Frozen selection column in header row */
+.ec-table__header-row payerpath-ec-table-header:first-of-type {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+}
+
+/* ── Search & Filter row (4053:5455)
+   Figma: white fill, 56px height, grey-400 right-border separators ── */
+.ec-table__search-row {
+  position: sticky;
+  top: 36px;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+  background-color: var(--colour-fill-surface-neutral-default);
+  border-bottom: var(--stroke-xs) solid var(--colour-neutral-grey-400);
+}
+
+/* Common search cell */
+.ec-table__sc {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 56px;
+  padding: var(--gap-md);
+  border-right: var(--stroke-xs) solid var(--colour-neutral-grey-400);
+  overflow: hidden;
+  min-width: 0;
+}
+
+.ec-table__sc > merces-search,
+.ec-table__sc > merces-calendar {
+  width: 100%;
+}
+
+/* Selection cell — empty, frozen left */
+.ec-table__sc--selection {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background-color: var(--colour-fill-surface-neutral-default);
+}
+
+/* Result cell — dropdown fills the cell width */
+.ec-table__sc--result {
+  padding: var(--gap-md);
+}
+
+.ec-table__sc--result merces-dropdown {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Last cell — no right border */
+.ec-table__sc--last {
+  border-right: none;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Footer (4053:4154)
+   Figma: VERTICAL, gap:6, padding t:0 r:8 b:0 l:0
+   ══════════════════════════════════════════════════════════ */
+
+.content-footer {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  margin-top: auto;                            /* pins footer to bottom of .body-content */
+  gap: var(--gap-md);                          /* 8px */
+  padding: 0 var(--gap-md) 0 0;               /* 0 top, 8px right, 0 bottom, 0 left */
+}
+
+/* Divider (4053:4155) — 10px total: gap-1xs pad + 2px Fill + gap-1xs pad
+   Fill (4053:4156) — 2px height, radius-full, colour/stroke/divider/primary-light */
+.footer-divider {
+  padding: var(--gap-1xs) 0;
+}
+
+.footer-divider::after {
+  content: '';
+  display: block;
+  height: var(--gap-2xs);
+  border-radius: var(--radius-full);
+  background-color: var(--colour-stroke-divider-primary-light);
+}
+
+/* Paginator wrapper — Figma padding-right: 16px */
+.footer-paginator {
+  padding-right: var(--gap-3xl);               /* 16px */
+}

@@ -1,0 +1,94 @@
+/* Figma: Table wrapper — VERTICAL, pad T8/R0/B8/L0, radius 8, white, stroke rgba(204,204,204) w:1 INSIDE */
+
+:host {
+  display: block;
+  overflow-x: auto;
+}
+
+.table-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 700px;
+  padding: var(--gap-md) 0;
+  border-radius: var(--radius-md);
+  background-color: var(--colour-fill-surface-neutral-default);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Overlay border — ::after paints above children so row backgrounds can't cover it.
+   inset box-shadow on the element itself sits below child backgrounds; moving it to
+   a stacked pseudo-element keeps the stroke always visible. */
+.table-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-md);
+  box-shadow: inset 0 0 0 1px var(--colour-stroke-divider-neutral-dark);
+  pointer-events: none;
+}
+
+/* ── Header row — HORIZONTAL, pad T4/R12/B4/L12, gap:8, paragraph-p4-bold ──── */
+
+.table-head {
+  display: grid;
+  grid-template-columns: 100px repeat(7, minmax(60px, 1fr));
+  gap: var(--gap-md);
+  padding: var(--gap-1xs) var(--gap-1xl);
+  color: var(--colour-text-default-base);
+}
+
+/* ── Divider — rgba(153,153,153) = colour-stroke-divider-neutral-extradark ───── */
+/* Figma: pad T4/R12/B4/L12 applied as margin so it doesn't span full width */
+
+.table-divider {
+  height: 1px;
+  background-color: var(--colour-stroke-divider-neutral-extradark);
+  margin: var(--gap-1xs) var(--gap-1xl);
+}
+
+/* ── Body ─────────────────────────────────────────────────────────────────────── */
+
+.table-body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Group — alternating background, pad T4/R12/B4/L12, gap:4 between entries */
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-1xs);
+  padding: var(--gap-1xs) var(--gap-1xl);
+}
+
+.group--alt {
+  background-color: var(--colour-fill-surface-neutral-intermediary);
+}
+
+/* Entry row — same grid columns as header for alignment */
+
+.entry {
+  display: grid;
+  grid-template-columns: 100px repeat(7, minmax(60px, 1fr));
+  gap: var(--gap-md);
+  color: var(--colour-text-default-base);
+}
+
+/* Field cell (category column) — 100px, bold for category label, empty for continuation rows */
+
+.cell-field {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Data cells — pre-line so \n in description renders as a visual line break */
+
+.cell {
+  min-width: 0;
+  white-space: pre-line;
+  overflow-wrap: break-word;
+}

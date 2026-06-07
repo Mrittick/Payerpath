@@ -1,0 +1,237 @@
+/* ==========================================================================
+   Payer Button
+   Figma: "Payer Button / Unsolicited" (4400:20108)
+            "Payer Button / Solicited"  (4400:20195)
+
+   One component, two types. The `type` input drives:
+     — Badge variant (badge-confidence vs badge-result)
+     — Active background (purple-300 vs purple-200)
+
+   Payer Entry sub-component (4400:22063) is replicated inline — the Figma
+   component is used only to establish visual specs; no code dependency.
+
+   State transitions: DISSOLVE 150ms cubic-bezier(0,0,0,1) — per Figma prototype.
+
+   Colour token map (confirmed via variable resolution):
+     purple-1100 rgba(244,243,247) Default bg
+     purple-1000 rgba(233,231,239) Hover bg
+     purple-900  rgba(216,211,227) Pressed bg / entry hover fill
+     purple-700  rgba(196,192,205) Entry default stroke / entry pressed fill
+     purple-600  rgba(136,129,156) Entry hover stroke
+     purple-500  rgba(103, 94,130) Entry pressed stroke
+     purple-400  rgba( 96, 81,143) Focus ring
+     purple-300  rgba( 77, 62,121) Unsolicited Active bg
+     purple-200  rgba( 68, 55,108) Solicited   Active bg
+     neutral-white               Entry Active stroke + label Active colour
+     grey-900    rgba(245,245,245) Disabled bg (light neutral)
+     grey-500    rgba(204,204,204) Disabled entry stroke
+
+   Gap tokens:
+     --gap-lg    = 10px  (button → entries)
+     --gap-md    =  8px  (entries → between entries / entry vertical padding)
+     --gap-1xl   = 12px  (button padding / entry horizontal padding)
+     --gap-2xs   =  2px  (title label → chevron icon)
+
+   Radius:
+     --radius-md = 8px   (button + entry corner radius)
+   ========================================================================== */
+
+/* ── Host — the button itself ─────────────────────────────────────────────── */
+
+:host {
+  display: flex;
+  flex-direction: column;
+  padding: var(--gap-1xl);         /* 12px all sides */
+  gap: var(--gap-lg);              /* 10px between header and entry group */
+  border-radius: var(--radius-md); /* 8px */
+  background-color: var(--colour-brand-purple-1100);
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: background-color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* Hover — both types */
+:host(:hover:not(.payer-button--active):not(.payer-button--disabled)) {
+  background-color: var(--colour-brand-purple-1000);
+}
+
+/* Pressed — both types */
+:host(:active:not(.payer-button--active):not(.payer-button--disabled)) {
+  background-color: var(--colour-brand-purple-900);
+}
+
+/* Active — Unsolicited (purple-300 background) */
+:host(.payer-button--active:not(.payer-button--solicited)) {
+  background-color: var(--colour-brand-purple-300);
+}
+
+/* Active — Solicited (purple-200 background, slightly lighter) */
+:host(.payer-button--active.payer-button--solicited) {
+  background-color: var(--colour-brand-purple-200);
+}
+
+/* Disabled */
+:host(.payer-button--disabled) {
+  background-color: var(--colour-neutral-grey-900);
+  cursor: not-allowed;
+}
+
+/* Focus ring — keyboard-only (:focus-visible) */
+:host(:focus-visible) {
+  box-shadow: 0 0 0 2px var(--colour-brand-purple-400);
+  outline: none;
+}
+
+
+/* ── Header — SPACE_BETWEEN row ────────────────────────────────────────────── */
+
+.pb-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-md); /* 8px between title group and badge */
+}
+
+
+/* ── Title group — label + optional chevron ──────────────────────────────── */
+
+.pb-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-2xs); /* 2px — Figma Title frame itemSpacing */
+  min-width: 0;
+}
+
+/* Label text */
+.pb-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--colour-text-default-base);
+  transition: color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* White label on Active (dark) background */
+:host(.payer-button--active) .pb-label {
+  color: var(--colour-text-inverted-base);
+}
+
+/* Chevron icon — only rendered in Active state (see template @if) */
+/* Uses currentColor; host Active sets label white, chevron inherits */
+.pb-chevron {
+  flex-shrink: 0;
+  color: var(--colour-neutral-white);
+}
+
+
+/* ── Entry chips wrapper — vertical stack ────────────────────────────────── */
+
+.pb-entries {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md); /* 8px between chips — Payer Entry Group itemSpacing */
+}
+
+
+/* ── Individual entry chip ───────────────────────────────────────────────── */
+/*
+   Chip layout: single row, vertically centred.
+   Padding: 8px top/bottom (--gap-md), 12px left/right (--gap-1xl).
+   Stroke uses inset box-shadow — zero-spread, transparent in default.
+   Transitions on fill and stroke.
+*/
+
+.pb-entry {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: var(--gap-md) var(--gap-1xl);   /* 8px 12px */
+  border-radius: var(--radius-md);           /* 8px */
+  background-color: var(--colour-fill-surface-neutral-default); /* white */
+  /* Stroke — inset, starts zero-spread transparent so transition works */
+  box-shadow: inset 0 0 0 var(--stroke-xs) hsla(0, 0%, 0%, 0);
+  min-width: 0;
+  transition:
+    background-color 150ms cubic-bezier(0, 0, 0, 1),
+    box-shadow       150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* Default stroke: purple-700 (when button is not active/disabled) */
+:host(:not(.payer-button--active):not(.payer-button--disabled)) .pb-entry {
+  box-shadow: inset 0 0 0 var(--stroke-xs) var(--colour-brand-purple-700);
+}
+
+/* Entry hover — cursor within the chip itself */
+:host(:not(.payer-button--active):not(.payer-button--disabled)) .pb-entry:hover {
+  background-color: var(--colour-brand-purple-900);
+  box-shadow: inset 0 0 0 var(--stroke-xs) var(--colour-brand-purple-600);
+}
+
+/* Entry pressed */
+:host(:not(.payer-button--active):not(.payer-button--disabled)) .pb-entry:active {
+  background-color: var(--colour-brand-purple-700);
+  box-shadow: inset 0 0 0 var(--stroke-xs) var(--colour-brand-purple-500);
+}
+
+/* Active button — entry styling splits by isCurrent (confirmed from Figma):
+   - Solicited (Core): entries are ALWAYS isCurrent=False → white + purple-700 stroke
+   - Unsolicited active entry (index 0 by default): isCurrent=True, State=Active
+       → white + WHITE stroke (border invisible against white bg = seamless chip)
+   - Unsolicited non-active entries in same button: isCurrent=False → purple-700 stroke
+
+   CSS approach: set purple-700 stroke as the base for ALL entries in an active
+   button, then the double-class selector (.pb-entry.pb-entry--active) has higher
+   specificity and overrides to white for the single active entry.
+   Using :not() is avoided — Angular's ViewEncapsulation.Emulated does not scope
+   class names inside :not(), causing the negation to silently break.            */
+
+/* Base: all entries in an active button → isCurrent=False, State=Default */
+:host(.payer-button--active) .pb-entry {
+  background-color: var(--colour-fill-surface-neutral-default);
+  box-shadow: inset 0 0 0 var(--stroke-xs) var(--colour-brand-purple-700);
+}
+
+/* Active entry override: isCurrent=True, State=Active → white stroke.
+   .pb-entry.pb-entry--active has one extra class → higher specificity than .pb-entry */
+:host(.payer-button--active) .pb-entry.pb-entry--active {
+  box-shadow: inset 0 0 0 var(--stroke-xs) var(--colour-neutral-white);
+}
+
+/* Disabled — grey stroke, same white fill */
+:host(.payer-button--disabled) .pb-entry {
+  box-shadow: inset 0 0 0 var(--stroke-xs) var(--colour-neutral-grey-500);
+}
+
+
+/* ── Badge-result size override — Symbol mode in payer-button header ─────────
+   Figma: the "Symbol" frame inside badge-result has FILL×FILL sizing, letting
+   the payer-button instance constrain it to 16×16 when inactive (symbol type).
+   Group/Card frames are FIXED 20×20 and ignore this property.
+   CSS custom properties cascade through Angular's emulated encapsulation, so
+   setting --_br-circle-size on the host element of badge-result works correctly.
+   Only applied when payer-button is NOT active — active state uses card type
+   (20px circle) which has FIXED sizing and is unaffected by this property.    */
+:host(:not(.payer-button--active)) .pb-header payerpath-badge-result {
+  --_br-circle-size: 16px;
+}
+
+/* ── Entry chip text ─────────────────────────────────────────────────────── */
+
+.pb-entry__name {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--colour-text-default-base);
+  transition: color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* Disabled — text colour shifts to sub (grey) */
+:host(.payer-button--disabled) .pb-entry__name {
+  color: var(--colour-text-default-sub);
+}

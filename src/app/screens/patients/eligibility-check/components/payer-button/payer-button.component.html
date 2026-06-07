@@ -1,0 +1,37 @@
+<!-- ── Header ────────────────────────────────────────────────────────────── -->
+<!-- SPACE_BETWEEN row: [label + chevron] ... [badge] -->
+<div class="pb-header">
+
+  <!-- Title group: label text + chevron (chevron appears only in Active state) -->
+  <div class="pb-title">
+    <span class="pb-label paragraph-ui">{{ label() }}</span>
+    @if (isActive()) {
+      <!-- Chevron-Right mini regular — white on dark active background -->
+      <merces-icon class="pb-chevron" name="chevron-right" size="mini" type="regular" />
+    }
+  </div>
+
+  <!-- Badge: confidence (unsolicited) or result (solicited) -->
+  @if (type() === 'unsolicited') {
+    <payerpath-badge-confidence [found]="found()" [type]="_confidenceType()" />
+  } @else {
+    <payerpath-badge-result [outcome]="outcome()" [type]="_resultType()" />
+  }
+
+</div>
+
+<!-- ── Payer entry chips ──────────────────────────────────────────────────── -->
+<!-- One or more insurance provider name chips.
+     Multiple entries use --gap-md (8px) vertical spacing (Payer Entry Group itemSpacing). -->
+@if (entries().length) {
+  <div class="pb-entries">
+    @for (entry of entries(); track $index) {
+      <!-- pb-entry--active = isCurrent=True, State=Active.
+           Only unsolicited buttons use this; solicited (Core) always stays
+           isCurrent=False even when the button is active (confirmed in Figma). -->
+      <div class="pb-entry" [class.pb-entry--active]="isActive() && type() === 'unsolicited'">
+        <span class="pb-entry__name paragraph-p4">{{ entry }}</span>
+      </div>
+    }
+  </div>
+}

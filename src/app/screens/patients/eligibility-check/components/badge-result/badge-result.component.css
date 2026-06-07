@@ -1,0 +1,106 @@
+/* ==========================================================================
+   Badge Result
+   Figma: Result Badge (4009:14028) — Components page
+
+   Outcomes × Types:
+     Active   (lime-green, H≈72°) — Tick, Tiny, Filled
+     Cannot Process (yellow, H≈51°) — Cross, Tiny, Filled
+     Inactive (red)  — Exclamation, Mini, Bold  → --colour-brand-red-400/300
+     Invalid Response (amber) — Dash, Tiny, Bold → --colour-brand-yellow-500/400
+     Unknown  (grey) — Question, Tiny, Bold       → --colour-neutral-grey-300
+
+   Types:
+     symbol — circle + icon only         (used in table rows)
+     group  — circle + underlined label   (used in detail view / filters)
+     card   — white label + circle        (used on highlighted rows)
+
+   Code-only tokens (Active + Cannot Process H° not in DS primitive scale):
+     --_rb-active-circle:         hsla(72, 92%, 36%, 1)
+     --_rb-active-text:           hsla(72, 88%, 32%, 1)
+     --_rb-cannot-process-circle: hsla(51, 100%, 43%, 1)
+     --_rb-cannot-process-text:   hsla(51, 100%, 36%, 1)
+
+   Spacing (Figma):
+     Group gap: 4px  → --gap-1xs
+     Card gap:  6px  → --gap-sm
+     Circle:    20×20px default (Group/Card fixed), Symbol = FILL×FILL in Figma
+
+   Circle size override — Symbol type only:
+     Figma: the "Symbol" frame inside the Result Badge component has sizing
+     set to FILL×FILL (not FIXED). Group and Card are FIXED at 20×20.
+     This lets any parent instance override the Symbol circle by constraining
+     the instance size — e.g. payer-button sets it to 16×16 in inactive state.
+     In CSS: exposed as --_br-circle-size (defaults to 20px). Parents that need
+     the 16px override set this custom property on the badge-result host.
+   ========================================================================== */
+
+/* ── Outcome-scoped colour pairs ── */
+:host(.outcome--active)           { --_circle: hsla(72, 92%, 36%, 1);                --_text: hsla(72, 88%, 32%, 1); }
+:host(.outcome--cannot-process)   { --_circle: hsla(51, 100%, 43%, 1);               --_text: hsla(51, 100%, 36%, 1); }
+:host(.outcome--inactive)         { --_circle: var(--colour-brand-red-400);           --_text: var(--colour-brand-red-300); }
+:host(.outcome--invalid-response) { --_circle: var(--colour-brand-yellow-500);        --_text: var(--colour-brand-yellow-400); }
+:host(.outcome--unknown)          { --_circle: var(--colour-neutral-grey-300);        --_text: var(--colour-neutral-grey-300); }
+
+/* ── Host ── */
+:host {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-1xs);   /* 4px — Group */
+}
+
+:host(.type--card) {
+  gap: var(--gap-sm);    /* 6px — Card */
+}
+
+/* ── Circle — coloured pill, white icon ──
+   Default 20×20 (Group/Card fixed size in Figma).
+   Symbol type is overridable via --_br-circle-size — parent sets 16px
+   to replicate Figma's FILL×FILL Symbol frame contracting to the instance size. */
+.br__circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--_br-circle-size, 20px);
+  height: var(--_br-circle-size, 20px);
+  border-radius: var(--radius-full);
+  background-color: var(--_circle);
+  color: var(--colour-neutral-white);
+}
+
+/* ── Group/Symbol label — always in DOM, transitions in/out ──
+   Transition defined at the base so it runs in BOTH directions. */
+:host(:not(.type--card)) .br__label {
+  white-space: nowrap;
+  overflow: hidden;
+  transition: max-width 300ms cubic-bezier(0, 0, 0, 1),
+              opacity   300ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* Symbol: collapsed, invisible.
+   gap must also be 0 — the 4px gap between the circle and the hidden
+   (max-width:0) label would otherwise create invisible trailing space,
+   shifting the circle 4px inset from the right edge of any space-between
+   container. Card mode is unaffected because its label precedes the circle. */
+:host(.type--symbol) {
+  gap: 0;
+}
+
+:host(.type--symbol) .br__label {
+  max-width: 0;
+  opacity: 0;
+}
+
+/* Group: revealed */
+:host(.type--group) .br__label {
+  max-width: 120px;
+  opacity: 1;
+  color: var(--_text);
+  text-decoration: underline;
+}
+
+/* ── Card label — always white ── */
+:host(.type--card) .br__label {
+  color: var(--colour-neutral-white);
+}

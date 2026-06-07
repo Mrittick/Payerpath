@@ -1,0 +1,64 @@
+<!-- Selection — checkbox, host owns interaction (inert+aria-hidden on checkbox) -->
+<div class="cell cell--selection" role="gridcell">
+  <span inert aria-hidden="true">
+    <merces-checkbox-table
+      size="mini"
+      hierarchy="entry"
+      theme="brand"
+      [checked]="selected()"
+      [state]="disabled() ? 'disabled' : 'default'"
+    />
+  </span>
+</div>
+
+<!-- Patient Name — click opens detail tray; stop propagation prevents row checkbox toggle -->
+<div class="cell cell--name" role="gridcell"
+  (click)="$event.stopPropagation(); namePress.emit(row())">
+  <span class="cell__text cell__text--name paragraph-ui-thin">{{ row().patientName }}</span>
+  <payerpath-badge-confidence [found]="row().found" type="symbol" />
+</div>
+
+<!-- Date of Birth -->
+<div class="cell" role="gridcell">
+  <span class="cell__text paragraph-ui-thin">{{ row().dateOfBirth }}</span>
+</div>
+
+<!-- Transaction Date -->
+<div class="cell" role="gridcell">
+  <span class="cell__text paragraph-ui-thin">{{ row().transactionDate }}</span>
+</div>
+
+<!-- Insurance -->
+<div class="cell" role="gridcell">
+  <span class="cell__text paragraph-ui-thin">{{ row().insurance }}</span>
+</div>
+
+<!-- Policy ID -->
+<div class="cell" role="gridcell">
+  <span class="cell__text paragraph-ui-thin">{{ row().policyId }}</span>
+</div>
+
+<!-- Result — badge-result symbol type -->
+<div class="cell cell--result" role="gridcell">
+  <payerpath-badge-result [outcome]="row().result" [type]="hovered() ? 'group' : 'symbol'" />
+</div>
+
+<!-- Alert — comma-separated abbreviations -->
+<div class="cell" role="gridcell">
+  <span class="cell__text paragraph-ui-thin">{{ _alertsText() }}</span>
+</div>
+
+<!-- Co-Payments -->
+<div class="cell" role="gridcell">
+  <span class="cell__text paragraph-ui-thin">{{ row().coPayments ?? '-' }}</span>
+</div>
+
+<!-- Deductibles -->
+<div class="cell" role="gridcell">
+  <span class="cell__text paragraph-ui-thin">{{ row().deductibles ?? '-' }}</span>
+</div>
+
+<!-- Provider — last cell, no right border -->
+<div class="cell cell--last" role="gridcell">
+  <span class="cell__text paragraph-ui-thin">{{ row().provider ?? '-' }}</span>
+</div>

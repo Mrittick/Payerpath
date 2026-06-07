@@ -1,0 +1,201 @@
+<!-- Scrim — darkened + blurred backdrop, click closes tray -->
+<div class="tray-scrim" (click)="close.emit()" aria-hidden="true"></div>
+
+<!-- Panel — white sheet, slides up from bottom -->
+<div class="tray-panel" role="dialog" aria-modal="true" aria-label="Patient eligibility details">
+
+  <!-- Header (4400:17716) — padding:32, gap:24 -->
+  <div class="tray-header">
+    <div class="tray-header__main">
+      <h2 class="tray-header__title heading-h3-bold">Eligibility Response Information</h2>
+      <div class="tray-header__sep" aria-hidden="true"></div>
+      @if (row(); as r) {
+        <div class="tray-header__info">
+          <span class="tray-header__name paragraph-ui">{{ r.patientName }}</span>
+          @if (!_allPayersNotFound()) {
+            <div class="tray-header__meta paragraph-ui-thin">
+              <span class="tray-header__label">Received:</span>
+              <span class="tray-header__date">{{ r.transactionDate }}</span>
+            </div>
+          } @else {
+            <span class="tray-header__label paragraph-ui-thin">No payers discovered</span>
+          }
+        </div>
+      }
+    </div>
+    <div class="tray-header__actions">
+      <merces-cta-button
+        intent="brand"
+        type="tertiary"
+        size="base"
+        variant="icon-only"
+        icon="cross"
+        iconSize="mini"
+        iconType="bold"
+        label="Close"
+        (pressed)="close.emit()"
+      />
+    </div>
+  </div>
+
+  <!-- Divider (4400:17734) — 1px, grey-500 -->
+  <div class="tray-divider" aria-hidden="true"></div>
+
+  <!-- Body ─────────────────────────────────────────────────────────── -->
+  <!-- Figma: Body (4742:8119) — HORIZONTAL flex, 8px padding+gap, neutral-backdrop bg -->
+  <div class="tray-body">
+
+    <!-- Sidebar (4742:8120) — 338px fixed, white, radius-lg, shadow-M, clips overflow -->
+    <aside class="tray-sidebar">
+
+      <!-- ── Solicited section ──
+           One payer-button only: "Core". badge-result only, never badge-confidence. -->
+      <div class="sidebar-section">
+        <div class="sidebar-section__heading">
+          <span class="sidebar-section__label heading-h4-bold">Solicited</span>
+        </div>
+        <div class="sidebar-section__entries">
+          @if (_sidebar(); as sb) {
+            <payerpath-payer-button
+              type="solicited"
+              label="Core"
+              [entries]="sb.coreEntries"
+              [outcome]="sb.coreOutcome"
+              [isDisabled]="!sb.coreFound"
+              [isActive]="sb.coreFound && _activePayerId() === 'core'"
+              (select)="setActivePayerId('core')" />
+          } @else {
+            <payerpath-payer-button type="solicited" label="Core" [entries]="['Insurance Provider']" [isDisabled]="true" />
+          }
+        </div>
+      </div>
+
+      <!-- ── Unsolicited section ──
+           Labels: Primary / Secondary / Tertiary. badge-confidence only.
+           found=false + isDisabled=true when no payer match returned.     -->
+      <div class="sidebar-section">
+        <div class="sidebar-section__heading">
+          <span class="sidebar-section__label heading-h4-bold">Unsolicited</span>
+        </div>
+        <div class="sidebar-section__entries">
+          @if (_sidebar(); as sb) {
+            <payerpath-payer-button
+              type="unsolicited"
+              label="Primary"
+              [entries]="sb.primaryEntries"
+              [found]="sb.primaryFound"
+              [isDisabled]="!sb.primaryFound"
+              [isActive]="_activePayerId() === 'primary'"
+              (select)="setActivePayerId('primary')" />
+            <payerpath-payer-button
+              type="unsolicited"
+              label="Secondary"
+              [entries]="sb.secondaryEntries"
+              [found]="sb.secondaryFound"
+              [isDisabled]="!sb.secondaryFound"
+              [isActive]="_activePayerId() === 'secondary'"
+              (select)="setActivePayerId('secondary')" />
+          } @else {
+            <payerpath-payer-button type="unsolicited" label="Primary"   [entries]="['Insurance Provider']" [isDisabled]="true" />
+            <payerpath-payer-button type="unsolicited" label="Secondary" [entries]="['Insurance Provider']" [isDisabled]="true" />
+          }
+          <payerpath-payer-button
+            type="unsolicited"
+            label="Tertiary"
+            [entries]="['Not found']"
+            [found]="false"
+            [isActive]="false"
+            [isDisabled]="true" />
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- Main (4742:8133) — neutral-intermediary bg, radius-lg, shadow-M -->
+    <div class="tray-main">
+
+      @if (!_allPayersNotFound()) {
+
+        <!-- Header (4742:8134) — SPACE_BETWEEN row, white, 1px grey-500 bottom border -->
+        <div class="main-header">
+
+          <!-- Sections (4742:8135) — tab buttons, 12px top / 8px side padding -->
+          <div class="main-header__sections">
+            <merces-tab-button
+              size="base" hierarchy="level-01" label="Summary"
+              [isCurrent]="_activeTab() === 'summary'"
+              (pressed)="_activeTab.set('summary')" />
+            <merces-tab-button
+              size="base" hierarchy="level-01" label="Details"
+              [isCurrent]="_activeTab() === 'details'"
+              (pressed)="_activeTab.set('details')" />
+          </div>
+
+          <!-- Actions (4742:8138) — CTA buttons, 10px side padding, 8px gap -->
+          <div class="main-header__actions">
+            <merces-cta-button intent="brand" type="secondary" size="base"
+              variant="icon-right" icon="print" iconSize="mini" iconType="bold"
+              label="Print" />
+            <merces-cta-button intent="brand" type="secondary" size="base"
+              variant="icon-right" icon="modify" iconSize="mini" iconType="bold"
+              label="Edit & Resubmit" />
+            <!-- Vertical separator (4742:8141) — 2px × 16px, grey-400 -->
+            <div class="main-header__sep" aria-hidden="true"></div>
+            <merces-cta-button intent="brand" type="tertiary" size="base"
+              variant="icon-right"
+              [icon]="_anyOpen() ? 'dash' : 'plus'"
+              iconSize="mini"
+              [iconType]="_anyOpen() ? 'regular' : 'bold'"
+              [label]="_anyOpen() ? 'Collapse All' : 'Expand All'"
+              (pressed)="toggleAll()" />
+          </div>
+
+        </div>
+
+        <!-- Content Frame (4742:8144) — VERTICAL, pad:8, gap:8 -->
+        <div class="main-content">
+
+          <!-- Bento (4742:8145) — HORIZONTAL, gap:8; Section 01 (720fr) | Section 02 (494fr) -->
+          <div class="bento">
+
+            <!-- Section 01 — left column: Payer, Alerts & Notifications, Insurance Information, Related Entities -->
+            <div class="bento-col">
+              <payerpath-ec-info-section                label="Payer"                    [rows]="_payerRows()"        [(open)]="_sOpen[0]" />
+              <payerpath-ec-alerts-section              label="Alerts &amp; Notifications" [alerts]="_alertRows()"      [(open)]="_sOpen[5]" />
+              <payerpath-ec-info-section                label="Insurance Information"    [rows]="_insuranceRows()"    [(open)]="_sOpen[3]" />
+              <payerpath-ec-related-entities-section    label="Related Entities"         [entities]="_relatedEntities()" [(open)]="_sOpen[6]" />
+            </div>
+
+            <!-- Section 02 — right column: Transaction Information, Subscriber -->
+            <div class="bento-col">
+              <payerpath-ec-info-section label="Transaction Information" [rows]="_transactionRows()" [(open)]="_sOpen[1]" />
+              <payerpath-ec-info-section label="Subscriber"              [rows]="_subscriberRows()"  [(open)]="_sOpen[2]" />
+            </div>
+
+          </div>
+
+          <!-- Benefits (4742:8154) — full-width, below bento -->
+          <payerpath-ec-benefits-section label="Benefits" [groups]="_benefitGroups()" [(open)]="_sOpen[4]" />
+
+        </div>
+
+      } @else {
+
+        <!-- Empty state (4582:6854) — shown when all payers have found=false
+             VERTICAL · primaryAxisAlignItems=CENTER · counterAxisAlignItems=CENTER · gap:24 -->
+        <div class="empty-state" aria-label="No payers discovered">
+          <div class="empty-state__icon" aria-hidden="true">
+            <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M79.37 39.9633L73.81 13.27C72.5167 7.07 67.7833 2.29667 61.8867 0.66C61.3433 0.276667 58.0833 0 57.49 0H22.5067C21.9133 0 18.6567 0.273333 18.1133 0.656667C12.2167 2.29333 7.48333 7.06333 6.19 13.2667L0.63 39.9633C0.213333 41.97 0 44.03 0 46.0833V63.3333C0 72.5233 7.47667 80 16.6667 80H63.3333C72.5233 80 80 72.5233 80 63.3333V46.0833C80 44.0367 79.79 41.98 79.37 39.9633ZM67.2833 14.6267L72.57 40H66.1167L63.3367 24.7V8.60333C65.3 10.03 66.7667 12.13 67.2867 14.6267H67.2833ZM56.6667 20H23.3333V6.66667H56.6667V20ZM23.0833 26.6667H56.9167L59.34 40H20.66L23.0833 26.6667ZM12.7167 14.6267C13.2367 12.13 14.7 10.0267 16.6667 8.60333V24.7L13.8833 40H7.43L12.7167 14.6267ZM63.3333 73.3333H16.6667C11.1533 73.3333 6.66667 68.8467 6.66667 63.3333V46.6667H73.3333V63.3333C73.3333 68.8467 68.8467 73.3333 63.3333 73.3333ZM50 60C50 61.84 48.51 63.3333 46.6667 63.3333H33.3333C31.4933 63.3333 30 61.84 30 60C30 58.16 31.4933 56.6667 33.3333 56.6667H46.6667C48.51 56.6667 50 58.16 50 60Z"/>
+            </svg>
+          </div>
+          <p class="paragraph-p1 empty-state__text">No payers discovered</p>
+        </div>
+
+      }
+
+    </div>
+
+  </div>
+
+</div>

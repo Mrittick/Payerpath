@@ -1,0 +1,16 @@
+<!-- Figma: Benefits accordion card (4166:27655)
+     VERTICAL · gap:8 · pad:8 · radius:12 · white · shadow-M -->
+
+<merces-accordion-header
+  [label]="label()"
+  [isOpen]="open()"
+  (headerClick)="toggle()"
+/>
+
+<!-- Body clip — same 0fr → 1fr grid animation as ec-info-section.
+     Accordion body has NO internal padding — table handles its own spacing. -->
+<div class="body-clip" [attr.aria-hidden]="!open()">
+  <div class="body-inner">
+    <payerpath-ec-eligibility-table [groups]="groups()" />
+  </div>
+</div>

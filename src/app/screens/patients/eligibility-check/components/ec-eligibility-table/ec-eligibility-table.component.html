@@ -1,0 +1,41 @@
+<!-- Figma: Table (inside 4166:27655)
+     VERTICAL · gap:0 · pad T8/R0/B8/L0 · radius:8 · white · stroke rgba(204,204,204) w:1 INSIDE -->
+
+<div class="table-wrap">
+
+  <!-- Header row — pad T4/R12/B4/L12, gap:8, paragraph-p4-bold -->
+  <div class="table-head">
+    <span class="cell-field paragraph-p4-bold"></span>
+    <span class="paragraph-p4-bold">Amount</span>
+    <span class="paragraph-p4-bold">Description</span>
+    <span class="paragraph-p4-bold">Coverage</span>
+    <span class="paragraph-p4-bold">Network</span>
+    <span class="paragraph-p4-bold">Authorization</span>
+    <span class="paragraph-p4-bold">Insurance Type</span>
+    <span class="paragraph-p4-bold">Messages</span>
+  </div>
+
+  <!-- Divider — rgba(153,153,153) = colour-stroke-divider-neutral-extradark, margin T4/R12/B4/L12 -->
+  <div class="table-divider" aria-hidden="true"></div>
+
+  <!-- Body — alternating group backgrounds (even=white, odd=colour-fill-surface-neutral-intermediary) -->
+  <div class="table-body">
+    @for (group of groups(); track $index; let isOdd = $odd) {
+      <div class="group" [class.group--alt]="isOdd">
+        @for (entry of group.entries; track $index; let isFirst = $first) {
+          <div class="entry">
+            <span class="cell-field paragraph-p4-bold">{{ isFirst ? (group.category ?? '') : '' }}</span>
+            <span class="paragraph-p4 cell">{{ entry.amount        ?? '-' }}</span>
+            <span class="paragraph-p4 cell">{{ entry.description   ?? '-' }}</span>
+            <span class="paragraph-p4 cell">{{ entry.coverage      ?? '-' }}</span>
+            <span class="paragraph-p4 cell">{{ entry.network       ?? '-' }}</span>
+            <span class="paragraph-p4 cell">{{ entry.authorization ?? '-' }}</span>
+            <span class="paragraph-p4 cell">{{ entry.insuranceType ?? '-' }}</span>
+            <span class="paragraph-p4 cell">{{ entry.messages      ?? '-' }}</span>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+</div>

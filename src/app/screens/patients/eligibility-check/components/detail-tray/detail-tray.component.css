@@ -1,0 +1,387 @@
+/* ==========================================================================
+   Detail Tray — full-screen slide-up overlay
+   Figma: 4400:17714 — Tray layer, over Eligibility Check / Details - Active
+
+   Spring: Stiffness 316, Damping 26.67, Mass 1
+   ζ = c / (2√km) = 26.67 / (2×17.78) ≈ 0.75  (underdamped)
+   ωd = 17.78 × √(1−0.5625) ≈ 11.75 rad/s
+
+   The exact spring ODE solution x(t) was sampled at 10% intervals of the
+   450ms duration (every 45ms) and encoded as a CSS linear() easing:
+     0ms → 0.000 (start)
+     45ms → 0.211
+     90ms → 0.555
+     135ms → 0.810
+     180ms → 0.958
+     225ms → 1.017  ← crosses rest position going up
+     270ms → 1.027  ← peak overshoot 2.7% (~26px on a 976px panel)
+     315ms → 1.022
+     360ms → 1.012
+     405ms → 1.004
+     450ms → 1.000  ← settled
+
+   Bottom is extended -100px below viewport so the 26px overshoot never
+   exposes the background behind the panel.
+
+   Close: 220ms, "thrown" model — initial 30% velocity + constant acceleration.
+   y(t) = 0.3t + 0.7t²  →  panel starts visibly in motion on frame 1,
+   accelerates smoothly off-screen. No deceleration (nothing to land on).
+   linear(0, 0.037 10%, 0.088 20%, 0.153 30%, 0.232 40%,
+          0.325 50%, 0.432 60%, 0.553 70%, 0.688 80%, 0.837 90%, 1)
+
+   Structure:
+     :host          — position: fixed, full viewport
+     .tray-scrim    — dark blur backdrop (click to close)
+     .tray-panel    — white sheet, top: 48px, bottom: -100px
+   ========================================================================== */
+
+/* ── Host — full-screen fixed container ── */
+:host {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+}
+
+:host(.tray--open) {
+  pointer-events: auto;
+}
+
+/* ── Scrim — fades in sync with panel ── */
+.tray-scrim {
+  position: absolute;
+  inset: 0;
+  background-color: hsla(252, 30%, 12%, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  opacity: 0;
+  transition: opacity 220ms ease; /* close: matches panel duration */
+}
+
+:host(.tray--open) .tray-scrim {
+  opacity: 1;
+  transition: opacity 300ms ease; /* open: slightly longer for softer feel */
+}
+
+/* ── Panel ──
+   bottom: -100px extends the panel 100px below the viewport. During the
+   26px overshoot the panel moves UP, but its extended bottom edge stays
+   well below the viewport — no gap is ever exposed.
+   translateY(100%) starts the panel fully off-screen regardless of the
+   extra height because 100% is relative to the panel's own height. ── */
+.tray-panel {
+  position: absolute;
+  top: 48px;
+  left: 0;
+  right: 0;
+  bottom: -100px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--colour-fill-surface-neutral-default);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  box-shadow: var(--shadow-M);
+  overflow: hidden;
+  transform: translateY(100%);
+  /* Close: 220ms "thrown" exit — starts already in motion, accelerates off-screen */
+  transition: transform 220ms linear(
+    0,
+    0.037 10%,
+    0.088 20%,
+    0.153 30%,
+    0.232 40%,
+    0.325 50%,
+    0.432 60%,
+    0.553 70%,
+    0.688 80%,
+    0.837 90%,
+    1
+  );
+}
+
+:host(.tray--open) .tray-panel {
+  transform: translateY(0);
+  /* Open: exact spring physics sampled at 45ms intervals (see header comment) */
+  transition: transform 450ms linear(
+    0,
+    0.211 10%,
+    0.555 20%,
+    0.810 30%,
+    0.958 40%,
+    1.017 50%,
+    1.027 60%,
+    1.022 70%,
+    1.012 80%,
+    1.004 90%,
+    1
+  );
+}
+
+/* ── Header (4400:17716) — padding:32, gap:24, flex row, align center ── */
+.tray-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-shrink: 0;
+  padding: var(--gap-1xbig);
+  gap: var(--gap-big);
+}
+
+.tray-header__main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  gap: var(--gap-big);
+}
+
+.tray-header__title {
+  flex-shrink: 0;
+  white-space: nowrap;
+  color: var(--colour-text-default-base);
+}
+
+/* 3px vertical separator — colour/stroke/divider/neutral-dark */
+.tray-header__sep {
+  flex-shrink: 0;
+  width: 3px;
+  align-self: stretch;
+  border-radius: var(--radius-full);
+  background-color: var(--colour-stroke-divider-neutral-dark);
+}
+
+.tray-header__info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-1xs);
+  flex-shrink: 0;
+}
+
+.tray-header__name {
+  color: var(--colour-text-default-base);
+  white-space: nowrap;
+}
+
+.tray-header__meta {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-1xs);
+}
+
+.tray-header__label {
+  color: var(--colour-text-default-base);
+  white-space: nowrap;
+}
+
+/* Date styled as sub text + underline (Figma: text-default-sub, text-decoration: underline) */
+.tray-header__date {
+  color: var(--colour-text-default-sub);
+  text-decoration: underline;
+  white-space: nowrap;
+}
+
+.tray-header__actions {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-md);
+}
+
+/* ── Divider (4400:17734) — 1px, grey-500 ── */
+.tray-divider {
+  flex-shrink: 0;
+  height: var(--stroke-xs);
+  background-color: var(--colour-neutral-grey-500);
+}
+
+/* ── Body (4742:8119) — HORIZONTAL flex wrapper, grey backdrop ──
+   padding-bottom absorbs the panel's 100px bounce-buffer extension so the
+   grey backdrop fills all the way to the panel's physical bottom. The 100px
+   sits below the viewport during normal display; the 8px gap-md on top is
+   the visible margin between the sidebar/main cards and the screen edge.   */
+.tray-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  padding: var(--gap-md);                            /* 8px all sides */
+  padding-bottom: calc(var(--gap-md) + 100px);       /* 8px visible + 100px buffer */
+  gap: var(--gap-md);
+  background-color: var(--colour-fill-surface-neutral-backdrop);
+  overflow: hidden;
+}
+
+
+/* ── Sidebar (4742:8120) ── */
+
+.tray-sidebar {
+  width: 338px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--colour-fill-surface-neutral-default);
+  border-radius: var(--radius-lg);    /* 12px */
+  box-shadow: var(--shadow-M);
+  overflow-x: hidden;                 /* clips to rounded corners horizontally */
+  overflow-y: auto;                   /* Figma: overflowDirection=VERTICAL */
+  padding-bottom: var(--gap-md);      /* 8px — ensures last item ends with gap at scroll terminus */
+}
+
+/* Section — Solicited or Unsolicited group */
+.sidebar-section {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Section heading row — sticky so it pins to the top of the sidebar scroll area */
+.sidebar-section__heading {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: var(--gap-3xl) var(--gap-4xl);   /* 16px top/bottom, 20px left/right */
+  background-color: var(--colour-fill-surface-neutral-default); /* opaque — covers scrolling content */
+}
+
+.sidebar-section__label {
+  color: var(--colour-text-default-base);
+}
+
+/* Entries — vertical stack of payer-buttons, 8px side padding + gap */
+.sidebar-section__entries {
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--gap-md);   /* 0 top/bottom, 8px left/right */
+  gap: var(--gap-md);          /* 8px between payer-buttons */
+}
+
+
+/* ── Main (4742:8133) ── */
+
+.tray-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--colour-fill-surface-neutral-intermediary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-M);
+  overflow: hidden;
+}
+
+/* Header (4742:8134) — white row, SPACE_BETWEEN, 1px bottom border */
+.main-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  background-color: var(--colour-fill-surface-neutral-default);
+  box-shadow: inset 0 -1px 0 0 var(--colour-neutral-grey-500);
+}
+
+/* Tab buttons — 12px top pad, 8px side pad, no bottom pad (tab underline sits flush) */
+.main-header__sections {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: var(--gap-1xl) var(--gap-md) 0 var(--gap-md);   /* 12 8 0 8 */
+}
+
+/* CTA action group — 10px side padding, 8px gap */
+.main-header__actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 var(--gap-lg);   /* 0 10px */
+  gap: var(--gap-md);          /* 8px */
+}
+
+/* Constrain CTA buttons to 40px in this context (base default is 44px) */
+.main-header__actions merces-cta-button {
+  height: 40px;
+}
+
+/* Vertical separator — outer container (4742:8141): 22×40, padding 12px v / 10px h
+   Inner fill (4742:8142): 2×16px drawn via ::before pseudo-element              */
+.main-header__sep {
+  display: flex;
+  flex-shrink: 0;
+  align-self: stretch;                    /* FILL — matches parent row height */
+  padding: var(--gap-1xl) var(--gap-lg);  /* 12px top/bottom, 10px left/right */
+}
+
+.main-header__sep::before {
+  content: '';
+  width: 2px;
+  background-color: var(--colour-neutral-grey-400);
+}
+
+/* Content Frame (4742:8144) — fills remaining Main height, VERTICAL, pad:8, gap:8 */
+.main-content {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: var(--gap-md);
+  gap: var(--gap-md);
+  overflow-y: auto;
+}
+
+/* Bento (4742:8145) — HORIZONTAL, pad:0, gap:8
+   Columns: Section 01 (720fr) = Payer/Alerts/Insurance/Related Entities
+            Section 02 (494fr) = Transaction Information/Subscriber           */
+.bento {
+  display: grid;
+  grid-template-columns: 720fr 494fr;
+  gap: var(--gap-md);
+  align-items: start;
+}
+
+/* Bento columns — VERTICAL, pad:0, gap:8, no fixed height (vSizing:HUG) */
+.bento-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+  min-width: 0;
+}
+
+/* ── Empty state (4582:6854) — shown when all payer slots have found=false ──
+   Fills the entire Main area and centers icon + text vertically + horizontally.
+   Figma: primaryAxisAlignItems=CENTER · counterAxisAlignItems=CENTER · gap:24 */
+
+.empty-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-big);
+}
+
+/* Icon container — 80×80, fill colour bound to colour/brand/purple-700 */
+
+.empty-state__icon {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  color: var(--colour-brand-purple-700);
+}
+
+.empty-state__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Label — paragraph/p1 (20px medium), colour/text/default/low-emphasis */
+
+.empty-state__text {
+  color: var(--colour-text-default-low-emphasis);
+  margin: 0;
+}

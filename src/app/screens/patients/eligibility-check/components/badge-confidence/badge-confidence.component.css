@@ -1,0 +1,102 @@
+/* ==========================================================================
+   Badge Confidence
+   Figma: Confidence Badge (4053:8080) — Components page
+
+   Indicates whether a patient has a verified payer match.
+   found=false → host hidden via [style.display]=none (Figma False variant is empty).
+
+   Types:
+     symbol — 16×16 outlined circle + Tick-Circle Filled  (used in table Name cell)
+     group  — 20×20 filled circle + Tick Filled + "Found" underlined
+     active — white "Found" + 16×16 white circle + Tick-Circle Regular  (active rows)
+
+   Tokens:
+     Symbol circle/icon:   --colour-brand-purple-400
+     Group circle/stroke:  --colour-brand-purple-400
+     Active icon:          --colour-brand-purple-300  (not 400 — confirmed via Figma)
+     Active label/stroke:  --colour-neutral-white
+
+   Spacing (Figma):
+     Symbol/Group gap: 4px → --gap-1xs
+     Active gap:       6px → --gap-sm
+
+   Active masking technique (Figma):
+     The "Graphic" frame (16×16, radius-full, white fill) has a 2px INSIDE white
+     stroke. In Figma, this stroke renders OVER child content, masking the circular
+     outline drawn by the tick-circle Regular SVG (leaving only the inner tick).
+     In CSS, box-shadow:inset paints BEHIND children — so it cannot mask the SVG.
+     Fix: move the white ring to a ::after pseudo-element, which as a positioned
+     element paints AFTER (over) the in-flow SVG child within the same context.
+   ========================================================================== */
+
+/* ── Host ── */
+:host {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-1xs);   /* 4px */
+}
+
+:host(.type--active) {
+  gap: var(--gap-sm);    /* 6px */
+}
+
+/* ── Symbol graphic — 16×16 transparent bg, purple-400 border, purple-400 icon ── */
+.bc__graphic {
+  position: relative;  /* establishes stacking context for ::after overlay */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-full);
+  background-color: transparent;
+  /* inset stroke — zero-spread transparent in default, active has its own rule */
+  box-shadow: inset 0 0 0 var(--stroke-xs) var(--colour-brand-purple-400);
+  color: var(--colour-brand-purple-400);
+}
+
+/* ── Group graphic — 20×20 filled purple-400 circle, white icon ── */
+.bc__graphic--filled {
+  width: 20px;
+  height: 20px;
+  background-color: var(--colour-brand-purple-400);
+  box-shadow: inset 0 0 0 var(--stroke-xs) var(--colour-brand-purple-400);
+  color: var(--colour-neutral-white);
+}
+
+/* ── Active graphic — 16×16 white circle, masked tick-circle Regular icon ──
+   White background replaces the transparent symbol bg.
+   box-shadow reset to none — the white ring moves to ::after (see below).
+   Icon color: purple-300 (Figma: Vector fill = colour/brand/purple-300). */
+.bc__graphic--active {
+  background-color: var(--colour-neutral-white);
+  box-shadow: none;  /* reset purple-400 ring from base rule */
+  color: var(--colour-brand-purple-300);
+}
+
+/* White ring overlay — renders ON TOP of the tick-circle SVG.
+   The tick-circle Regular icon draws its own circular SVG path; this 2px
+   white ring (matching Figma: stroke-sm inside colour/neutral/white on the
+   "Graphic" frame) masks that outer ring, leaving only the inner tick visible.
+   position:absolute + comes after in-flow icon in paint order → paints over it. */
+.bc__graphic--active::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-full);
+  box-shadow: inset 0 0 0 var(--stroke-sm) var(--colour-neutral-white);
+  pointer-events: none;
+}
+
+/* ── Group label — purple-300, underlined ── */
+:host(.type--group) .bc__label {
+  color: var(--colour-brand-purple-300);
+  text-decoration: underline;
+}
+
+/* ── Active label — white ── */
+:host(.type--active) .bc__label {
+  color: var(--colour-neutral-white);
+}

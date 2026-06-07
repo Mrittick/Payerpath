@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit, inject, computed, signal, DestroyRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, inject, computed, signal, effect, DestroyRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -29,7 +29,13 @@ export class ShellComponent implements OnInit {
   protected readonly userName = computed(() => this.user()?.name  ?? '');
   protected readonly userRole = computed(() => (this.user()?.role ?? 'admin') as UserRole);
 
-  protected readonly navCollapsed = signal(false);
+  private static readonly NAV_COLLAPSED_KEY = 'payerpath.navbar.collapsed';
+  protected readonly navCollapsed = signal(
+    localStorage.getItem(ShellComponent.NAV_COLLAPSED_KEY) === 'true'
+  );
+  private readonly _persistNavCollapsed = effect(() => {
+    localStorage.setItem(ShellComponent.NAV_COLLAPSED_KEY, String(this.navCollapsed()));
+  });
 
   // Derive the active page ID from the URL — the router is the single source of truth.
   private readonly _url = toSignal(

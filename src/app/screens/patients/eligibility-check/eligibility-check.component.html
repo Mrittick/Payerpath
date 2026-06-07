@@ -1,0 +1,272 @@
+<!-- ══════════════════════════════════════════════════════════════════
+     Eligibility Check screen
+     Layout: :host = Main Content (neutral-backdrop, 8px pad, horizontal)
+               .content-card = Content Frame (neutral-intermediary, shadow-M, radius-lg)
+                 .card-header = Header (white, bottom-stroke, tabs + actions)
+                 .card-body = Body (no fill, 8px pad/gap)
+                   .body-content = Content (white, mixed-radius, table + footer)
+     Figma: Ih3R3vpiDSxMpnARgrXOW6 node 4053:4118
+     ══════════════════════════════════════════════════════════════════ -->
+
+<!-- Content Frame (4053:4125) -->
+<div class="content-card">
+
+  <!-- ══════════════════════════════════════════════════════════
+       Header (4053:4137)
+       HORIZONTAL, gap:10, white fill, 1px bottom stroke grey-500
+       Two sections: Tabs (FILL) + Actions (HUG)
+       ══════════════════════════════════════════════════════════ -->
+  <header class="card-header">
+
+    <!-- Tabs (4053:4138) — padding t:12 r:8 b:0 l:8, FILL width, gap:0 -->
+    <div class="header-tabs" role="tablist">
+      <merces-tab-button
+        hierarchy="level-01"
+        label="Eligibility Check List"
+        [isCurrent]="activeTab() === 'eligibility-check-list'"
+        (pressed)="activeTab.set('eligibility-check-list')"
+      />
+      <merces-tab-button
+        hierarchy="level-01"
+        label="Payer Response Status"
+        [isCurrent]="activeTab() === 'payer-response-status'"
+        (pressed)="activeTab.set('payer-response-status')"
+      />
+    </div>
+
+    <!-- Actions (4053:4141) — padding 0/10/0/10, gap:8, HUG -->
+    <div class="header-actions">
+
+      <!-- Time Period — Dropdown Group, label "Show Transactions for", horizontal layout -->
+      <merces-dropdown-group class="time-period" label="Show Transactions for" layout="horizontal">
+        <merces-dropdown selectionText="Last 90 Days" [unselected]="false">
+          <merces-dropdown-item label="Last 7 Days"    [checked]="false" />
+          <merces-dropdown-item label="Last 30 Days"   [checked]="false" />
+          <merces-dropdown-item label="Last 90 Days"   [checked]="true"  />
+          <merces-dropdown-item label="Last 12 Months" [checked]="false" />
+        </merces-dropdown>
+      </merces-dropdown-group>
+
+      <!-- Divider — 22×40px, colour/neutral/grey-400 -->
+      <div class="actions-divider" aria-hidden="true"></div>
+
+      <!-- Discovered Only — Switch Toggle Brand, orientation right -->
+      <merces-switch
+        label="Discovered only"
+        orientation="right"
+        [checked]="discoveredOnly()"
+        (checkedChange)="setDiscoveredOnly($event)"
+      />
+
+      <!-- Divider -->
+      <div class="actions-divider" aria-hidden="true"></div>
+
+      <!-- New Request — Secondary/Base/IconOnly, icon:more Huge/Regular -->
+      <merces-cta-button
+        intent="brand"
+        type="secondary"
+        size="base"
+        variant="icon-only"
+        icon="more"
+        iconSize="huge"
+        label="New Request"
+        (pressed)="onNewRequest()"
+      />
+
+      <!-- Eligibility List Settings — Secondary/Base/IconOnly, icon:fix Mini/Bold -->
+      <merces-cta-button
+        intent="brand"
+        type="secondary"
+        size="base"
+        variant="icon-only"
+        icon="fix"
+        iconSize="mini"
+        iconType="bold"
+        label="Eligibility List Settings"
+        (pressed)="onSettings()"
+      />
+
+      <!-- Divider -->
+      <div class="actions-divider" aria-hidden="true"></div>
+
+      <!-- Print — Tertiary/Base/IconOnly, icon:print Mini/Bold -->
+      <merces-cta-button
+        intent="brand"
+        type="tertiary"
+        size="base"
+        variant="icon-only"
+        icon="print"
+        iconSize="mini"
+        iconType="bold"
+        label="Print"
+        (pressed)="onPrint()"
+      />
+
+      <!-- Download XLS — Tertiary/Base/IconOnly, icon:download-local Base/Bold -->
+      <merces-cta-button
+        intent="brand"
+        type="tertiary"
+        size="base"
+        variant="icon-only"
+        icon="download-local"
+        iconType="bold"
+        label="Download XLS"
+        (pressed)="onDownloadXls()"
+      />
+
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════════════════════════
+       Body (4053:4151)
+       VERTICAL, gap:8, padding:8, no fill
+       ══════════════════════════════════════════════════════════ -->
+  <div class="card-body">
+
+    <!-- Content (4053:4152)
+         VERTICAL, gap:8, padding:8, white fill,
+         corner-radius: tl:12 tr:12 bl:8 br:8 -->
+    <div class="body-content">
+
+      <!-- Data table — existing CSS-Grid EC table (fills available space) -->
+      <div class="ec-table-wrap">
+        <merces-overlay-scroll>
+          <div class="ec-table" [style.grid-template-columns]="gridTemplate()">
+
+            <!-- ── Sticky header row ── -->
+            <div class="ec-table__header-row">
+              @for (col of columns; track col.key; let i = $index) {
+                @if (col.key === '_selection') {
+                  <payerpath-ec-table-header
+                    type="checkbox"
+                    [selectionState]="headerSel()"
+                    (selectionChange)="toggleAll($event)"
+                  />
+                } @else {
+                  <payerpath-ec-table-header
+                    type="text"
+                    [label]="col.label"
+                    [sortOrder]="sortFor(col.key)"
+                    [resizable]="col.sortable"
+                    (sortOrderChange)="col.sortable && setSort(col.key, $event)"
+                    (resizeStart)="startResize(i, $event)"
+                    (resizeReset)="resetColumnWidth(i)"
+                  />
+                }
+              }
+            </div>
+
+            <!-- ── Search & Filter row (sticky, directly below header) ── -->
+            <div class="ec-table__search-row">
+
+              <!-- Selection — empty cell, frozen left -->
+              <div class="ec-table__sc ec-table__sc--selection"></div>
+
+              <!-- Patient Name — text search -->
+              <div class="ec-table__sc">
+                <merces-search size="compact" [(value)]="searchName" placeholder="Search" />
+              </div>
+
+              <!-- Date of Birth — date picker (label="" suppresses the above-field label row) -->
+              <div class="ec-table__sc">
+                <merces-calendar [(value)]="searchDob" placeholder="mm / dd / yyyy" label="" />
+              </div>
+
+              <!-- Transaction Date — date picker -->
+              <div class="ec-table__sc">
+                <merces-calendar [(value)]="searchTxDate" placeholder="mm / dd / yyyy" label="" />
+              </div>
+
+              <!-- Insurance — text search -->
+              <div class="ec-table__sc">
+                <merces-search size="compact" [(value)]="searchInsurance" placeholder="Search" />
+              </div>
+
+              <!-- Policy ID — text search -->
+              <div class="ec-table__sc">
+                <merces-search size="compact" [(value)]="searchPolicyId" placeholder="Search" />
+              </div>
+
+              <!-- Result — standalone dropdown -->
+              <div class="ec-table__sc ec-table__sc--result">
+                <merces-dropdown
+                  placeholder="All"
+                  [selectionText]="filterResultLabel()"
+                  [unselected]="filterResult() === 'all'"
+                >
+                  <merces-dropdown-item label="All"              [checked]="filterResult() === 'all'"              (selected)="setFilterResult('all')" />
+                  <merces-dropdown-item label="Active"           [checked]="filterResult() === 'active'"           (selected)="setFilterResult('active')" />
+                  <merces-dropdown-item label="Inactive"         [checked]="filterResult() === 'inactive'"         (selected)="setFilterResult('inactive')" />
+                  <merces-dropdown-item label="Cannot Process"   [checked]="filterResult() === 'cannot-process'"   (selected)="setFilterResult('cannot-process')" />
+                  <merces-dropdown-item label="Invalid Response" [checked]="filterResult() === 'invalid-response'" (selected)="setFilterResult('invalid-response')" />
+                  <merces-dropdown-item label="Unknown"          [checked]="filterResult() === 'unknown'"          (selected)="setFilterResult('unknown')" />
+                </merces-dropdown>
+              </div>
+
+              <!-- Alert — text search -->
+              <div class="ec-table__sc">
+                <merces-search size="compact" [(value)]="searchAlerts" placeholder="Search" />
+              </div>
+
+              <!-- Co-Payments — text search -->
+              <div class="ec-table__sc">
+                <merces-search size="compact" [(value)]="searchCoPay" placeholder="Search" />
+              </div>
+
+              <!-- Deductibles — text search -->
+              <div class="ec-table__sc">
+                <merces-search size="compact" [(value)]="searchDeduct" placeholder="Search" />
+              </div>
+
+              <!-- Provider — text search (last cell, no right border) -->
+              <div class="ec-table__sc ec-table__sc--last">
+                <merces-search size="compact" [(value)]="searchProvider" placeholder="Search" />
+              </div>
+
+            </div>
+
+            <!-- ── Data rows ── -->
+            @for (row of paginatedRows(); track row; let rowIdx = $index) {
+              <payerpath-ec-entry-row
+                [row]="row"
+                [selected]="isSelected(row)"
+                [alternating]="rowIdx % 2 === 1"
+                (click)="toggleRow(row)"
+                (keydown.enter)="$event.preventDefault(); toggleRow(row)"
+                (keydown.space)="$event.preventDefault(); toggleRow(row)"
+                (namePress)="openTray($event)"
+              />
+            }
+
+          </div>
+        </merces-overlay-scroll>
+      </div>
+
+      <!-- Footer (4053:4154) — VERTICAL, gap:6, padding: t:0 r:8 b:0 l:0 -->
+      <footer class="content-footer">
+        <!-- Divider — 10px total: 4px pad + 2px line + 4px pad, colour/stroke/divider/primary-light -->
+        <div class="footer-divider" aria-hidden="true"></div>
+
+        <!-- Paginator (4053:4158) — padding-right:16px -->
+        <div class="footer-paginator">
+          <merces-paginator
+            [totalItems]="totalItems()"
+            [page]="currentPage()"
+            (pageChange)="currentPage.set($event)"
+            [pageSize]="pageSize()"
+            (pageSizeChange)="pageSize.set($event)"
+            pagesVariant="hybrid"
+          />
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- Detail tray — fixed overlay, slides up on name click -->
+<payerpath-ec-detail-tray
+  [row]="trayRow()"
+  (close)="closeTray()"
+/>

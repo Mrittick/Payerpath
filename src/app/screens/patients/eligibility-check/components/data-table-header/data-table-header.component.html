@@ -1,0 +1,33 @@
+@if (type() === 'checkbox') {
+  <!-- Checkbox column header — purely visual, host owns interaction -->
+  <span class="th__checkbox-wrap" [class.th__checkbox-wrap--mixed]="_isIndeterminate()" inert aria-hidden="true">
+    <merces-checkbox-table
+      size="mini"
+      hierarchy="header"
+      theme="brand"
+      [checked]="_isChecked()"
+      [indeterminate]="_isIndeterminate()"
+    />
+  </span>
+} @else {
+  <!-- Text column header — label + optional sort icon -->
+  <span class="th__label paragraph-ui">{{ label() }}</span>
+
+  @if (_showSortIcon()) {
+    <merces-icon
+      [name]="_sortIconName()"
+      type="bold"
+      size="mini"
+      class="th__sort-icon"
+    />
+  }
+
+  @if (resizable()) {
+    <div
+      class="th__resize-handle"
+      (mousedown)="onResizeMousedown($event)"
+      (dblclick)="onResizeDblClick($event)"
+      aria-hidden="true"
+    ></div>
+  }
+}

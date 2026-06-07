@@ -1,0 +1,74 @@
+/* Figma: Main/Content Frame — Accordion Section (4166:27655)
+   VERTICAL · padding 8 · radius 12 · white fill · shadow-M
+   Body appears/disappears via grid-template-rows animation (mirrors DS accordion) */
+
+:host {
+  display: flex;
+  flex-direction: column;
+  padding: var(--gap-md);
+  border-radius: var(--radius-lg);
+  background-color: var(--colour-fill-surface-neutral-default);
+  box-shadow: var(--shadow-M);
+  box-sizing: border-box;
+}
+
+/* ── Body animation clip ──────────────────────────────────────────────────── */
+/* Same 0fr → 1fr technique as DS accordion.component.css.
+   margin-top animates in sync so the 8px gap between header and body
+   only appears when the panel is actually open — no phantom dead space. */
+
+.body-clip {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  margin-top: 0;
+  transition: grid-template-rows 450ms cubic-bezier(0.5, 0, 0, 1),
+              margin-top         450ms cubic-bezier(0.5, 0, 0, 1);
+}
+
+:host(.info-section--open) .body-clip {
+  grid-template-rows: 1fr;
+  margin-top: var(--gap-md);
+}
+
+.body-inner {
+  min-height: 0;
+}
+
+/* ── Body container ───────────────────────────────────────────────────────── */
+/* Figma: padding 10/12/10/12 · gap 8 · radius 8 · white fill */
+
+.body-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+  padding: var(--gap-lg) var(--gap-1xl);
+  border-radius: var(--radius-md);
+  background-color: var(--colour-fill-surface-neutral-default);
+}
+
+/* ── Data row ─────────────────────────────────────────────────────────────── */
+/* Figma: HORIZONTAL · gap 16 */
+
+.data-row {
+  display: flex;
+  gap: var(--gap-3xl);
+}
+
+/* Label column: Figma hSizing FIXED @ 140px.
+   flex: 0 1 140px → starts at 140px (widest label), can shrink on narrow
+   screens (allowing line wraps), never grows beyond that cap. */
+.row-label {
+  flex: 0 1 140px;
+  min-width: 0;
+  color: var(--colour-text-default-base);
+}
+
+/* Value column: fills all remaining space.
+   pre-line preserves \n in multi-line values (e.g. addresses) as visual line breaks. */
+.row-value {
+  flex: 1;
+  min-width: 0;
+  color: var(--colour-text-default-base);
+  white-space: pre-line;
+}

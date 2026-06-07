@@ -1,0 +1,22 @@
+<!-- Symbol: transparent-bg circle outline + Tick-Circle icon (used in table name cell) -->
+@if (type() === 'symbol') {
+  <span class="bc__graphic">
+    <merces-icon name="tick-circle" type="filled" size="mini" />
+  </span>
+}
+
+<!-- Group: filled purple circle + Tick icon + "Found" underlined (used in detail panel) -->
+@if (type() === 'group') {
+  <span class="bc__graphic bc__graphic--filled">
+    <merces-icon name="tick" type="filled" size="mini" />
+  </span>
+  <span class="bc__label paragraph-ui-thin">Found</span>
+}
+
+<!-- Active: white "Found" label + white circle (used on active/selected rows) -->
+@if (type() === 'active') {
+  <span class="bc__label paragraph-p4-bold">Found</span>
+  <span class="bc__graphic bc__graphic--active">
+    <merces-icon name="tick-circle" type="regular" size="mini" />
+  </span>
+}

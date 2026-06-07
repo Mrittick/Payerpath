@@ -1,0 +1,61 @@
+<!-- Figma: Alerts & Notifications accordion card (4166:27694)
+     VERTICAL · gap:8 · pad:8 · radius:12 · white · shadow-M -->
+
+<merces-accordion-header
+  [label]="label()"
+  [isOpen]="open()"
+  (headerClick)="toggle()"
+/>
+
+<!-- Body clip — grid-template-rows 0fr → 1fr with margin-top -->
+<div class="body-clip" [attr.aria-hidden]="!open()">
+  <div class="body-inner">
+
+    <!-- Accordion Body: VERTICAL, pad:10/12/10/12, gap:8, radius:8, white -->
+    <div class="body-container">
+      @for (row of alerts(); track $index) {
+
+        <!-- Body row: HORIZONTAL, pad:0, gap:16 -->
+        <div class="alert-row">
+          <span class="row-label paragraph-ui">{{ row.label }}</span>
+
+          @if (row.changes !== null && row.changes.length > 0) {
+
+            <!-- Change(s) mini-table: VERTICAL, pad:8/0/8/0, radius:8, white,
+                 stroke rgba(204,204,204) w:1 INSIDE -->
+            <div class="changes-table">
+              <!-- Header: HORIZONTAL, pad:4/12/4/12, gap:8 -->
+              <div class="changes-head">
+                <span class="paragraph-p4-bold">Field</span>
+                <span class="paragraph-p4-bold">Request</span>
+                <span class="paragraph-p4-bold">Response</span>
+              </div>
+
+              <!-- Divider: 1px rgba(153,153,153), margin:4/12/4/12 -->
+              <div class="changes-divider" aria-hidden="true"></div>
+
+              <!-- Body: alternating groups -->
+              <div class="changes-body">
+                @for (change of row.changes; track $index; let isOdd = $odd) {
+                  <div class="changes-group" [class.changes-group--alt]="isOdd">
+                    <div class="changes-entry">
+                      <span class="paragraph-p4">{{ change.field }}</span>
+                      <span class="paragraph-p4 cell-wrap">{{ change.request }}</span>
+                      <span class="paragraph-p4 cell-wrap">{{ change.response }}</span>
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+
+          } @else {
+            <span class="row-value paragraph-ui-thin">{{ row.text ?? '-' }}</span>
+          }
+
+        </div>
+
+      }
+    </div>
+
+  </div>
+</div>
