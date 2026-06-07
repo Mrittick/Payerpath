@@ -365,13 +365,13 @@
   gap: var(--gap-big);
 }
 
-/* Icon container — 80×80, fill colour bound to colour/brand/purple-700 */
+/* Icon container — 80×80, fill colour bound to colour/neutral/grey-500 */
 
 .empty-state__icon {
   width: 80px;
   height: 80px;
   flex-shrink: 0;
-  color: var(--colour-brand-purple-700);
+  color: var(--colour-neutral-grey-500);
 }
 
 .empty-state__icon svg {
@@ -379,9 +379,9 @@
   height: 100%;
 }
 
-/* Label — paragraph/p1 (20px medium), colour/text/default/low-emphasis */
+/* Label — paragraph/p1 (20px medium), colour/text/default/disabled */
 
 .empty-state__text {
-  color: var(--colour-text-default-low-emphasis);
+  color: var(--colour-text-default-disabled);
   margin: 0;
 }
