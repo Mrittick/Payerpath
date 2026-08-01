@@ -1,0 +1,65 @@
+/* DropdownMore — "More..." indicator row
+   Figma: Dropdown-More (809:2892)
+   States: Default / Hover / Pressed / Disabled
+   Same layout as DropdownItem: 10px 14px padding, 8px gap, 40px height
+*/
+
+:global(.mds-dropdown-more) {
+  appearance: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: var(--spacing-lg) var(--spacing-2xl);
+  gap: var(--spacing-md);
+  text-align: left;
+  background-color: var(--colour-bg-fill-button-dropdown-item-default);
+  color: var(--colour-text-checkbox-enabled);
+  font-family: var(--font-family);
+  font-size: var(--ui-font-size);
+  font-weight: var(--ui-font-weight);
+  line-height: var(--ui-line-height);
+  letter-spacing: var(--ui-letter-spacing);
+  transition: background-color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-dropdown-more:hover),
+:global(.mds-dropdown-more--hover) {
+  background-color: var(--colour-bg-fill-button-dropdown-item-hover);
+}
+
+:global(.mds-dropdown-more:active),
+:global(.mds-dropdown-more--pressed) {
+  background-color: var(--colour-bg-fill-button-dropdown-item-pressed);
+}
+
+:global(.mds-dropdown-more--disabled) {
+  color: var(--colour-text-checkbox-disabled);
+  cursor: default;
+  pointer-events: none;
+}
+
+:global(.mds-dropdown-more__label) {
+  font: inherit;
+  color: inherit;
+  flex: 1 1 0%;
+}
+
+:global(.mds-dropdown-more__icon) {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  color: currentColor;
+}
+
+/* Context-aware: when inside a scrollable panel, nudge right padding
+   inward so text/icons don't crowd the overlay scrollbar track.
+   Adds 8px (--spacing-md) — just enough clearance without over-compensating. */
+:global(.mds-dropdown-panel__content--has-scrollbar) :global(.mds-dropdown-more) {
+  padding-right: calc(var(--spacing-2xl) + var(--spacing-md));
+}

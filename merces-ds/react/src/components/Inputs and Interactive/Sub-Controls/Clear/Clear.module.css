@@ -1,0 +1,107 @@
+/* ==========================================================================
+   Merces Design System — Clear
+   Sub-Controls / Clear (close/dismiss button)
+   Hybrid CSS Module: :global() preserves BEM class names.
+   Icon-only button using cross-16-filled.svg.
+   Properties: Size (Base 24px / Mini 20px), Level (Primary / Secondary / Tertiary),
+               State (Hidden / Default / Hover / Pressed / Disabled)
+   ========================================================================== */
+
+:global(.mds-clear) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--radius-xs);
+  padding: var(--spacing-1xs);
+  line-height: 0;
+  user-select: none;
+  transition:
+    background-color 150ms cubic-bezier(0, 0, 0, 1),
+    color 150ms cubic-bezier(0, 0, 0, 1),
+    opacity 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-clear) > :global(.mds-icon) {
+  --icon-size: var(--icon-size-mini);
+  transition: opacity 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* Size: Mini (20px) */
+:global(.mds-clear--mini) {
+  padding: var(--spacing-2xs);
+}
+
+/* Level: Primary */
+:global(.mds-clear--primary) {
+  background-color: var(--colour-brand-red-1000);
+  color: var(--colour-brand-red-400);
+}
+:global(.mds-clear--primary):hover {
+  background-color: var(--colour-brand-red-400);
+  color: var(--colour-neutral-white);
+}
+:global(.mds-clear--primary):active {
+  background-color: var(--colour-brand-red-100);
+  color: var(--colour-neutral-white);
+}
+:global(.mds-clear--primary[disabled]),
+:global(.mds-clear--primary[aria-disabled="true"]) {
+  background-color: var(--colour-brand-red-1000);
+  color: var(--colour-brand-red-600);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Level: Secondary */
+:global(.mds-clear--secondary) {
+  background-color: var(--colour-neutral-white);
+  color: var(--colour-brand-red-400);
+}
+:global(.mds-clear--secondary):hover {
+  background-color: var(--colour-brand-red-400);
+  color: var(--colour-neutral-white);
+}
+:global(.mds-clear--secondary):active {
+  background-color: var(--colour-brand-red-100);
+  color: var(--colour-neutral-white);
+}
+:global(.mds-clear--secondary[disabled]),
+:global(.mds-clear--secondary[aria-disabled="true"]) {
+  background-color: var(--colour-neutral-white);
+  color: var(--colour-brand-red-600);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Level: Tertiary */
+:global(.mds-clear--tertiary) {
+  background-color: transparent;
+  color: var(--colour-brand-red-400);
+}
+:global(.mds-clear--tertiary):hover {
+  background-color: var(--colour-brand-red-400);
+  color: var(--colour-neutral-white);
+}
+:global(.mds-clear--tertiary):active {
+  background-color: var(--colour-brand-red-100);
+  color: var(--colour-neutral-white);
+}
+:global(.mds-clear--tertiary[disabled]),
+:global(.mds-clear--tertiary[aria-disabled="true"]) {
+  background-color: transparent;
+  color: var(--colour-brand-red-600);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* State: Hidden */
+:global(.mds-clear--hidden) {
+  background-color: transparent;
+  color: transparent;
+  pointer-events: none;
+}
+:global(.mds-clear--hidden) > :global(.mds-icon) {
+  opacity: 0;
+}

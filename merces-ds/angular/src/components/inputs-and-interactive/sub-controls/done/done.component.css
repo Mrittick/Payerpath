@@ -1,0 +1,112 @@
+/* ═══════════════════════════════════════════════
+   Done — Sub-control
+   Figma: 1638:16010
+   ═══════════════════════════════════════════════ */
+
+/* ── Host base ── */
+:host {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--gap-1xs);
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  box-sizing: border-box;
+  color: var(--colour-brand-green-400);
+  transition: background-color 300ms ease, opacity 300ms ease, color 300ms ease;
+}
+
+/* ── Focus ring (keyboard only) ── */
+:host::after {
+  content: '';
+  position: absolute;
+  inset: calc(-1 * var(--stroke-button-focus));
+  border-radius: calc(var(--gap-1xs) + var(--stroke-button-focus));
+  border: var(--stroke-button-focus) solid transparent;
+  pointer-events: none;
+  transition: border-color 300ms ease;
+}
+
+:host(.done--keyboard-focused)::after {
+  border-color: var(--colour-stroke-element-focus-brand-enabled-base);
+}
+
+/* ═══════════════════════════════════════════════
+   SIZE VARIANTS
+   ═══════════════════════════════════════════════ */
+
+/* Base — icon only */
+:host(.done--base) {
+  padding: var(--gap-1xs);
+}
+
+/* Base — with label */
+:host(.done--base.done--has-label) {
+  padding: var(--gap-2xs) var(--gap-sm) var(--gap-2xs) var(--gap-md);
+  gap: var(--gap-1xs);
+}
+
+/* Mini — always icon only */
+:host(.done--mini) {
+  padding: var(--gap-2xs);
+}
+
+/* ═══════════════════════════════════════════════
+   LEVEL × STATE — Backgrounds
+   ═══════════════════════════════════════════════ */
+
+/* ── Primary ── */
+:host(.done--primary) {
+  background-color: var(--colour-brand-green-1000);
+}
+
+/* ── Secondary ── */
+:host(.done--secondary) {
+  background-color: var(--colour-neutral-white);
+}
+
+/* ── Tertiary ── */
+:host(.done--tertiary) {
+  background-color: transparent;
+}
+
+/* ═══════════════════════════════════════════════
+   INTERACTIVE STATES
+   ═══════════════════════════════════════════════ */
+
+/* ── Hover (all levels) ── */
+:host(:not(.done--disabled):not(.done--hidden):hover) {
+  background-color: var(--colour-brand-green-400);
+  color: var(--colour-neutral-white);
+}
+
+/* ── Pressed (all levels) ── */
+:host(:not(.done--disabled):not(.done--hidden):active) {
+  background-color: var(--colour-brand-green-100);
+  color: var(--colour-neutral-white);
+}
+
+/* ── Disabled (all levels) ── */
+:host(.done--disabled) {
+  background-color: var(--colour-brand-green-1000);
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── Hidden ── */
+:host(.done--hidden) {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════
+   LABEL TEXT
+   ═══════════════════════════════════════════════ */
+
+.done-label {
+  color: inherit;
+  white-space: nowrap;
+  transition: color 300ms ease;
+}

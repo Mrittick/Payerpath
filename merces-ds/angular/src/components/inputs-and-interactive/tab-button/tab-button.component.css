@@ -1,0 +1,210 @@
+/* ==========================================================================
+   Tab Button — merces-tab-button
+   Figma: Tab (117:3330)
+   Transition: DISSOLVE 150ms cubic-bezier(0, 0, 0, 1)
+   ========================================================================== */
+
+
+/* ── Host ── */
+
+:host {
+  display: inline-flex;
+}
+
+
+/* ── Inner Button (shared base) ── */
+
+.tab-button__inner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  border-radius: var(--radius-md);
+  outline: var(--stroke-button-focus) solid transparent;
+  outline-offset: 0px;
+  transition:
+    background-color var(--transition-duration-state) var(--transition-easing-state),
+    color var(--transition-duration-state) var(--transition-easing-state),
+    outline-color var(--transition-duration-state) var(--transition-easing-state),
+    box-shadow var(--transition-duration-state) var(--transition-easing-state);
+}
+
+
+/* ── Text ── */
+
+.tab-button__text {
+  white-space: nowrap;
+}
+
+
+/* ── Layout Shift Prevention (Level01 only)
+   Reserves bold width via hidden pseudo-element so the
+   500 → 700 weight switch on isCurrent causes zero shift ── */
+
+:host(.tab-button--hierarchy-level-01) .tab-button__text::after {
+  content: attr(data-text);
+  font-weight: 700;
+  visibility: hidden;
+  height: 0;
+  display: block;
+  overflow: hidden;
+}
+
+
+/* ── Disabled Cursor ── */
+
+:host(.tab-button--disabled) .tab-button__inner {
+  cursor: default;
+}
+
+
+/* ==========================================================================
+   LEVEL-02 — Pill Tab
+   ========================================================================== */
+
+
+/* ── Padding × Size ── */
+
+:host(.tab-button--hierarchy-level-02.tab-button--size-base) .tab-button__inner {
+  padding: var(--gap-lg) var(--gap-3xl);
+}
+
+:host(.tab-button--hierarchy-level-02.tab-button--size-mini) .tab-button__inner {
+  padding: var(--gap-sm) var(--gap-1xl);
+}
+
+
+/* ── Border via box-shadow (no layout shift when removed) ── */
+
+:host(.tab-button--hierarchy-level-02.tab-button--size-base) .tab-button__inner {
+  box-shadow: inset 0 0 0 var(--stroke-button-tab-base) var(--colour-stroke-button-tab);
+}
+
+:host(.tab-button--hierarchy-level-02.tab-button--size-mini) .tab-button__inner {
+  box-shadow: inset 0 0 0 var(--stroke-button-tab-mini) var(--colour-stroke-button-tab);
+}
+
+
+/* ── Default ── */
+
+:host(.tab-button--hierarchy-level-02) .tab-button__inner {
+  background-color: transparent;
+  color: var(--colour-text-default-base);
+}
+
+
+/* ── Hover (not current, not disabled) ── */
+
+:host(.tab-button--hierarchy-level-02:not(.tab-button--current):not(.tab-button--disabled)) .tab-button__inner:hover {
+  background-color: var(--colour-fill-button-tab-hover);
+}
+
+
+/* ── Pressed (not current, not disabled) ── */
+
+:host(.tab-button--hierarchy-level-02:not(.tab-button--current):not(.tab-button--disabled)) .tab-button__inner:active,
+:host(.tab-button--hierarchy-level-02.tab-button--pressed:not(.tab-button--current):not(.tab-button--disabled)) .tab-button__inner {
+  background-color: var(--colour-fill-button-tab-pressed);
+}
+
+
+/* ── isCurrent ── */
+
+:host(.tab-button--hierarchy-level-02.tab-button--current) .tab-button__inner {
+  background-color: var(--colour-fill-button-tab-emphasis);
+  color: var(--colour-text-inverted-base);
+  box-shadow: none;
+}
+
+
+/* ── Disabled ── */
+
+:host(.tab-button--hierarchy-level-02.tab-button--disabled) .tab-button__inner {
+  background-color: var(--colour-fill-button-tab-disabled);
+  color: var(--colour-text-default-disabled);
+  box-shadow: none;
+}
+
+
+/* ==========================================================================
+   LEVEL-01 — Underline Tab
+   ========================================================================== */
+
+
+/* ── Host wrapper: bottom padding + underline via box-shadow
+   Uses inset bottom shadow instead of border-bottom so the
+   thickness can change (1px default → 2px current) without
+   any layout shift. Tokens: --stroke-tab-h02-default (1px),
+   --stroke-tab-h02-current (2px) ── */
+
+:host(.tab-button--hierarchy-level-01) {
+  padding: 0 var(--gap-1xs) var(--gap-md);
+  box-shadow: inset 0 calc(-1 * var(--stroke-tab-h02-default)) 0 0 var(--colour-stroke-divider-neutral-dark);
+  transition:
+    box-shadow var(--transition-duration-state) var(--transition-easing-state);
+}
+
+
+/* ── Inner button ── */
+
+:host(.tab-button--hierarchy-level-01) .tab-button__inner {
+  box-shadow: none;
+  background-color: transparent;
+  color: var(--colour-text-default-link-emphasis);
+}
+
+
+/* ── Padding × Size ── */
+
+:host(.tab-button--hierarchy-level-01.tab-button--size-base) .tab-button__inner {
+  padding: var(--gap-lg) var(--gap-3xl);
+}
+
+:host(.tab-button--hierarchy-level-01.tab-button--size-mini) .tab-button__inner {
+  padding: var(--gap-sm) var(--gap-1xl);
+}
+
+
+/* ── Hover (not current, not disabled) ── */
+
+:host(.tab-button--hierarchy-level-01:not(.tab-button--current):not(.tab-button--disabled)) .tab-button__inner:hover {
+  background-color: var(--colour-fill-button-tab-hover);
+}
+
+
+/* ── Pressed (not current, not disabled) ── */
+
+:host(.tab-button--hierarchy-level-01:not(.tab-button--current):not(.tab-button--disabled)) .tab-button__inner:active,
+:host(.tab-button--hierarchy-level-01.tab-button--pressed:not(.tab-button--current):not(.tab-button--disabled)) .tab-button__inner {
+  background-color: var(--colour-fill-button-tab-pressed);
+}
+
+
+/* ── isCurrent ── */
+
+:host(.tab-button--hierarchy-level-01.tab-button--current) {
+  box-shadow: inset 0 calc(-1 * var(--stroke-tab-h02-current)) 0 0 var(--colour-text-default-base);
+}
+
+:host(.tab-button--hierarchy-level-01.tab-button--current) .tab-button__inner {
+  color: var(--colour-text-default-base);
+}
+
+
+/* ── Disabled ── */
+
+:host(.tab-button--hierarchy-level-01.tab-button--disabled) .tab-button__inner {
+  color: var(--colour-text-default-disabled);
+}
+
+
+/* ==========================================================================
+   Focus Ring — keyboard only (:focus-visible)
+   ========================================================================== */
+
+.tab-button__inner:focus-visible {
+  outline: var(--stroke-button-focus) solid var(--colour-stroke-element-focus-brand-enabled-base);
+}

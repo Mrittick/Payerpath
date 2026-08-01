@@ -1,0 +1,42 @@
+/* ==========================================================================
+   Merces Design System — Calendar Weekday
+   Inputs and Interactive / Calendar / CalendarWeekday
+   Hybrid CSS Module: :global() preserves BEM class names.
+   Figma: Weekday (779:5771) — 2 variants: isRanged(False/True)
+
+   Structure:
+     Root > Frame > Text
+     Root: 32×32 (single) or 34×32 (ranged), HORIZONTAL, CENTER×CENTER, FIXED×FIXED
+     Frame: same dims, VERTICAL, CENTER×CENTER, FIXED×FIXED
+     Text: 14px Medium, 140% line-height → forced 20px, colour/text/default/medium-emphasis
+   ========================================================================== */
+
+:global(.mds-cal-weekday) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+:global(.mds-cal-weekday--ranged) {
+  width: 34px;
+}
+
+:global(.mds-cal-weekday__frame) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+:global(.mds-cal-weekday__text) {
+  font-family: var(--font-family);
+  font-size: var(--ui-font-size);          /* 14px */
+  font-weight: var(--ui-thin-font-weight); /* 500 — Medium */
+  line-height: 20px;                       /* forced */
+  letter-spacing: var(--ui-letter-spacing); /* 0 */
+  text-align: center;
+  color: var(--colour-text-default-medium-emphasis);
+}

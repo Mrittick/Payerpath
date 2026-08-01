@@ -1,0 +1,260 @@
+/* ==========================================================================
+   Merces Design System — Checkbox (Base)
+   Inputs and Interactive / Checkbox
+   Hybrid CSS Module: :global() preserves BEM class names.
+   Figma: Checkbox (119:5296) — 144 variants
+   Group(True/False) × Size(Mini/Base) × Orientation(Left/Right)
+   × Type(Unchecked/Checked/Mixed) × State(Default/Hover/Pressed/Disabled)
+   × Focus(True/False)
+
+   Structure — Group=False (standalone):
+     Root > Box > Icon
+     Root: HORIZONTAL, CENTER, HUG×HUG, radius per size
+     Focus ring: 3px OUTSIDE stroke on Root
+
+   Structure — Group=True (with label):
+     Root > Box Frame > Box > Icon
+          > Text Frame > Text
+     Root: HORIZONTAL, MIN×MIN (flex-start), HUG×HUG, gap per size
+     Focus ring: 3px OUTSIDE stroke on Box Frame
+   ========================================================================== */
+
+/* ---- Root — Group=False (standalone, default) ----
+   Figma: HORIZONTAL, CENTER, HUG×HUG, radius base=8 mini=6
+   Focus: 3px OUTSIDE stroke rendered via box-shadow */
+
+:global(.mds-checkbox) {
+  display: inline-flex;
+  align-items: center;             /* counterAxisAlign: CENTER */
+  width: fit-content;              /* HUG */
+  border-radius: var(--radius-md); /* 8px — base */
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  transition: box-shadow 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-checkbox--mini) {
+  border-radius: var(--radius-sm); /* 6px */
+}
+
+:global(.mds-checkbox--disabled) {
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ---- Focus ring — Group=False ----
+   3px OUTSIDE stroke on Root. Only when NOT group mode. */
+:global(.mds-checkbox:not(.mds-checkbox--group).mds-checkbox--focus) {
+  box-shadow: 0 0 0 var(--stroke-button-focus)
+    var(--colour-stroke-element-focus-brand-enabled-base);
+}
+
+/* ---- Root — Group=True (with label) ----
+   Figma: HORIZONTAL, MIN×MIN (flex-start), HUG×HUG
+   Gap: base=10px, mini=8px
+   Root border-radius and focus box-shadow are NOT used here
+   (focus goes on Box Frame instead). */
+
+:global(.mds-checkbox--group) {
+  width: 100%;                     /* fills available width in production */
+  align-items: flex-start;         /* counterAxisAlign: MIN */
+  border-radius: 0;               /* root has no rounding in group mode */
+  gap: var(--spacing-lg);         /* 10px — base */
+}
+
+:global(.mds-checkbox--group.mds-checkbox--mini) {
+  gap: var(--spacing-md);         /* 8px — mini */
+}
+
+/* ---- Box Frame (Group=True only) ----
+   Figma: HORIZONTAL, HUG×HUG, counterAxisAlign: CENTER
+   Focus ring: 3px OUTSIDE stroke via box-shadow
+   Corner radius matches Box: base=8, mini=6 */
+
+:global(.mds-checkbox__box-frame) {
+  display: inline-flex;
+  align-items: center;             /* counterAxisAlign: CENTER */
+  flex-shrink: 0;
+  border-radius: var(--radius-md); /* 8px — base */
+  transition: box-shadow 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-checkbox--mini .mds-checkbox__box-frame) {
+  border-radius: var(--radius-sm); /* 6px */
+}
+
+:global(.mds-checkbox--focus .mds-checkbox__box-frame) {
+  box-shadow: 0 0 0 var(--stroke-button-focus)
+    var(--colour-stroke-element-focus-brand-enabled-base);
+}
+
+/* ---- Box (the visible checkbox square) ----
+   Figma: HORIZONTAL, HUG×HUG, counterAxisAlign: CENTER
+   Base: 28×28, padding 6px, radius 8px, stroke 2px INSIDE
+   Mini: 20×20, padding 4px, radius 6px, stroke 2px INSIDE
+   Figma INSIDE stroke is within element bounds; CSS border adds outside.
+   CSS padding = Figma padding − border-width: base 6−2=4px, mini 4−2=2px.
+   Base: 2+4+16+4+2 = 28px ✓ | Mini: 2+2+12+2+2 = 20px ✓ */
+
+:global(.mds-checkbox__box) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);   /* 8px */
+  border: 2px solid var(--colour-stroke-button-checkbox);
+  background-color: var(--colour-bg-fill-button-checkbox-unchecked-default);
+  padding: var(--spacing-1xs);       /* 4px (Figma 6px − 2px border) */
+  transition:
+    background-color 150ms cubic-bezier(0, 0, 0, 1),
+    border-color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-checkbox--mini .mds-checkbox__box) {
+  border-radius: var(--radius-sm);   /* 6px */
+  padding: 2px;                      /* Figma 4px − 2px border */
+}
+
+/* ---- Box fill: Unchecked states ----
+   Default: unchecked-default, Stroke visible
+   Hover: unchecked-hover, Stroke visible
+   Pressed: unchecked-pressed, Stroke visible
+   Disabled: unchecked-disabled, NO stroke */
+
+:global(.mds-checkbox:not(.mds-checkbox--disabled):hover .mds-checkbox__box),
+:global(.mds-checkbox--hover .mds-checkbox__box) {
+  background-color: var(--colour-bg-fill-button-checkbox-unchecked-hover);
+}
+
+:global(.mds-checkbox:not(.mds-checkbox--disabled):active .mds-checkbox__box),
+:global(.mds-checkbox--pressed .mds-checkbox__box) {
+  background-color: var(--colour-bg-fill-button-checkbox-unchecked-pressed);
+}
+
+:global(.mds-checkbox--disabled .mds-checkbox__box) {
+  background-color: var(--colour-bg-fill-button-checkbox-unchecked-disabled);
+  border-color: transparent;
+}
+
+/* ---- Box fill: Checked / Mixed states ----
+   Default: checked-default, Stroke hidden (border-color transparent)
+   Hover: checked-hover, Stroke visible
+   Pressed: checked-pressed, Stroke visible
+   Disabled: checked-disabled, NO stroke (transparent) */
+
+:global(.mds-checkbox--checked .mds-checkbox__box),
+:global(.mds-checkbox--mixed .mds-checkbox__box) {
+  background-color: var(--colour-bg-fill-button-checkbox-checked-default);
+  border-color: transparent;
+}
+
+:global(.mds-checkbox--checked:not(.mds-checkbox--disabled):hover .mds-checkbox__box),
+:global(.mds-checkbox--mixed:not(.mds-checkbox--disabled):hover .mds-checkbox__box),
+:global(.mds-checkbox--checked.mds-checkbox--hover .mds-checkbox__box),
+:global(.mds-checkbox--mixed.mds-checkbox--hover .mds-checkbox__box) {
+  background-color: var(--colour-bg-fill-button-checkbox-checked-hover);
+  border-color: var(--colour-stroke-button-checkbox);
+}
+
+:global(.mds-checkbox--checked:not(.mds-checkbox--disabled):active .mds-checkbox__box),
+:global(.mds-checkbox--mixed:not(.mds-checkbox--disabled):active .mds-checkbox__box),
+:global(.mds-checkbox--checked.mds-checkbox--pressed .mds-checkbox__box),
+:global(.mds-checkbox--mixed.mds-checkbox--pressed .mds-checkbox__box) {
+  background-color: var(--colour-bg-fill-button-checkbox-checked-pressed);
+  border-color: var(--colour-stroke-button-checkbox);
+}
+
+:global(.mds-checkbox--checked.mds-checkbox--disabled .mds-checkbox__box),
+:global(.mds-checkbox--mixed.mds-checkbox--disabled .mds-checkbox__box) {
+  background-color: var(--colour-bg-fill-button-checkbox-checked-disabled);
+  border-color: transparent;
+}
+
+/* ---- Icon ----
+   Unchecked: opacity 0, colour purple-200
+   Checked/Mixed default: opacity 1, colour white
+   Checked/Mixed hover: opacity 1, colour white
+   Checked/Mixed pressed: opacity 1, colour purple-100
+   Checked/Mixed disabled: opacity 1, colour purple-600 */
+
+:global(.mds-checkbox__icon) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--colour-brand-purple-200);
+  opacity: 0;
+  transition:
+    opacity 150ms cubic-bezier(0, 0, 0, 1),
+    color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-checkbox--checked .mds-checkbox__icon),
+:global(.mds-checkbox--mixed .mds-checkbox__icon) {
+  color: var(--colour-neutral-white);
+  opacity: 1;
+}
+
+:global(.mds-checkbox--checked:not(.mds-checkbox--disabled):hover .mds-checkbox__icon),
+:global(.mds-checkbox--mixed:not(.mds-checkbox--disabled):hover .mds-checkbox__icon),
+:global(.mds-checkbox--checked.mds-checkbox--hover .mds-checkbox__icon),
+:global(.mds-checkbox--mixed.mds-checkbox--hover .mds-checkbox__icon) {
+  color: var(--colour-neutral-white);
+}
+
+:global(.mds-checkbox--checked:not(.mds-checkbox--disabled):active .mds-checkbox__icon),
+:global(.mds-checkbox--mixed:not(.mds-checkbox--disabled):active .mds-checkbox__icon),
+:global(.mds-checkbox--checked.mds-checkbox--pressed .mds-checkbox__icon),
+:global(.mds-checkbox--mixed.mds-checkbox--pressed .mds-checkbox__icon) {
+  color: var(--colour-brand-purple-100);
+}
+
+:global(.mds-checkbox--checked.mds-checkbox--disabled .mds-checkbox__icon),
+:global(.mds-checkbox--mixed.mds-checkbox--disabled .mds-checkbox__icon) {
+  color: var(--colour-brand-purple-600);
+}
+
+/* ---- Text Frame (Group=True only) ----
+   Figma Base: HORIZONTAL, MIN/MIN, HUG×HUG, padding 4px top/bottom
+   Figma Mini: HORIZONTAL, CENTER/CENTER, HUG×HUG, padding 0
+   With line-height forced to 20px on the label, the padding math
+   matches Figma exactly: 4 + 20 + 4 = 28 = Box Frame (base),
+   0 + 20 + 0 = 20 = Box Frame (mini). */
+
+:global(.mds-checkbox__text-frame) {
+  display: inline-flex;
+  align-items: flex-start;       /* counterAxisAlign: MIN (base) */
+  flex: 1 1 0%;                  /* fills available width in production */
+  min-width: 0;
+  padding-top: var(--spacing-1xs);   /* 4px — base */
+  padding-bottom: var(--spacing-1xs); /* 4px — base */
+}
+
+:global(.mds-checkbox--mini .mds-checkbox__text-frame) {
+  align-items: center;           /* counterAxisAlign: CENTER (mini) */
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* ---- Label text ----
+   Base: paragraph/ui — Satoshi Bold 14px 140%
+   Mini: paragraph/ui-thin — Satoshi Medium 14px 140%
+   line-height forced to 20px (Figma's rounded bounding box for 14×140%)
+   so the text-frame padding math lands on whole pixels. */
+
+:global(.mds-checkbox__label) {
+  font-family: var(--font-family);
+  font-size: var(--ui-font-size);          /* 14px */
+  font-weight: var(--ui-font-weight);      /* 700 — Bold (paragraph/ui) */
+  line-height: 20px;                       /* 14×140% → Figma rounds to 20px */
+  letter-spacing: var(--ui-letter-spacing); /* 0 */
+  color: var(--colour-text-checkbox-enabled);
+  transition: color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-checkbox--mini .mds-checkbox__label) {
+  font-weight: var(--ui-thin-font-weight); /* 500 — Medium (paragraph/ui-thin) */
+}
+
+:global(.mds-checkbox--disabled .mds-checkbox__label) {
+  color: var(--colour-text-checkbox-disabled);
+}

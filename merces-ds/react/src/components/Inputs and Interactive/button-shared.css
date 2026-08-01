@@ -1,0 +1,350 @@
+/* ==========================================================================
+   Merces Design System — Shared Button Base
+   Inputs and Interactive / button-shared.css
+   Shared colour themes, type rules, state rules, and focus ring logic
+   consumed by both CTA Buttons and Span Buttons.
+   Class prefix: .mds-btn  (shared)
+   ========================================================================== */
+
+/* ==========================================================================
+   Base — structural reset, typography, transition
+   NOTE: Does NOT set justify-content or width; those are set by
+         .mds-cta (centered, self-sizing) or .mds-span (stretching, full-width).
+   ========================================================================== */
+.mds-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+  outline: var(--stroke-button-focus) solid transparent;
+  outline-offset: 0;
+  font-family: var(--font-family);
+  font-size: var(--ui-font-size);
+  font-weight: var(--ui-font-weight);
+  line-height: var(--ui-line-height);
+  letter-spacing: var(--ui-letter-spacing);
+  transition:
+    background-color 150ms cubic-bezier(0, 0, 0, 1),
+    color 150ms cubic-bezier(0, 0, 0, 1),
+    border-color 150ms cubic-bezier(0, 0, 0, 1),
+    outline-color 150ms cubic-bezier(0, 0, 0, 1),
+    box-shadow 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* Label element — base styles only; flex behaviour set by CTA / Span */
+.mds-btn__label {
+  white-space: nowrap;
+}
+
+/* Icon inside button inherits colour */
+.mds-btn > .mds-icon {
+  flex-shrink: 0;
+  color: inherit;
+}
+
+/* ==========================================================================
+   Theme: Brand
+   ========================================================================== */
+.mds-btn--brand {
+  --btn-primary-default:     var(--colour-bg-fill-button-brand-primary-default);
+  --btn-primary-hover:       var(--colour-bg-fill-button-brand-primary-hover);
+  --btn-primary-pressed:     var(--colour-bg-fill-button-brand-primary-pressed);
+  --btn-primary-disabled:    var(--colour-bg-fill-button-brand-primary-disabled);
+  --btn-secondary-default:   var(--colour-bg-fill-button-brand-secondary-default);
+  --btn-secondary-hover:     var(--colour-bg-fill-button-brand-secondary-hover);
+  --btn-secondary-pressed:   var(--colour-bg-fill-button-brand-secondary-pressed);
+  --btn-secondary-disabled:  var(--colour-bg-fill-button-brand-secondary-disabled);
+  --btn-tertiary-default:    var(--colour-bg-fill-button-brand-tertiary-default);
+  --btn-tertiary-hover:      var(--colour-bg-fill-button-brand-tertiary-hover);
+  --btn-tertiary-pressed:    var(--colour-bg-fill-button-brand-tertiary-pressed);
+  --btn-tertiary-disabled:   var(--colour-bg-fill-button-brand-tertiary-disabled);
+  --btn-quaternary-default:  var(--colour-bg-fill-button-brand-quaternary-default);
+  --btn-quaternary-hover:    var(--colour-bg-fill-button-brand-quaternary-hover);
+  --btn-quaternary-pressed:  var(--colour-bg-fill-button-brand-quaternary-pressed);
+  --btn-quaternary-disabled: var(--colour-bg-fill-button-brand-quaternary-disabled);
+  --btn-stroke-default:      var(--colour-stroke-button-cta-brand-secondary-default);
+  --btn-stroke-hover:        var(--colour-stroke-button-cta-brand-secondary-hover);
+  --btn-stroke-pressed:      var(--colour-stroke-button-cta-brand-secondary-pressed);
+  --btn-stroke-disabled:     var(--colour-stroke-button-cta-brand-secondary-disabled);
+  --btn-text-default:        var(--colour-brand-purple-100);
+  --btn-text-disabled:       var(--colour-brand-purple-600);
+  --btn-icon-disabled-sec:   var(--colour-brand-purple-700);
+  --btn-focus-enabled:       var(--colour-stroke-element-focus-brand-enabled-base);
+  --btn-focus-disabled-pri:  var(--colour-stroke-element-focus-brand-disabled-primary);
+  --btn-focus-disabled-sec:  var(--colour-stroke-element-focus-brand-disabled-secondary);
+  --btn-focus-disabled-ter:  var(--colour-stroke-element-focus-brand-disabled-tertiary);
+}
+
+/* ==========================================================================
+   Theme: Danger
+   ========================================================================== */
+.mds-btn--danger {
+  --btn-primary-default:     var(--colour-bg-fill-button-danger-primary-default);
+  --btn-primary-hover:       var(--colour-bg-fill-button-danger-primary-hover);
+  --btn-primary-pressed:     var(--colour-bg-fill-button-danger-primary-pressed);
+  --btn-primary-disabled:    var(--colour-bg-fill-button-danger-primary-disabled);
+  --btn-secondary-default:   var(--colour-bg-fill-button-danger-secondary-default);
+  --btn-secondary-hover:     var(--colour-bg-fill-button-danger-secondary-hover);
+  --btn-secondary-pressed:   var(--colour-bg-fill-button-danger-secondary-pressed);
+  --btn-secondary-disabled:  var(--colour-bg-fill-button-danger-secondary-disabled);
+  --btn-tertiary-default:    var(--colour-bg-fill-button-danger-tertiary-default);
+  --btn-tertiary-hover:      var(--colour-bg-fill-button-danger-tertiary-hover);
+  --btn-tertiary-pressed:    var(--colour-bg-fill-button-danger-tertiary-pressed);
+  --btn-tertiary-disabled:   var(--colour-bg-fill-button-danger-tertiary-disabled);
+  --btn-quaternary-default:  var(--colour-bg-fill-button-danger-quaternary-default);
+  --btn-quaternary-hover:    var(--colour-bg-fill-button-danger-quaternary-hover);
+  --btn-quaternary-pressed:  var(--colour-bg-fill-button-danger-quaternary-pressed);
+  --btn-quaternary-disabled: var(--colour-bg-fill-button-danger-quaternary-disabled);
+  --btn-stroke-default:      var(--colour-stroke-button-cta-danger-secondary-default);
+  --btn-stroke-hover:        var(--colour-stroke-button-cta-danger-secondary-hover);
+  --btn-stroke-pressed:      var(--colour-stroke-button-cta-danger-secondary-pressed);
+  --btn-stroke-disabled:     var(--colour-stroke-button-cta-danger-secondary-disabled);
+  --btn-text-default:        var(--colour-brand-red-100);
+  --btn-text-disabled:       var(--colour-brand-red-600);
+  --btn-icon-disabled-sec:   var(--colour-brand-red-700);
+  --btn-focus-enabled:       var(--colour-stroke-element-focus-danger-enabled-base);
+  --btn-focus-disabled-pri:  var(--colour-stroke-element-focus-danger-disabled-primary);
+  --btn-focus-disabled-sec:  var(--colour-stroke-element-focus-danger-disabled-secondary);
+  --btn-focus-disabled-ter:  var(--colour-stroke-element-focus-danger-disabled-tertiary);
+}
+
+/* ==========================================================================
+   Theme: Caution
+   ========================================================================== */
+.mds-btn--caution {
+  --btn-primary-default:     var(--colour-bg-fill-button-caution-primary-default);
+  --btn-primary-hover:       var(--colour-bg-fill-button-caution-primary-hover);
+  --btn-primary-pressed:     var(--colour-bg-fill-button-caution-primary-pressed);
+  --btn-primary-disabled:    var(--colour-bg-fill-button-caution-primary-disabled);
+  --btn-secondary-default:   var(--colour-bg-fill-button-caution-secondary-default);
+  --btn-secondary-hover:     var(--colour-bg-fill-button-caution-secondary-hover);
+  --btn-secondary-pressed:   var(--colour-bg-fill-button-caution-secondary-pressed);
+  --btn-secondary-disabled:  var(--colour-bg-fill-button-caution-secondary-disabled);
+  --btn-tertiary-default:    var(--colour-bg-fill-button-caution-tertiary-default);
+  --btn-tertiary-hover:      var(--colour-bg-fill-button-caution-tertiary-hover);
+  --btn-tertiary-pressed:    var(--colour-bg-fill-button-caution-tertiary-pressed);
+  --btn-tertiary-disabled:   var(--colour-bg-fill-button-caution-tertiary-disabled);
+  --btn-quaternary-default:  var(--colour-bg-fill-button-caution-quaternary-default);
+  --btn-quaternary-hover:    var(--colour-bg-fill-button-caution-quaternary-hover);
+  --btn-quaternary-pressed:  var(--colour-bg-fill-button-caution-quaternary-pressed);
+  --btn-quaternary-disabled: var(--colour-bg-fill-button-caution-quaternary-disabled);
+  --btn-stroke-default:      var(--colour-stroke-button-cta-caution-secondary-default);
+  --btn-stroke-hover:        var(--colour-stroke-button-cta-caution-secondary-hover);
+  --btn-stroke-pressed:      var(--colour-stroke-button-cta-caution-secondary-pressed);
+  --btn-stroke-disabled:     var(--colour-stroke-button-cta-caution-secondary-disabled);
+  --btn-text-default:        var(--colour-brand-yellow-100);
+  --btn-text-disabled:       var(--colour-brand-yellow-600);
+  --btn-icon-disabled-sec:   var(--colour-brand-yellow-600);
+  --btn-focus-enabled:       var(--colour-stroke-element-focus-caution-enabled-base);
+  --btn-focus-disabled-pri:  var(--colour-stroke-element-focus-caution-disabled-primary);
+  --btn-focus-disabled-sec:  var(--colour-stroke-element-focus-caution-disabled-secondary);
+  --btn-focus-disabled-ter:  var(--colour-stroke-element-focus-caution-disabled-tertiary);
+}
+
+/* ==========================================================================
+   Theme: Emphasis
+   ========================================================================== */
+.mds-btn--emphasis {
+  --btn-primary-default:     var(--colour-bg-fill-button-emphasis-primary-default);
+  --btn-primary-hover:       var(--colour-bg-fill-button-emphasis-primary-hover);
+  --btn-primary-pressed:     var(--colour-bg-fill-button-emphasis-primary-pressed);
+  --btn-primary-disabled:    var(--colour-bg-fill-button-emphasis-primary-disabled);
+  --btn-secondary-default:   var(--colour-bg-fill-button-emphasis-secondary-default);
+  --btn-secondary-hover:     var(--colour-bg-fill-button-emphasis-secondary-hover);
+  --btn-secondary-pressed:   var(--colour-bg-fill-button-emphasis-secondary-pressed);
+  --btn-secondary-disabled:  var(--colour-bg-fill-button-emphasis-secondary-disabled);
+  --btn-tertiary-default:    var(--colour-bg-fill-button-emphasis-tertiary-default);
+  --btn-tertiary-hover:      var(--colour-bg-fill-button-emphasis-tertiary-hover);
+  --btn-tertiary-pressed:    var(--colour-bg-fill-button-emphasis-tertiary-pressed);
+  --btn-tertiary-disabled:   var(--colour-bg-fill-button-emphasis-tertiary-disabled);
+  --btn-quaternary-default:  var(--colour-bg-fill-button-emphasis-quaternary-default);
+  --btn-quaternary-hover:    var(--colour-bg-fill-button-emphasis-quaternary-hover);
+  --btn-quaternary-pressed:  var(--colour-bg-fill-button-emphasis-quaternary-pressed);
+  --btn-quaternary-disabled: var(--colour-bg-fill-button-emphasis-quaternary-disabled);
+  --btn-stroke-default:      var(--colour-stroke-button-cta-emphasis-secondary-default);
+  --btn-stroke-hover:        var(--colour-stroke-button-cta-emphasis-secondary-hover);
+  --btn-stroke-pressed:      var(--colour-stroke-button-cta-emphasis-secondary-pressed);
+  --btn-stroke-disabled:     var(--colour-stroke-button-cta-emphasis-secondary-disabled);
+  --btn-text-default:        var(--colour-brand-green-100);
+  --btn-text-disabled:       var(--colour-brand-green-600);
+  --btn-icon-disabled-sec:   var(--colour-brand-green-600);
+  --btn-focus-enabled:       var(--colour-stroke-element-focus-emphasis-enabled-base);
+  --btn-focus-disabled-pri:  var(--colour-stroke-element-focus-emphasis-disabled-primary);
+  --btn-focus-disabled-sec:  var(--colour-stroke-element-focus-emphasis-disabled-secondary);
+  --btn-focus-disabled-ter:  var(--colour-stroke-element-focus-emphasis-disabled-tertiary);
+}
+
+/* ==========================================================================
+   Theme: Neutral
+   ========================================================================== */
+.mds-btn--neutral {
+  --btn-primary-default:     var(--colour-bg-fill-button-neutral-primary-default);
+  --btn-primary-hover:       var(--colour-bg-fill-button-neutral-primary-hover);
+  --btn-primary-pressed:     var(--colour-bg-fill-button-neutral-primary-pressed);
+  --btn-primary-disabled:    var(--colour-bg-fill-button-neutral-primary-disabled);
+  --btn-secondary-default:   var(--colour-bg-fill-button-neutral-secondary-default);
+  --btn-secondary-hover:     var(--colour-bg-fill-button-neutral-secondary-hover);
+  --btn-secondary-pressed:   var(--colour-bg-fill-button-neutral-secondary-pressed);
+  --btn-secondary-disabled:  var(--colour-bg-fill-button-neutral-secondary-disabled);
+  --btn-tertiary-default:    var(--colour-bg-fill-button-neutral-tertiary-default);
+  --btn-tertiary-hover:      var(--colour-bg-fill-button-neutral-tertiary-hover);
+  --btn-tertiary-pressed:    var(--colour-bg-fill-button-neutral-tertiary-pressed);
+  --btn-tertiary-disabled:   var(--colour-bg-fill-button-neutral-tertiary-disabled);
+  --btn-quaternary-default:  var(--colour-bg-fill-button-neutral-quaternary-default);
+  --btn-quaternary-hover:    var(--colour-bg-fill-button-neutral-quaternary-hover);
+  --btn-quaternary-pressed:  var(--colour-bg-fill-button-neutral-quaternary-pressed);
+  --btn-quaternary-disabled: var(--colour-bg-fill-button-neutral-quaternary-disabled);
+  --btn-stroke-default:      var(--colour-stroke-button-cta-neutral-secondary-default);
+  --btn-stroke-hover:        var(--colour-stroke-button-cta-neutral-secondary-hover);
+  --btn-stroke-pressed:      var(--colour-stroke-button-cta-neutral-secondary-pressed);
+  --btn-stroke-disabled:     var(--colour-stroke-button-cta-neutral-secondary-disabled);
+  --btn-text-default:        var(--colour-neutral-grey-100);
+  --btn-text-disabled:       var(--colour-neutral-grey-400);
+  --btn-icon-disabled-sec:   var(--colour-neutral-grey-400);
+  --btn-focus-enabled:       var(--colour-stroke-element-focus-neutral-enabled-base);
+  --btn-focus-disabled-pri:  var(--colour-stroke-element-focus-neutral-disabled-primary);
+  --btn-focus-disabled-sec:  var(--colour-stroke-element-focus-neutral-disabled-secondary);
+  --btn-focus-disabled-ter:  var(--colour-stroke-element-focus-neutral-disabled-tertiary);
+}
+
+/* ==========================================================================
+   Type: Primary — filled bg, inverted (white) text
+   ========================================================================== */
+.mds-btn--primary {
+  background-color: var(--btn-primary-default);
+  color: var(--colour-text-inverted-base);
+}
+.mds-btn--primary:hover {
+  background-color: var(--btn-primary-hover);
+}
+.mds-btn--primary:active {
+  background-color: var(--btn-primary-pressed);
+}
+.mds-btn--primary.mds-btn--toggle {
+  background-color: var(--btn-primary-pressed);
+}
+.mds-btn--primary.mds-btn--disabled {
+  background-color: var(--btn-primary-disabled);
+  color: var(--btn-text-disabled);
+}
+
+/* ==========================================================================
+   Type: Secondary — white bg, 2px stroke, theme-coloured text
+   ========================================================================== */
+.mds-btn--secondary {
+  background-color: var(--btn-secondary-default);
+  color: var(--btn-text-default);
+  box-shadow: inset 0 0 0 var(--stroke-button-secondary) var(--btn-stroke-default);
+}
+.mds-btn--secondary:hover {
+  background-color: var(--btn-secondary-hover);
+  box-shadow: inset 0 0 0 var(--stroke-button-secondary) var(--btn-stroke-hover);
+}
+.mds-btn--secondary:active {
+  background-color: var(--btn-secondary-pressed);
+  box-shadow: inset 0 0 0 var(--stroke-button-secondary) var(--btn-stroke-pressed);
+}
+.mds-btn--secondary.mds-btn--toggle {
+  background-color: var(--btn-secondary-pressed);
+  box-shadow: inset 0 0 0 var(--stroke-button-secondary) var(--btn-stroke-pressed);
+}
+.mds-btn--secondary.mds-btn--disabled {
+  background-color: var(--btn-secondary-disabled);
+  color: var(--btn-text-disabled);
+  box-shadow: inset 0 0 0 var(--stroke-button-secondary) var(--btn-stroke-disabled);
+}
+
+/* ==========================================================================
+   Type: Tertiary — tinted bg, theme-coloured text
+   ========================================================================== */
+.mds-btn--tertiary {
+  background-color: var(--btn-tertiary-default);
+  color: var(--btn-text-default);
+}
+.mds-btn--tertiary:hover {
+  background-color: var(--btn-tertiary-hover);
+}
+.mds-btn--tertiary:active {
+  background-color: var(--btn-tertiary-pressed);
+}
+.mds-btn--tertiary.mds-btn--toggle {
+  background-color: var(--btn-tertiary-pressed);
+}
+.mds-btn--tertiary.mds-btn--disabled {
+  background-color: var(--btn-tertiary-disabled);
+  color: var(--btn-text-disabled);
+}
+
+/* ==========================================================================
+   Type: Quaternary — white/transparent bg, theme-coloured text
+   ========================================================================== */
+.mds-btn--quaternary {
+  background-color: var(--btn-quaternary-default);
+  color: var(--btn-text-default);
+}
+.mds-btn--quaternary:hover {
+  background-color: var(--btn-quaternary-hover);
+}
+.mds-btn--quaternary:active {
+  background-color: var(--btn-quaternary-pressed);
+}
+.mds-btn--quaternary.mds-btn--toggle {
+  background-color: var(--btn-quaternary-pressed);
+}
+.mds-btn--quaternary.mds-btn--disabled {
+  background-color: var(--btn-quaternary-disabled);
+  color: var(--btn-text-disabled);
+}
+
+/* ==========================================================================
+   Disabled — shared
+   ========================================================================== */
+.mds-btn--disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Disabled icon colour — per Figma, some themes use a lighter icon colour
+   than the text colour in disabled state.
+   Brand: primary+sec/ter/quat disabled icon = purple-700 (text = purple-600)
+   Danger: sec/ter/quat disabled icon = red-700 (text = red-600)
+   ========================================================================== */
+.mds-btn--secondary.mds-btn--disabled > .mds-icon,
+.mds-btn--tertiary.mds-btn--disabled > .mds-icon,
+.mds-btn--quaternary.mds-btn--disabled > .mds-icon {
+  color: var(--btn-icon-disabled-sec);
+}
+.mds-btn--brand.mds-btn--primary.mds-btn--disabled > .mds-icon {
+  color: var(--colour-brand-purple-700);
+}
+
+/* ==========================================================================
+   Focus ring
+   ========================================================================== */
+.mds-btn:focus-visible,
+.mds-btn--focus {
+  outline-color: var(--btn-focus-enabled);
+}
+
+/* Disabled focus — per-type focus ring colours */
+.mds-btn--disabled.mds-btn--primary:focus-visible,
+.mds-btn--disabled.mds-btn--primary.mds-btn--focus {
+  outline-color: var(--btn-focus-disabled-pri);
+}
+.mds-btn--disabled.mds-btn--secondary:focus-visible,
+.mds-btn--disabled.mds-btn--secondary.mds-btn--focus {
+  outline-color: var(--btn-focus-disabled-sec);
+}
+.mds-btn--disabled.mds-btn--tertiary:focus-visible,
+.mds-btn--disabled.mds-btn--tertiary.mds-btn--focus {
+  outline-color: var(--btn-focus-disabled-ter);
+}
+.mds-btn--disabled.mds-btn--quaternary:focus-visible,
+.mds-btn--disabled.mds-btn--quaternary.mds-btn--focus {
+  outline-color: var(--btn-focus-disabled-ter);
+}

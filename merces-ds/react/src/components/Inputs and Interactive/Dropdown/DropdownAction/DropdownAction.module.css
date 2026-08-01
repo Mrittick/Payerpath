@@ -1,0 +1,58 @@
+/* DropdownAction — bottom action button in dropdown panel
+   Figma: Dropdown-Action (276:8745)
+   States: Default / Hover / Pressed
+*/
+
+:global(.mds-dropdown-action) {
+  display: flex;
+  padding: var(--spacing-md) 0 var(--spacing-1xs) 0;
+}
+
+:global(.mds-dropdown-action__button) {
+  appearance: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: var(--spacing-lg) var(--spacing-3xl);
+  gap: var(--spacing-md);
+  text-align: left;
+  background-color: var(--colour-brand-purple-1100);
+  color: var(--colour-text-default-link-enabled);
+  font-family: var(--font-family);
+  font-size: var(--ui-font-size);
+  font-weight: var(--ui-font-weight);
+  line-height: var(--ui-line-height);
+  letter-spacing: var(--ui-letter-spacing);
+  transition: background-color 150ms cubic-bezier(0, 0, 0, 1),
+    color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-dropdown-action__button:hover),
+:global(.mds-dropdown-action--hover .mds-dropdown-action__button) {
+  background-color: var(--colour-brand-purple-400);
+  color: var(--colour-neutral-white);
+}
+
+:global(.mds-dropdown-action__button:active),
+:global(.mds-dropdown-action--pressed .mds-dropdown-action__button) {
+  background-color: var(--colour-brand-purple-100);
+  color: var(--colour-neutral-white);
+}
+
+:global(.mds-dropdown-action__text) {
+  font: inherit;
+  color: inherit;
+}
+
+:global(.mds-dropdown-action__icon) {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  color: currentColor;
+}

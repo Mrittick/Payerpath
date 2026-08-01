@@ -1,0 +1,33 @@
+<!-- Figma: Accordion Header- Brand / Emphasis / Danger (819:19831, 1043:5846, 1043:6243)
+     Layout: HORIZONTAL · gap/md (between .icons and .label-text) · padding gap/lg(t/b) gap/md(l) gap/3xl(r)
+     Chevron: chevron-right base/regular · rotates 0° (closed) → 90° (open)
+     Multi Select=True (isExpanded only): Checkbox-Brand Mini in .icons frame, after chevron
+     .icons mirrors Figma "Icons" frame — internal gap/sm (6px) between chevron and checkbox
+     Checkbox animates in/out (width + margin-left) so the label shift is smooth, not abrupt -->
+
+<!-- Icons group: chevron + optional multi-select checkbox -->
+<span class="icons">
+  <merces-icon
+    class="chevron"
+    name="chevron-right"
+    size="base"
+    type="regular"
+  />
+  @if (multiSelect()) {
+    <span
+      class="checkbox-wrapper"
+      (click)="$event.stopPropagation()"
+      (mousedown)="$event.stopPropagation()"
+    >
+      <merces-checkbox
+        size="mini"
+        theme="brand"
+        [checked]="headerCheckboxState() === 'checked'"
+        [indeterminate]="headerCheckboxState() === 'mixed'"
+        (changed)="onCheckboxChange()"
+      />
+    </span>
+  }
+</span>
+
+<span class="paragraph-ui label-text">{{ label() }}</span>

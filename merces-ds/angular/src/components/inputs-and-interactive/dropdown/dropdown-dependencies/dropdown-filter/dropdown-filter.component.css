@@ -1,0 +1,19 @@
+:host {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-1xs);
+  padding: var(--gap-1xs) var(--gap-1xl) var(--gap-2xl) var(--gap-1xl);
+}
+
+:host(.dropdown-filter--has-filter) {
+  gap: var(--gap-sm);
+}
+
+.dropdown-filter-search {
+  flex: 1;
+  min-width: 0;
+}
+
+.dropdown-filter-toggle {
+  flex-shrink: 0;
+}

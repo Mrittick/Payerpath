@@ -1,0 +1,84 @@
+/* ==========================================================================
+   Merces Design System — Compound Button (CSS module)
+   Compound-specific layout rules only.
+   Shared base, themes, types, states, focus — all in button-shared.css
+   (loaded globally via compound-button.css → @import '../button-shared.css').
+   ========================================================================== */
+
+/* --- Compound layout: stretching, 2 icons + optional text --- */
+:global(.mds-compound) {
+  width: 100%;
+}
+
+:global(.mds-compound) :global(.mds-btn__label) {
+  flex: 1 0 0;
+  min-width: 0;
+  text-align: left;
+}
+
+:global(.mds-compound__chevron) {
+  flex-shrink: 0;
+  color: inherit;
+}
+
+/* Chevron-left: text aligns right (toward icon) */
+:global(.mds-compound--chevron-left) :global(.mds-btn__label) {
+  text-align: right;
+}
+
+/* No label: icons spaced apart */
+:global(.mds-compound--no-label) {
+  justify-content: space-between;
+}
+
+/* --- Size: Base (44px) --- */
+:global(.mds-compound--base) {
+  height: 44px;
+}
+
+:global(.mds-compound--base.mds-compound--text-label) {
+  gap: var(--spacing-lg);
+}
+
+:global(.mds-compound--base.mds-compound--chevron-right) {
+  padding: var(--spacing-1xl) var(--spacing-lg) var(--spacing-1xl) var(--spacing-1xl);
+}
+
+:global(.mds-compound--base.mds-compound--chevron-left) {
+  padding: var(--spacing-1xl) var(--spacing-1xl) var(--spacing-1xl) var(--spacing-lg);
+}
+
+:global(.mds-compound--base) > :global(.mds-icon),
+:global(.mds-compound--base) > :global(.mds-compound__chevron) {
+  --icon-size: var(--icon-size-base);
+}
+
+/* --- Size: Mini (32px) --- */
+:global(.mds-compound--mini) {
+  height: 32px;
+}
+
+:global(.mds-compound--mini.mds-compound--text-label) {
+  gap: var(--spacing-md);
+}
+
+:global(.mds-compound--mini.mds-compound--text-label.mds-compound--chevron-right) {
+  padding: var(--spacing-sm) var(--spacing-md) var(--spacing-sm) var(--spacing-lg);
+}
+
+:global(.mds-compound--mini.mds-compound--text-label.mds-compound--chevron-left) {
+  padding: var(--spacing-sm) var(--spacing-lg) var(--spacing-sm) var(--spacing-md);
+}
+
+:global(.mds-compound--mini.mds-compound--no-label.mds-compound--chevron-right) {
+  padding: var(--spacing-md) var(--spacing-sm) var(--spacing-md) var(--spacing-md);
+}
+
+:global(.mds-compound--mini.mds-compound--no-label.mds-compound--chevron-left) {
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-md) var(--spacing-sm);
+}
+
+:global(.mds-compound--mini) > :global(.mds-icon),
+:global(.mds-compound--mini) > :global(.mds-compound__chevron) {
+  --icon-size: var(--icon-size-mini);
+}

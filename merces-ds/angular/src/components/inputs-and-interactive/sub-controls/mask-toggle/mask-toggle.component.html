@@ -1,0 +1,24 @@
+<button
+  class="mask-toggle-button"
+  type="button"
+  [attr.aria-label]="isMasked() ? 'Show password' : 'Hide password'"
+  [disabled]="state() === 'disabled' || null"
+  (click)="toggle()"
+>
+  <span class="mask-toggle-icon-wrap">
+    <merces-icon
+      class="mask-toggle-icon"
+      [class.mask-toggle-icon--active]="isMasked()"
+      name="eye-visible"
+      size="tiny"
+      type="bold"
+    />
+    <merces-icon
+      class="mask-toggle-icon"
+      [class.mask-toggle-icon--active]="!isMasked()"
+      name="eye-hidden"
+      size="tiny"
+      type="bold"
+    />
+  </span>
+</button>

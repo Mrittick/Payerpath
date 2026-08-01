@@ -1,0 +1,111 @@
+/* ==========================================================================
+   Merces Design System — Compound Button (layout-specific)
+   Inputs and Interactive / Compound Buttons
+   Compound = stretching button with TWO icons (action icon + chevron)
+   and an optional text label between them.
+   Shared colour/theme/type/state rules are in ../button-shared.css
+   ========================================================================== */
+
+@import '../button-shared.css';
+
+/* ==========================================================================
+   Compound layout — stretching, 2 icons + optional text
+   ========================================================================== */
+.mds-compound {
+  width: 100%;
+}
+
+/* Label — grows to fill space between icons (like Span) */
+.mds-compound .mds-btn__label {
+  flex: 1 0 0;
+  min-width: 0;
+  text-align: left;
+}
+
+/* Chevron wrapper — same flex-shrink as action icon */
+.mds-compound__chevron {
+  flex-shrink: 0;
+  color: inherit;
+}
+
+/* ==========================================================================
+   Chevron position: Left — DOM order reverses, text aligns right
+   ========================================================================== */
+.mds-compound--chevron-left .mds-btn__label {
+  text-align: right;
+}
+
+/* ==========================================================================
+   No label — icons spaced apart with justify-between
+   ========================================================================== */
+.mds-compound--no-label {
+  justify-content: space-between;
+}
+
+/* ==========================================================================
+   Size: Base (44px)
+   Asymmetric padding: icon-side=12px, chevron-side=10px
+   ========================================================================== */
+.mds-compound--base {
+  height: 44px;
+}
+
+/* Base + Text Label: gap between elements */
+.mds-compound--base.mds-compound--text-label {
+  gap: var(--spacing-lg);
+}
+
+/* Base + ChevronRight: pl=12(icon) pr=10(chevron) py=12 */
+.mds-compound--base.mds-compound--chevron-right {
+  padding: var(--spacing-1xl) var(--spacing-lg) var(--spacing-1xl) var(--spacing-1xl);
+}
+
+/* Base + ChevronLeft: pl=10(chevron) pr=12(icon) py=12 */
+.mds-compound--base.mds-compound--chevron-left {
+  padding: var(--spacing-1xl) var(--spacing-1xl) var(--spacing-1xl) var(--spacing-lg);
+}
+
+/* Base icon sizes */
+.mds-compound--base > .mds-icon,
+.mds-compound--base > .mds-compound__chevron {
+  --icon-size: var(--icon-size-base); /* 20px */
+}
+
+/* ==========================================================================
+   Size: Mini (32px)
+   Asymmetric padding varies by label presence
+   ========================================================================== */
+.mds-compound--mini {
+  height: 32px;
+}
+
+/* Mini + Text Label: gap between elements */
+.mds-compound--mini.mds-compound--text-label {
+  gap: var(--spacing-md);
+}
+
+/* Mini + TextLabel + ChevronRight: pl=10(icon) pr=8(chevron) py=6 */
+.mds-compound--mini.mds-compound--text-label.mds-compound--chevron-right {
+  padding: var(--spacing-sm) var(--spacing-md) var(--spacing-sm) var(--spacing-lg);
+}
+
+/* Mini + TextLabel + ChevronLeft: pl=8(chevron) pr=10(icon) py=6 */
+.mds-compound--mini.mds-compound--text-label.mds-compound--chevron-left {
+  padding: var(--spacing-sm) var(--spacing-lg) var(--spacing-sm) var(--spacing-md);
+}
+
+/* Mini + NoLabel + ChevronRight: pl=8(icon) pr=6(chevron) py=8 */
+.mds-compound--mini.mds-compound--no-label.mds-compound--chevron-right {
+  padding: var(--spacing-md) var(--spacing-sm) var(--spacing-md) var(--spacing-md);
+}
+
+/* Mini + NoLabel + ChevronLeft: pl=6(chevron) pr=8(icon) py=8 */
+.mds-compound--mini.mds-compound--no-label.mds-compound--chevron-left {
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-md) var(--spacing-sm);
+}
+
+/* Mini icon sizes */
+.mds-compound--mini > .mds-icon,
+.mds-compound--mini > .mds-compound__chevron {
+  --icon-size: var(--icon-size-mini); /* 16px */
+}

@@ -1,0 +1,50 @@
+/* ==========================================================================
+   Merces Design System — Min-Max Values Modal Group
+   Inputs and Interactive / Min-Max Values Modal Group
+   Hybrid CSS Module: :global() preserves BEM class names.
+   Figma: Min-Max Values Modal Group (3086:3474) — 2 variants
+   Layout(Vertical/Horizontal)
+   ========================================================================== */
+
+/* ---- Base (Vertical) ---- */
+
+:global(.mds-minmax-modal-group) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1xl);
+}
+
+:global(.mds-minmax-modal-group__label) {
+  font-family: var(--font-family);
+  font-size: var(--ui-thin-font-size);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--ui-thin-line-height);
+  letter-spacing: var(--ui-thin-letter-spacing);
+  color: var(--colour-text-default-base);
+}
+
+/* Inputs row: two fields side by side */
+:global(.mds-minmax-modal-group__inputs) {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+:global(.mds-minmax-modal-group__inputs) > * {
+  flex: 1 1 0%;
+}
+
+/* ---- Horizontal: 50/50 split ---- */
+
+:global(.mds-minmax-modal-group--horizontal) {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-1xl);
+}
+
+:global(.mds-minmax-modal-group--horizontal .mds-minmax-modal-group__label) {
+  flex: 1 1 0%;
+}
+
+:global(.mds-minmax-modal-group--horizontal .mds-minmax-modal-group__inputs) {
+  flex: 1 1 0%;
+}

@@ -1,0 +1,79 @@
+/* ==========================================================================
+   Merces Design System — String Field Group
+   Data Entry / String Field Group (label + input)
+   Figma: String Field Group component set (300:5042)
+
+   Variants:
+     Layout: Vertical | Horizontal
+     Padding: Default | Span
+
+   Vertical/Default:  flex-col, gap: 12px, label no padding, field fills width
+   Vertical/Span:     flex-col, gap: 12px, label px: 14px, field fills width
+   Horizontal/Default: flex-row, gap: 16px, label shrink-0, field flex: 1
+   Horizontal/Span:    flex-row, gap: 16px, label px: 14px, field flex: 1
+
+   Label: 14px Bold Satoshi, --colour-text-default-base, truncate
+   ========================================================================== */
+
+/* ---- Root ---- */
+
+:global(.mds-string-field-group) {
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Layout: Vertical */
+:global(.mds-string-field-group--vertical) {
+  flex-direction: column;
+  gap: var(--spacing-1xl);
+}
+
+/* Layout: Horizontal */
+:global(.mds-string-field-group--horizontal) {
+  flex-direction: row;
+  gap: var(--spacing-3xl);
+  align-items: flex-start;
+}
+
+/* ---- Label ---- */
+
+:global(.mds-string-field-group__label) {
+  font-family: 'Satoshi Variable', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  color: var(--colour-text-default-base);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Span padding on label */
+:global(.mds-string-field-group--span) :global(.mds-string-field-group__label) {
+  padding-left: 14px;
+  padding-right: 14px;
+}
+
+/* Horizontal: label aligns vertically to input baseline (center to first row height) */
+:global(.mds-string-field-group--horizontal) :global(.mds-string-field-group__label) {
+  flex-shrink: 0;
+  /* Align to center of 40px input row */
+  padding-top: 10px;
+}
+
+/* ---- Field wrapper ---- */
+
+:global(.mds-string-field-group__field) {
+  display: flex;
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+/* Vertical: field fills width */
+:global(.mds-string-field-group--vertical) :global(.mds-string-field-group__field) :global(.mds-string-field) {
+  width: 100%;
+}

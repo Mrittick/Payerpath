@@ -1,0 +1,67 @@
+/* TimeDropdown — scrollable time selection panel
+   Figma: Time Selection Dropdown (781:10075)
+   Format: 24hr / 12hr
+
+   Container:
+     Width: 160px
+     Background: --colour-bg-fill-surface-neutral-default (white)
+     Border: 1px solid --colour-stroke-dropdown-brand
+     Radius: --radius-md (8px)
+     Shadow: --shadow-m
+     Padding: --spacing-md (8px) top/bottom
+     overflow: clip on container
+
+   Content:
+     flex-direction: column
+     max-height: 240px
+     overflow-y: auto (scrollable, draggable)
+     Items fill width
+
+   24hr: 48 slots (00:00–23:30, 30-min intervals)
+   12hr: 48 slots (12:00 am–11:30 pm, 30-min intervals, am then pm)
+*/
+
+/* ---- Container ---- */
+
+:global(.mds-time-dropdown) {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 160px;
+  background-color: var(--colour-bg-fill-surface-neutral-default);
+  border: 1px solid var(--colour-stroke-dropdown-brand);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-m);
+  overflow: clip;
+  box-sizing: border-box;
+}
+
+/* ---- Scrollable content ---- */
+
+:global(.mds-time-dropdown__content) {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-height: 240px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  /* Hide native scrollbar — Firefox */
+  scrollbar-width: none;
+}
+
+/* Hide native scrollbar — WebKit (Chrome, Safari, Edge) */
+:global(.mds-time-dropdown__content)::-webkit-scrollbar {
+  display: none;
+}
+
+/* 8px breathing room at top/bottom — lives inside the scroll area
+   so it scrolls with the content (no dead white space). */
+:global(.mds-time-dropdown__content)::before,
+:global(.mds-time-dropdown__content)::after {
+  content: '';
+  display: block;
+  flex-shrink: 0;
+  height: var(--spacing-md);
+}

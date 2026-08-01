@@ -1,0 +1,48 @@
+/* Figma: Accordion (4089:42266)
+   VERTICAL auto-layout · no padding · gap/md between header and entries
+   Open/close: SMART_ANIMATE 450ms cubic-bezier(0.5, 0, 0, 1) */
+
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* ── Entries panel: grid-row collapse/expand ─────────── */
+/* Standard "0fr → 1fr" height animation.
+   margin-top animates in sync so the gap-md between header and entries
+   only exists (and is visible) when the panel is actually open.
+   This prevents phantom dead space below a closed accordion's header. */
+
+.entries-clip {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  margin-top: 0;
+  transition: grid-template-rows 450ms cubic-bezier(0.5, 0, 0, 1),
+              margin-top 450ms cubic-bezier(0.5, 0, 0, 1);
+}
+
+:host(.accordion--open) .entries-clip {
+  grid-template-rows: 1fr;
+  margin-top: var(--gap-md);
+}
+
+.entries-inner {
+  min-height: 0;
+}
+
+/* ── Entries container ───────────────────────────────── */
+/* Read-only: paddingLeft gap/4xl (20px) · Batch-edit: paddingLeft gap/big (24px)
+   The 4px shift aligns entry checkboxes (x=24+10=34) with header checkbox (x=8+26=34).
+   gap/1xs (4px) between rows. */
+.entries-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-1xs);
+  padding-left: var(--gap-4xl);
+}
+
+.entries-container--batch {
+  padding-left: var(--gap-big);
+}

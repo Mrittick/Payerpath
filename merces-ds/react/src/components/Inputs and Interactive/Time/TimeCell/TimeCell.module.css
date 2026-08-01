@@ -1,0 +1,109 @@
+/* TimeCell — single selectable time row
+   Figma: Time (781:8779) — component set
+   Format: 24hr / 12hr
+   Meridian: Default (24hr) / am / pm (12hr)
+   isCurrent: True / False
+   State: Default / Hover / Pressed / Disabled
+
+   Layout: flex row, align-items center
+   Padding: 10px 14px (--spacing-lg / --spacing-2xl)
+   Gap: 8px (--spacing-md) between icon and time text
+   Icon: Tick / Tiny / Bold — 12x12, opacity 0 (not current) / 1 (current)
+   Text: 14px Bold Satoshi, forced 20px line-height
+   12hr gap between HH:MM and meridian: 4px (--spacing-1xs)
+
+   Background tokens:
+     Default:  --colour-bg-fill-button-dropdown-item-default  (white)
+     Hover:    --colour-bg-fill-button-dropdown-item-hover    (#e9e7ef)
+     Pressed:  --colour-bg-fill-button-dropdown-item-pressed  (#c4c0cd)
+     Disabled: same as default (white)
+
+   Text colour tokens:
+     Enabled:  --colour-text-checkbox-enabled   (#44376c)
+     Disabled: --colour-text-checkbox-disabled   (#88819c)
+*/
+
+/* ---- Base ---- */
+
+:global(.mds-time-cell) {
+  appearance: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-lg) var(--spacing-2xl);
+  gap: var(--spacing-md);
+  background-color: var(--colour-bg-fill-button-dropdown-item-default);
+  color: var(--colour-text-checkbox-enabled);
+  transition: background-color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* ---- State modifiers ---- */
+
+:global(.mds-time-cell:not(.mds-time-cell--disabled):hover),
+:global(.mds-time-cell--hover) {
+  background-color: var(--colour-bg-fill-button-dropdown-item-hover);
+}
+
+:global(.mds-time-cell:not(.mds-time-cell--disabled):active),
+:global(.mds-time-cell--pressed) {
+  background-color: var(--colour-bg-fill-button-dropdown-item-pressed);
+}
+
+:global(.mds-time-cell--disabled) {
+  color: var(--colour-text-checkbox-disabled);
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ---- Tick icon ---- */
+/* 12x12 Tick icon — opacity 0 when not current, 1 when current.
+   Occupies layout space regardless (keeps widths consistent). */
+
+:global(.mds-time-cell__icon) {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  height: 12px;
+  color: currentColor;
+  opacity: 0;
+  transition: opacity 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-time-cell--current .mds-time-cell__icon) {
+  opacity: 1;
+}
+
+/* ---- Time text ---- */
+
+:global(.mds-time-cell__time) {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1xs);
+  flex-shrink: 0;
+}
+
+:global(.mds-time-cell__value) {
+  font-family: var(--font-family);
+  font-size: var(--ui-font-size);
+  font-weight: var(--ui-font-weight);
+  line-height: 20px;
+  letter-spacing: var(--ui-letter-spacing);
+  color: inherit;
+}
+
+:global(.mds-time-cell__meridian) {
+  font-family: var(--font-family);
+  font-size: var(--ui-font-size);
+  font-weight: var(--ui-font-weight);
+  line-height: 20px;
+  letter-spacing: var(--ui-letter-spacing);
+  color: inherit;
+}

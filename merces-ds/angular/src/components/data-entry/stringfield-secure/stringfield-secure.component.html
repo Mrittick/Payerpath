@@ -1,0 +1,53 @@
+<!-- Frame — outer ring carrier, border + bg fill, radius -->
+<div class="ssf__frame" (click)="onFrameClick()">
+
+  <!-- Input row — horizontal layout with padding -->
+  <div class="ssf__input-row">
+
+    <!-- Content — grows to fill, holds native input -->
+    <div class="ssf__content">
+      <input
+        #inputEl
+        class="paragraph-ui-thin ssf__input"
+        [type]="isMasked() ? 'password' : 'text'"
+        [placeholder]="placeholder()"
+        [value]="value()"
+        [disabled]="disabled()"
+        (input)="onInput($event)"
+        (focus)="onInputFocus()"
+        (blur)="onInputBlur()"
+        (click)="$event.stopPropagation()"
+      />
+    </div>
+
+    <!-- Actions — mask toggle + clear, hidden (opacity 0) when field is empty -->
+    <div class="ssf__actions">
+      <merces-mask-toggle
+        class="ssf__mask-toggle"
+        size="mini"
+        level="tertiary"
+        [state]="maskToggleState()"
+        [isMasked]="isMasked()"
+        (isMaskedChange)="onMaskToggle($event)"
+      />
+      <merces-clear
+        class="ssf__clear"
+        size="mini"
+        level="tertiary"
+        [state]="clearState()"
+        (pressed)="onClear()"
+      />
+    </div>
+
+  </div>
+</div>
+
+<!-- Validation message slot — always in DOM, animated by global ds-slot system -->
+<div class="ssf__message-slot ds-slot" [class.ds-slot--open]="showMessage()">
+  <div class="ssf__message-inner ds-slot__inner">
+    <merces-stringfield-message
+      [type]="validationState() === 'warning' ? 'warning' : 'error'"
+      [text]="message()"
+    />
+  </div>
+</div>

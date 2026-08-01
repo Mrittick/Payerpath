@@ -1,0 +1,220 @@
+/* DropdownItem — selectable row in a dropdown panel
+   Figma: Dropdown-Item (131:2095) — 128 variants
+   Mode: SingleSelect / MultiSelect
+   Orientation: Left / Right
+   Type: Unchecked / Checked
+   State: Default / Hover / Pressed / Disabled
+   MoreInfo: False / True
+   TruncateText: False / True
+
+   Alignment: flex-start (top).
+   Icons smaller than one line-height (20px) sit inside fixed-height
+   wrapper frames so they vertically centre against the first text line
+   while the overall row stays top-aligned for multi-line labels.
+*/
+
+/* ---- Base ---- */
+
+:global(.mds-dropdown-item) {
+  appearance: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  align-items: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing-lg) var(--spacing-2xl);
+  gap: var(--spacing-md);
+  text-align: left;
+  background-color: var(--colour-bg-fill-button-dropdown-item-default);
+  color: var(--colour-text-checkbox-enabled);
+  font-family: var(--font-family);
+  font-size: var(--ui-font-size);
+  font-weight: var(--ui-font-weight);
+  line-height: var(--ui-line-height);
+  letter-spacing: var(--ui-letter-spacing);
+  transition: background-color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* ---- State modifiers ---- */
+
+:global(.mds-dropdown-item:hover),
+:global(.mds-dropdown-item--hover) {
+  background-color: var(--colour-bg-fill-button-dropdown-item-hover);
+}
+
+:global(.mds-dropdown-item:active),
+:global(.mds-dropdown-item--pressed) {
+  background-color: var(--colour-bg-fill-button-dropdown-item-pressed);
+}
+
+:global(.mds-dropdown-item--highlighted) {
+  background-color: var(--colour-bg-fill-button-dropdown-item-hover);
+}
+
+:global(.mds-dropdown-item--disabled) {
+  color: var(--colour-text-checkbox-disabled);
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ---- Main Content ---- */
+
+:global(.mds-dropdown-item__content) {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  flex: 1 1 0%;
+  min-width: 0;
+}
+
+/* ---- Tick icon wrapper — "Icon-Check Frame" (SingleSelect) ---- */
+/* 20px-tall frame matching single-line text height (14px × 1.4).
+   The 12×12 tick icon centres vertically within the frame so it
+   aligns with the middle of the first text line when top-aligned. */
+
+:global(.mds-dropdown-item__tick) {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  height: var(--spacing-4xl);
+  color: currentColor;
+  opacity: 0;
+  transition: opacity 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-dropdown-item--checked .mds-dropdown-item__tick) {
+  opacity: 1;
+}
+
+/* ---- Checkbox (MultiSelect) ---- */
+
+:global(.mds-dropdown-item__checkbox) {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+:global(.mds-dropdown-item__checkbox-box) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-sm);
+  background-color: var(--colour-bg-fill-button-checkbox-unchecked-default);
+  box-shadow: inset 0 0 0 2px var(--colour-stroke-button-checkbox);
+  transition: background-color 150ms cubic-bezier(0, 0, 0, 1),
+    box-shadow 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* Unchecked checkbox fill changes per state to match the row background */
+:global(.mds-dropdown-item:hover .mds-dropdown-item__checkbox-box),
+:global(.mds-dropdown-item--hover .mds-dropdown-item__checkbox-box) {
+  background-color: var(--colour-bg-fill-button-checkbox-unchecked-hover);
+}
+
+:global(.mds-dropdown-item:active .mds-dropdown-item__checkbox-box),
+:global(.mds-dropdown-item--pressed .mds-dropdown-item__checkbox-box) {
+  background-color: var(--colour-bg-fill-button-checkbox-unchecked-pressed);
+}
+
+:global(.mds-dropdown-item--disabled .mds-dropdown-item__checkbox-box) {
+  background-color: var(--colour-bg-fill-button-checkbox-unchecked-disabled);
+  box-shadow: none;
+}
+
+:global(.mds-dropdown-item--checked .mds-dropdown-item__checkbox-box) {
+  background-color: var(--colour-bg-fill-button-checkbox-checked-default);
+  box-shadow: none;
+}
+
+/* Checked checkbox fill + stroke changes per state (Figma: stroke re-appears on hover/pressed) */
+:global(.mds-dropdown-item--checked.mds-dropdown-item:hover .mds-dropdown-item__checkbox-box),
+:global(.mds-dropdown-item--checked.mds-dropdown-item--hover .mds-dropdown-item__checkbox-box) {
+  background-color: var(--colour-bg-fill-button-checkbox-checked-hover);
+  box-shadow: inset 0 0 0 2px var(--colour-stroke-button-checkbox);
+}
+
+:global(.mds-dropdown-item--checked.mds-dropdown-item:active .mds-dropdown-item__checkbox-box),
+:global(.mds-dropdown-item--checked.mds-dropdown-item--pressed .mds-dropdown-item__checkbox-box) {
+  background-color: var(--colour-bg-fill-button-checkbox-checked-pressed);
+  box-shadow: inset 0 0 0 2px var(--colour-stroke-button-checkbox);
+}
+
+:global(.mds-dropdown-item--checked.mds-dropdown-item--disabled .mds-dropdown-item__checkbox-box) {
+  background-color: var(--colour-bg-fill-button-checkbox-checked-disabled);
+  box-shadow: none;
+}
+
+:global(.mds-dropdown-item__checkbox-icon) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  height: 12px;
+  color: var(--colour-neutral-white);
+  opacity: 0;
+  transition: opacity 150ms cubic-bezier(0, 0, 0, 1),
+    color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-dropdown-item--checked .mds-dropdown-item__checkbox-icon) {
+  opacity: 1;
+}
+
+/* Pressed: checkbox fill becomes light, so tick switches to dark purple for contrast */
+:global(.mds-dropdown-item--checked.mds-dropdown-item:active .mds-dropdown-item__checkbox-icon),
+:global(.mds-dropdown-item--checked.mds-dropdown-item--pressed .mds-dropdown-item__checkbox-icon) {
+  color: var(--colour-brand-purple-100);
+}
+
+/* Disabled: tick becomes muted purple */
+:global(.mds-dropdown-item--checked.mds-dropdown-item--disabled .mds-dropdown-item__checkbox-icon) {
+  color: var(--colour-brand-purple-600);
+}
+
+/* ---- Label ---- */
+
+:global(.mds-dropdown-item__label) {
+  font: inherit;
+  color: inherit;
+  flex: 1 1 0%;
+  min-width: 0;
+}
+
+:global(.mds-dropdown-item--truncate .mds-dropdown-item__label) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---- MoreInfo icon wrapper — "Icon-Info Frame" ---- */
+/* 20px-tall frame matching single-line text height.
+   The 16×16 info icon centres vertically within the frame. */
+
+:global(.mds-dropdown-item__more-info) {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  height: var(--spacing-4xl);
+}
+
+/* ---- Orientation: Right — tick icon moves after text ---- */
+/* (handled via DOM order in the component — no CSS reorder needed) */
+
+/* Context-aware: when inside a scrollable panel, nudge right padding
+   inward so text/icons don't crowd the overlay scrollbar track.
+   Adds 8px (--spacing-md) — just enough clearance without over-compensating. */
+:global(.mds-dropdown-panel__content--has-scrollbar) :global(.mds-dropdown-item) {
+  padding-right: calc(var(--spacing-2xl) + var(--spacing-md));
+}

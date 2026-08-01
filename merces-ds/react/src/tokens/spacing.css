@@ -1,0 +1,30 @@
+/* ==========================================================================
+   Merces Design System — Spacing Tokens
+   Source: Figma Semantic Tokens > gap/*
+   22 values: nil → giant
+   ========================================================================== */
+
+:root {
+  --spacing-nil: 0px;
+  --spacing-3xs: 1px;
+  --spacing-2xs: 2px;
+  --spacing-1xs: 4px;
+  --spacing-sm: 6px;
+  --spacing-md: 8px;
+  --spacing-lg: 10px;
+  --spacing-1xl: 12px;
+  --spacing-2xl: 14px;
+  --spacing-3xl: 16px;
+  --spacing-4xl: 20px;
+  --spacing-big: 24px;
+  --spacing-1xbig: 32px;
+  --spacing-2xbig: 36px;
+  --spacing-3xbig: 40px;
+  --spacing-4xbig: 48px;
+  --spacing-huge: 64px;
+  --spacing-1xhuge: 80px;
+  --spacing-2xhuge: 120px;
+  --spacing-3xhuge: 160px;
+  --spacing-4xhuge: 240px;
+  --spacing-giant: 320px;
+}

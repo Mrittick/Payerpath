@@ -1,0 +1,30 @@
+<!-- ── Motif ── -->
+<div class="help-motif">
+  <merces-icon name="question" type="bold" size="mini" />
+</div>
+
+<!-- ── Chevron badge ── -->
+<div class="help-chevron" aria-hidden="true">
+  <merces-icon name="chevron-down" type="bold" size="mini" />
+</div>
+
+<!-- ── Dropdown panel (merces-dropdown owns state, animation, border, radius) ── -->
+<merces-dropdown
+  [panelOnly]="true"
+  panelAlign="right"
+  (opened)="_isOpen.set(true)"
+  (closed)="_isOpen.set(false)"
+>
+  <merces-dropdown-item
+    mode="single-select"
+    orientation="right"
+    label="Help"
+    (selected)="onHelp()"
+  />
+  <merces-dropdown-item
+    mode="single-select"
+    orientation="right"
+    label="Contact Support"
+    (selected)="onContactSupport()"
+  />
+</merces-dropdown>

@@ -1,0 +1,240 @@
+<!-- ═══════════════════════════════════
+     Left panel
+     ═══════════════════════════════════ -->
+<div class="cal-panel">
+
+  <div class="cal-header">
+    <merces-cta-button
+      intent="brand" type="quaternary" size="mini" variant="icon-only"
+      icon="chevron-left"
+      [label]="_leftLevel() === 'date' ? 'Previous month' : _leftLevel() === 'month' ? 'Previous year' : 'Previous range'"
+      (pressed)="prevLeft()"
+    />
+
+    <button
+      class="cal-month-label cal-month-label--left paragraph-ui"
+      type="button"
+      [class.cal-month-label--static]="_leftLevel() === 'year'"
+      [attr.aria-label]="leftLevelLabel()"
+      (click)="onLeftLabelClick()"
+    >{{ leftLevelLabel() }}</button>
+
+    <merces-cta-button
+      intent="brand" type="quaternary" size="mini" variant="icon-only"
+      icon="chevron-right"
+      [label]="_leftLevel() === 'date' ? 'Next month' : _leftLevel() === 'month' ? 'Next year' : 'Next range'"
+      (pressed)="nextLeft()"
+    />
+  </div>
+
+  <div class="cal-body cal-body--left">
+
+    @switch (_leftLevel()) {
+
+      @case ('date') {
+        <div class="cal-weekdays" aria-hidden="true">
+          @for (day of weekdays; track day) {
+            <span class="cal-weekday paragraph-ui-thin">{{ day }}</span>
+          }
+        </div>
+
+        <div class="cal-dates" role="grid" [attr.aria-label]="leftLevelLabel()">
+          @for (cell of leftGrid(); track cell.key) {
+            <button
+              class="cal-cell paragraph-ui-thin"
+              type="button"
+              role="gridcell"
+              [class.cal-cell--out-of-month]="!cell.isCurrentMonth"
+              [class.cal-cell--range-start]="cell.rangePosition === 'start'"
+              [class.cal-cell--range-middle]="cell.rangePosition === 'middle'"
+              [class.cal-cell--range-end]="cell.rangePosition === 'end'"
+              [attr.aria-label]="cell.date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })"
+              [attr.aria-pressed]="cell.rangePosition === 'start' || cell.rangePosition === 'end'"
+              (click)="onDateClick(cell.date)"
+            >
+              {{ cell.dayOfMonth }}
+              @if (cell.isToday) {
+                <span class="cal-cell__today-dot" aria-hidden="true"></span>
+              }
+            </button>
+          }
+        </div>
+      }
+
+      @case ('month') {
+        <div class="cal-picker-grid" role="grid" aria-label="Select month">
+          @for (row of leftMonthGrid(); track $index) {
+            <div class="cal-picker-row" role="row">
+              @for (cell of row; track cell.monthIndex) {
+                <button
+                  class="cal-picker-cell paragraph-ui-thin"
+                  type="button"
+                  role="gridcell"
+                  [class.cal-picker-cell--current]="cell.isDisplayed"
+                  [attr.aria-pressed]="cell.isDisplayed"
+                  [attr.aria-label]="cell.label"
+                  (click)="selectLeftMonth(cell.monthIndex)"
+                >
+                  {{ cell.label }}
+                  @if (cell.isToday) {
+                    <span class="cal-picker-cell__indicator" aria-hidden="true"></span>
+                  }
+                </button>
+              }
+            </div>
+          }
+        </div>
+      }
+
+      @case ('year') {
+        <div class="cal-picker-grid" role="grid" [attr.aria-label]="'Select year, ' + leftYearRangeLabel()">
+          @for (row of leftYearGrid(); track $index) {
+            <div class="cal-picker-row" role="row">
+              @for (cell of row; track cell.year) {
+                <button
+                  class="cal-picker-cell paragraph-ui-thin"
+                  type="button"
+                  role="gridcell"
+                  [class.cal-picker-cell--current]="cell.isDisplayed"
+                  [attr.aria-pressed]="cell.isDisplayed"
+                  [attr.aria-label]="cell.year.toString()"
+                  (click)="selectLeftYear(cell.year)"
+                >
+                  {{ cell.year }}
+                  @if (cell.isToday) {
+                    <span class="cal-picker-cell__indicator" aria-hidden="true"></span>
+                  }
+                </button>
+              }
+            </div>
+          }
+        </div>
+      }
+
+    }
+
+  </div>
+
+</div>
+
+<!-- Divider -->
+<div class="cal-divider" aria-hidden="true"></div>
+
+<!-- ═══════════════════════════════════
+     Right panel
+     ═══════════════════════════════════ -->
+<div class="cal-panel">
+
+  <div class="cal-header">
+    <merces-cta-button
+      intent="brand" type="quaternary" size="mini" variant="icon-only"
+      icon="chevron-left"
+      [label]="_rightLevel() === 'date' ? 'Previous month' : _rightLevel() === 'month' ? 'Previous year' : 'Previous range'"
+      (pressed)="prevRight()"
+    />
+
+    <button
+      class="cal-month-label cal-month-label--right paragraph-ui"
+      type="button"
+      [class.cal-month-label--static]="_rightLevel() === 'year'"
+      [attr.aria-label]="rightLevelLabel()"
+      (click)="onRightLabelClick()"
+    >{{ rightLevelLabel() }}</button>
+
+    <merces-cta-button
+      intent="brand" type="quaternary" size="mini" variant="icon-only"
+      icon="chevron-right"
+      [label]="_rightLevel() === 'date' ? 'Next month' : _rightLevel() === 'month' ? 'Next year' : 'Next range'"
+      (pressed)="nextRight()"
+    />
+  </div>
+
+  <div class="cal-body cal-body--right">
+
+    @switch (_rightLevel()) {
+
+      @case ('date') {
+        <div class="cal-weekdays" aria-hidden="true">
+          @for (day of weekdays; track day) {
+            <span class="cal-weekday paragraph-ui-thin">{{ day }}</span>
+          }
+        </div>
+
+        <div class="cal-dates" role="grid" [attr.aria-label]="rightLevelLabel()">
+          @for (cell of rightGrid(); track cell.key) {
+            <button
+              class="cal-cell paragraph-ui-thin"
+              type="button"
+              role="gridcell"
+              [class.cal-cell--out-of-month]="!cell.isCurrentMonth"
+              [class.cal-cell--range-start]="cell.rangePosition === 'start'"
+              [class.cal-cell--range-middle]="cell.rangePosition === 'middle'"
+              [class.cal-cell--range-end]="cell.rangePosition === 'end'"
+              [attr.aria-label]="cell.date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })"
+              [attr.aria-pressed]="cell.rangePosition === 'start' || cell.rangePosition === 'end'"
+              (click)="onDateClick(cell.date)"
+            >
+              {{ cell.dayOfMonth }}
+              @if (cell.isToday) {
+                <span class="cal-cell__today-dot" aria-hidden="true"></span>
+              }
+            </button>
+          }
+        </div>
+      }
+
+      @case ('month') {
+        <div class="cal-picker-grid" role="grid" aria-label="Select month">
+          @for (row of rightMonthGrid(); track $index) {
+            <div class="cal-picker-row" role="row">
+              @for (cell of row; track cell.monthIndex) {
+                <button
+                  class="cal-picker-cell paragraph-ui-thin"
+                  type="button"
+                  role="gridcell"
+                  [class.cal-picker-cell--current]="cell.isDisplayed"
+                  [attr.aria-pressed]="cell.isDisplayed"
+                  [attr.aria-label]="cell.label"
+                  (click)="selectRightMonth(cell.monthIndex)"
+                >
+                  {{ cell.label }}
+                  @if (cell.isToday) {
+                    <span class="cal-picker-cell__indicator" aria-hidden="true"></span>
+                  }
+                </button>
+              }
+            </div>
+          }
+        </div>
+      }
+
+      @case ('year') {
+        <div class="cal-picker-grid" role="grid" [attr.aria-label]="'Select year, ' + rightYearRangeLabel()">
+          @for (row of rightYearGrid(); track $index) {
+            <div class="cal-picker-row" role="row">
+              @for (cell of row; track cell.year) {
+                <button
+                  class="cal-picker-cell paragraph-ui-thin"
+                  type="button"
+                  role="gridcell"
+                  [class.cal-picker-cell--current]="cell.isDisplayed"
+                  [attr.aria-pressed]="cell.isDisplayed"
+                  [attr.aria-label]="cell.year.toString()"
+                  (click)="selectRightYear(cell.year)"
+                >
+                  {{ cell.year }}
+                  @if (cell.isToday) {
+                    <span class="cal-picker-cell__indicator" aria-hidden="true"></span>
+                  }
+                </button>
+              }
+            </div>
+          }
+        </div>
+      }
+
+    }
+
+  </div>
+
+</div>

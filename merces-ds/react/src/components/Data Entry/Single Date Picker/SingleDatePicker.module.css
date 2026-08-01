@@ -1,0 +1,58 @@
+/* ==========================================================================
+   Merces Design System — Single Date Picker
+   Data Entry / Single Date Picker (741:6444)
+
+   Layout: Vertical (flex-col) | Horizontal (flex-row)
+   Gap: 12px between label and field
+   Label: 14px Bold Satoshi, padding 0 14px, colour/text/default/base
+   Date Field: FILL horizontal
+
+   Structure:
+     Root (.mds-single-date-picker)
+       ├── Label (.mds-single-date-picker__label)
+       │   └── Text
+       └── [DateField child] — passed via children
+   ========================================================================== */
+
+/* ---- Root — Vertical (default) ---- */
+
+:global(.mds-single-date-picker) {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ---- Horizontal layout ---- */
+
+:global(.mds-single-date-picker--horizontal) {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+/* ---- Label ---- */
+
+:global(.mds-single-date-picker__label) {
+  display: flex;
+  padding: 0 14px;
+  font-family: 'Satoshi Variable', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  color: var(--colour-text-default-base);
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+/* In horizontal mode, label takes equal space */
+:global(.mds-single-date-picker--horizontal) :global(.mds-single-date-picker__label) {
+  flex: 1 0 0;
+}
+
+/* ---- Date Field stretches to fill ---- */
+
+:global(.mds-single-date-picker) :global(.mds-date-field) {
+  width: 100%;
+  flex: 1 0 0;
+}

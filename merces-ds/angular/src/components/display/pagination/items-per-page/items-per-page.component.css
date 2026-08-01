@@ -1,0 +1,79 @@
+:host {
+  position: relative;
+  display: block;
+  width: 80px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: var(--colour-fill-button-dropdown-base-default);
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  transition: background var(--transition-duration-state) var(--transition-easing-state);
+}
+
+:host(:hover:not(.ipp--disabled):not(.ipp--open)) {
+  background: var(--colour-fill-button-dropdown-base-hover);
+}
+
+:host(.ipp--open) {
+  background: var(--colour-fill-button-dropdown-base-hover);
+}
+
+:host(.ipp--disabled) {
+  background: var(--colour-fill-button-dropdown-base-disabled);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+:host(.ipp--keyboard-focused) {
+  outline: var(--stroke-button-focus) solid var(--colour-stroke-element-focus-brand-enabled-base);
+  outline-offset: 2px;
+}
+
+.ipp__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding-top: var(--gap-lg);
+  padding-bottom: var(--gap-lg);
+  padding-left: var(--gap-2xl);
+  padding-right: var(--gap-lg);
+  gap: var(--gap-1xl);
+  box-sizing: border-box;
+  color: var(--colour-text-dropdown-label-default);
+}
+
+.ipp__value {
+  color: var(--colour-text-dropdown-label-default);
+}
+
+/* ── Panel
+   Drop-up: transform-origin bottom so it expands upward from the trigger.
+   Hidden state (default): opacity 0, slight downward offset, pointer-events off.
+   .ipp__panel--open transitions to fully visible. ── */
+.ipp__panel {
+  background: var(--colour-fill-surface-neutral-default);
+  border: var(--stroke-thin) solid var(--colour-stroke-dropdown-brand);
+  border-radius: var(--radius-md);
+  padding: var(--gap-md) 0;
+  z-index: 100;
+  box-sizing: border-box;
+
+  opacity: 0;
+  transform: translateY(var(--gap-1xs)) scaleY(0.9);
+  transform-origin: bottom;
+  pointer-events: none;
+  transition:
+    opacity  200ms cubic-bezier(0, 0, 0, 1),
+    transform 200ms cubic-bezier(0, 0, 0, 1);
+}
+
+.ipp__panel.ipp__panel--open {
+  opacity: 1;
+  transform: translateY(0) scaleY(1);
+  pointer-events: auto;
+}

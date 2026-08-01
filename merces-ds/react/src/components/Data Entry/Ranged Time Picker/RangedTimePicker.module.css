@@ -1,0 +1,72 @@
+/* ==========================================================================
+   Merces Design System — Ranged Time Picker
+   Data Entry / Ranged Time Picker (781:11196)
+
+   Layout: Vertical (flex-col) | Horizontal (flex-row)
+   Gap: 12px between label and inputs wrapper
+   Label: 14px Bold Satoshi, padding 0 14px
+   Inputs: flex-row, 8px gap, two TimeFields each FILL
+
+   Structure:
+     Root (.mds-ranged-time-picker)
+       +-- Label (.mds-ranged-time-picker__label)
+       |   +-- Text
+       +-- Inputs (.mds-ranged-time-picker__inputs)
+           +-- [TimeField — start]
+           +-- [TimeField — end]
+   ========================================================================== */
+
+/* ---- Root — Vertical (default) ---- */
+
+:global(.mds-ranged-time-picker) {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ---- Horizontal layout ---- */
+
+:global(.mds-ranged-time-picker--horizontal) {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+/* ---- Label ---- */
+
+:global(.mds-ranged-time-picker__label) {
+  display: flex;
+  padding: 0 14px;
+  font-family: 'Satoshi Variable', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  color: var(--colour-text-default-base);
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+:global(.mds-ranged-time-picker--horizontal) :global(.mds-ranged-time-picker__label) {
+  flex: 1 0 0;
+}
+
+/* ---- Inputs row ---- */
+
+:global(.mds-ranged-time-picker__inputs) {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+:global(.mds-ranged-time-picker--horizontal) :global(.mds-ranged-time-picker__inputs) {
+  flex: 1 0 0;
+}
+
+/* Each TimeField inside fills equally */
+:global(.mds-ranged-time-picker__inputs) :global(.mds-time-field) {
+  width: auto;
+  flex: 1 0 0;
+}

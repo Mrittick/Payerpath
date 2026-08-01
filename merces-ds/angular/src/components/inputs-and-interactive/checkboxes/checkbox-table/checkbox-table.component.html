@@ -1,0 +1,25 @@
+<!-- ==========================================================================
+     Checkbox Table
+     Figma: Checkbox Table - Brand (563:9700) / Checkbox Table - Neutral (3969:12027)
+
+     Structure:
+       Host (role=checkbox, focus carrier)
+         └─ .cb-table__box   (visual box — fill, border on Entry only, focus ring)
+              └─ .cb-table__icon  (tick/dash via merces-icon)
+
+     Hierarchy:
+       Header — no border stroke (select-all row)
+       Entry  — has border stroke (individual data rows)
+
+     Icon is always in the DOM. Unchecked = opacity 0 by default,
+     opacity 1 on hover/pressed to hint at interactivity.
+     ========================================================================== -->
+
+<div class="cb-table__box">
+  <merces-icon
+    [name]="iconName()"
+    [type]="iconType()"
+    [size]="iconSize()"
+    class="cb-table__icon"
+  />
+</div>

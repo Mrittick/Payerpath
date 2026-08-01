@@ -1,0 +1,66 @@
+/* ==========================================================================
+   Merces Design System — CTA Button (layout-specific)
+   Inputs and Interactive / CTA Buttons
+   CTA = centered, self-sizing pill button.
+   Shared colour/theme/type/state rules are in ../button-shared.css
+   ========================================================================== */
+
+@import '../button-shared.css';
+
+/* ==========================================================================
+   CTA layout — centered content, auto width
+   ========================================================================== */
+.mds-cta {
+  justify-content: center;
+}
+
+/* CTA label — natural width, no flex-grow */
+.mds-cta .mds-btn__label {
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Size: Base (44px)
+   ========================================================================== */
+.mds-cta--base {
+  height: 44px;
+  gap: var(--spacing-md);
+}
+.mds-cta--base.mds-cta--text-only {
+  padding: var(--spacing-1xl) var(--spacing-4xl);
+}
+.mds-cta--base.mds-cta--icon-only {
+  padding: var(--spacing-1xl);
+}
+.mds-cta--base.mds-cta--icon-left {
+  padding: var(--spacing-1xl) var(--spacing-3xl) var(--spacing-1xl) var(--spacing-1xl);
+}
+.mds-cta--base.mds-cta--icon-right {
+  padding: var(--spacing-1xl) var(--spacing-1xl) var(--spacing-1xl) var(--spacing-3xl);
+}
+.mds-cta--base > .mds-icon {
+  --icon-size: var(--icon-size-base); /* 20px */
+}
+
+/* ==========================================================================
+   Size: Mini (32px)
+   ========================================================================== */
+.mds-cta--mini {
+  height: 32px;
+  gap: var(--spacing-sm);
+}
+.mds-cta--mini.mds-cta--text-only {
+  padding: var(--spacing-sm) var(--spacing-1xl);
+}
+.mds-cta--mini.mds-cta--icon-only {
+  padding: var(--spacing-md);
+}
+.mds-cta--mini.mds-cta--icon-left {
+  padding: var(--spacing-sm) var(--spacing-lg) var(--spacing-sm) var(--spacing-sm);
+}
+.mds-cta--mini.mds-cta--icon-right {
+  padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) var(--spacing-lg);
+}
+.mds-cta--mini > .mds-icon {
+  --icon-size: var(--icon-size-mini); /* 16px */
+}

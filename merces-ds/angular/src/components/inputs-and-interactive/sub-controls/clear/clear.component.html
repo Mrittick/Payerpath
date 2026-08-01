@@ -1,0 +1,14 @@
+<button
+  class="clear-button"
+  type="button"
+  [attr.aria-label]="label()"
+  [disabled]="state() === 'disabled'"
+  (click)="onClick()"
+>
+  <merces-icon
+    class="clear-icon"
+    name="cross"
+    size="mini"
+    type="filled"
+  />
+</button>

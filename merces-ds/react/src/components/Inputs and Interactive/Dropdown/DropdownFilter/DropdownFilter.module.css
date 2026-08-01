@@ -1,0 +1,33 @@
+/* DropdownFilter — search bar wrapper for dropdown panels
+   Figma: Dropdown Filter (222:8065)
+   Two variants:
+     hasFilter=False → Search only, gap=4px
+     hasFilter=True  → Search + Filter button, gap=6px
+   Layout: HORIZONTAL, padding T=4 R=12 B=14 L=12
+   The filter fills the panel width (flex cross-axis stretch in column parent).
+   Search child fills the filter width (layoutGrow=1 in Figma).
+*/
+
+:global(.mds-dropdown-filter) {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: var(--spacing-1xs) var(--spacing-1xl) var(--spacing-2xl) var(--spacing-1xl);
+  gap: var(--spacing-1xs);
+}
+
+/* hasFilter=True variant — gap increases to 6px */
+:global(.mds-dropdown-filter--has-filter) {
+  gap: var(--spacing-sm);
+}
+
+/* Search component fills the filter wrapper (Figma: layoutGrow=1) */
+:global(.mds-dropdown-filter) :global(.mds-search) {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Filter button is fixed-size (44×44), no shrink */
+:global(.mds-dropdown-filter) :global(.mds-filter) {
+  flex-shrink: 0;
+}

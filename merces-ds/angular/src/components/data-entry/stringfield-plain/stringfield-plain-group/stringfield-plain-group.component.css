@@ -1,0 +1,53 @@
+/* ==========================================================================
+   Stringfield Plain Group
+   Figma: String Field Group (300:5042)
+
+   Variants: Layout (Vertical/Horizontal) × Padding (Default/Span)
+   ========================================================================== */
+
+/* ── Vertical layout ── */
+
+:host(.sfg--vertical) {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--gap-1xl);
+}
+
+/* ── Horizontal layout ── */
+
+:host(.sfg--horizontal) {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-3xl);
+}
+
+/* ==========================================================================
+   Label
+   ========================================================================== */
+
+.sfg__label {
+  display: flex;
+  align-items: center;
+}
+
+.sfg__label-text {
+  color: var(--colour-text-default-base);
+}
+
+/* Horizontal: label shrinks to hug its content */
+:host(.sfg--horizontal) .sfg__label {
+  flex-shrink: 0;
+}
+
+/* Vertical + Span: label gets L/R padding to align with field inner text */
+:host(.sfg--vertical.sfg--span) .sfg__label {
+  padding: 0 var(--gap-2xl);
+}
+
+/* Horizontal + Span: label fills, with L/R + T/B padding */
+:host(.sfg--horizontal.sfg--span) .sfg__label {
+  flex: 1;
+  padding: var(--gap-lg) var(--gap-2xl);
+}

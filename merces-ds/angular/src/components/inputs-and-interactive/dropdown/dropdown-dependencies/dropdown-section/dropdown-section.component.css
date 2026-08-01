@@ -1,0 +1,35 @@
+:host {
+  display: flex;
+  align-items: center;
+}
+
+/* ── Padding variants ── */
+
+:host(.section--single-left) {
+  padding: var(--gap-lg) var(--gap-3xbig) var(--gap-lg) var(--gap-1xbig);
+}
+
+:host(.section--single-right),
+:host(.section--multi-right) {
+  padding: var(--gap-lg) var(--gap-3xbig) var(--gap-lg) var(--gap-1xl);
+}
+
+:host(.section--multi-left) {
+  padding: var(--gap-lg) var(--gap-3xbig);
+}
+
+:host(.section--choice) {
+  padding: var(--gap-lg) var(--gap-3xbig) var(--gap-lg) var(--gap-2xl);
+}
+
+/* ── Text Frame ── */
+
+.text-frame {
+  display: flex;
+  align-items: center;
+  padding: var(--gap-3xs) var(--gap-2xs) 0 var(--gap-2xs);
+}
+
+.section-label {
+  color: var(--colour-text-default-low-emphasis);
+}

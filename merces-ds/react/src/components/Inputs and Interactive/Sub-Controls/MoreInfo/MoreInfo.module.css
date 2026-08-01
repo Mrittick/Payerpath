@@ -1,0 +1,37 @@
+/* ==========================================================================
+   Merces Design System — More Info
+   Sub-Controls / More Info (inline link with information icon)
+   Hybrid CSS Module: :global() preserves BEM class names.
+   "More Info" underlined text + information-circle-16-regular icon.
+   Properties: State (Default / Hover / Pressed)
+   ========================================================================== */
+
+:global(.mds-more-info) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  color: var(--colour-text-default-base);
+  font-family: var(--font-family);
+  font-size: var(--p3-font-size);
+  font-weight: var(--p3-font-weight);
+  line-height: var(--p3-line-height);
+  user-select: none;
+  transition: color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-more-info) > :global(.mds-icon) {
+  --icon-size: var(--icon-size-mini);
+}
+
+:global(.mds-more-info):hover {
+  color: var(--colour-brand-purple-300);
+}
+
+:global(.mds-more-info):active {
+  color: var(--colour-brand-purple-100);
+}

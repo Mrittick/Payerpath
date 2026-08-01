@@ -1,0 +1,48 @@
+/* ==========================================================================
+   Merces Design System — Message
+   Data Entry / Message (validation text sub-component)
+   Figma: Message (206:5450 page)
+
+   Variants:
+     Type: Warning | Error
+
+   Layout:
+     display: flex
+     align-items: center
+     justify-content: center
+     padding: 0 8px
+     width: fills parent (flex: 1 0 0)
+
+   Typography:
+     font-family: Satoshi Variable
+     font-size: 12px
+     font-weight: 500 (Medium)
+     line-height: 20px (forced to match design)
+
+   Colours:
+     Warning: --colour-text-default-warning (#bc7a10)
+     Error:   --colour-text-default-error   (#911108)
+   ========================================================================== */
+
+:global(.mds-message) {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--spacing-md);
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Satoshi Variable', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 20px;
+  margin: 0;
+}
+
+/* Type: Warning */
+:global(.mds-message--warning) {
+  color: var(--colour-text-default-warning);
+}
+
+/* Type: Error */
+:global(.mds-message--error) {
+  color: var(--colour-text-default-error);
+}

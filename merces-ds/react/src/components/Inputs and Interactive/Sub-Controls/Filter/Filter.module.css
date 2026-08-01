@@ -1,0 +1,95 @@
+/* ==========================================================================
+   Merces Design System — Filter
+   Sub-Controls / Filter (toggle button to invoke filter UI)
+   Hybrid CSS Module: :global() preserves BEM class names.
+   44px square button with filter icon (20px regular), optional ActiveIndicator.
+   Properties: Mode (Default / Invoked / Disabled / Hidden),
+               State (Default / Hover / Pressed), Focus (True / False), isActive (True / False)
+   ========================================================================== */
+
+:global(.mds-filter) {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: var(--spacing-nil);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  user-select: none;
+  outline: var(--stroke-button-focus) solid transparent;
+  outline-offset: 0;
+  transition:
+    background-color 150ms cubic-bezier(0, 0, 0, 1),
+    color 150ms cubic-bezier(0, 0, 0, 1),
+    outline-color 150ms cubic-bezier(0, 0, 0, 1),
+    opacity 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-filter) > :global(.mds-icon) {
+  --icon-size: var(--icon-size-base);
+}
+
+/* Mode: Default */
+:global(.mds-filter--default) {
+  background-color: var(--colour-brand-purple-1100);
+  color: var(--colour-brand-purple-400);
+}
+:global(.mds-filter--default):hover {
+  background-color: var(--colour-brand-purple-1000);
+}
+:global(.mds-filter--default):active {
+  background-color: var(--colour-brand-purple-900);
+}
+
+/* Mode: Invoked */
+:global(.mds-filter--invoked) {
+  background-color: var(--colour-brand-purple-200);
+  color: var(--colour-neutral-white);
+}
+:global(.mds-filter--invoked):hover {
+  background-color: var(--colour-brand-purple-100);
+}
+:global(.mds-filter--invoked):active {
+  background-color: var(--colour-brand-purple-50);
+}
+
+/* Mode: Disabled */
+:global(.mds-filter--disabled) {
+  background-color: var(--colour-brand-purple-1100);
+  color: var(--colour-brand-purple-700);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Mode: Hidden */
+:global(.mds-filter--hidden) {
+  background-color: transparent;
+  pointer-events: none;
+}
+:global(.mds-filter--hidden) > :global(.mds-icon) {
+  opacity: 0;
+}
+
+/* Focus ring */
+:global(.mds-filter):focus-visible,
+:global(.mds-filter--focus) {
+  outline-color: var(--colour-stroke-element-focus-brand-enabled-base);
+}
+:global(.mds-filter--disabled):focus-visible,
+:global(.mds-filter--disabled.mds-filter--focus) {
+  outline-color: var(--colour-stroke-element-focus-brand-disabled-primary);
+}
+
+/* isActive — inset border + ActiveIndicator positioning */
+:global(.mds-filter--active) {
+  box-shadow: inset 0 0 0 1px var(--colour-brand-purple-400);
+}
+
+:global(.mds-filter) > :global(.mds-active-indicator) {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+}

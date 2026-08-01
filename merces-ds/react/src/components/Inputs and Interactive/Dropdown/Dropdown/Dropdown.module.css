@@ -1,0 +1,94 @@
+/* Dropdown — trigger button + floating panel
+   Figma: Dropdown (276:8468)
+   Variants: Unselected(True/False) × State(Default/Hover/Disabled) × Focus(False/True)
+*/
+
+/* ---- Wrapper ---- */
+
+:global(.mds-dropdown) {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+/* ---- Trigger button ---- */
+
+:global(.mds-dropdown__trigger) {
+  appearance: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-lg) var(--spacing-2xl);
+  gap: var(--spacing-1xl);
+  border-radius: var(--radius-md);
+  text-align: left;
+  background-color: var(--colour-bg-fill-button-dropdown-base-default);
+  color: var(--colour-text-dropdown-label-placeholder);
+  font-family: var(--font-family);
+  font-size: var(--ui-thin-font-size);
+  font-weight: var(--ui-thin-font-weight);
+  line-height: var(--ui-thin-line-height);
+  letter-spacing: var(--ui-thin-letter-spacing);
+  transition: background-color 150ms cubic-bezier(0, 0, 0, 1),
+    box-shadow 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* Selected state — darker text */
+:global(.mds-dropdown--selected .mds-dropdown__trigger) {
+  color: var(--colour-text-dropdown-label-default);
+}
+
+/* Hover */
+:global(.mds-dropdown__trigger:hover),
+:global(.mds-dropdown--hover .mds-dropdown__trigger) {
+  background-color: var(--colour-bg-fill-button-dropdown-base-hover);
+}
+
+/* Disabled */
+:global(.mds-dropdown--disabled .mds-dropdown__trigger) {
+  background-color: var(--colour-bg-fill-button-dropdown-base-disabled);
+  color: var(--colour-text-dropdown-label-disabled);
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Focus ring — 3px outside */
+:global(.mds-dropdown--focus .mds-dropdown__trigger) {
+  box-shadow: 0 0 0 3px var(--colour-stroke-element-focus-brand-enabled-base);
+}
+
+/* ---- Text ---- */
+
+:global(.mds-dropdown__text) {
+  font: inherit;
+  color: inherit;
+  flex: 1 1 0%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---- Chevron icon ---- */
+
+:global(.mds-dropdown__chevron) {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  color: var(--colour-text-dropdown-label-default);
+  transition: transform 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-dropdown--disabled .mds-dropdown__chevron) {
+  color: var(--colour-brand-purple-700);
+}
+
+:global(.mds-dropdown--open .mds-dropdown__chevron) {
+  transform: rotate(180deg);
+}

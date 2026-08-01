@@ -1,0 +1,75 @@
+/* ==========================================================================
+   Merces Design System — Hide / Show Sub-Control
+   Sidebar collapse/expand toggle button.
+   Figma: 282:2876
+
+   Structure: 40×40 icon-only button with product theming.
+   Products: Payerpath (default light) | eChart Coder (dark context)
+   States:   Default | Hover | Pressed
+   Corner radius: 12px (--radius-lg) on all variants.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+
+:global(.mds-hide-show) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: var(--spacing-md);           /* 8px all sides */
+  border: none;
+  border-radius: var(--radius-lg);      /* 12px — Figma */
+  background: transparent;
+  cursor: pointer;
+  transition:
+    background-color 150ms cubic-bezier(0, 0, 0, 1),
+    color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-hide-show) > :global(.mds-icon) {
+  --icon-size: var(--icon-size-large);  /* 24×24 */
+}
+
+/* --------------------------------------------------------------------------
+   Product: Payerpath
+   Default: transparent bg, grey-100 icon
+   Hover:   grey-800 bg (#F0F0F0)
+   Pressed: grey-600 bg (#E6E6E6)
+   -------------------------------------------------------------------------- */
+
+:global(.mds-hide-show--payerpath) {
+  color: var(--colour-neutral-grey-100);
+}
+
+:global(.mds-hide-show--payerpath:hover) {
+  background-color: var(--colour-neutral-grey-800);
+}
+
+:global(.mds-hide-show--payerpath:active) {
+  background-color: var(--colour-neutral-grey-600);
+}
+
+/* --------------------------------------------------------------------------
+   Product: eChart Coder
+   Default: white-alpha-1 bg (14% white), white icon
+   Hover:   white bg, purple-50 icon
+   Pressed: white-alpha-2 bg (20% white), white icon
+   -------------------------------------------------------------------------- */
+
+:global(.mds-hide-show--echart-coder) {
+  background-color: var(--colour-neutral-white-alpha-1);
+  color: var(--colour-neutral-white);
+}
+
+:global(.mds-hide-show--echart-coder:hover) {
+  background-color: var(--colour-neutral-white);
+  color: var(--colour-brand-purple-50);
+}
+
+:global(.mds-hide-show--echart-coder:active) {
+  background-color: var(--colour-neutral-white-alpha-2);
+  color: var(--colour-neutral-white);
+}

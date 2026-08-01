@@ -1,0 +1,238 @@
+/* ==========================================================================
+   Merces Design System — Calendar Date Cell
+   Inputs and Interactive / Calendar / CalendarDateCell
+   Hybrid CSS Module: :global() preserves BEM class names.
+
+   Figma: Date - Single (736:425) — 20 variants
+          Date - Ranged (741:1617) — 34 variants
+   Combined into one component.
+
+   Axes:
+     currentMonth(True/False) × State(Default/Hover/Pressed/Focus/Disabled)
+     × isToday(False/True) × Ranged mode adds: isSelected × Positioning
+
+   Structure:
+     Root (32×32 or 34×32) > Frame (same dim) > Number text + [Today dot]
+     Root: HORIZONTAL, CENTER×CENTER, FIXED×FIXED, radius 6, clipsContent
+     Frame: VERTICAL, CENTER×CENTER, FIXED×FIXED, radius [0,0,0,0]
+     Text: 14px Medium Satoshi, 140% line-height → forced 20px
+     Today dot: 4×4, pill, ABSOLUTE at bottom-center, purple-400
+
+   Sizing:
+     Single mode: root 32×32, frame 32×32
+     Ranged mode: root 34×32, pad 0/1/0/1 (unselected) or 0/2/0/2 (selected)
+     Ranged root frame: 32×32 (unsel) or 30×32 (sel)
+
+   Ranged Positioning (selected only):
+     Default (unsel): radii [6,6,6,6], no root fill
+     Start:           radii [6,0,0,6], root fill coloured
+     Middle:          radii [0,0,0,0], root fill coloured
+     End:             radii [0,6,6,0], root fill coloured
+
+   Figma fact: frame radius is always [0,0,0,0] — the ROOT's radius 6
+   + clipsContent:true is what makes fills appear rounded. We reproduce
+   this with overflow:hidden on root.
+
+   Transition: DISSOLVE, 150ms, cubic-bezier(0,0,0,1)
+   ========================================================================== */
+
+/* ---- Root ---- */
+
+:global(.mds-cal-date) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-calendar-day);  /* Figma: radius/calendar/day → radius/sm → 6px */
+  overflow: hidden;              /* Figma clipsContent:true — clips frame fill to root radius */
+  cursor: pointer;
+  user-select: none;
+  box-sizing: border-box;
+  transition:
+    background-color 150ms cubic-bezier(0, 0, 0, 1),
+    border-radius 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-cal-date--disabled) {
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Ranged mode: wider root */
+:global(.mds-cal-date--ranged) {
+  width: 34px;
+  padding: 0 1px;
+}
+
+/* ---- Ranged selected: root gets fill + positioning radii ---- */
+
+:global(.mds-cal-date--ranged.mds-cal-date--selected) {
+  padding: 0 2px;
+}
+
+/* Start: always Focus — purple-400 fill, rounded left */
+:global(.mds-cal-date--ranged.mds-cal-date--selected.mds-cal-date--pos-start) {
+  border-radius: var(--radius-calendar-day) 0 0 var(--radius-calendar-day);
+  background-color: var(--colour-brand-purple-400);
+}
+
+/* Middle: Default purple-1100, Hover/Pressed shift darker */
+:global(.mds-cal-date--ranged.mds-cal-date--selected.mds-cal-date--pos-middle) {
+  border-radius: 0;
+  background-color: var(--colour-brand-purple-1100);
+}
+
+/* End: always Focus — purple-400 fill, rounded right */
+:global(.mds-cal-date--ranged.mds-cal-date--selected.mds-cal-date--pos-end) {
+  border-radius: 0 var(--radius-calendar-day) var(--radius-calendar-day) 0;
+  background-color: var(--colour-brand-purple-400);
+}
+
+/* Solo: same-day range — fully rounded, purple-400 fill */
+:global(.mds-cal-date--ranged.mds-cal-date--selected.mds-cal-date--pos-solo) {
+  border-radius: var(--radius-calendar-day);
+  background-color: var(--colour-brand-purple-400);
+}
+
+/* Middle hover: root bg shifts */
+:global(.mds-cal-date--ranged.mds-cal-date--selected.mds-cal-date--pos-middle:not(.mds-cal-date--disabled):hover),
+:global(.mds-cal-date--ranged.mds-cal-date--selected.mds-cal-date--pos-middle.mds-cal-date--hover) {
+  background-color: var(--colour-brand-purple-1000);
+}
+
+/* Middle pressed: root bg shifts */
+:global(.mds-cal-date--ranged.mds-cal-date--selected.mds-cal-date--pos-middle:not(.mds-cal-date--disabled):active),
+:global(.mds-cal-date--ranged.mds-cal-date--selected.mds-cal-date--pos-middle.mds-cal-date--pressed) {
+  background-color: var(--colour-brand-purple-700);
+}
+
+/* ---- Frame (inner container) ---- */
+
+:global(.mds-cal-date__frame) {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 0;                /* Figma: all variants [0,0,0,0] */
+  transition: background-color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* Ranged selected: frame shrinks */
+:global(.mds-cal-date--ranged.mds-cal-date--selected .mds-cal-date__frame) {
+  width: 30px;
+}
+
+/* ---- Frame fills by state ----
+   Hover/Pressed/Focus fills apply to the frame.
+   The root's border-radius + overflow:hidden clips frame fill to rounded shape.
+   These rules apply to BOTH currentMonth and non-currentMonth cells — Figma
+   confirms the same frame fill colour for hover/pressed regardless of currentMonth. */
+
+/* Hover — all cells, not selected/focus/disabled */
+:global(.mds-cal-date:not(.mds-cal-date--selected):not(.mds-cal-date--focus):not(.mds-cal-date--disabled):hover .mds-cal-date__frame),
+:global(.mds-cal-date:not(.mds-cal-date--selected):not(.mds-cal-date--focus).mds-cal-date--hover .mds-cal-date__frame) {
+  background-color: var(--colour-brand-purple-1100);
+}
+
+/* Pressed — all cells, not selected/focus/disabled */
+:global(.mds-cal-date:not(.mds-cal-date--selected):not(.mds-cal-date--focus):not(.mds-cal-date--disabled):active .mds-cal-date__frame),
+:global(.mds-cal-date:not(.mds-cal-date--selected):not(.mds-cal-date--focus).mds-cal-date--pressed .mds-cal-date__frame) {
+  background-color: var(--colour-brand-purple-900);
+}
+
+/* Focus — all cells, not selected */
+:global(.mds-cal-date:not(.mds-cal-date--selected).mds-cal-date--focus .mds-cal-date__frame) {
+  background-color: var(--colour-brand-purple-400);
+}
+
+/* ---- Number text ----
+   14px Medium Satoshi, 140% → forced 20px line-height.
+   Focus state: Bold weight.
+
+   Text colour by state × currentMonth:
+     currentMonth=T, Default/Hover/Pressed: colour/text/default/link-emphasis (purple-100 = #2F2257)
+     currentMonth=T, Focus:                 colour/text/inverted/base (white), Bold
+     currentMonth=T, Disabled:              colour/text/default/link-disabled
+     currentMonth=F, Default/Disabled:      colour/text/default/link-disabled
+     currentMonth=F, Hover/Pressed:         colour/text/default/medium-emphasis
+     currentMonth=F, Focus:                 colour/text/inverted/base (white), Bold */
+
+:global(.mds-cal-date__number) {
+  font-family: var(--font-family);
+  font-size: var(--ui-font-size);          /* 14px */
+  font-weight: var(--ui-thin-font-weight); /* 500 — Medium */
+  line-height: 20px;                       /* forced */
+  letter-spacing: var(--ui-letter-spacing); /* 0 */
+  text-align: center;
+  color: var(--colour-text-default-link-emphasis);
+  transition:
+    color 150ms cubic-bezier(0, 0, 0, 1),
+    font-weight 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* currentMonth=False: dimmed text */
+:global(.mds-cal-date:not(.mds-cal-date--current) .mds-cal-date__number) {
+  color: var(--colour-text-default-link-disabled);
+}
+
+/* currentMonth=False, Hover/Pressed: medium-emphasis (not focus/selected) */
+:global(.mds-cal-date:not(.mds-cal-date--current):not(.mds-cal-date--disabled):not(.mds-cal-date--focus):not(.mds-cal-date--selected):hover .mds-cal-date__number),
+:global(.mds-cal-date:not(.mds-cal-date--current):not(.mds-cal-date--focus):not(.mds-cal-date--selected).mds-cal-date--hover .mds-cal-date__number),
+:global(.mds-cal-date:not(.mds-cal-date--current):not(.mds-cal-date--disabled):not(.mds-cal-date--focus):not(.mds-cal-date--selected):active .mds-cal-date__number),
+:global(.mds-cal-date:not(.mds-cal-date--current):not(.mds-cal-date--focus):not(.mds-cal-date--selected).mds-cal-date--pressed .mds-cal-date__number) {
+  color: var(--colour-text-default-medium-emphasis);
+}
+
+/* Focus state: inverted text + bold weight */
+:global(.mds-cal-date--focus .mds-cal-date__number) {
+  color: var(--colour-text-inverted-base);
+  font-weight: var(--ui-font-weight);     /* 700 — Bold */
+}
+
+/* Ranged selected focus: also inverted + bold */
+:global(.mds-cal-date--ranged.mds-cal-date--selected.mds-cal-date--focus .mds-cal-date__number) {
+  color: var(--colour-text-inverted-base);
+  font-weight: var(--ui-font-weight);
+}
+
+/* Disabled */
+:global(.mds-cal-date--disabled .mds-cal-date__number) {
+  color: var(--colour-text-default-link-disabled);
+}
+
+/* ---- Today dot ----
+   4×4, absolute bottom-center of frame. Always present when isToday=true.
+   Default/Disabled: full circle (all corners rounded).
+   Hover/Pressed/Focus: half-pill (flat bottom, rounded top).
+   Focus: colour flips to white for contrast against purple-400 bg. */
+
+:global(.mds-cal-date__today-dot) {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 9999px;                              /* full circle — default/disabled */
+  background-color: var(--colour-brand-purple-400);
+  transition:
+    background-color 150ms cubic-bezier(0, 0, 0, 1),
+    border-radius 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* Hover/Pressed/Focus: half-pill (rounded top, flat bottom) */
+:global(.mds-cal-date:hover .mds-cal-date__today-dot),
+:global(.mds-cal-date.mds-cal-date--hover .mds-cal-date__today-dot),
+:global(.mds-cal-date:active .mds-cal-date__today-dot),
+:global(.mds-cal-date.mds-cal-date--pressed .mds-cal-date__today-dot),
+:global(.mds-cal-date--focus .mds-cal-date__today-dot) {
+  border-radius: 9999px 9999px 0 0;                   /* flat bottom */
+}
+
+/* Focus: white dot for contrast */
+:global(.mds-cal-date--focus .mds-cal-date__today-dot) {
+  background-color: var(--colour-neutral-white);
+}

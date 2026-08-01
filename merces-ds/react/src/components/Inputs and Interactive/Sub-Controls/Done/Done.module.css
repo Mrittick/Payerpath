@@ -1,0 +1,127 @@
+/* ==========================================================================
+   Merces Design System — Done
+   Sub-Controls / Done (confirm/check button)
+   Hybrid CSS Module: :global() preserves BEM class names.
+   Icon button using tick-circle-16-filled.svg, optional "Done" label.
+   Properties: Size (Base 24px / Mini 20px), Level (Primary / Secondary / Tertiary),
+               State (Hidden / Default / Hover / Pressed / Disabled), Label (True / False)
+   ========================================================================== */
+
+:global(.mds-done) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--radius-xs);
+  padding: var(--spacing-1xs);
+  gap: 0;
+  line-height: 0;
+  user-select: none;
+  transition:
+    background-color 150ms cubic-bezier(0, 0, 0, 1),
+    color 150ms cubic-bezier(0, 0, 0, 1),
+    opacity 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-done) > :global(.mds-icon) {
+  --icon-size: var(--icon-size-mini);
+}
+
+/* Size: Mini (20px) */
+:global(.mds-done--mini) {
+  padding: var(--spacing-2xs);
+}
+
+/* Label variant */
+:global(.mds-done--label) {
+  gap: var(--spacing-1xs);
+  padding: var(--spacing-2xs) var(--spacing-sm) var(--spacing-2xs) var(--spacing-md);
+}
+
+:global(.mds-done__label) {
+  font-family: var(--font-family);
+  font-size: var(--ui-font-size);
+  font-weight: var(--ui-font-weight);
+  line-height: var(--ui-line-height);
+  white-space: nowrap;
+}
+
+/* Level: Primary */
+:global(.mds-done--primary) {
+  background-color: var(--colour-brand-green-1000);
+  color: var(--colour-brand-green-400);
+}
+:global(.mds-done--primary):hover {
+  background-color: var(--colour-brand-green-400);
+  color: var(--colour-neutral-white);
+}
+:global(.mds-done--primary):active {
+  background-color: var(--colour-brand-green-100);
+  color: var(--colour-neutral-white);
+}
+:global(.mds-done--primary[disabled]),
+:global(.mds-done--primary[aria-disabled="true"]) {
+  background-color: var(--colour-brand-green-1000);
+  color: var(--colour-brand-green-400);
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Level: Secondary */
+:global(.mds-done--secondary) {
+  background-color: var(--colour-neutral-white);
+  color: var(--colour-brand-green-400);
+}
+:global(.mds-done--secondary):hover {
+  background-color: var(--colour-brand-green-400);
+  color: var(--colour-neutral-white);
+}
+:global(.mds-done--secondary):active {
+  background-color: var(--colour-brand-green-100);
+  color: var(--colour-neutral-white);
+}
+:global(.mds-done--secondary[disabled]),
+:global(.mds-done--secondary[aria-disabled="true"]) {
+  background-color: var(--colour-neutral-white);
+  color: var(--colour-brand-green-400);
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Level: Tertiary */
+:global(.mds-done--tertiary) {
+  background-color: transparent;
+  color: var(--colour-brand-green-400);
+}
+:global(.mds-done--tertiary):hover {
+  background-color: var(--colour-brand-green-400);
+  color: var(--colour-neutral-white);
+}
+:global(.mds-done--tertiary):active {
+  background-color: var(--colour-brand-green-100);
+  color: var(--colour-neutral-white);
+}
+:global(.mds-done--tertiary[disabled]),
+:global(.mds-done--tertiary[aria-disabled="true"]) {
+  background-color: transparent;
+  color: var(--colour-brand-green-400);
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* State: Hidden */
+:global(.mds-done--hidden) {
+  background-color: transparent;
+  color: transparent;
+  pointer-events: none;
+}
+:global(.mds-done--hidden) > :global(.mds-icon) {
+  opacity: 0;
+}
+:global(.mds-done--hidden) > :global(.mds-done__label) {
+  opacity: 0;
+}

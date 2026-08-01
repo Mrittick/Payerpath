@@ -1,0 +1,82 @@
+/* ==========================================================================
+   Merces Design System — Chevron Badge
+   Sub-Controls / Chevron Badge (directional chevron button)
+   Hybrid CSS Module: :global() preserves BEM class names.
+   Properties: Size (Huge 32px / Large 24px / Base 20px),
+               Direction (Down / Up / Left / Right),
+               State (Hidden / Default / Hover / Pressed / Active / Disabled)
+   All sizes use 16px bold icon.
+   ========================================================================== */
+
+:global(.mds-chevron-badge) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  background-color: transparent;
+  line-height: 0;
+  user-select: none;
+  transition:
+    background-color 150ms cubic-bezier(0, 0, 0, 1),
+    color 150ms cubic-bezier(0, 0, 0, 1),
+    opacity 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-chevron-badge) > :global(.mds-icon) {
+  --icon-size: var(--icon-size-mini);
+}
+
+/* Size variants */
+:global(.mds-chevron-badge--huge) {
+  padding: var(--spacing-md);
+  border-radius: var(--radius-sm);
+}
+:global(.mds-chevron-badge--large) {
+  padding: var(--spacing-1xs);
+  border-radius: var(--radius-xs);
+}
+:global(.mds-chevron-badge--base) {
+  padding: var(--spacing-2xs);
+  border-radius: var(--radius-xs);
+}
+
+/* State: Hover */
+:global(.mds-chevron-badge):hover {
+  background-color: var(--colour-brand-purple-1000);
+}
+
+/* State: Pressed */
+:global(.mds-chevron-badge):active {
+  background-color: var(--colour-brand-purple-900);
+}
+
+/* State: Active */
+:global(.mds-chevron-badge--active) {
+  background-color: var(--colour-brand-purple-100);
+  color: var(--colour-neutral-white);
+}
+:global(.mds-chevron-badge--active):hover {
+  background-color: var(--colour-brand-purple-100);
+}
+:global(.mds-chevron-badge--active):active {
+  background-color: var(--colour-brand-purple-100);
+}
+
+/* State: Disabled */
+:global(.mds-chevron-badge[disabled]),
+:global(.mds-chevron-badge[aria-disabled="true"]) {
+  background-color: transparent;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* State: Hidden */
+:global(.mds-chevron-badge--hidden) {
+  background-color: transparent;
+  pointer-events: none;
+}
+:global(.mds-chevron-badge--hidden) > :global(.mds-icon) {
+  opacity: 0;
+}

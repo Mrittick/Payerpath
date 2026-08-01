@@ -1,0 +1,112 @@
+/* ==========================================================================
+   Merces Design System — Checkbox Table
+   Inputs and Interactive / Checkbox / Checkbox Table
+   Hybrid CSS Module: :global() preserves BEM class names.
+   Figma: Checkbox Table (563:9700) — 96 variants
+   Hierarchy(Header/Entry) × Size(Base/Mini) × Type(Unchecked/Checked/Mixed)
+   × State(Default/Hover/Pressed/Disabled) × Focus(True/False)
+
+   Hierarchy is semantic only — Header and Entry are visually identical.
+
+   Structure: Root > Box > Icon
+   Layout:
+     Root: HORIZONTAL, CENTER, HUG×HUG, padding 0
+     Base: 28×28, radius 8 | Mini: 20×20, radius 6
+     Box Base: 28×28, padding 6, radius 8, NO stroke
+     Box Mini: 20×20, padding 4, radius 6, NO stroke
+     Icon Base: Tick/Mini/Bold (16px) or Dash/Mini/Regular (16px)
+     Icon Mini: Tick/Tiny/Bold (12px) or Dash/Tiny/Regular (12px)
+   ========================================================================== */
+
+/* ---- Root ---- */
+
+:global(.mds-checkbox-tbl) {
+  display: inline-flex;
+  align-items: center;             /* counterAxisAlign: CENTER */
+  width: fit-content;              /* HUG */
+  border-radius: var(--radius-md); /* 8px — base */
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  transition: box-shadow 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-checkbox-tbl--mini) {
+  border-radius: var(--radius-sm); /* 6px */
+}
+
+:global(.mds-checkbox-tbl--disabled) {
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ---- Focus ring ----
+   3px OUTSIDE stroke on Root, implemented as box-shadow */
+
+:global(.mds-checkbox-tbl--focus) {
+  box-shadow: 0 0 0 var(--stroke-button-focus)
+    var(--colour-stroke-element-focus-brand-enabled-base);
+}
+
+/* ---- Box ----
+   Base: 28×28, padding 6, radius 8, NO border/stroke
+   Mini: 20×20, padding 4, radius 6, NO border/stroke
+   Fill changes by State only (same for all Types) */
+
+:global(.mds-checkbox-tbl__box) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);   /* 8px */
+  background-color: var(--colour-bg-fill-button-checkbox-table-fill-default);
+  padding: var(--spacing-sm);        /* 6px */
+  transition: background-color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-checkbox-tbl--mini .mds-checkbox-tbl__box) {
+  border-radius: var(--radius-sm);   /* 6px */
+  padding: var(--spacing-1xs);       /* 4px */
+}
+
+/* ---- Box fills by State ---- */
+
+:global(.mds-checkbox-tbl:not(.mds-checkbox-tbl--disabled):hover .mds-checkbox-tbl__box),
+:global(.mds-checkbox-tbl--hover .mds-checkbox-tbl__box) {
+  background-color: var(--colour-bg-fill-button-checkbox-table-fill-hover);
+}
+
+:global(.mds-checkbox-tbl:not(.mds-checkbox-tbl--disabled):active .mds-checkbox-tbl__box),
+:global(.mds-checkbox-tbl--pressed .mds-checkbox-tbl__box) {
+  background-color: var(--colour-bg-fill-button-checkbox-table-fill-pressed);
+}
+
+:global(.mds-checkbox-tbl--disabled .mds-checkbox-tbl__box) {
+  background-color: var(--colour-bg-fill-button-checkbox-table-fill-disabled);
+}
+
+/* ---- Icon ----
+   Unchecked: opacity 0, colour purple-200
+   Checked/Mixed default/hover/pressed: opacity 1, colour purple-100
+   Checked/Mixed disabled: opacity 1, colour purple-600 */
+
+:global(.mds-checkbox-tbl__icon) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--colour-brand-purple-200);
+  opacity: 0;
+  transition:
+    opacity 150ms cubic-bezier(0, 0, 0, 1),
+    color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-checkbox-tbl--checked .mds-checkbox-tbl__icon),
+:global(.mds-checkbox-tbl--mixed .mds-checkbox-tbl__icon) {
+  color: var(--colour-brand-purple-100);
+  opacity: 1;
+}
+
+:global(.mds-checkbox-tbl--checked.mds-checkbox-tbl--disabled .mds-checkbox-tbl__icon),
+:global(.mds-checkbox-tbl--mixed.mds-checkbox-tbl--disabled .mds-checkbox-tbl__icon) {
+  color: var(--colour-brand-purple-600);
+}

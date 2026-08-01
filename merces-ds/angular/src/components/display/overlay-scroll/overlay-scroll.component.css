@@ -1,0 +1,157 @@
+/* ── Overlay Scroll
+   Hides the native scrollbar and renders custom floating tracks for both
+   vertical and horizontal axes. Zero layout impact on all platforms.
+
+   Consumer API — set on the host element:
+     --overlay-scroll-gap          gap between content items (default: 0px)
+     --overlay-scroll-overscroll   overscroll-behavior (default: contain)
+     --overlay-scroll-overflow-x   overflow-x on the viewport (default: auto).
+                                   Set to "hidden" to suppress horizontal scrolling
+                                   so wheel events on that axis bubble to ancestors.
+     --overlay-scroll-overflow-y   overflow-y on the viewport (default: auto).
+                                   Set to "hidden" to suppress vertical scrolling
+                                   so wheel events on that axis bubble to ancestors.
+     --overlay-scroll-track-y-top  offset from top before vertical track starts,
+                                   e.g. sticky header height (default: 0px).
+                                   An additional --overlay-scroll-track-end-gap
+                                   is always added on top of this value.
+     --overlay-scroll-track-end-gap inset at each track end — bottom of vertical,
+                                   left+right of horizontal (default: 4px)
+   ── */
+
+:host {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ── Viewport — both axes auto so content drives which tracks appear ── */
+
+.os-viewport {
+  flex: 1;
+  min-height: 0;
+  overflow-y: var(--overlay-scroll-overflow-y, auto);
+  overflow-x: var(--overlay-scroll-overflow-x, auto);
+  overscroll-behavior: var(--overlay-scroll-overscroll, contain);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.os-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Content wrapper ── */
+
+.os-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--overlay-scroll-gap, 0px);
+}
+
+/* ══════════════════════════════════════════════════════════
+   Vertical track
+   ══════════════════════════════════════════════════════════ */
+
+.os-track-y {
+  position: absolute;
+  top: calc(var(--overlay-scroll-track-y-top, 0px) + var(--overlay-scroll-track-end-gap, 4px));
+  right: 3px;
+  /* bottom clears the horizontal track footprint (3px offset + 4px height = 7px) + end gap */
+  bottom: calc(var(--overlay-scroll-track-end-gap, 4px) + 7px);
+  width: 4px;
+  z-index: 5; /* above sticky columns (max z-index:4) inside the scroll viewport */
+  border-radius: var(--radius-full);
+  opacity: 0;
+  cursor: pointer;
+  transition:
+    opacity  200ms cubic-bezier(0, 0, 0, 1),
+    width    200ms cubic-bezier(0, 0, 0, 1),
+    right    200ms cubic-bezier(0, 0, 0, 1);
+}
+
+:host:hover .os-track-y,
+.os-track-y--dragging {
+  opacity: 1;
+}
+
+:host:hover .os-track-y:hover,
+.os-track-y--dragging {
+  width: 6px;
+  right: 2px;
+}
+
+.os-thumb-y {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-radius: inherit;
+  background: var(--colour-fill-scrollbar-default);
+  cursor: grab;
+  transition: background 150ms cubic-bezier(0, 0, 0, 1);
+  user-select: none;
+}
+
+.os-thumb-y:hover {
+  background: var(--colour-fill-scrollbar-hover);
+}
+
+.os-track-y--dragging .os-thumb-y {
+  background: var(--colour-fill-scrollbar-pressed);
+  cursor: grabbing;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Horizontal track
+   ══════════════════════════════════════════════════════════ */
+
+.os-track-x {
+  position: absolute;
+  left: var(--overlay-scroll-track-end-gap, 4px);
+  /* right clears the vertical track footprint (3px offset + 4px width = 7px) + end gap */
+  right: calc(var(--overlay-scroll-track-end-gap, 4px) + 7px);
+  bottom: 3px;
+  height: 4px;
+  z-index: 5; /* above sticky columns (max z-index:4) inside the scroll viewport */
+  border-radius: var(--radius-full);
+  opacity: 0;
+  cursor: pointer;
+  transition:
+    opacity  200ms cubic-bezier(0, 0, 0, 1),
+    height   200ms cubic-bezier(0, 0, 0, 1),
+    bottom   200ms cubic-bezier(0, 0, 0, 1);
+}
+
+:host:hover .os-track-x,
+.os-track-x--dragging {
+  opacity: 1;
+}
+
+:host:hover .os-track-x:hover,
+.os-track-x--dragging {
+  height: 6px;
+  bottom: 2px;
+}
+
+.os-thumb-x {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: inherit;
+  background: var(--colour-fill-scrollbar-default);
+  cursor: grab;
+  transition: background 150ms cubic-bezier(0, 0, 0, 1);
+  user-select: none;
+}
+
+.os-thumb-x:hover {
+  background: var(--colour-fill-scrollbar-hover);
+}
+
+.os-track-x--dragging .os-thumb-x {
+  background: var(--colour-fill-scrollbar-pressed);
+  cursor: grabbing;
+}

@@ -1,0 +1,168 @@
+/* ==========================================================================
+   Merces Design System — Checkbox Card
+   Inputs and Interactive / Checkbox / Checkbox Card
+   Hybrid CSS Module: :global() preserves BEM class names.
+   Figma: Checkbox Card (608:8661) — 16 variants
+   Size(Base/Mini) × Selected(True/False) × State(Default/Hover/Pressed/Disabled)
+
+   Structure: Root (card) > Checkbox (instance) + Text Frame > Text
+   Layout:
+     Root: HORIZONTAL, MIN×MIN, FIXED(200)×HUG, radius 12, 1px INSIDE stroke
+     Base: padding 12, gap 10 | Mini: padding 8, gap 8
+     Text Frame: FILL×HUG, padding base 4/4/0/0 mini 0
+     Text: FILL×HUG, textAutoResize HEIGHT (wraps)
+   ========================================================================== */
+
+/* ---- Root ---- */
+
+:global(.mds-checkbox-card) {
+  display: inline-flex;
+  align-items: flex-start;           /* counterAxisAlign: MIN */
+  box-sizing: border-box;            /* Figma 1px INSIDE stroke → include border in width */
+  width: 200px;                      /* FIXED width from Figma */
+  border-radius: var(--radius-lg);   /* 12px */
+  border: 1px solid var(--colour-brand-purple-1000);
+  background-color: var(--colour-neutral-white);
+  padding: 11px;                     /* Figma 12px − 1px border (INSIDE stroke) */
+  gap: var(--spacing-lg);            /* 10px — base */
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color 150ms cubic-bezier(0, 0, 0, 1),
+    border-color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* ---- Mini size ---- */
+
+:global(.mds-checkbox-card--mini) {
+  padding: 7px;              /* Figma 8px − 1px border (INSIDE stroke) */
+  gap: var(--spacing-md);    /* 8px */
+}
+
+/* ---- Unselected states ----
+   Must exclude --selected so these don't override selected border-color. */
+
+:global(.mds-checkbox-card:not(.mds-checkbox-card--selected):not(.mds-checkbox-card--disabled):hover),
+:global(.mds-checkbox-card:not(.mds-checkbox-card--selected).mds-checkbox-card--hover) {
+  background-color: var(--colour-brand-purple-1100);
+  border-color: var(--colour-brand-purple-900);
+}
+
+:global(.mds-checkbox-card:not(.mds-checkbox-card--selected):not(.mds-checkbox-card--disabled):active),
+:global(.mds-checkbox-card:not(.mds-checkbox-card--selected).mds-checkbox-card--pressed) {
+  background-color: var(--colour-brand-purple-1000);
+  border-color: var(--colour-brand-purple-900);
+}
+
+:global(.mds-checkbox-card:not(.mds-checkbox-card--selected).mds-checkbox-card--disabled) {
+  border-color: var(--colour-brand-purple-1100);
+  cursor: default;
+  pointer-events: none;
+}
+
+:global(.mds-checkbox-card--selected.mds-checkbox-card--disabled) {
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ---- Selected states ---- */
+
+:global(.mds-checkbox-card--selected) {
+  border-color: var(--colour-brand-purple-400);
+}
+
+:global(.mds-checkbox-card--selected:not(.mds-checkbox-card--disabled):hover),
+:global(.mds-checkbox-card--selected.mds-checkbox-card--hover) {
+  background-color: var(--colour-brand-purple-1100);
+  border-color: var(--colour-brand-purple-400);
+}
+
+:global(.mds-checkbox-card--selected:not(.mds-checkbox-card--disabled):active),
+:global(.mds-checkbox-card--selected.mds-checkbox-card--pressed) {
+  background-color: var(--colour-brand-purple-1000);
+  border-color: var(--colour-brand-purple-400);
+}
+
+:global(.mds-checkbox-card--selected.mds-checkbox-card--disabled) {
+  border-color: var(--colour-brand-purple-800);
+}
+
+/* ---- Inner Checkbox ----
+   The embedded Checkbox must not respond to browser :hover/:active on itself —
+   instead the Card root drives the inner checkbox visual via descendant selectors.
+   pointer-events: none blocks direct :hover/:active on the checkbox element. */
+
+:global(.mds-checkbox-card .mds-checkbox) {
+  pointer-events: none;
+}
+
+/* Card hover → inner checkbox box (unchecked) */
+:global(.mds-checkbox-card:not(.mds-checkbox-card--disabled):hover .mds-checkbox:not(.mds-checkbox--checked):not(.mds-checkbox--mixed) .mds-checkbox__box) {
+  background-color: var(--colour-bg-fill-button-checkbox-unchecked-hover);
+}
+
+/* Card pressed → inner checkbox box (unchecked) */
+:global(.mds-checkbox-card:not(.mds-checkbox-card--disabled):active .mds-checkbox:not(.mds-checkbox--checked):not(.mds-checkbox--mixed) .mds-checkbox__box) {
+  background-color: var(--colour-bg-fill-button-checkbox-unchecked-pressed);
+}
+
+/* Card hover → inner checkbox box (checked/mixed) */
+:global(.mds-checkbox-card:not(.mds-checkbox-card--disabled):hover .mds-checkbox--checked .mds-checkbox__box),
+:global(.mds-checkbox-card:not(.mds-checkbox-card--disabled):hover .mds-checkbox--mixed .mds-checkbox__box) {
+  background-color: var(--colour-bg-fill-button-checkbox-checked-hover);
+  border-color: var(--colour-stroke-button-checkbox);
+}
+
+/* Card pressed → inner checkbox box (checked/mixed) */
+:global(.mds-checkbox-card:not(.mds-checkbox-card--disabled):active .mds-checkbox--checked .mds-checkbox__box),
+:global(.mds-checkbox-card:not(.mds-checkbox-card--disabled):active .mds-checkbox--mixed .mds-checkbox__box) {
+  background-color: var(--colour-bg-fill-button-checkbox-checked-pressed);
+  border-color: var(--colour-stroke-button-checkbox);
+}
+
+/* Card pressed → inner checkbox icon (checked/mixed): purple-100 */
+:global(.mds-checkbox-card:not(.mds-checkbox-card--disabled):active .mds-checkbox--checked .mds-checkbox__icon),
+:global(.mds-checkbox-card:not(.mds-checkbox-card--disabled):active .mds-checkbox--mixed .mds-checkbox__icon) {
+  color: var(--colour-brand-purple-100);
+}
+
+/* ---- Text Frame ----
+   Figma Base: FILL×HUG, padding 4px top/bottom, counterAxisAlign MIN
+   Figma Mini: FILL×HUG, padding 0, counterAxisAlign MIN
+   With line-height forced to 20px: 4 + 20 + 4 = 28 = checkbox height. */
+
+:global(.mds-checkbox-card__text-frame) {
+  display: flex;
+  align-items: flex-start;             /* counterAxisAlign: MIN */
+  flex: 1 1 0%;                        /* FILL width */
+  min-width: 0;
+  padding-top: var(--spacing-1xs);     /* 4px — base */
+  padding-bottom: var(--spacing-1xs);  /* 4px — base */
+}
+
+:global(.mds-checkbox-card--mini .mds-checkbox-card__text-frame) {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* ---- Label text ----
+   Base: paragraph/ui (Bold 700) | Mini: paragraph/ui-thin (Medium 500)
+   Enabled: colour/text/checkbox/enabled | Disabled: colour/text/checkbox/disabled
+   line-height forced to 20px (Figma's rounded bounding box for 14×140%). */
+
+:global(.mds-checkbox-card__label) {
+  font-family: var(--font-family);
+  font-size: var(--ui-font-size);          /* 14px */
+  font-weight: var(--ui-font-weight);      /* 700 — Bold (paragraph/ui) */
+  line-height: 20px;                       /* 14×140% → Figma rounds to 20px */
+  letter-spacing: var(--ui-letter-spacing); /* 0 */
+  color: var(--colour-text-checkbox-enabled);
+}
+
+:global(.mds-checkbox-card--mini .mds-checkbox-card__label) {
+  font-weight: var(--ui-thin-font-weight); /* 500 — Medium (paragraph/ui-thin) */
+}
+
+:global(.mds-checkbox-card--disabled .mds-checkbox-card__label) {
+  color: var(--colour-text-checkbox-disabled);
+}

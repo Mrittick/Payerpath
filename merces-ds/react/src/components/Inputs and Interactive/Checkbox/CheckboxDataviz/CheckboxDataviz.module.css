@@ -1,0 +1,225 @@
+/* ==========================================================================
+   Merces Design System — Checkbox Dataviz
+   Inputs and Interactive / Checkbox / Checkbox Dataviz
+   Hybrid CSS Module: :global() preserves BEM class names.
+   Figma: Checkbox Dataviz (323:2925) — 128 variants
+   Series(01–08) × Type(Unchecked/Checked)
+   × State(Default/Hover/Pressed/Disabled) × Focus(True/False)
+
+   Structure: Root > Frame (focus wrapper) > Box > Icon  +  Root > Text
+   Layout:
+     Root: HORIZONTAL, CENTER, HUG×HUG, gap 8px
+     Frame: 20×20, radius 6, focus: 3px OUTSIDE
+     Box: 20×20, padding 4, radius 6, stroke 2px
+     Icon: Tick/Tiny/Bold (12px)
+     Text: paragraph/p4-bold — 12px Bold 140%
+   ========================================================================== */
+
+/* ---- Series colour definitions ----
+   Each series sets --dv-color, --dv-hover, --dv-pressed, --dv-hint.
+   S01 uses design tokens; S02–S08 use Figma raw hex for hover/pressed/hint. */
+
+:global(.mds-checkbox-dv--s01) {
+  --dv-color: var(--colour-dataviz-series-01-default);
+  --dv-hover: var(--colour-dataviz-series-01-hover);
+  --dv-pressed: var(--colour-dataviz-series-01-pressed);
+  --dv-hint: var(--colour-dataviz-series-01-hint);
+}
+
+:global(.mds-checkbox-dv--s02) {
+  --dv-color: var(--colour-dataviz-legend-series-02);
+  --dv-hover: #e7d623;
+  --dv-pressed: #b2a307;
+  --dv-hint: #fff370;
+}
+
+:global(.mds-checkbox-dv--s03) {
+  --dv-color: var(--colour-dataviz-legend-series-03);
+  --dv-hover: #bfe723;
+  --dv-pressed: #90b207;
+  --dv-hint: #e2ff70;
+}
+
+:global(.mds-checkbox-dv--s04) {
+  --dv-color: var(--colour-dataviz-legend-series-04);
+  --dv-hover: #23e7bf;
+  --dv-pressed: #07b290;
+  --dv-hint: #70ffe2;
+}
+
+:global(.mds-checkbox-dv--s05) {
+  --dv-color: var(--colour-dataviz-legend-series-05);
+  --dv-hover: #23b6e7;
+  --dv-pressed: #0787b2;
+  --dv-hint: #70dbff;
+}
+
+:global(.mds-checkbox-dv--s06) {
+  --dv-color: var(--colour-dataviz-legend-series-06);
+  --dv-hover: #235de7;
+  --dv-pressed: #073ab2;
+  --dv-hint: #709bff;
+}
+
+:global(.mds-checkbox-dv--s07) {
+  --dv-color: var(--colour-dataviz-legend-series-07);
+  --dv-hover: #7423e7;
+  --dv-pressed: #4e07b2;
+  --dv-hint: #ac70ff;
+}
+
+:global(.mds-checkbox-dv--s08) {
+  --dv-color: var(--colour-dataviz-legend-series-08);
+  --dv-hover: #e723a5;
+  --dv-pressed: #b20779;
+  --dv-hint: #ff70cf;
+}
+
+/* ---- Root ---- */
+
+:global(.mds-checkbox-dv) {
+  display: inline-flex;
+  align-items: center;           /* counterAxisAlign: CENTER */
+  width: fit-content;
+  gap: var(--spacing-md);        /* 8px */
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+}
+
+:global(.mds-checkbox-dv--disabled) {
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ---- Frame (focus ring wrapper) ----
+   Figma: 20×20, HORIZONTAL, CENTER, HUG×HUG, radius 6
+   Focus: 3px OUTSIDE stroke */
+
+:global(.mds-checkbox-dv__frame) {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  border-radius: var(--radius-sm); /* 6px */
+  transition: box-shadow 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-checkbox-dv--focus .mds-checkbox-dv__frame) {
+  box-shadow: 0 0 0 var(--stroke-button-focus)
+    var(--colour-stroke-element-focus-brand-enabled-base);
+}
+
+/* ---- Box ----
+   20×20, radius 6, padding 4, stroke 2px INSIDE
+   Figma INSIDE stroke is within element bounds; CSS border adds outside.
+   CSS padding = Figma padding − border-width: 4−2 = 2px.
+   2+2+12+2+2 = 20px ✓
+   Stroke always uses --dv-color (series default)
+   Fill varies by Type × State */
+
+:global(.mds-checkbox-dv__box) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm); /* 6px */
+  border: 2px solid var(--dv-color);
+  background-color: var(--colour-bg-fill-button-checkbox-unchecked-default);
+  padding: 2px;                    /* Figma 4px − 2px border */
+  transition:
+    background-color 150ms cubic-bezier(0, 0, 0, 1),
+    border-color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* ---- Unchecked states ----
+   Default: white fill, series stroke
+   Hover: white + hint overlay (approximated as hint colour), series stroke
+   Pressed: series fill + stroke (same as checked default)
+   Disabled: white fill, series stroke */
+
+:global(.mds-checkbox-dv:not(.mds-checkbox-dv--checked):not(.mds-checkbox-dv--disabled):hover .mds-checkbox-dv__box),
+:global(.mds-checkbox-dv:not(.mds-checkbox-dv--checked).mds-checkbox-dv--hover .mds-checkbox-dv__box) {
+  background-color: var(--dv-hint);
+}
+
+:global(.mds-checkbox-dv:not(.mds-checkbox-dv--checked):not(.mds-checkbox-dv--disabled):active .mds-checkbox-dv__box),
+:global(.mds-checkbox-dv:not(.mds-checkbox-dv--checked).mds-checkbox-dv--pressed .mds-checkbox-dv__box) {
+  background-color: var(--dv-color);
+}
+
+:global(.mds-checkbox-dv:not(.mds-checkbox-dv--checked).mds-checkbox-dv--disabled .mds-checkbox-dv__box) {
+  background-color: var(--colour-neutral-white);
+}
+
+/* ---- Checked states ----
+   Default: series fill + stroke
+   Hover: series hover fill + stroke
+   Pressed: series pressed fill + stroke
+   Disabled: white fill, series stroke */
+
+:global(.mds-checkbox-dv--checked .mds-checkbox-dv__box) {
+  background-color: var(--dv-color);
+  border-color: var(--dv-color);
+}
+
+:global(.mds-checkbox-dv--checked:not(.mds-checkbox-dv--disabled):hover .mds-checkbox-dv__box),
+:global(.mds-checkbox-dv--checked.mds-checkbox-dv--hover .mds-checkbox-dv__box) {
+  background-color: var(--dv-hover);
+  border-color: var(--dv-hover);
+}
+
+:global(.mds-checkbox-dv--checked:not(.mds-checkbox-dv--disabled):active .mds-checkbox-dv__box),
+:global(.mds-checkbox-dv--checked.mds-checkbox-dv--pressed .mds-checkbox-dv__box) {
+  background-color: var(--dv-pressed);
+  border-color: var(--dv-pressed);
+}
+
+:global(.mds-checkbox-dv--checked.mds-checkbox-dv--disabled .mds-checkbox-dv__box) {
+  background-color: var(--colour-neutral-white);
+  border-color: var(--dv-color);
+}
+
+/* ---- Icon ----
+   Unchecked: opacity 0
+   Checked default/hover/pressed: opacity 1, colour white
+   Checked disabled: opacity 1, colour = series default */
+
+:global(.mds-checkbox-dv__icon) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--colour-neutral-white);
+  opacity: 0;
+  transition:
+    opacity 150ms cubic-bezier(0, 0, 0, 1),
+    color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-checkbox-dv--checked .mds-checkbox-dv__icon) {
+  opacity: 1;
+}
+
+:global(.mds-checkbox-dv--checked.mds-checkbox-dv--disabled .mds-checkbox-dv__icon) {
+  color: var(--dv-color);
+}
+
+/* ---- Label text ----
+   paragraph/p4-bold — 12px Bold 140%
+   line-height forced to 20px to match the 20×20 box height exactly,
+   so align-items: center on Root produces true middle alignment.
+   12×140% = 16.8px → fractional; 20px eliminates sub-pixel drift.
+   Enabled: colour/text/default/base
+   Disabled: colour/text/default/disabled */
+
+:global(.mds-checkbox-dv__label) {
+  font-family: var(--font-family);
+  font-size: var(--p4-bold-font-size);          /* 12px */
+  font-weight: var(--p4-bold-font-weight);      /* 700 */
+  line-height: 20px;                            /* match 20px box height */
+  letter-spacing: var(--p4-bold-letter-spacing); /* 0 */
+  color: var(--colour-text-default-base);
+  transition: color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-checkbox-dv--disabled .mds-checkbox-dv__label) {
+  color: var(--colour-text-default-disabled);
+}

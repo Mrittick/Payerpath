@@ -1,0 +1,248 @@
+/* ==========================================================================
+   Merces Design System — Tab Component
+   Figma: 40 variants (Level01 pill, Level02 underline)
+   Self-contained — no button-shared.css dependency
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Base — outer wrapper (button reset + shared)
+   -------------------------------------------------------------------------- */
+
+:global(.mds-tab) {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  outline: var(--stroke-button-focus) solid transparent;
+  outline-offset: 0px;
+  transition:
+    background-color 150ms cubic-bezier(0, 0, 0, 1),
+    color            150ms cubic-bezier(0, 0, 0, 1),
+    border-color     150ms cubic-bezier(0, 0, 0, 1),
+    outline-color    150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* --------------------------------------------------------------------------
+   Inner — Frame wrapper
+   -------------------------------------------------------------------------- */
+
+:global(.mds-tab__inner) {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border-radius: var(--radius-md);
+}
+
+/* --------------------------------------------------------------------------
+   Content — Tab frame (bg-fill, stroke, padding, text)
+   -------------------------------------------------------------------------- */
+
+:global(.mds-tab__content) {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  transition:
+    background-color 150ms cubic-bezier(0, 0, 0, 1),
+    color            150ms cubic-bezier(0, 0, 0, 1),
+    border-color     150ms cubic-bezier(0, 0, 0, 1),
+    outline-color    150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* --------------------------------------------------------------------------
+   Label — text node
+   -------------------------------------------------------------------------- */
+
+:global(.mds-tab__label) {
+  white-space: nowrap;
+  transition:
+    color       150ms cubic-bezier(0, 0, 0, 1),
+    font-weight 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* ==========================================================================
+   HIERARCHY — Level01 (Pill)
+   ========================================================================== */
+
+/* ---- Outer wrapper ---- */
+:global(.mds-tab--level01) {
+  border-radius: var(--radius-md);
+}
+
+/* ---- Content: stroke border (Figma strokeAlign=INSIDE)
+   CSS borders are additive for auto-height elements, so padding
+   is reduced by the border width to match Figma dimensions. ---- */
+:global(.mds-tab--level01) :global(.mds-tab__content) {
+  border: var(--stroke-button-tab-base) solid var(--colour-stroke-button-tab);
+}
+
+/* ---- Typography: paragraph/ui (Bold 14px 140%) ---- */
+:global(.mds-tab--level01) :global(.mds-tab__label) {
+  font-size: var(--ui-font-size);
+  font-weight: var(--ui-font-weight);
+  line-height: var(--ui-line-height);
+  letter-spacing: var(--ui-letter-spacing);
+  color: var(--colour-text-default-base);
+}
+
+/* ---- Size: Base — Figma padding 10/16/10/16, stroke 2px inside
+   CSS: 10-2=8 / 16-2=14 ---- */
+:global(.mds-tab--level01.mds-tab--base) :global(.mds-tab__content) {
+  padding:
+    calc(var(--spacing-lg) - var(--stroke-button-tab-base))
+    calc(var(--spacing-3xl) - var(--stroke-button-tab-base));
+}
+
+/* ---- Size: Mini — Figma padding 6/12/6/12, stroke 1px inside
+   CSS: 6-1=5 / 12-1=11 ---- */
+:global(.mds-tab--level01.mds-tab--mini) :global(.mds-tab__content) {
+  padding:
+    calc(var(--spacing-sm) - var(--stroke-button-tab-mini))
+    calc(var(--spacing-1xl) - var(--stroke-button-tab-mini));
+  border-width: var(--stroke-button-tab-mini);
+}
+
+/* ---- State: Default — transparent bg ---- */
+:global(.mds-tab--level01) :global(.mds-tab__content) {
+  background-color: transparent;
+}
+
+/* ---- State: Hover ---- */
+:global(.mds-tab--level01.mds-tab--hover) :global(.mds-tab__content),
+:global(.mds-tab--level01:not(.mds-tab--disabled):not(.mds-tab--current):hover) :global(.mds-tab__content) {
+  background-color: var(--colour-bg-fill-button-tab-hover);
+}
+
+/* ---- State: Pressed ---- */
+:global(.mds-tab--level01.mds-tab--pressed) :global(.mds-tab__content),
+:global(.mds-tab--level01:not(.mds-tab--disabled):not(.mds-tab--current):active) :global(.mds-tab__content) {
+  background-color: var(--colour-bg-fill-button-tab-pressed);
+}
+
+/* ---- State: Current ---- */
+:global(.mds-tab--level01.mds-tab--current) :global(.mds-tab__content) {
+  background-color: var(--colour-bg-fill-button-tab-emphasis);
+  border-color: transparent;
+}
+
+:global(.mds-tab--level01.mds-tab--current) :global(.mds-tab__label) {
+  color: var(--colour-text-inverted-base);
+}
+
+/* ---- State: Disabled ---- */
+:global(.mds-tab--level01.mds-tab--disabled) :global(.mds-tab__content) {
+  background-color: var(--colour-bg-fill-button-tab-disabled);
+}
+
+:global(.mds-tab--level01.mds-tab--disabled) :global(.mds-tab__label) {
+  color: var(--colour-text-default-disabled);
+}
+
+:global(.mds-tab--level01.mds-tab--disabled) {
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   HIERARCHY — Level02 (Underline)
+   ========================================================================== */
+
+/* ---- Outer wrapper: bottom-border (Figma strokeAlign=INSIDE)
+   Figma padding: 0/4/8/4, border-bottom: 1px inside
+   CSS: bottom padding 8-1=7 to compensate for additive border ---- */
+:global(.mds-tab--level02) {
+  border-radius: 0;
+  padding:
+    var(--spacing-nil)
+    var(--spacing-1xs)
+    calc(var(--spacing-md) - var(--stroke-tab-h02-default))
+    var(--spacing-1xs);
+  border-bottom: var(--stroke-tab-h02-default) solid var(--colour-neutral-grey-500);
+  outline: none;
+}
+
+/* ---- Content: no stroke border ---- */
+:global(.mds-tab--level02) :global(.mds-tab__content) {
+  border: none;
+}
+
+/* ---- Typography: paragraph/ui-thin (Medium 14px 140%) by default ---- */
+:global(.mds-tab--level02) :global(.mds-tab__label) {
+  font-size: var(--ui-thin-font-size);
+  font-weight: var(--ui-thin-font-weight);
+  line-height: var(--ui-thin-line-height);
+  letter-spacing: var(--ui-thin-letter-spacing);
+  color: var(--colour-text-default-link-emphasis);
+}
+
+/* ---- Size: Base — padding 10/16/10/16 ---- */
+:global(.mds-tab--level02.mds-tab--base) :global(.mds-tab__content) {
+  padding: var(--spacing-lg) var(--spacing-3xl);
+}
+
+/* ---- Size: Mini — padding 6/12/6/12 ---- */
+:global(.mds-tab--level02.mds-tab--mini) :global(.mds-tab__content) {
+  padding: var(--spacing-sm) var(--spacing-1xl);
+}
+
+/* ---- State: Hover ---- */
+:global(.mds-tab--level02.mds-tab--hover) :global(.mds-tab__content),
+:global(.mds-tab--level02:not(.mds-tab--disabled):not(.mds-tab--current):hover) :global(.mds-tab__content) {
+  background-color: var(--colour-bg-fill-button-tab-hover);
+}
+
+/* ---- State: Pressed ---- */
+:global(.mds-tab--level02.mds-tab--pressed) :global(.mds-tab__content),
+:global(.mds-tab--level02:not(.mds-tab--disabled):not(.mds-tab--current):active) :global(.mds-tab__content) {
+  background-color: var(--colour-bg-fill-button-tab-pressed);
+}
+
+/* ---- State: Current — thicker/darker bottom border, bold text ---- */
+:global(.mds-tab--level02.mds-tab--current) {
+  border-bottom-width: var(--stroke-tab-h02-current);
+  border-bottom-color: var(--colour-neutral-grey-100);
+}
+
+:global(.mds-tab--level02.mds-tab--current) :global(.mds-tab__label) {
+  font-size: var(--ui-font-size);
+  font-weight: var(--ui-font-weight);
+  line-height: var(--ui-line-height);
+  letter-spacing: var(--ui-letter-spacing);
+  color: var(--colour-text-default-base);
+}
+
+/* ---- State: Disabled — bold text, disabled color ---- */
+:global(.mds-tab--level02.mds-tab--disabled) :global(.mds-tab__content) {
+  background-color: var(--colour-bg-fill-button-tab-disabled);
+}
+
+:global(.mds-tab--level02.mds-tab--disabled) :global(.mds-tab__label) {
+  font-size: var(--ui-font-size);
+  font-weight: var(--ui-font-weight);
+  line-height: var(--ui-line-height);
+  letter-spacing: var(--ui-letter-spacing);
+  color: var(--colour-text-default-disabled);
+}
+
+:global(.mds-tab--level02.mds-tab--disabled) {
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   FOCUS RING
+   ========================================================================== */
+
+/* ---- Level01: outline on outer wrapper ---- */
+:global(.mds-tab--level01.mds-tab--focus) {
+  outline-color: var(--colour-stroke-element-focus-brand-enabled-base);
+}
+
+/* ---- Level02: outline on inner frame (not outer wrapper) ---- */
+:global(.mds-tab--level02.mds-tab--focus) :global(.mds-tab__inner) {
+  outline: var(--stroke-button-focus) solid var(--colour-stroke-element-focus-brand-enabled-base);
+  outline-offset: 0px;
+  border-radius: var(--radius-md);
+}

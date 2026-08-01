@@ -1,0 +1,28 @@
+/* ==========================================================================
+   Tab Demo — Layout Styles
+   Uses :global() so class names stay as plain BEM for demo scaffolding.
+   Font inherits from body { font-family: var(--font-family) } in
+   typography.css — no per-element font-family needed.
+   ========================================================================== */
+
+:global(.mds-demo__heading) {
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+:global(.mds-demo__section-title) {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 4px;
+}
+
+:global(.mds-demo__label) {
+  display: block;
+  font-size: 10px;
+  font-weight: 500;
+  margin-top: 4px;
+  text-align: center;
+  color: #666;
+}

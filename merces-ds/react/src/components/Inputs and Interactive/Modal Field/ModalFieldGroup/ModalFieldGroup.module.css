@@ -1,0 +1,52 @@
+/* ==========================================================================
+   Merces Design System — Modal Field Group
+   Inputs and Interactive / Modal Field Group
+   Hybrid CSS Module: :global() preserves BEM class names.
+   Figma: Modal Field Group (3086:3457) — 4 variants
+   Layout(Vertical/Horizontal) × Padding(Default/Span)
+   ========================================================================== */
+
+/* ---- Base (Vertical) ---- */
+
+:global(.mds-modal-field-group) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1xl);
+}
+
+/* Label fills width in vertical layout */
+:global(.mds-modal-field-group__label) {
+  font-family: var(--font-family);
+  font-size: var(--ui-thin-font-size);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--ui-thin-line-height);
+  letter-spacing: var(--ui-thin-letter-spacing);
+  color: var(--colour-text-default-base);
+}
+
+/* Field stretches full width */
+:global(.mds-modal-field-group__field) {
+  display: flex;
+}
+
+:global(.mds-modal-field-group__field) > * {
+  flex: 1 1 0%;
+}
+
+/* ---- Horizontal: Default (label HUG, field FILL) ---- */
+
+:global(.mds-modal-field-group--horizontal) {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-3xl);
+}
+
+/* ---- Horizontal: Span (50/50 split) ---- */
+
+:global(.mds-modal-field-group--span .mds-modal-field-group__label) {
+  flex: 1 1 0%;
+}
+
+:global(.mds-modal-field-group--span .mds-modal-field-group__field) {
+  flex: 1 1 0%;
+}

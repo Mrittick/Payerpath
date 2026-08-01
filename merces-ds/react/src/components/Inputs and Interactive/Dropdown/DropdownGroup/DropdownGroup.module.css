@@ -1,0 +1,77 @@
+/* DropdownGroup — label + Dropdown wrapper
+   Figma: Dropdown Group (289:4938)
+   Variants: Layout(Vertical/Horizontal) × Span(False/True) × MoreInfo(False/True)
+*/
+
+/* ---- Base ---- */
+
+:global(.mds-dropdown-group) {
+  display: flex;
+}
+
+/* Vertical layout — column */
+:global(.mds-dropdown-group--vertical) {
+  flex-direction: column;
+  gap: var(--spacing-1xl);
+}
+
+/* Horizontal layout — row */
+:global(.mds-dropdown-group--horizontal) {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-4xl);
+}
+
+/* Horizontal + Span — equal width split */
+:global(.mds-dropdown-group--horizontal.mds-dropdown-group--span) {
+  gap: var(--spacing-1xl);
+}
+
+/* ---- Label ---- */
+
+:global(.mds-dropdown-group__label) {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1xl);
+  padding: 0 var(--spacing-2xl);
+  font-family: var(--font-family);
+  font-size: var(--ui-font-size);
+  font-weight: var(--ui-font-weight);
+  line-height: var(--ui-line-height);
+  letter-spacing: var(--ui-letter-spacing);
+  color: var(--colour-text-default-base);
+  text-align: left;
+}
+
+/* Horizontal: label doesn't need horizontal padding */
+:global(.mds-dropdown-group--horizontal .mds-dropdown-group__label) {
+  padding: 0;
+}
+
+/* Span: label takes 50% */
+:global(.mds-dropdown-group--span .mds-dropdown-group__label) {
+  flex: 1 1 0%;
+}
+
+/* Label text fills remaining space, pushing MoreInfo to far right
+   Figma: Text node layoutSizingHorizontal = FILL */
+:global(.mds-dropdown-group__label) > span:first-child {
+  flex: 1 1 0%;
+}
+
+/* ---- Dropdown slot ---- */
+
+:global(.mds-dropdown-group__dropdown) {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Vertical: dropdown fills full width */
+:global(.mds-dropdown-group--vertical .mds-dropdown-group__dropdown) {
+  width: 100%;
+}
+
+/* Horizontal: dropdown fills remaining space */
+:global(.mds-dropdown-group--horizontal .mds-dropdown-group__dropdown) {
+  flex: 1 1 0%;
+}

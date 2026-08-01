@@ -1,0 +1,285 @@
+/* ==========================================================================
+   Merces Design System — Switch Toggle
+   Inputs and Interactive / Switch / Switch Toggle
+   Hybrid CSS Module: :global() preserves BEM class names.
+   Figma: Switch Toggle (201:3771) — 96 variants
+   Size(Base/Mini) × Group(False/True) × Orientation(Left/Right)
+   × Mode(False/True) × State(Default/Hover/Pressed/Disabled)
+   × Focus(False/True)
+
+   Structure — Group=False (standalone):
+     Root > Switch Frame (track) > Knob
+     Root: VERTICAL, HUG×HUG, pill radius (wraps Switch Frame)
+     Switch Frame: absolute positioning, pill radius
+       Base: 56×36, knob 24×24, edge-gap 6px
+       Mini: 44×28, knob 20×20, edge-gap 4px
+     Focus: 3px OUTSIDE stroke on Switch Frame
+
+   Structure — Group=True (with label):
+     Root > Switch Frame + Text Frame > Text
+     Root: HORIZONTAL, MIN (flex-start), FILL×HUG
+       Base: padding 10/0/10/0, gap 10 | Mini: padding 8/0/8/0, gap 10
+     Right orientation: reversed child order
+     Text Frame: FILL×HUG
+       Base: padding 8/0/8/0 | Mini: padding 4/0/4/0
+     Text: Base=Bold paragraph/ui, Mini=Medium paragraph/ui-thin
+
+   Pressed state stretches knob:
+     Base: 24→32px (OFF stays left, ON shifts left to keep right-edge)
+     Mini: 20→28px (same pattern)
+   ========================================================================== */
+
+/* ---- Root ---- */
+
+:global(.mds-switch) {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;              /* HUG */
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+}
+
+:global(.mds-switch--disabled) {
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ---- Root — Group=True (with label) ---- */
+
+:global(.mds-switch--group) {
+  width: 100%;                     /* FILL in production */
+  align-items: flex-start;         /* counterAxisAlign: MIN */
+  gap: var(--spacing-lg);          /* 10px */
+  padding-top: var(--spacing-lg);  /* 10px — base */
+  padding-bottom: var(--spacing-lg);
+}
+
+:global(.mds-switch--group.mds-switch--mini) {
+  padding-top: var(--spacing-md);  /* 8px — mini */
+  padding-bottom: var(--spacing-md);
+}
+
+/* Right orientation: reversed child order */
+:global(.mds-switch--right) {
+  flex-direction: row-reverse;
+}
+
+/* ---- Switch Frame (the track) ----
+   Base: 56×36, pill radius, no stroke
+   Mini: 44×28, pill radius, no stroke
+   Contains the Knob positioned via flexbox + margin trick.
+   Focus: 3px OUTSIDE stroke via box-shadow. */
+
+:global(.mds-switch__track) {
+  position: relative;
+  flex-shrink: 0;
+  width: 56px;                     /* Base */
+  height: 36px;
+  border-radius: 9999px;          /* pill */
+  background-color: var(--colour-brand-purple-1000);
+  transition:
+    background-color 150ms cubic-bezier(0, 0, 0, 1),
+    box-shadow 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-switch--mini .mds-switch__track) {
+  width: 44px;
+  height: 28px;
+}
+
+/* Focus ring on track */
+:global(.mds-switch--focus .mds-switch__track) {
+  box-shadow: 0 0 0 var(--stroke-button-focus)
+    var(--colour-stroke-element-focus-brand-enabled-base);
+}
+
+/* ---- Knob ----
+   Base: 24×24, pill radius, edge-gap 6px
+   Mini: 20×20, pill radius, edge-gap 4px
+   Positioned absolutely inside track.
+   OFF: left edge, ON: right edge.
+   Pressed: grows 8px wider.
+     Base OFF pressed: x=6 w=32 | ON pressed: x=18 w=32
+     Mini OFF pressed: x=4 w=28 | ON pressed: x=12 w=28 */
+
+:global(.mds-switch__knob) {
+  position: absolute;
+  top: 6px;                        /* Base edge-gap */
+  left: 6px;                       /* Base OFF position */
+  width: 24px;                     /* Base */
+  height: 24px;
+  border-radius: 9999px;
+  background-color: var(--colour-brand-purple-400);
+  /* Figma uses SMART_ANIMATE with spring easing:
+     mass=1, stiffness=450, damping=26.67, duration≈562ms
+     CSS approximation: cubic-bezier(0.2, 1.3, 0.4, 1) at 300ms for position/width,
+     standard ease for background-color. */
+  transition:
+    left 300ms cubic-bezier(0.2, 1.3, 0.4, 1),
+    width 300ms cubic-bezier(0.2, 1.3, 0.4, 1),
+    background-color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-switch--mini .mds-switch__knob) {
+  top: 4px;
+  left: 4px;
+  width: 20px;
+  height: 20px;
+}
+
+/* ON position: knob slides right */
+:global(.mds-switch--on .mds-switch__knob) {
+  left: 26px;                      /* Base: 56 − 6 − 24 = 26 */
+}
+
+:global(.mds-switch--mini.mds-switch--on .mds-switch__knob) {
+  left: 20px;                      /* Mini: 44 − 4 − 20 = 20 */
+}
+
+/* Pressed: knob stretches */
+:global(.mds-switch:not(.mds-switch--disabled):active .mds-switch__knob),
+:global(.mds-switch--pressed .mds-switch__knob) {
+  width: 32px;                     /* Base: 24 + 8 */
+}
+
+:global(.mds-switch--mini:not(.mds-switch--disabled):active .mds-switch__knob),
+:global(.mds-switch--mini.mds-switch--pressed .mds-switch__knob) {
+  width: 28px;                     /* Mini: 20 + 8 */
+}
+
+/* ON + Pressed: shift left to keep right-edge aligned */
+:global(.mds-switch--on:not(.mds-switch--disabled):active .mds-switch__knob),
+:global(.mds-switch--on.mds-switch--pressed .mds-switch__knob) {
+  left: 18px;                      /* Base: 56 − 6 − 32 = 18 */
+}
+
+:global(.mds-switch--mini.mds-switch--on:not(.mds-switch--disabled):active .mds-switch__knob),
+:global(.mds-switch--mini.mds-switch--on.mds-switch--pressed .mds-switch__knob) {
+  left: 12px;                      /* Mini: 44 − 4 − 28 = 12 */
+}
+
+/* ==========================================================================
+   Track fill by Mode × State
+   ========================================================================== */
+
+/* ---- OFF (Mode=False) ---- */
+
+/* Hover */
+:global(.mds-switch:not(.mds-switch--on):not(.mds-switch--disabled):hover .mds-switch__track),
+:global(.mds-switch:not(.mds-switch--on).mds-switch--hover .mds-switch__track) {
+  background-color: var(--colour-brand-purple-900);
+}
+
+/* Pressed */
+:global(.mds-switch:not(.mds-switch--on):not(.mds-switch--disabled):active .mds-switch__track),
+:global(.mds-switch:not(.mds-switch--on).mds-switch--pressed .mds-switch__track) {
+  background-color: var(--colour-brand-purple-800);
+}
+
+/* Disabled */
+:global(.mds-switch:not(.mds-switch--on).mds-switch--disabled .mds-switch__track) {
+  background-color: var(--colour-brand-purple-900);
+}
+
+/* ---- ON (Mode=True) ---- */
+
+/* Default */
+:global(.mds-switch--on .mds-switch__track) {
+  background-color: var(--colour-brand-purple-400);
+}
+
+/* Hover */
+:global(.mds-switch--on:not(.mds-switch--disabled):hover .mds-switch__track),
+:global(.mds-switch--on.mds-switch--hover .mds-switch__track) {
+  background-color: var(--colour-brand-purple-300);
+}
+
+/* Pressed */
+:global(.mds-switch--on:not(.mds-switch--disabled):active .mds-switch__track),
+:global(.mds-switch--on.mds-switch--pressed .mds-switch__track) {
+  background-color: var(--colour-brand-purple-200);
+}
+
+/* Disabled */
+:global(.mds-switch--on.mds-switch--disabled .mds-switch__track) {
+  background-color: var(--colour-brand-purple-900);
+}
+
+/* ==========================================================================
+   Knob fill by Mode × State
+   ========================================================================== */
+
+/* OFF Default: purple-400 — set as base above */
+
+/* OFF Disabled */
+:global(.mds-switch:not(.mds-switch--on).mds-switch--disabled .mds-switch__knob) {
+  background-color: var(--colour-neutral-white);
+}
+
+/* ON Default */
+:global(.mds-switch--on .mds-switch__knob) {
+  background-color: var(--colour-neutral-white);
+}
+
+/* ON Hover */
+:global(.mds-switch--on:not(.mds-switch--disabled):hover .mds-switch__knob),
+:global(.mds-switch--on.mds-switch--hover .mds-switch__knob) {
+  background-color: var(--colour-brand-purple-1000);
+}
+
+/* ON Pressed */
+:global(.mds-switch--on:not(.mds-switch--disabled):active .mds-switch__knob),
+:global(.mds-switch--on.mds-switch--pressed .mds-switch__knob) {
+  background-color: var(--colour-brand-purple-900);
+}
+
+/* ON Disabled */
+:global(.mds-switch--on.mds-switch--disabled .mds-switch__knob) {
+  background-color: var(--colour-neutral-white);
+}
+
+/* ---- Text Frame (Group=True only) ----
+   Base: FILL×HUG, padding 8/0/8/0
+   Mini: FILL×HUG, padding 4/0/4/0
+   With line-height forced to 20px:
+     Base: 8 + 20 + 8 = 36 = track height ✓
+     Mini: 4 + 20 + 4 = 28 = track height ✓ */
+
+:global(.mds-switch__text-frame) {
+  display: inline-flex;
+  align-items: flex-start;         /* counterAxisAlign: MIN */
+  flex: 1 1 0%;                    /* FILL width */
+  min-width: 0;
+  padding-top: var(--spacing-md);  /* 8px — base */
+  padding-bottom: var(--spacing-md);
+}
+
+:global(.mds-switch--mini .mds-switch__text-frame) {
+  padding-top: var(--spacing-1xs); /* 4px — mini */
+  padding-bottom: var(--spacing-1xs);
+}
+
+/* ---- Label text ----
+   Base: paragraph/ui — Bold 14px 140%
+   Mini: paragraph/ui-thin — Medium 14px 140%
+   line-height forced to 20px.
+   Enabled: colour/text/checkbox/enabled | Disabled: colour/text/checkbox/disabled */
+
+:global(.mds-switch__label) {
+  font-family: var(--font-family);
+  font-size: var(--ui-font-size);          /* 14px */
+  font-weight: var(--ui-font-weight);      /* 700 — Bold */
+  line-height: 20px;                       /* 14×140% → forced to 20px */
+  letter-spacing: var(--ui-letter-spacing); /* 0 */
+  color: var(--colour-text-checkbox-enabled);
+  transition: color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+:global(.mds-switch--mini .mds-switch__label) {
+  font-weight: var(--ui-thin-font-weight); /* 500 — Medium */
+}
+
+:global(.mds-switch--disabled .mds-switch__label) {
+  color: var(--colour-text-checkbox-disabled);
+}

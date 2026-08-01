@@ -1,0 +1,170 @@
+/* DropdownPanel — floating overlay container
+   Figma: Composition frames (e.g. 131:2137, 221:4135)
+   Fill: --colour-bg-fill-surface-neutral-default (white)
+   Stroke: --colour-stroke-dropdown-brand (1px)
+   Shadow: --shadow-m
+   Radius: 8px (no filter) / 16px (with filter)
+   Content spacing: 8px top/bottom via scroll-area pseudo-elements
+   Animation: opacity + translateY over 150ms
+
+   Custom overlay scrollbar (cross-browser):
+   Native scrollbar is hidden via scrollbar-width:none / ::-webkit-scrollbar.
+   A custom thumb div is positioned absolutely over the content area,
+   tracking scroll position via JS. Items render full-width edge-to-edge
+   because no space is reserved for a native scrollbar.
+*/
+
+:global(.mds-dropdown-panel) {
+  position: absolute;
+  top: var(--spacing-lg);
+  left: var(--spacing-lg);
+  right: var(--spacing-lg);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--colour-bg-fill-surface-neutral-default);
+  border: 1px solid var(--colour-stroke-dropdown-brand);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-m);
+  overflow: hidden;
+  /* Hidden by default */
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+  transition: opacity 150ms cubic-bezier(0, 0, 0, 1),
+    transform 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* Larger radius when filter is present.
+   Figma panel padding T=8 applies when filter is the first child. */
+:global(.mds-dropdown-panel--has-filter) {
+  border-radius: var(--radius-2xl);
+  padding-top: var(--spacing-md);
+}
+
+/* Open state */
+:global(.mds-dropdown-panel--open) {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Scroll wrapper — relative parent for the custom scrollbar thumb.
+   Contains the scrollable content + the absolute-positioned track. */
+:global(.mds-dropdown-panel__scroll-wrapper) {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* Scrollable content area — native scrollbar hidden.
+   Items render full-width; custom thumb overlays on top.
+   overscroll-behavior: contain prevents scroll chaining —
+   when the user hits the top/bottom of the list, the page
+   behind the dropdown does NOT scroll. */
+:global(.mds-dropdown-panel__content) {
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  max-height: 280px;
+  /* Hide native scrollbar — Firefox */
+  scrollbar-width: none;
+}
+
+/* Hide native scrollbar — WebKit (Chrome, Safari, Edge) */
+:global(.mds-dropdown-panel__content)::-webkit-scrollbar {
+  display: none;
+}
+
+/* 8px breathing room at top/bottom — lives inside the scroll area */
+:global(.mds-dropdown-panel__content)::before,
+:global(.mds-dropdown-panel__content)::after {
+  content: '';
+  display: block;
+  flex-shrink: 0;
+  height: var(--spacing-md);
+}
+
+/* Custom scrollbar track — positioned absolutely on the right.
+   12px wide to match Figma Mini Scroller track width.
+   4px inset top/bottom matches Figma Scroller padding (--spacing-1xs).
+   pointer-events: auto on the full track so the entire 12px zone
+   is interactive (hover, press, drag). */
+:global(.mds-dropdown-panel__scrollbar-track) {
+  position: absolute;
+  top: var(--spacing-1xs);
+  right: 0;
+  bottom: var(--spacing-1xs);
+  width: 12px;
+  pointer-events: none;
+  z-index: 1;
+  cursor: grab;
+}
+
+/* Only enable track interaction when the panel is open */
+:global(.mds-dropdown-panel--open) :global(.mds-dropdown-panel__scrollbar-track) {
+  pointer-events: auto;
+}
+
+:global(.mds-dropdown-panel__scrollbar-track:active) {
+  cursor: grabbing;
+}
+
+/* Thumb hit-area — fills the full 12px track width for a generous
+   interactive zone. The visible 4px pill is drawn by ::before.
+   Positioned via JS translateY + height. */
+:global(.mds-dropdown-panel__scrollbar-thumb) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  cursor: grab;
+  /* Smooth position updates */
+  will-change: transform, height;
+}
+
+/* Only enable thumb interaction when the panel is open */
+:global(.mds-dropdown-panel--open) :global(.mds-dropdown-panel__scrollbar-thumb) {
+  pointer-events: auto;
+}
+
+:global(.mds-dropdown-panel__scrollbar-thumb:active) {
+  cursor: grabbing;
+}
+
+/* Visible 4px pill — centered within the 12px thumb hit-area.
+   4px wide with pill radius, inheriting state colours from parent. */
+:global(.mds-dropdown-panel__scrollbar-thumb)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: var(--spacing-1xs);
+  transform: translateX(-50%);
+  border-radius: var(--radius-full);
+  background-color: var(--colour-bg-fill-scrollbar-default);
+  transition: background-color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* Hover/pressed on thumb itself OR anywhere in the track
+   triggers the thumb colour change via parent hover propagation. */
+:global(.mds-dropdown-panel__scrollbar-thumb:hover)::before,
+:global(.mds-dropdown-panel__scrollbar-track:hover) :global(.mds-dropdown-panel__scrollbar-thumb)::before {
+  background-color: var(--colour-bg-fill-scrollbar-hover);
+}
+
+:global(.mds-dropdown-panel__scrollbar-thumb:active)::before,
+:global(.mds-dropdown-panel__scrollbar-track:active) :global(.mds-dropdown-panel__scrollbar-thumb)::before {
+  background-color: var(--colour-bg-fill-scrollbar-pressed);
+}
+
+/* Hide the custom scrollbar when content doesn't overflow */
+:global(.mds-dropdown-panel__scrollbar-track--hidden) {
+  display: none;
+}

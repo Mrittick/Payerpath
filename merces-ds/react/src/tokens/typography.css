@@ -1,0 +1,302 @@
+/* ==========================================================================
+   Merces Design System — Typography Tokens
+   Source: Figma Local Text Styles (25 styles) + Effect Styles (3 shadows)
+   Font: Satoshi Variable
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   @font-face — Local Satoshi Variable (weight 300–900)
+   Files: src/assets/fonts/Satoshi-Variable.ttf (upright)
+          src/assets/fonts/Satoshi-VariableItalic.ttf (italic)
+   -------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: 'Satoshi Variable';
+  src: url('../assets/fonts/Satoshi-Variable.ttf') format('truetype');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Satoshi Variable';
+  src: url('../assets/fonts/Satoshi-VariableItalic.ttf') format('truetype');
+  font-weight: 300 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  /* -----------------------------------------------------------------------
+     Font Family
+     ----------------------------------------------------------------------- */
+  --font-family: 'Satoshi Variable', sans-serif;
+
+  /* -----------------------------------------------------------------------
+     Font Weights
+     ----------------------------------------------------------------------- */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+
+  /* -----------------------------------------------------------------------
+     Font Sizes
+     ----------------------------------------------------------------------- */
+  --font-size-32: 32px;
+  --font-size-24: 24px;
+  --font-size-20: 20px;
+  --font-size-18: 18px;
+  --font-size-16: 16px;
+  --font-size-14: 14px;
+  --font-size-12: 12px;
+
+  /* -----------------------------------------------------------------------
+     Line Heights
+     ----------------------------------------------------------------------- */
+  --line-height-heading: 1.6;   /* 160% — all headings */
+  --line-height-paragraph: 1.4; /* 140% — all paragraphs & UI */
+
+  /* -----------------------------------------------------------------------
+     Heading Styles
+     ----------------------------------------------------------------------- */
+
+  /* heading/h1 — 32px Medium 160% */
+  --h1-font-size: var(--font-size-32);
+  --h1-font-weight: var(--font-weight-medium);
+  --h1-line-height: var(--line-height-heading);
+  --h1-letter-spacing: 0;
+  --h1-text-transform: none;
+
+  /* heading/h1-bold — 32px Bold 160% */
+  --h1-bold-font-size: var(--font-size-32);
+  --h1-bold-font-weight: var(--font-weight-bold);
+  --h1-bold-line-height: var(--line-height-heading);
+  --h1-bold-letter-spacing: 0;
+  --h1-bold-text-transform: none;
+
+  /* heading/h2 — 24px Medium 160% */
+  --h2-font-size: var(--font-size-24);
+  --h2-font-weight: var(--font-weight-medium);
+  --h2-line-height: var(--line-height-heading);
+  --h2-letter-spacing: 0;
+  --h2-text-transform: none;
+
+  /* heading/h2-bold — 24px Bold 160% */
+  --h2-bold-font-size: var(--font-size-24);
+  --h2-bold-font-weight: var(--font-weight-bold);
+  --h2-bold-line-height: var(--line-height-heading);
+  --h2-bold-letter-spacing: 0;
+  --h2-bold-text-transform: none;
+
+  /* heading/h3 — 18px Medium 160% */
+  --h3-font-size: var(--font-size-18);
+  --h3-font-weight: var(--font-weight-medium);
+  --h3-line-height: var(--line-height-heading);
+  --h3-letter-spacing: 0;
+  --h3-text-transform: none;
+
+  /* heading/h3-bold — 18px Bold 160% */
+  --h3-bold-font-size: var(--font-size-18);
+  --h3-bold-font-weight: var(--font-weight-bold);
+  --h3-bold-line-height: var(--line-height-heading);
+  --h3-bold-letter-spacing: 0;
+  --h3-bold-text-transform: none;
+
+  /* heading/h4 — 14px Medium 160% */
+  --h4-font-size: var(--font-size-14);
+  --h4-font-weight: var(--font-weight-medium);
+  --h4-line-height: var(--line-height-heading);
+  --h4-letter-spacing: 0;
+  --h4-text-transform: none;
+
+  /* heading/h4-bold — 14px Bold 160% */
+  --h4-bold-font-size: var(--font-size-14);
+  --h4-bold-font-weight: var(--font-weight-bold);
+  --h4-bold-line-height: var(--line-height-heading);
+  --h4-bold-letter-spacing: 0;
+  --h4-bold-text-transform: none;
+
+  /* heading/h4-strong — 14px Black 160% */
+  --h4-strong-font-size: var(--font-size-14);
+  --h4-strong-font-weight: var(--font-weight-black);
+  --h4-strong-line-height: var(--line-height-heading);
+  --h4-strong-letter-spacing: 0;
+  --h4-strong-text-transform: none;
+
+  /* heading/h5 — 12px Black 160% uppercase 4% letter-spacing */
+  --h5-font-size: var(--font-size-12);
+  --h5-font-weight: var(--font-weight-black);
+  --h5-line-height: var(--line-height-heading);
+  --h5-letter-spacing: 0.04em;
+  --h5-text-transform: uppercase;
+
+  /* -----------------------------------------------------------------------
+     Paragraph Styles
+     ----------------------------------------------------------------------- */
+
+  /* paragraph/p1 — 20px Medium 140% */
+  --p1-font-size: var(--font-size-20);
+  --p1-font-weight: var(--font-weight-medium);
+  --p1-line-height: var(--line-height-paragraph);
+  --p1-letter-spacing: 0;
+  --p1-text-transform: none;
+  --p1-text-decoration: none;
+  --p1-font-style: normal;
+
+  /* paragraph/p2 — 16px Medium 140% */
+  --p2-font-size: var(--font-size-16);
+  --p2-font-weight: var(--font-weight-medium);
+  --p2-line-height: var(--line-height-paragraph);
+  --p2-letter-spacing: 0;
+  --p2-text-transform: none;
+  --p2-text-decoration: none;
+  --p2-font-style: normal;
+
+  /* paragraph/p2-thin — 16px Regular 140% */
+  --p2-thin-font-size: var(--font-size-16);
+  --p2-thin-font-weight: var(--font-weight-regular);
+  --p2-thin-line-height: var(--line-height-paragraph);
+  --p2-thin-letter-spacing: 0;
+  --p2-thin-text-transform: none;
+  --p2-thin-text-decoration: none;
+  --p2-thin-font-style: normal;
+
+  /* paragraph/p2-bold — 16px Black 140% */
+  --p2-bold-font-size: var(--font-size-16);
+  --p2-bold-font-weight: var(--font-weight-black);
+  --p2-bold-line-height: var(--line-height-paragraph);
+  --p2-bold-letter-spacing: 0;
+  --p2-bold-text-transform: none;
+  --p2-bold-text-decoration: none;
+  --p2-bold-font-style: normal;
+
+  /* paragraph/p3 — 14px Medium 140% */
+  --p3-font-size: var(--font-size-14);
+  --p3-font-weight: var(--font-weight-medium);
+  --p3-line-height: var(--line-height-paragraph);
+  --p3-letter-spacing: 0;
+  --p3-text-transform: none;
+  --p3-text-decoration: none;
+  --p3-font-style: normal;
+
+  /* paragraph/p3-thin — 14px Regular 140% */
+  --p3-thin-font-size: var(--font-size-14);
+  --p3-thin-font-weight: var(--font-weight-regular);
+  --p3-thin-line-height: var(--line-height-paragraph);
+  --p3-thin-letter-spacing: 0;
+  --p3-thin-text-transform: none;
+  --p3-thin-text-decoration: none;
+  --p3-thin-font-style: normal;
+
+  /* paragraph/p3-bold — 14px Black 140% */
+  --p3-bold-font-size: var(--font-size-14);
+  --p3-bold-font-weight: var(--font-weight-black);
+  --p3-bold-line-height: var(--line-height-paragraph);
+  --p3-bold-letter-spacing: 0;
+  --p3-bold-text-transform: none;
+  --p3-bold-text-decoration: none;
+  --p3-bold-font-style: normal;
+
+  /* paragraph/p4 — 12px Medium 140% */
+  --p4-font-size: var(--font-size-12);
+  --p4-font-weight: var(--font-weight-medium);
+  --p4-line-height: var(--line-height-paragraph);
+  --p4-letter-spacing: 0;
+  --p4-text-transform: none;
+  --p4-text-decoration: none;
+  --p4-font-style: normal;
+
+  /* paragraph/p4-bold — 12px Bold 140% */
+  --p4-bold-font-size: var(--font-size-12);
+  --p4-bold-font-weight: var(--font-weight-bold);
+  --p4-bold-line-height: var(--line-height-paragraph);
+  --p4-bold-letter-spacing: 0;
+  --p4-bold-text-transform: none;
+  --p4-bold-text-decoration: none;
+  --p4-bold-font-style: normal;
+
+  /* paragraph/p4-strong — 12px Black 140% */
+  --p4-strong-font-size: var(--font-size-12);
+  --p4-strong-font-weight: var(--font-weight-black);
+  --p4-strong-line-height: var(--line-height-paragraph);
+  --p4-strong-letter-spacing: 0;
+  --p4-strong-text-transform: none;
+  --p4-strong-text-decoration: none;
+  --p4-strong-font-style: normal;
+
+  /* -----------------------------------------------------------------------
+     UI Styles (paragraph-level, 14px)
+     ----------------------------------------------------------------------- */
+
+  /* paragraph/ui — 14px Bold 140% */
+  --ui-font-size: var(--font-size-14);
+  --ui-font-weight: var(--font-weight-bold);
+  --ui-line-height: var(--line-height-paragraph);
+  --ui-letter-spacing: 0;
+  --ui-text-transform: none;
+  --ui-text-decoration: none;
+  --ui-font-style: normal;
+
+  /* paragraph/ui-stylised — 14px Bold Italic 140% */
+  --ui-stylised-font-size: var(--font-size-14);
+  --ui-stylised-font-weight: var(--font-weight-bold);
+  --ui-stylised-line-height: var(--line-height-paragraph);
+  --ui-stylised-letter-spacing: 0;
+  --ui-stylised-text-transform: none;
+  --ui-stylised-text-decoration: none;
+  --ui-stylised-font-style: italic;
+
+  /* paragraph/ui-thin — 14px Medium 140% */
+  --ui-thin-font-size: var(--font-size-14);
+  --ui-thin-font-weight: var(--font-weight-medium);
+  --ui-thin-line-height: var(--line-height-paragraph);
+  --ui-thin-letter-spacing: 0;
+  --ui-thin-text-transform: none;
+  --ui-thin-text-decoration: none;
+  --ui-thin-font-style: normal;
+
+  /* paragraph/ui-thin-stylised — 14px Medium Italic 140% */
+  --ui-thin-stylised-font-size: var(--font-size-14);
+  --ui-thin-stylised-font-weight: var(--font-weight-medium);
+  --ui-thin-stylised-line-height: var(--line-height-paragraph);
+  --ui-thin-stylised-letter-spacing: 0;
+  --ui-thin-stylised-text-transform: none;
+  --ui-thin-stylised-text-decoration: none;
+  --ui-thin-stylised-font-style: italic;
+
+  /* paragraph/ui-thin-strikethrough — 14px Medium 140% strikethrough */
+  --ui-thin-strikethrough-font-size: var(--font-size-14);
+  --ui-thin-strikethrough-font-weight: var(--font-weight-medium);
+  --ui-thin-strikethrough-line-height: var(--line-height-paragraph);
+  --ui-thin-strikethrough-letter-spacing: 0;
+  --ui-thin-strikethrough-text-transform: none;
+  --ui-thin-strikethrough-text-decoration: line-through;
+  --ui-thin-strikethrough-font-style: normal;
+
+  /* -----------------------------------------------------------------------
+     Effect Styles — Shadows
+     Colour: hsla(255, 44%, 24%, 0.08) — brand purple at 8% opacity
+     ----------------------------------------------------------------------- */
+
+  /* shadow/XL — y:20 blur:80 */
+  --shadow-xl: 0px 20px 80px 0px hsla(255, 44%, 24%, 0.08);
+
+  /* shadow/L — y:20 blur:40 */
+  --shadow-l: 0px 20px 40px 0px hsla(255, 44%, 24%, 0.08);
+
+  /* shadow/M — y:12 blur:24 */
+  --shadow-m: 0px 12px 24px 0px hsla(255, 44%, 24%, 0.08);
+}
+
+/* ==========================================================================
+   Global Font Application
+   Sets the design system font on body so all elements inherit it.
+   Ensures consistent rendering across Safari, Chrome, Edge, etc.
+   ========================================================================== */
+
+body {
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

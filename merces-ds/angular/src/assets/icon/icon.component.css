@@ -1,0 +1,35 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: currentColor;
+  line-height: 0;
+  transition: color 150ms cubic-bezier(0, 0, 0, 1);
+
+  --icon-size-huge: 32px;
+  --icon-size-large: 24px;
+  --icon-size-base: 20px;
+  --icon-size-mini: 16px;
+  --icon-size-tiny: 12px;
+}
+
+.icon-container {
+  display: inline-flex;
+  width: var(--_icon-size);
+  height: var(--_icon-size);
+  aspect-ratio: 1 / 1;
+}
+
+.icon-container :deep(svg) {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  transition: fill 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+.icon-size-huge { --_icon-size: var(--icon-size-huge); }
+.icon-size-large { --_icon-size: var(--icon-size-large); }
+.icon-size-base { --_icon-size: var(--icon-size-base); }
+.icon-size-mini { --_icon-size: var(--icon-size-mini); }
+.icon-size-tiny { --_icon-size: var(--icon-size-tiny); }
+.icon-size-custom { --_icon-size: var(--icon-size-custom); }

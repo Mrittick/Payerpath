@@ -1,0 +1,379 @@
+/* ==========================================================================
+   ModalFieldOverlay — CSS Module
+   Full-screen backdrop + centred selection panel.
+   Uses :global() to preserve BEM class names while gaining CSS-Module scoping.
+   ========================================================================== */
+
+/* ---- Transition timing ---- */
+
+:root {
+  --overlay-duration: 300ms;
+  --overlay-easing: cubic-bezier(0, 0, 0, 1);
+}
+
+/* ---- Backdrop ---- */
+
+:global(.mds-overlay-backdrop) {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  /* Open/close transition */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--overlay-duration) var(--overlay-easing);
+}
+
+:global(.mds-overlay-backdrop--open) {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ---- Panel ---- */
+
+:global(.mds-overlay-panel) {
+  display: flex;
+  flex-direction: column;
+  min-width: 480px;
+  max-width: 800px;
+  width: 60vw;
+  height: 80vh;
+  background: var(--colour-bg-fill-surface-neutral-default);
+  border-radius: var(--radius-lg); /* 12px */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+
+  /* Fade only — no slide (matches Figma) */
+  opacity: 0;
+  transition: opacity var(--overlay-duration) var(--overlay-easing);
+}
+
+:global(.mds-overlay-backdrop--open .mds-overlay-panel) {
+  opacity: 1;
+}
+
+/* After open animation settles, allow tooltip ::after to escape the
+   panel both vertically (above) and horizontally (wide tooltips).
+   The chips row uses overflow:hidden which contains the negative-margin
+   bleed internally, and chip widths are fixed at 160px in the overlay
+   so hover icon animations cause no reflow at the panel level. */
+:global(.mds-overlay-panel--settled) {
+  overflow: visible;
+}
+
+/* ---- Header ---- */
+
+:global(.mds-overlay-header) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-big); /* 24px */
+  padding: var(--spacing-1xbig); /* 32px */
+  flex-shrink: 0;
+}
+
+:global(.mds-overlay-title) {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.6;
+  color: var(--colour-text-default-base);
+  margin: 0;
+}
+
+/* ---- Divider ---- */
+
+:global(.mds-overlay-divider) {
+  height: 1px;
+  background: var(--colour-stroke-divider-neutral-dark);
+  flex-shrink: 0;
+  border: none;
+  margin: 0;
+}
+
+/* ---- Body ---- */
+
+:global(.mds-overlay-body) {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0; /* Allow flex children to shrink */
+  padding: var(--spacing-big) var(--spacing-1xbig) 0; /* 24px 32px 0 */
+  /* No gap — chips wrapper owns its own bottom spacing via animated
+     margin-bottom so the entries list slides down smoothly. */
+}
+
+/* ---- Selection chips ---- */
+/* Two-layer structure to handle the tooltip-vs-scroll conflict.
+   CSS spec: when one overflow axis is auto/scroll/hidden, the other is
+   forced to auto too — making it impossible to scroll horizontally AND
+   let a tooltip ::after escape vertically from the SAME container.
+
+   .mds-overlay-chips-wrap  — outer: position relative, overflow visible.
+                              JS-driven tooltip renders here, escaping the
+                              scroll container's clipping.
+   .mds-overlay-chips       — inner: flex row, horizontal scroll when needed.
+
+   Non-scrollable mode: no scroll, CSS ::after tooltip works natively.
+   Scrollable mode: CSS ::after suppressed, JS tooltip at wrapper level. */
+
+:global(.mds-overlay-chips-wrap) {
+  position: relative; /* positioning context for JS tooltip */
+  flex-shrink: 0;
+  width: 100%;
+
+  /* Collapsed by default.
+     Collapse transition: chips fade out (150ms), then after 100ms delay
+     the space collapses (300ms). Total: chips gone by ~150ms, space
+     starts closing at 100ms, done by ~400ms. */
+  max-height: 0;
+  margin-bottom: 0;
+  overflow: hidden;
+  transition: max-height 300ms cubic-bezier(0.5, 0, 0, 1) 100ms,
+    margin-bottom 300ms cubic-bezier(0.5, 0, 0, 1) 100ms;
+}
+
+/* Expanded — selections exist.
+   Open transition: space opens immediately (300ms), chips fade in after
+   150ms delay (see .mds-overlay-chips rule below). */
+:global(.mds-overlay-chips-wrap--visible) {
+  max-height: 60px; /* comfortably fits one chip row (36px chip + padding) */
+  margin-bottom: var(--spacing-big); /* 24px gap before entries */
+  overflow: visible;
+  transition: max-height 300ms cubic-bezier(0.5, 0, 0, 1),
+    margin-bottom 300ms cubic-bezier(0.5, 0, 0, 1);
+}
+
+:global(.mds-overlay-chips) {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--spacing-md); /* 8px */
+  width: 100%;
+
+  /* Chips hidden by default — fade in AFTER space opens */
+  opacity: 0;
+  transition: opacity 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* Chips fade in after wrapper has expanded (150ms delay = space mostly open) */
+:global(.mds-overlay-chips-wrap--visible .mds-overlay-chips) {
+  opacity: 1;
+  transition: opacity 150ms cubic-bezier(0, 0, 0, 1) 150ms; /* 150ms delay */
+}
+
+/* Chip sizing — content-hugging up to 160px max.
+   Short labels (e.g. "AL - Alabama") shrink to fit; long labels
+   truncate at 160px.  The enter/exit keyframes animate max-width
+   so the "journey" effect works for both short and long chips.
+   Enter: fade in via keyframe (fires on mount even when container visible).
+   Exit:  fade out + collapse width so neighbours slide in smoothly. */
+:global(.mds-overlay-chips .mds-selection-chip) {
+  flex-shrink: 0;
+  width: auto;
+  min-width: 0;
+  max-width: 160px;
+  animation: chipFadeIn 300ms cubic-bezier(0.5, 0, 0, 1) both;
+}
+
+@keyframes chipFadeIn {
+  0% {
+    opacity: 0;
+    max-width: 0;
+    padding: 0;
+    margin: 0 calc(-1 * var(--spacing-md) / 2); /* absorb flex gap */
+  }
+  30% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    max-width: 160px;
+    padding: var(--spacing-md) var(--spacing-1xl);
+    margin: 0;
+  }
+}
+
+/* Exiting chip — fade out + collapse to zero width so neighbours
+   slide together smoothly. Uses a separate keyframe (not transition)
+   because the enter animation's fill-mode blocks transitions. */
+:global(.mds-overlay-chips .mds-selection-chip--exiting) {
+  animation: chipFadeOut 300ms cubic-bezier(0.5, 0, 0, 1) both;
+  pointer-events: none;
+}
+
+@keyframes chipFadeOut {
+  0% {
+    opacity: 1;
+    max-width: 160px;
+    padding: var(--spacing-md) var(--spacing-1xl);
+    margin: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+    max-width: 0;
+    padding: 0;
+    margin: 0 calc(-1 * var(--spacing-md) / 2); /* absorb the flex gap */
+  }
+}
+
+/* Only enable overflow handling when JS detects chip content exceeds
+   the available width.  No visible scrollbar — the edge-to-edge chip
+   clipping already signals "more content"; users scroll via grab-drag
+   or mousewheel (both wired up in JS).
+   Negative margins + matching padding let the clipped edge sit flush
+   with the panel boundary instead of the body's 32px inset. */
+:global(.mds-overlay-chips--scrollable) {
+  overflow: hidden;                                 /* scrollable but no visible scrollbar */
+  margin-left: calc(-1 * var(--spacing-1xbig));   /* −32px — bleed into body padding */
+  margin-right: calc(-1 * var(--spacing-1xbig));   /* −32px — bleed into body padding */
+  padding-left: var(--spacing-1xbig);              /* 32px — restore chip content inset */
+  padding-right: var(--spacing-1xbig);             /* 32px — restore chip content inset */
+  cursor: grab;
+}
+
+/* Suppress CSS ::after tooltip inside scrollable container —
+   replaced by JS tooltip rendered at the wrapper level. */
+:global(.mds-overlay-chips--scrollable .mds-selection-chip--nowrap[data-tooltip])::after {
+  display: none;
+}
+
+/* ---- JS-driven chip tooltip (scrollable mode only) ----
+   Matches the SelectionChip CSS tooltip design exactly:
+     Fill: --colour-brand-purple-200
+     Text: paragraph/p4-bold (12px Bold 140%), --colour-neutral-white
+     Padding: 6px 12px
+     Corner radius: 8px
+     Gap from chip: 4px (applied via marginBottom in JS) */
+
+:global(.mds-overlay-chip-tooltip) {
+  position: fixed;               /* Fixed to viewport — escapes ALL overflow
+                                    clipping ancestors (including panel's
+                                    overflow-x: clip). Coordinates set by JS
+                                    via useLayoutEffect (before paint). */
+  z-index: 1010;
+  pointer-events: none;
+  background-color: var(--colour-brand-purple-200);
+  color: var(--colour-neutral-white);
+  padding: var(--spacing-sm) var(--spacing-1xl);   /* 6px 12px */
+  border-radius: var(--radius-md);                 /* 8px */
+  width: max-content;
+  max-width: 360px;
+  white-space: normal;
+  word-break: break-word;
+
+  /* Typography — paragraph/p4-bold (12px Bold 140%) */
+  font-family: var(--font-family);
+  font-size: var(--p4-bold-font-size);
+  font-weight: var(--p4-bold-font-weight);
+  line-height: var(--p4-bold-line-height);
+  letter-spacing: var(--p4-bold-letter-spacing);
+
+  /* Hidden until JS positions it (prevents wrong-position flash) */
+  opacity: 0;
+  transition: opacity 150ms cubic-bezier(0, 0, 0, 1),
+    background-color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* Once JS has computed the position, it adds this class to reveal */
+:global(.mds-overlay-chip-tooltip--visible) {
+  opacity: 1;
+}
+
+/* Pressed — red danger bg, matching SelectionChip CSS tooltip :active */
+:global(.mds-overlay-chip-tooltip--pressed) {
+  background-color: var(--colour-brand-red-300);
+}
+
+/* ---- Entries list ---- */
+
+:global(.mds-overlay-entries) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1xs); /* 4px */
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-radius: var(--radius-md); /* 8px — clips first/last item corners */
+  min-height: 0;
+  padding-bottom: var(--spacing-big); /* 24px bottom buffer */
+
+  /* Scrollbar handled by .mds-scroller--mini class */
+}
+
+/* ---- Overlay entry overrides ----
+   DropdownItem inside the overlay uses paragraph/ui-thin (Medium 500)
+   instead of the default paragraph/ui (Bold 700), and each item
+   gets its own 8px border-radius for rounded hover states. */
+
+:global(.mds-overlay-entries .mds-dropdown-item) {
+  border-radius: var(--radius-md); /* 8px per item */
+  font-weight: var(--ui-thin-font-weight); /* Medium 500 */
+}
+
+/* ---- No results ---- */
+
+:global(.mds-overlay-no-results) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;                                         /* Figma: --gap/2xl = 14px */
+  flex: 1;
+  min-height: 0;
+  background: var(--colour-brand-purple-1100);       /* #f4f3f7 */
+  border-radius: var(--radius-md);                   /* 8px */
+  margin-bottom: var(--spacing-big);                 /* 24px bottom buffer */
+  overflow: clip;
+}
+
+:global(.mds-overlay-no-results__icon) {
+  width: 48px;
+  height: 48px;
+  color: var(--colour-brand-purple-700);             /* Figma: colour/brand/purple-700 */
+  flex-shrink: 0;
+}
+
+:global(.mds-overlay-no-results__icon svg) {
+  width: 48px;
+  height: 48px;
+  display: block;
+}
+
+:global(.mds-overlay-no-results__text) {
+  /* paragraph/p2 — Satoshi Variable Medium 16px/1.4 */
+  font-family: var(--font-family);
+  font-size: var(--p2-font-size, 16px);
+  font-weight: var(--p2-font-weight, 500);
+  line-height: var(--p2-line-height, 1.4);
+  letter-spacing: var(--p2-letter-spacing, 0);
+  color: var(--colour-stroke-textbox-empty);         /* #999 */
+  text-align: center;
+  max-width: 320px;
+}
+
+/* ---- Footer ---- */
+
+:global(.mds-overlay-footer) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-4xl); /* 20px */
+  flex-shrink: 0;
+}
+
+:global(.mds-overlay-footer__selection) {
+  display: flex;
+  gap: var(--spacing-md); /* 8px */
+}
+
+:global(.mds-overlay-footer__actions) {
+  display: flex;
+  gap: var(--spacing-md); /* 8px */
+}

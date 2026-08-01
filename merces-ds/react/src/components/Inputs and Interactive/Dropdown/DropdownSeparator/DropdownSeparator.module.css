@@ -1,0 +1,61 @@
+/* DropdownSeparator — horizontal divider line
+   Figma: Dropdown-Separator (206:6097)
+   Variants: Type(SingleSelect/MultiSelect) × Orientation(Left/Right)
+   Structure: Separator > Frame (padding-left 2 for Left orientation) > Fill (1px line)
+*/
+
+:global(.mds-dropdown-separator) {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-lg) var(--spacing-2xl);
+}
+
+/* SingleSelect Left: L=32 R=14, inner frame padding-left=2 */
+:global(.mds-dropdown-separator--single-left) {
+  padding-left: var(--spacing-1xbig);
+  padding-right: var(--spacing-2xl);
+}
+
+/* SingleSelect Right: L=14 R=14, inner frame padding=0 */
+:global(.mds-dropdown-separator--single-right) {
+  padding-left: var(--spacing-2xl);
+  padding-right: var(--spacing-2xl);
+}
+
+/* MultiSelect Left: L=40 R=14, inner frame padding-left=2 */
+:global(.mds-dropdown-separator--multi-left) {
+  padding-left: var(--spacing-3xbig);
+  padding-right: var(--spacing-2xl);
+}
+
+/* MultiSelect Right: L=14 R=14, inner frame padding=0 */
+:global(.mds-dropdown-separator--multi-right) {
+  padding-left: var(--spacing-2xl);
+  padding-right: var(--spacing-2xl);
+}
+
+/* Inner frame — replicates Figma's Frame wrapper around the Fill line */
+:global(.mds-dropdown-separator__frame) {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Left orientation: inner frame has 2px left padding */
+:global(.mds-dropdown-separator--single-left .mds-dropdown-separator__frame),
+:global(.mds-dropdown-separator--multi-left .mds-dropdown-separator__frame) {
+  padding-left: var(--spacing-2xs);
+}
+
+:global(.mds-dropdown-separator__line) {
+  flex: 1;
+  height: 1px;
+  background-color: var(--colour-stroke-divider-primary-medium);
+}
+
+/* Context-aware: when inside a scrollable panel, nudge right padding
+   inward so the separator line doesn't crowd the overlay scrollbar track.
+   Adds 8px (--spacing-md) — just enough clearance without over-compensating. */
+:global(.mds-dropdown-panel__content--has-scrollbar) :global(.mds-dropdown-separator) {
+  padding-right: calc(var(--spacing-2xl) + var(--spacing-md));
+}

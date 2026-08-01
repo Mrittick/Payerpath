@@ -1,0 +1,240 @@
+/* ═══════════════════════════════════════════════
+   Search Component
+   Figma: Search (221:6768) — Sub-Controls page
+   ═══════════════════════════════════════════════ */
+
+/* ── Host — focus ring container ──
+   outline never affects layout.
+   Only visible via keyboard (Tab/Shift+Tab). ── */
+
+:host {
+  display: flex;
+  width: 100%;
+  border-radius: var(--radius-md);
+  position: relative;
+}
+
+/* Focus ring rendered as pseudo-element to guarantee
+   zero layout impact. Only visible via keyboard. */
+:host::after {
+  content: '';
+  position: absolute;
+  inset: calc(-1 * var(--stroke-button-focus));
+  border-radius: calc(var(--radius-md) + var(--stroke-button-focus));
+  border: var(--stroke-button-focus) solid transparent;
+  pointer-events: none;
+  transition: border-color 300ms ease;
+}
+
+:host(.search--keyboard-focus)::after {
+  border-color: var(--colour-stroke-element-focus-brand-enabled-base);
+}
+
+/* ── Search Frame — the visible box ──
+   Uses box-shadow: inset for the stroke to prevent
+   layout shift when stroke weight changes. ── */
+
+.search-frame {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: text;
+  background-color: var(--colour-brand-purple-1100);
+  box-shadow: inset 0 0 0 var(--stroke-textbox-default) var(--colour-brand-purple-400);
+  transition: background-color 300ms ease, box-shadow 300ms ease;
+}
+
+/* ── Size: Base ── */
+
+:host(.search--base) .search-frame {
+  gap: var(--gap-lg);
+  padding: var(--gap-lg);
+}
+
+/* ── Size: Compact ── */
+
+:host(.search--compact) .search-frame {
+  gap: var(--gap-md);
+  padding: var(--gap-md) var(--gap-md) var(--gap-md) var(--gap-1xl);
+}
+
+/* ── State: Hover ── */
+
+:host(:not(.search--disabled):hover) .search-frame {
+  background-color: var(--colour-brand-purple-1000);
+  box-shadow: inset 0 0 0 var(--stroke-textbox-hover) var(--colour-brand-purple-400);
+}
+
+/* ── State: Editing (input focused) ── */
+
+:host(.search--editing) .search-frame {
+  background-color: var(--colour-brand-purple-1000);
+  box-shadow: inset 0 0 0 var(--stroke-textbox-active) var(--colour-brand-purple-400);
+}
+
+/* ── Mode: Disabled ── */
+
+:host(.search--disabled) .search-frame {
+  background-color: var(--colour-brand-purple-1100);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* ── Search Icon ── */
+
+.search-icon {
+  flex-shrink: 0;
+  color: var(--colour-brand-purple-300);
+}
+
+:host(.search--disabled) .search-icon {
+  color: var(--colour-brand-purple-700);
+}
+
+/* ── Input ── */
+
+.search-input {
+  flex: 1;
+  width: 0;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--colour-text-dropdown-label-default);
+  transition: opacity 300ms ease;
+}
+
+.search-input::placeholder {
+  color: var(--colour-text-dropdown-label-default);
+  font: inherit;
+  transition: opacity 300ms ease;
+}
+
+:host(.search--editing) .search-input::placeholder {
+  opacity: 0;
+}
+
+/* Clearing: fade text out before value is removed */
+:host(.search--clearing) .search-input {
+  opacity: 0;
+}
+
+/* Active mode (has query, not currently editing): paragraph/ui-stylised (bold italic) */
+:host(.search--active:not(.search--editing)) .search-input {
+  font-weight: 700;
+}
+
+:host(.search--disabled) .search-input {
+  color: var(--colour-brand-purple-600);
+  cursor: not-allowed;
+}
+
+:host(.search--disabled) .search-input::placeholder {
+  color: var(--colour-brand-purple-600);
+}
+
+/* ── Clear Sub-Control ── */
+
+.search-clear {
+  flex-shrink: 0;
+}
+
+
+/* ═══════════════════════════════════════════════
+   PALETTE: Neutral
+   Figma: Search - Neutral (4207:12459)
+   Colours: neutral greys instead of brand purple
+   ═══════════════════════════════════════════════ */
+
+
+/* ── Frame — Inactive default ── */
+
+:host(.search--palette-neutral) .search-frame {
+  background-color: var(--colour-neutral-grey-900);
+  box-shadow: inset 0 0 0 var(--stroke-textbox-default) var(--colour-stroke-textbox-empty);
+}
+
+
+/* ── Frame — Active default (stroke colour changes, weight stays 1px) ── */
+
+:host(.search--palette-neutral.search--active) .search-frame {
+  box-shadow: inset 0 0 0 var(--stroke-textbox-default) var(--colour-neutral-grey-300);
+}
+
+
+/* ── Frame — Inactive hover (stroke widens 1→2px, bg unchanged) ── */
+
+:host(.search--palette-neutral:not(.search--active):not(.search--disabled):hover) .search-frame {
+  background-color: var(--colour-neutral-grey-900);
+  box-shadow: inset 0 0 0 var(--stroke-textbox-hover) var(--colour-stroke-textbox-empty);
+}
+
+
+/* ── Frame — Active hover (bg darkens, stroke stays 1px) ── */
+
+:host(.search--palette-neutral.search--active:not(.search--disabled):hover) .search-frame {
+  background-color: var(--colour-neutral-grey-700);
+  box-shadow: inset 0 0 0 var(--stroke-textbox-default) var(--colour-neutral-grey-300);
+}
+
+
+/* ── Frame — Editing (bg darkens, stroke widens to 2px) ── */
+
+:host(.search--palette-neutral.search--editing) .search-frame {
+  background-color: var(--colour-neutral-grey-700);
+  box-shadow: inset 0 0 0 var(--stroke-textbox-active) var(--colour-neutral-grey-300);
+}
+
+
+/* ── Frame — Disabled (no stroke) ── */
+
+:host(.search--palette-neutral.search--disabled) .search-frame {
+  background-color: var(--colour-neutral-grey-900);
+  box-shadow: inset 0 0 0 0px var(--colour-neutral-null);
+}
+
+
+/* ── Icon ── */
+
+:host(.search--palette-neutral) .search-icon {
+  color: var(--colour-neutral-grey-100);
+}
+
+
+/* ── Input text — Inactive default (sub colour) ── */
+
+:host(.search--palette-neutral) .search-input {
+  color: var(--colour-text-default-sub);
+}
+
+:host(.search--palette-neutral) .search-input::placeholder {
+  color: var(--colour-text-default-sub);
+}
+
+
+/* ── Input text — Active / Editing / Hover (all use base colour) ── */
+
+:host(.search--palette-neutral.search--active) .search-input,
+:host(.search--palette-neutral.search--editing) .search-input,
+:host(.search--palette-neutral:not(.search--disabled):hover) .search-input {
+  color: var(--colour-text-default-base);
+}
+
+/* Placeholder colour shifts to base on hover (inactive, non-editing) */
+:host(.search--palette-neutral:not(.search--disabled):not(.search--editing):hover) .search-input::placeholder {
+  color: var(--colour-text-default-base);
+}
+
+
+/* ── Input text — Disabled ── */
+
+:host(.search--palette-neutral.search--disabled) .search-input {
+  color: var(--colour-neutral-grey-400);
+}
+
+:host(.search--palette-neutral.search--disabled) .search-input::placeholder {
+  color: var(--colour-neutral-grey-400);
+}

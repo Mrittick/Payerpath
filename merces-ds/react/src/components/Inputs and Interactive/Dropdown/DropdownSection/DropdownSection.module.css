@@ -1,0 +1,62 @@
+/* DropdownSection — section header label
+   Figma: Dropdown-Section (206:6068)
+   Typography: heading/h5 — 12px Black 160% uppercase 4% letter-spacing
+   Colour: --colour-text-default-low-emphasis
+   Structure: Section > Text Frame (padding 1 2 0 2) > Section Text
+*/
+
+:global(.mds-dropdown-section) {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-lg) var(--spacing-3xbig) var(--spacing-lg) var(--spacing-1xbig);
+  text-align: left;
+  font-family: var(--font-family);
+  font-size: var(--h5-font-size);
+  font-weight: var(--h5-font-weight);
+  line-height: var(--h5-line-height);
+  letter-spacing: var(--h5-letter-spacing);
+  text-transform: var(--h5-text-transform);
+  color: var(--colour-text-default-low-emphasis);
+}
+
+/* SingleSelect Left (default) — L=32 R=40 */
+:global(.mds-dropdown-section--single-left) {
+  padding-left: var(--spacing-1xbig);
+  padding-right: var(--spacing-3xbig);
+}
+
+/* SingleSelect Right — L=12 R=40 */
+:global(.mds-dropdown-section--single-right) {
+  padding-left: var(--spacing-1xl);
+  padding-right: var(--spacing-3xbig);
+}
+
+/* MultiSelect Left — L=40 R=40 */
+:global(.mds-dropdown-section--multi-left) {
+  padding-left: var(--spacing-3xbig);
+  padding-right: var(--spacing-3xbig);
+}
+
+/* MultiSelect Right — L=12 R=40 */
+:global(.mds-dropdown-section--multi-right) {
+  padding-left: var(--spacing-1xl);
+  padding-right: var(--spacing-3xbig);
+}
+
+/* Text Frame — inner wrapper matching Figma frame padding 1px 2px 0 2px */
+:global(.mds-dropdown-section__text-frame) {
+  display: inline-flex;
+  padding: var(--spacing-3xs) var(--spacing-2xs) 0 var(--spacing-2xs);
+}
+
+:global(.mds-dropdown-section__text) {
+  font: inherit;
+  color: inherit;
+}
+
+/* Context-aware: when inside a scrollable panel, nudge right padding
+   inward so section text doesn't crowd the overlay scrollbar track.
+   Adds 8px (--spacing-md) — just enough clearance without over-compensating. */
+:global(.mds-dropdown-panel__content--has-scrollbar) :global(.mds-dropdown-section) {
+  padding-right: calc(var(--spacing-3xbig) + var(--spacing-md));
+}

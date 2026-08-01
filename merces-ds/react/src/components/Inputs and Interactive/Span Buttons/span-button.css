@@ -1,0 +1,85 @@
+/* ==========================================================================
+   Merces Design System — Span Button (layout-specific)
+   Inputs and Interactive / Span Buttons
+   Span = full-width stretching button, text fills available space.
+   Shared colour/theme/type/state rules are in ../button-shared.css
+   ========================================================================== */
+
+@import '../button-shared.css';
+
+/* ==========================================================================
+   Span layout — stretching, text fills remaining space
+   ========================================================================== */
+.mds-span {
+  width: 100%;
+}
+
+/* Span label — grows to fill available space */
+.mds-span .mds-btn__label {
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+/* Icon-only: center the lone icon within the stretching container */
+.mds-span--icon-only {
+  justify-content: center;
+}
+
+/* Icon-left: text aligns toward trailing (right) edge */
+.mds-span--icon-left .mds-btn__label {
+  text-align: right;
+}
+
+/* Icon-right / text-only: text aligns toward leading (left) edge */
+.mds-span--icon-right .mds-btn__label,
+.mds-span--text-only .mds-btn__label {
+  text-align: left;
+}
+
+/* ==========================================================================
+   Size: Base (44px)
+   ========================================================================== */
+.mds-span--base {
+  height: 44px;
+  gap: var(--spacing-md);
+}
+.mds-span--base.mds-span--text-only {
+  padding: var(--spacing-1xl) var(--spacing-3xl);
+  min-width: 72px;
+}
+.mds-span--base.mds-span--icon-only {
+  padding: var(--spacing-1xl);
+}
+.mds-span--base.mds-span--icon-left {
+  padding: var(--spacing-1xl) var(--spacing-3xl) var(--spacing-1xl) var(--spacing-1xl);
+}
+.mds-span--base.mds-span--icon-right {
+  padding: var(--spacing-1xl) var(--spacing-1xl) var(--spacing-1xl) var(--spacing-3xl);
+}
+.mds-span--base > .mds-icon {
+  --icon-size: var(--icon-size-base); /* 20px */
+}
+
+/* ==========================================================================
+   Size: Mini (32px)
+   ========================================================================== */
+.mds-span--mini {
+  height: 32px;
+  gap: var(--spacing-sm);
+}
+.mds-span--mini.mds-span--text-only {
+  padding: var(--spacing-sm) var(--spacing-1xl);
+  min-width: 48px;
+}
+.mds-span--mini.mds-span--icon-only {
+  padding: var(--spacing-md);
+}
+.mds-span--mini.mds-span--icon-left {
+  padding: var(--spacing-sm) var(--spacing-1xl) var(--spacing-sm) var(--spacing-md);
+}
+.mds-span--mini.mds-span--icon-right {
+  padding: var(--spacing-sm) var(--spacing-md) var(--spacing-sm) var(--spacing-1xl);
+}
+.mds-span--mini > .mds-icon {
+  --icon-size: var(--icon-size-mini); /* 16px */
+}

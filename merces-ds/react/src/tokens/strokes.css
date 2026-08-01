@@ -1,0 +1,55 @@
+/* ==========================================================================
+   Merces Design System — Stroke Width Tokens
+   Source: Figma Primitives > stroke/* (7 base) + Semantic Tokens > stroke/* (21 semantic)
+   28 total values
+   ========================================================================== */
+
+:root {
+  /* ---- Primitive stroke widths ---- */
+  --stroke-nil: 0px;
+  --stroke-xs: 1px;
+  --stroke-sm: 2px;
+  --stroke-md: 3px;
+  --stroke-lg: 4px;
+  --stroke-xl: 6px;
+  --stroke-big: 8px;
+
+  /* ---- Semantic stroke widths ---- */
+
+  /* General */
+  --stroke-thin: var(--stroke-xs); /* 1px */
+
+  /* Button */
+  --stroke-button-thin: var(--stroke-xs); /* 1px */
+  --stroke-button-secondary: var(--stroke-sm); /* 2px */
+  --stroke-button-focus: var(--stroke-md); /* 3px */
+
+  /* Tab Button */
+  --stroke-button-tab-base: var(--stroke-sm); /* 2px */
+  --stroke-button-tab-mini: var(--stroke-xs); /* 1px */
+
+  /* Checkbox */
+  --stroke-button-checkbox-base: var(--stroke-sm); /* 2px */
+  --stroke-button-checkbox-mini: var(--stroke-xs); /* 1px */
+
+  /* Radio — Base */
+  --stroke-radio-base-unselected-default: var(--stroke-sm); /* 2px */
+  --stroke-radio-base-unselected-pressed: var(--stroke-big); /* 8px */
+  --stroke-radio-base-selected-default: var(--stroke-xl); /* 6px */
+  --stroke-radio-base-selected-pressed: var(--stroke-big); /* 8px */
+
+  /* Radio — Mini */
+  --stroke-radio-mini-unselected-default: var(--stroke-sm); /* 2px */
+  --stroke-radio-mini-unselected-pressed: var(--stroke-xl); /* 6px */
+  --stroke-radio-mini-selected-default: var(--stroke-lg); /* 4px */
+  --stroke-radio-mini-selected-pressed: var(--stroke-xl); /* 6px */
+
+  /* Tab */
+  --stroke-tab-h02-default: var(--stroke-xs); /* 1px */
+  --stroke-tab-h02-current: var(--stroke-sm); /* 2px */
+
+  /* Textbox */
+  --stroke-textbox-default: var(--stroke-xs); /* 1px */
+  --stroke-textbox-hover: var(--stroke-sm); /* 2px */
+  --stroke-textbox-active: var(--stroke-sm); /* 2px */
+}

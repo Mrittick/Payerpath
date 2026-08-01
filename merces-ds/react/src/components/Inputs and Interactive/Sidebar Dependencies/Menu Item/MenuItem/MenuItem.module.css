@@ -1,0 +1,271 @@
+/* ==========================================================================
+   Merces Design System — Menu Item
+   Inputs and Interactive / Menu Item
+   Figma: 114:2980
+
+   A navigation menu entry with two types (h01 standard, h00 header),
+   two sizes (Base 40px, Mini 32px), optional text/icon, six states,
+   and a focus ring.
+
+   Structure:
+     .mds-menu-item              — outer wrapper (focus ring target)
+       .mds-menu-item__inner     — inner frame (bg, padding, content layout)
+         .mds-icon               — optional leading icon
+         .mds-menu-item__label   — text label
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Outer Wrapper — focus ring target
+   -------------------------------------------------------------------------- */
+
+:global(.mds-menu-item) {
+  display: inline-flex;
+  flex-direction: column;
+  border: none;
+  background: transparent;
+  padding: 0;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --------------------------------------------------------------------------
+   Inner Frame — content layout, bg, padding
+   -------------------------------------------------------------------------- */
+
+:global(.mds-menu-item__inner) {
+  display: flex;
+  align-items: center;
+  border-radius: var(--radius-md);
+  transition:
+    background-color 150ms cubic-bezier(0, 0, 0, 1),
+    color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* --------------------------------------------------------------------------
+   Label
+   -------------------------------------------------------------------------- */
+
+:global(.mds-menu-item__label) {
+  flex: 1 1 auto;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --------------------------------------------------------------------------
+   Type: h01 — Standard item
+   -------------------------------------------------------------------------- */
+
+:global(.mds-menu-item--h01) :global(.mds-menu-item__label) {
+  font-family: var(--font-family);
+  font-weight: 700;            /* Bold */
+  font-size: 14px;
+  line-height: 1.4;            /* 140% */
+  letter-spacing: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Type: h00 — Category header
+   -------------------------------------------------------------------------- */
+
+:global(.mds-menu-item--h00) {
+  cursor: default;
+}
+
+:global(.mds-menu-item--h00) :global(.mds-menu-item__label) {
+  font-family: var(--font-family);
+  font-weight: 900;            /* Black */
+  font-size: 12px;
+  line-height: 1.6;            /* 160% */
+  letter-spacing: 0.04em;      /* 4% */
+}
+
+/* h00 — no background, always default text colour */
+:global(.mds-menu-item--h00) :global(.mds-menu-item__inner) {
+  background-color: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   Size: Base (40px height) — h01 only
+   -------------------------------------------------------------------------- */
+
+/* Text only / Text+Icon — same padding */
+:global(.mds-menu-item--h01.mds-menu-item--base) :global(.mds-menu-item__inner) {
+  padding: var(--spacing-lg) var(--spacing-3xl) var(--spacing-lg) var(--spacing-1xl);
+  gap: var(--spacing-md);
+}
+
+/* Icon only — equal padding all sides */
+:global(.mds-menu-item--h01.mds-menu-item--base.mds-menu-item--icon-only) :global(.mds-menu-item__inner) {
+  padding: var(--spacing-lg);
+  gap: var(--spacing-md);
+}
+
+/* Icon size: Base (20×20) */
+:global(.mds-menu-item--h01.mds-menu-item--base) :global(.mds-menu-item__inner) > :global(.mds-icon) {
+  --icon-size: var(--icon-size-base);
+}
+
+/* --------------------------------------------------------------------------
+   Size: Mini (32px height) — h01
+   -------------------------------------------------------------------------- */
+
+/* Text only */
+:global(.mds-menu-item--h01.mds-menu-item--mini.mds-menu-item--text-only) :global(.mds-menu-item__inner) {
+  padding: var(--spacing-sm) var(--spacing-1xl) var(--spacing-sm) var(--spacing-1xl);
+  gap: var(--spacing-1xs);
+}
+
+/* Text + Icon */
+:global(.mds-menu-item--h01.mds-menu-item--mini.mds-menu-item--text-icon) :global(.mds-menu-item__inner) {
+  padding: var(--spacing-sm) var(--spacing-lg) var(--spacing-sm) var(--spacing-md);
+  gap: var(--spacing-sm);
+}
+
+/* Icon only */
+:global(.mds-menu-item--h01.mds-menu-item--mini.mds-menu-item--icon-only) :global(.mds-menu-item__inner) {
+  padding: var(--spacing-md);
+  gap: var(--spacing-sm);
+}
+
+/* Icon size: Mini (16×16) */
+:global(.mds-menu-item--h01.mds-menu-item--mini) :global(.mds-menu-item__inner) > :global(.mds-icon) {
+  --icon-size: var(--icon-size-mini);
+}
+
+/* --------------------------------------------------------------------------
+   Size: Mini — h00 (category header)
+   -------------------------------------------------------------------------- */
+
+:global(.mds-menu-item--h00.mds-menu-item--mini) :global(.mds-menu-item__inner) {
+  padding: var(--spacing-sm) var(--spacing-nil) var(--spacing-sm) var(--spacing-nil);
+  gap: var(--spacing-1xs);
+}
+
+/* --------------------------------------------------------------------------
+   State: Default
+   -------------------------------------------------------------------------- */
+
+:global(.mds-menu-item--h01.mds-menu-item--default) :global(.mds-menu-item__inner) {
+  background-color: var(--colour-bg-fill-button-menu-default);
+}
+
+:global(.mds-menu-item--h01.mds-menu-item--default) :global(.mds-menu-item__label) {
+  color: var(--colour-text-default-link-enabled);
+}
+
+:global(.mds-menu-item--h01.mds-menu-item--default) :global(.mds-menu-item__inner) > :global(.mds-icon) {
+  color: var(--colour-brand-purple-100);
+}
+
+/* --------------------------------------------------------------------------
+   State: Hover
+   -------------------------------------------------------------------------- */
+
+:global(.mds-menu-item--h01.mds-menu-item--hover) :global(.mds-menu-item__inner),
+:global(.mds-menu-item--h01.mds-menu-item--default:hover) :global(.mds-menu-item__inner) {
+  background-color: var(--colour-bg-fill-button-menu-hover);
+}
+
+:global(.mds-menu-item--h01.mds-menu-item--hover) :global(.mds-menu-item__label),
+:global(.mds-menu-item--h01.mds-menu-item--default:hover) :global(.mds-menu-item__label) {
+  color: var(--colour-text-default-link-enabled);
+}
+
+:global(.mds-menu-item--h01.mds-menu-item--hover) :global(.mds-menu-item__inner) > :global(.mds-icon),
+:global(.mds-menu-item--h01.mds-menu-item--default:hover) :global(.mds-menu-item__inner) > :global(.mds-icon) {
+  color: var(--colour-brand-purple-100);
+}
+
+/* --------------------------------------------------------------------------
+   State: Pressed (prop + :active pseudo-class)
+   -------------------------------------------------------------------------- */
+
+:global(.mds-menu-item--h01.mds-menu-item--pressed) :global(.mds-menu-item__inner),
+:global(.mds-menu-item--h01.mds-menu-item--default:active) :global(.mds-menu-item__inner) {
+  background-color: var(--colour-bg-fill-button-menu-pressed);
+}
+
+:global(.mds-menu-item--h01.mds-menu-item--pressed) :global(.mds-menu-item__label),
+:global(.mds-menu-item--h01.mds-menu-item--default:active) :global(.mds-menu-item__label) {
+  color: var(--colour-text-default-link-enabled);
+}
+
+:global(.mds-menu-item--h01.mds-menu-item--pressed) :global(.mds-menu-item__inner) > :global(.mds-icon),
+:global(.mds-menu-item--h01.mds-menu-item--default:active) :global(.mds-menu-item__inner) > :global(.mds-icon) {
+  color: var(--colour-brand-purple-100);
+}
+
+/* --------------------------------------------------------------------------
+   State: Current-Default (subtle current page)
+   -------------------------------------------------------------------------- */
+
+:global(.mds-menu-item--h01.mds-menu-item--current-default) :global(.mds-menu-item__inner) {
+  background-color: var(--colour-bg-fill-button-menu-current);
+}
+
+:global(.mds-menu-item--h01.mds-menu-item--current-default) :global(.mds-menu-item__label) {
+  color: var(--colour-text-default-link-emphasis);
+}
+
+:global(.mds-menu-item--h01.mds-menu-item--current-default) :global(.mds-menu-item__inner) > :global(.mds-icon) {
+  color: var(--colour-brand-purple-100);
+}
+
+/* --------------------------------------------------------------------------
+   State: Current-Strong (inverted, strong current page)
+   -------------------------------------------------------------------------- */
+
+:global(.mds-menu-item--h01.mds-menu-item--current-strong) :global(.mds-menu-item__inner) {
+  background-color: var(--colour-bg-fill-button-brand-primary-pressed);
+}
+
+:global(.mds-menu-item--h01.mds-menu-item--current-strong) :global(.mds-menu-item__label) {
+  color: var(--colour-neutral-white);
+}
+
+:global(.mds-menu-item--h01.mds-menu-item--current-strong) :global(.mds-menu-item__inner) > :global(.mds-icon) {
+  color: var(--colour-neutral-white);
+}
+
+/* --------------------------------------------------------------------------
+   State: Disabled
+   -------------------------------------------------------------------------- */
+
+:global(.mds-menu-item--h01.mds-menu-item--disabled) {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+:global(.mds-menu-item--h01.mds-menu-item--disabled) :global(.mds-menu-item__inner) {
+  background-color: var(--colour-bg-fill-button-menu-disabled);
+}
+
+:global(.mds-menu-item--h01.mds-menu-item--disabled) :global(.mds-menu-item__label) {
+  color: var(--colour-brand-purple-700);
+}
+
+:global(.mds-menu-item--h01.mds-menu-item--disabled) :global(.mds-menu-item__inner) > :global(.mds-icon) {
+  color: var(--colour-brand-purple-700);
+}
+
+/* --------------------------------------------------------------------------
+   h00 — always same text colour (link-enabled), no interactive states
+   -------------------------------------------------------------------------- */
+
+:global(.mds-menu-item--h00) :global(.mds-menu-item__label) {
+  color: var(--colour-text-default-link-enabled);
+}
+
+/* --------------------------------------------------------------------------
+   Focus Ring — applied on outer wrapper
+   3px outside stroke, brand focus colour
+   -------------------------------------------------------------------------- */
+
+:global(.mds-menu-item--focus) {
+  outline: 3px solid var(--colour-stroke-element-focus-brand-enabled-base);
+  outline-offset: 0px;
+}

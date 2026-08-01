@@ -1,0 +1,44 @@
+:host {
+  display: flex;
+  align-items: center;
+}
+
+/* ── Padding variants ── */
+
+:host(.separator--single-left) {
+  padding: var(--gap-lg) var(--gap-2xl) var(--gap-lg) var(--gap-1xbig);
+}
+
+:host(.separator--single-right),
+:host(.separator--multi-right) {
+  padding: var(--gap-lg) var(--gap-2xl);
+}
+
+:host(.separator--multi-left) {
+  padding: var(--gap-lg) var(--gap-2xl) var(--gap-lg) var(--gap-3xbig);
+}
+
+:host(.separator--choice) {
+  padding: var(--gap-lg) var(--gap-2xl);
+}
+
+/* ── Track & Line ── */
+
+.separator-track {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding-left: var(--gap-2xs);
+}
+
+:host(.separator--single-right) .separator-track,
+:host(.separator--multi-right) .separator-track {
+  padding-left: 0;
+}
+
+.separator-line {
+  flex: 1;
+  height: var(--stroke-xs);
+  background-color: var(--colour-stroke-divider-primary-medium);
+  border-radius: var(--radius-full);
+}

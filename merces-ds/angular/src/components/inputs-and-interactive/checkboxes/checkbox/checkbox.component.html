@@ -1,0 +1,47 @@
+<!-- ==========================================================================
+     Checkbox
+     Figma: Checkbox - Brand (119:5296) / Checkbox - Neutral (3968:6120)
+
+     Structure:
+       Orientation=Left:  [Box, Label?]
+       Orientation=Right: [Label?, Box]
+
+     Box contains the tick (checked) or dash (mixed) icon.
+     Label is only rendered when group=true.
+     ========================================================================== -->
+
+@if (orientation() === 'left') {
+
+  <div class="checkbox__box">
+    <merces-icon
+      [name]="iconName()"
+      [type]="iconType()"
+      [size]="iconSize()"
+      class="checkbox__icon"
+    />
+  </div>
+
+  @if (group()) {
+    <div class="checkbox__label">
+      <span class="paragraph-ui-thin">{{ label() }}</span>
+    </div>
+  }
+
+} @else {
+
+  @if (group()) {
+    <div class="checkbox__label">
+      <span class="paragraph-ui-thin">{{ label() }}</span>
+    </div>
+  }
+
+  <div class="checkbox__box">
+    <merces-icon
+      [name]="iconName()"
+      [type]="iconType()"
+      [size]="iconSize()"
+      class="checkbox__icon"
+    />
+  </div>
+
+}

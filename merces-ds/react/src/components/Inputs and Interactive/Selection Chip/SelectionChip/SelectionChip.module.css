@@ -1,0 +1,250 @@
+/* ==========================================================================
+   Merces Design System — Selection Chip
+   Inputs and Interactive / Selection Chip
+   Hybrid CSS Module: :global() preserves BEM class names for cross-component
+   references while enabling CSS Module imports in React components.
+
+   Self-contained — no button-shared.css dependency.
+   Font-family set explicitly because <button> elements do NOT inherit
+   font-family from body — browsers apply system-ui via user-agent styles.
+
+   Animation strategy:
+   - Strikethrough uses pure dissolve (opacity fade only).
+   - Icon expands from width:0 to make room in the layout, but the
+     visual appearance is controlled by opacity alone (no overflow:hidden
+     curtain-reveal). Width/margin open space while the icon fades in,
+     creating a smooth dissolve impression.
+   - All transitions use the DS standard 150ms cubic-bezier(0,0,0,1).
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Base — outer button wrapper
+   -------------------------------------------------------------------------- */
+:global(.mds-selection-chip) {
+  /* Reset */
+  appearance: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-md) var(--spacing-1xl);   /* 8px 12px */
+  border-radius: var(--radius-md);                 /* 8px */
+  text-align: left;                                /* override browser button default */
+
+  /* Positioning context for tooltip */
+  position: relative;
+
+  /* Default state fills */
+  background-color: var(--colour-brand-purple-1100);
+  box-shadow: inset 0 0 0 1px var(--colour-brand-purple-200);  /* 1px INSIDE stroke */
+
+  /* Typography — paragraph/ui-thin (Medium 14px 140%) */
+  font-family: var(--font-family);
+  font-size: var(--ui-thin-font-size);
+  font-weight: var(--ui-thin-font-weight);
+  line-height: var(--ui-thin-line-height);
+  letter-spacing: var(--ui-thin-letter-spacing);
+  color: var(--colour-brand-purple-100);
+
+  /* Transition — bg, stroke (box-shadow), and text colour all animate */
+  transition: background-color 150ms cubic-bezier(0, 0, 0, 1),
+    box-shadow 150ms cubic-bezier(0, 0, 0, 1),
+    color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* --------------------------------------------------------------------------
+   Wrap modifiers
+   -------------------------------------------------------------------------- */
+
+/* Wrap=True — auto-width, full text visible */
+:global(.mds-selection-chip--wrap) {
+  max-width: none;
+}
+
+/* Wrap=False — sized to content, capped at parent width.
+   When text exceeds container, truncates with ellipsis.
+   When text fits, chip hugs content (no excess gap). */
+:global(.mds-selection-chip--nowrap) {
+  max-width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   Label — text node
+   Positioned relative for the strikethrough pseudo-element.
+   -------------------------------------------------------------------------- */
+:global(.mds-selection-chip__label) {
+  /* Inherit font properties from parent */
+  font: inherit;
+  color: inherit;
+  position: relative;
+}
+
+/* Wrap=True — label can show full text */
+:global(.mds-selection-chip--wrap .mds-selection-chip__label) {
+  white-space: normal;
+}
+
+/* Wrap=False — label truncates, flexes to give space to icon */
+:global(.mds-selection-chip--nowrap .mds-selection-chip__label) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  flex: 1 1 0%;
+}
+
+/* --------------------------------------------------------------------------
+   Strikethrough — dissolve pseudo-element on label
+   Line is always full-width, fades in/out via opacity only.
+   No scaleX or directional animation — pure dissolve.
+   -------------------------------------------------------------------------- */
+:global(.mds-selection-chip__label)::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background-color: currentColor;
+  opacity: 0;
+  transition: opacity 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* Dissolve strikethrough in on hover */
+:global(.mds-selection-chip--hover .mds-selection-chip__label)::after,
+:global(.mds-selection-chip:hover .mds-selection-chip__label)::after {
+  opacity: 1;
+}
+
+/* Keep strikethrough on pressed */
+:global(.mds-selection-chip--pressed .mds-selection-chip__label)::after,
+:global(.mds-selection-chip:active .mds-selection-chip__label)::after {
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Icon — Cross close icon
+   Always in DOM. Collapsed to width:0 in default (no ghost space).
+   On hover/pressed: width expands to 16px + 6px gap to make room.
+   Visual appearance is ONLY controlled by opacity (no overflow:hidden,
+   so no curtain-reveal clipping). The opacity dissolve is the dominant
+   visual; the width change just opens layout space smoothly.
+   -------------------------------------------------------------------------- */
+:global(.mds-selection-chip__icon) {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  color: var(--colour-brand-purple-200);
+
+  /* Collapsed state — no space, invisible */
+  width: 0;
+  margin-left: 0;
+  opacity: 0;
+
+  /* Width/margin open space; opacity controls visibility; colour for pressed */
+  transition: width 150ms cubic-bezier(0, 0, 0, 1),
+    margin-left 150ms cubic-bezier(0, 0, 0, 1),
+    opacity 150ms cubic-bezier(0, 0, 0, 1),
+    color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* --------------------------------------------------------------------------
+   Hover state — prop-driven (.--hover) + CSS :hover
+   -------------------------------------------------------------------------- */
+:global(.mds-selection-chip--hover),
+:global(.mds-selection-chip:hover) {
+  background-color: var(--colour-brand-purple-1000);
+}
+
+/* Expand space + dissolve icon in on hover */
+:global(.mds-selection-chip--hover .mds-selection-chip__icon),
+:global(.mds-selection-chip:hover .mds-selection-chip__icon) {
+  width: var(--icon-size-mini);   /* 16px */
+  margin-left: var(--spacing-sm); /* 6px gap */
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Pressed state — prop-driven (.--pressed) + CSS :active
+   Red danger scheme for explicit "will be removed" feedback.
+   -------------------------------------------------------------------------- */
+:global(.mds-selection-chip--pressed),
+:global(.mds-selection-chip:active) {
+  background-color: var(--colour-brand-red-1000);
+  box-shadow: inset 0 0 0 1px var(--colour-brand-red-100);
+  color: var(--colour-brand-red-200);
+}
+
+/* Icon — red + visible on pressed */
+:global(.mds-selection-chip--pressed .mds-selection-chip__icon),
+:global(.mds-selection-chip:active .mds-selection-chip__icon) {
+  width: var(--icon-size-mini);   /* 16px */
+  margin-left: var(--spacing-sm); /* 6px gap */
+  opacity: 1;
+  color: var(--colour-brand-red-200);
+}
+
+/* --------------------------------------------------------------------------
+   Tooltip — CSS-only, dissolve on hover (150ms fade)
+   Matches Figma custom tooltip design:
+     Fill: --colour-brand-purple-200
+     Text: paragraph/p4-bold (12px Bold 140%), --colour-neutral-white
+     Padding: 6px 12px (--spacing-sm / --spacing-1xl)
+     Corner radius: 8px (--radius-md)
+     Gap from chip: 4px
+   Only for nowrap chips where text may be truncated.
+   Left-aligned to prevent viewport overflow.
+   Uses data-tooltip attribute as content source.
+   -------------------------------------------------------------------------- */
+:global(.mds-selection-chip--nowrap[data-tooltip])::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 4px);
+  z-index: 1000;
+
+  /* Visual — matches Figma tooltip */
+  background-color: var(--colour-brand-purple-200);
+  color: var(--colour-neutral-white);
+  padding: var(--spacing-sm) var(--spacing-1xl);   /* 6px 12px */
+  border-radius: var(--radius-md);                 /* 8px */
+
+  /* Sizing — break free from parent width (Safari fix), wrap at 360px */
+  width: max-content;
+  max-width: 360px;
+  white-space: normal;
+  word-break: break-word;
+
+  /* Typography — paragraph/p4-bold (12px Bold 140%) */
+  font-size: var(--p4-bold-font-size);
+  font-weight: var(--p4-bold-font-weight);
+  line-height: var(--p4-bold-line-height);
+  letter-spacing: var(--p4-bold-letter-spacing);
+  text-decoration: none;
+
+  /* Hidden by default */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms cubic-bezier(0, 0, 0, 1),
+    background-color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* Show tooltip on hover */
+:global(.mds-selection-chip--nowrap[data-tooltip]:hover)::after,
+:global(.mds-selection-chip--nowrap[data-tooltip].mds-selection-chip--hover)::after {
+  opacity: 1;
+}
+
+/* Pressed tooltip — red bg for danger feedback */
+:global(.mds-selection-chip--nowrap[data-tooltip]:active)::after,
+:global(.mds-selection-chip--nowrap[data-tooltip].mds-selection-chip--pressed)::after {
+  background-color: var(--colour-brand-red-300);
+  opacity: 1;
+}

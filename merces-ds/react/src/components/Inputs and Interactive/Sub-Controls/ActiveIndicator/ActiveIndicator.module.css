@@ -1,0 +1,25 @@
+/* ==========================================================================
+   Merces Design System — ActiveIndicator
+   Sub-Controls / Active Indicator
+   Hybrid CSS Module: :global() preserves BEM class names.
+   12px circle, outside stroke 2px, 3 states.
+   ========================================================================== */
+
+:global(.mds-active-indicator) {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-full);
+  background-color: var(--colour-brand-red-400);
+  box-shadow: 0 0 0 2px var(--colour-brand-purple-1100);
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+:global(.mds-active-indicator--hover) {
+  box-shadow: 0 0 0 2px var(--colour-brand-purple-1000);
+}
+
+:global(.mds-active-indicator--invoked) {
+  box-shadow: 0 0 0 2px var(--colour-neutral-white);
+}

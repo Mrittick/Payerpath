@@ -1,0 +1,75 @@
+<!-- Label row — only rendered when a label string is provided -->
+@if (label()) {
+  <div class="calf__label-row">
+    <span class="calf__label paragraph-ui">{{ label() }}</span>
+  </div>
+}
+
+<!-- Field wrapper — position:relative anchors the overlay -->
+<div class="calf__field-wrap">
+
+  <!-- Frame — visible field box (border, bg, radius, focus ring) -->
+  <div
+    class="calf__frame"
+    role="button"
+    [attr.tabindex]="disabled() ? -1 : 0"
+    [attr.aria-label]="label()"
+    [attr.aria-expanded]="!isEmpty() ? _open() : null"
+    [attr.aria-disabled]="disabled() || null"
+    (click)="onFrameClick()"
+    (keydown.enter)="onKeydownActivate($event)"
+    (keydown.space)="onKeydownActivate($event)"
+    (keydown.escape)="onEscape()"
+  >
+
+    <!-- Input row -->
+    <div class="calf__input-row">
+
+      <!-- Display text / placeholder — fills available space -->
+      <div class="calf__content">
+        <span class="calf__display paragraph-ui-thin" [class.calf__display--placeholder]="isEmpty()">
+          {{ isEmpty() ? placeholder() : displayText() }}
+        </span>
+      </div>
+
+      <!-- Clear button — opacity:0 when empty, stops click propagation to prevent toggle -->
+      <merces-clear
+        class="calf__clear"
+        size="mini"
+        level="tertiary"
+        [state]="clearState()"
+        (pressed)="onClear()"
+        (click)="$event.stopPropagation()"
+      />
+
+      <!-- Calendar icon — fills when open -->
+      <merces-icon
+        class="calf__icon"
+        name="date-picker"
+        [type]="_open() ? 'filled' : 'regular'"
+        size="base"
+      />
+
+    </div>
+  </div>
+
+  <!-- Calendar overlay — always in DOM, opacity/pointer-events toggled via .calf--open on host -->
+  <!-- stopPropagation prevents cell clicks bubbling to .calf__frame and re-toggling the panel -->
+  <div class="calf__overlay" (click)="$event.stopPropagation()" (transitionend)="onOverlayTransitionEnd($event)">
+    <merces-calendar-ui
+      [(selectedDate)]="value"
+      (dateSelected)="onDateSelected($event)"
+    />
+  </div>
+
+</div>
+
+<!-- Validation message slot — animated by global ds-slot system -->
+<div class="calf__message-slot ds-slot" [class.ds-slot--open]="showMessage()">
+  <div class="calf__message-inner ds-slot__inner">
+    <merces-stringfield-message
+      [type]="validationState() === 'warning' ? 'warning' : 'error'"
+      [text]="message()"
+    />
+  </div>
+</div>

@@ -1,0 +1,434 @@
+/* ==========================================================================
+   Merces Design System - Semantic Colour Tokens
+   Source: Figma Semantic Tokens Collection (VariableCollectionId:6:282)
+   Default Theme: Payerpath (mode 6:4)
+   Alt Theme: eChart Coder (mode 1662:1) via [data-theme="echart-coder"]
+   Total: 234 colour variables (3 FLOAT-type variables excluded)
+   ========================================================================== */
+
+:root {
+  /* -----------------------------------------------------------------------
+     DS (Design System) Colours
+     ----------------------------------------------------------------------- */
+  --colour-ds-main-base: hsla(255, 44%, 24%, 1);
+  --colour-ds-accent-base: hsla(4, 85%, 62%, 1);
+
+  /* -----------------------------------------------------------------------
+     Text Colours - Default
+     ----------------------------------------------------------------------- */
+  --colour-text-default-base: hsla(0, 0%, 10%, 1);
+  --colour-text-default-low-emphasis: hsla(256, 12%, 56%, 1);
+  --colour-text-default-medium-emphasis: hsla(255, 16%, 44%, 1);
+  --colour-text-default-accent: hsla(258, 12%, 78%, 1);
+  --colour-text-default-link-enabled: hsla(255, 28%, 44%, 1);
+  --colour-text-default-link-disabled: hsla(256, 12%, 56%, 1);
+  --colour-text-default-link-emphasis: hsla(255, 44%, 24%, 1);
+  --colour-text-default-disabled: hsla(0, 0%, 60%, 1);
+  --colour-text-default-warning: hsla(37, 84%, 40%, 1);
+  --colour-text-default-error: hsla(4, 90%, 30%, 1);
+  --colour-text-default-sub: hsla(0, 0%, 40%, 1);
+
+  /* -----------------------------------------------------------------------
+     Text Colours - Inverted
+     ----------------------------------------------------------------------- */
+  --colour-text-inverted-base: hsla(0, 0%, 100%, 1);
+
+  /* -----------------------------------------------------------------------
+     Text Colours - Checkbox
+     ----------------------------------------------------------------------- */
+  --colour-text-checkbox-enabled: hsla(255, 33%, 32%, 1);
+  --colour-text-checkbox-disabled: hsla(256, 12%, 56%, 1);
+
+  /* -----------------------------------------------------------------------
+     Text Colours - Radio
+     ----------------------------------------------------------------------- */
+  --colour-text-radio-enabled: hsla(255, 33%, 32%, 1);
+  --colour-text-radio-disabled: hsla(256, 12%, 56%, 1);
+
+  /* -----------------------------------------------------------------------
+     Text Colours - Dropdown
+     ----------------------------------------------------------------------- */
+  --colour-text-dropdown-label-default: hsla(255, 44%, 24%, 1);
+  --colour-text-dropdown-label-selected: hsla(255, 28%, 44%, 1);
+  --colour-text-dropdown-label-placeholder: hsla(255, 16%, 44%, 1);
+  --colour-text-dropdown-label-disabled: hsla(258, 12%, 78%, 1);
+  --colour-text-dropdown-entry-default: hsla(255, 33%, 32%, 1);
+  --colour-text-dropdown-entry-disabled: hsla(258, 12%, 78%, 1);
+
+  /* -----------------------------------------------------------------------
+     Text Colours - Modal Field
+     ----------------------------------------------------------------------- */
+  --colour-text-modal-field-label-default: hsla(255, 28%, 44%, 1);
+  --colour-text-modal-field-label-selected: hsla(255, 44%, 24%, 1);
+  --colour-text-modal-field-label-disabled: hsla(258, 12%, 78%, 1);
+
+  /* -----------------------------------------------------------------------
+     Background/Fill - Surface
+     ----------------------------------------------------------------------- */
+  --colour-bg-fill-surface-neutral-default: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-surface-neutral-backdrop: hsla(0, 0%, 92%, 1);
+  --colour-bg-fill-surface-neutral-intermediary: hsla(0, 0%, 96%, 1);
+  --colour-bg-fill-surface-neutral-alt: hsla(0, 0%, 10%, 1);
+  --colour-bg-fill-surface-brand-purple-xlight: hsla(255, 20%, 96%, 1);
+  --colour-bg-fill-surface-brand-purple-default: hsla(255, 28%, 44%, 1);
+
+  /* -----------------------------------------------------------------------
+     Background/Fill - Button / Brand
+     ----------------------------------------------------------------------- */
+  --colour-bg-fill-button-brand-primary-default: hsla(255, 28%, 44%, 1);
+  --colour-bg-fill-button-brand-primary-hover: hsla(255, 32%, 36%, 1);
+  --colour-bg-fill-button-brand-primary-pressed: hsla(255, 44%, 24%, 1);
+  --colour-bg-fill-button-brand-primary-disabled: hsla(255, 20%, 96%, 1);
+  --colour-bg-fill-button-brand-secondary-default: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-brand-secondary-hover: hsla(255, 20%, 96%, 1);
+  --colour-bg-fill-button-brand-secondary-pressed: hsla(255, 20%, 92%, 1);
+  --colour-bg-fill-button-brand-secondary-disabled: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-brand-tertiary-default: hsla(255, 20%, 96%, 1);
+  --colour-bg-fill-button-brand-tertiary-hover: hsla(255, 20%, 92%, 1);
+  --colour-bg-fill-button-brand-tertiary-pressed: hsla(259, 22%, 86%, 1);
+  --colour-bg-fill-button-brand-tertiary-disabled: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-brand-quaternary-default: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-brand-quaternary-hover: hsla(255, 20%, 96%, 1);
+  --colour-bg-fill-button-brand-quaternary-pressed: hsla(255, 20%, 92%, 1);
+  --colour-bg-fill-button-brand-quaternary-disabled: hsla(0, 0%, 100%, 1);
+
+  /* -----------------------------------------------------------------------
+     Background/Fill - Button / Danger
+     ----------------------------------------------------------------------- */
+  --colour-bg-fill-button-danger-primary-default: hsla(4, 85%, 62%, 1);
+  --colour-bg-fill-button-danger-primary-hover: hsla(4, 64%, 48%, 1);
+  --colour-bg-fill-button-danger-primary-pressed: hsla(4, 90%, 30%, 1);
+  --colour-bg-fill-button-danger-primary-disabled: hsla(6, 100%, 98%, 1);
+  --colour-bg-fill-button-danger-secondary-default: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-danger-secondary-hover: hsla(4, 37%, 92%, 1);
+  --colour-bg-fill-button-danger-secondary-pressed: hsla(4, 44%, 88%, 1);
+  --colour-bg-fill-button-danger-secondary-disabled: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-danger-tertiary-default: hsla(6, 100%, 98%, 1);
+  --colour-bg-fill-button-danger-tertiary-hover: hsla(4, 37%, 92%, 1);
+  --colour-bg-fill-button-danger-tertiary-pressed: hsla(4, 44%, 88%, 1);
+  --colour-bg-fill-button-danger-tertiary-disabled: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-danger-quaternary-default: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-danger-quaternary-hover: hsla(4, 37%, 92%, 1);
+  --colour-bg-fill-button-danger-quaternary-pressed: hsla(4, 44%, 88%, 1);
+  --colour-bg-fill-button-danger-quaternary-disabled: hsla(0, 0%, 100%, 1);
+
+  /* -----------------------------------------------------------------------
+     Background/Fill - Button / Caution
+     ----------------------------------------------------------------------- */
+  --colour-bg-fill-button-caution-primary-default: hsla(37, 92%, 51%, 1);
+  --colour-bg-fill-button-caution-primary-hover: hsla(37, 84%, 40%, 1);
+  --colour-bg-fill-button-caution-primary-pressed: hsla(37, 100%, 20%, 1);
+  --colour-bg-fill-button-caution-primary-disabled: hsla(35, 81%, 96%, 1);
+  --colour-bg-fill-button-caution-secondary-default: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-caution-secondary-hover: hsla(35, 81%, 96%, 1);
+  --colour-bg-fill-button-caution-secondary-pressed: hsla(38, 76%, 92%, 1);
+  --colour-bg-fill-button-caution-secondary-disabled: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-caution-tertiary-default: hsla(35, 81%, 96%, 1);
+  --colour-bg-fill-button-caution-tertiary-hover: hsla(38, 76%, 92%, 1);
+  --colour-bg-fill-button-caution-tertiary-pressed: hsla(36, 84%, 88%, 1);
+  --colour-bg-fill-button-caution-tertiary-disabled: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-caution-quaternary-default: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-caution-quaternary-hover: hsla(38, 76%, 92%, 1);
+  --colour-bg-fill-button-caution-quaternary-pressed: hsla(36, 84%, 88%, 1);
+  --colour-bg-fill-button-caution-quaternary-disabled: hsla(0, 0%, 100%, 1);
+
+  /* -----------------------------------------------------------------------
+     Background/Fill - Button / Neutral
+     ----------------------------------------------------------------------- */
+  --colour-bg-fill-button-neutral-primary-default: hsla(0, 0%, 20%, 1);
+  --colour-bg-fill-button-neutral-primary-hover: hsla(0, 0%, 10%, 1);
+  --colour-bg-fill-button-neutral-primary-pressed: hsla(0, 0%, 0%, 1);
+  --colour-bg-fill-button-neutral-primary-disabled: hsla(0, 0%, 96%, 1);
+  --colour-bg-fill-button-neutral-secondary-default: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-neutral-secondary-hover: hsla(0, 0%, 92%, 1);
+  --colour-bg-fill-button-neutral-secondary-pressed: hsla(0, 0%, 80%, 1);
+  --colour-bg-fill-button-neutral-secondary-disabled: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-neutral-tertiary-default: hsla(0, 0%, 96%, 1);
+  --colour-bg-fill-button-neutral-tertiary-hover: hsla(0, 0%, 92%, 1);
+  --colour-bg-fill-button-neutral-tertiary-pressed: hsla(0, 0%, 80%, 1);
+  --colour-bg-fill-button-neutral-tertiary-disabled: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-neutral-quaternary-default: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-neutral-quaternary-hover: hsla(0, 0%, 94%, 1);
+  --colour-bg-fill-button-neutral-quaternary-pressed: hsla(0, 0%, 80%, 1);
+  --colour-bg-fill-button-neutral-quaternary-disabled: hsla(0, 0%, 100%, 1);
+
+  /* -----------------------------------------------------------------------
+     Background/Fill - Button / Emphasis (Green)
+     ----------------------------------------------------------------------- */
+  --colour-bg-fill-button-emphasis-primary-default: hsla(103, 50%, 36%, 1);
+  --colour-bg-fill-button-emphasis-primary-hover: hsla(103, 48%, 32%, 1);
+  --colour-bg-fill-button-emphasis-primary-pressed: hsla(103, 87%, 12%, 1);
+  --colour-bg-fill-button-emphasis-primary-disabled: hsla(107, 60%, 97%, 1);
+  --colour-bg-fill-button-emphasis-secondary-default: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-emphasis-secondary-hover: hsla(103, 40%, 90%, 1);
+  --colour-bg-fill-button-emphasis-secondary-pressed: hsla(103, 33%, 83%, 1);
+  --colour-bg-fill-button-emphasis-secondary-disabled: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-emphasis-tertiary-default: hsla(103, 50%, 95%, 1);
+  --colour-bg-fill-button-emphasis-tertiary-hover: hsla(103, 40%, 90%, 1);
+  --colour-bg-fill-button-emphasis-tertiary-pressed: hsla(103, 33%, 83%, 1);
+  --colour-bg-fill-button-emphasis-tertiary-disabled: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-emphasis-quaternary-default: hsla(0, 0%, 100%, 0);
+  --colour-bg-fill-button-emphasis-quaternary-hover: hsla(103, 40%, 90%, 1);
+  --colour-bg-fill-button-emphasis-quaternary-pressed: hsla(103, 33%, 83%, 1);
+  --colour-bg-fill-button-emphasis-quaternary-disabled: hsla(0, 0%, 100%, 0);
+
+  /* -----------------------------------------------------------------------
+     Background/Fill - Button / Menu
+     ----------------------------------------------------------------------- */
+  --colour-bg-fill-button-menu-default: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-menu-hover: hsla(255, 20%, 96%, 1);
+  --colour-bg-fill-button-menu-pressed: hsla(255, 20%, 92%, 1);
+  --colour-bg-fill-button-menu-disabled: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-menu-current: hsla(255, 20%, 92%, 1);
+
+  /* -----------------------------------------------------------------------
+     Background/Fill - Button / Tab
+     ----------------------------------------------------------------------- */
+  --colour-bg-fill-button-tab-default: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-tab-hover: hsla(0, 0%, 92%, 1);
+  --colour-bg-fill-button-tab-pressed: hsla(0, 0%, 90%, 1);
+  --colour-bg-fill-button-tab-emphasis: hsla(0, 0%, 10%, 1);
+  --colour-bg-fill-button-tab-disabled: hsla(0, 0%, 96%, 1);
+
+  /* -----------------------------------------------------------------------
+     Background/Fill - Button / Checkbox
+     ----------------------------------------------------------------------- */
+  --colour-bg-fill-button-checkbox-checked-default: hsla(255, 44%, 24%, 1);
+  --colour-bg-fill-button-checkbox-checked-hover: hsla(255, 28%, 44%, 1);
+  --colour-bg-fill-button-checkbox-checked-pressed: hsla(258, 12%, 78%, 1);
+  --colour-bg-fill-button-checkbox-checked-disabled: hsla(255, 20%, 92%, 1);
+  --colour-bg-fill-button-checkbox-unchecked-default: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-checkbox-unchecked-hover: hsla(255, 20%, 92%, 1);
+  --colour-bg-fill-button-checkbox-unchecked-pressed: hsla(258, 12%, 78%, 1);
+  --colour-bg-fill-button-checkbox-unchecked-disabled: hsla(255, 20%, 92%, 1);
+
+  /* -----------------------------------------------------------------------
+     Background/Fill - Button / Checkbox Table
+     ----------------------------------------------------------------------- */
+  --colour-bg-fill-button-checkbox-table-fill-default: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-checkbox-table-fill-hover: hsla(255, 20%, 92%, 1);
+  --colour-bg-fill-button-checkbox-table-fill-pressed: hsla(258, 12%, 78%, 1);
+  --colour-bg-fill-button-checkbox-table-fill-disabled: hsla(255, 20%, 92%, 1);
+
+  /* -----------------------------------------------------------------------
+     Background/Fill - Button / Dropdown
+     ----------------------------------------------------------------------- */
+  --colour-bg-fill-button-dropdown-base-default: hsla(255, 20%, 96%, 1);
+  --colour-bg-fill-button-dropdown-base-hover: hsla(255, 20%, 92%, 1);
+  --colour-bg-fill-button-dropdown-base-disabled: hsla(255, 20%, 96%, 1);
+  --colour-bg-fill-button-dropdown-item-default: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-dropdown-item-hover: hsla(255, 20%, 92%, 1);
+  --colour-bg-fill-button-dropdown-item-pressed: hsla(258, 12%, 78%, 1);
+
+  /* -----------------------------------------------------------------------
+     Background/Fill - Button / Navbar Entry / Item
+     ----------------------------------------------------------------------- */
+  --colour-bg-fill-button-navbar-entry-item-default: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-navbar-entry-item-hover: hsla(255, 20%, 92%, 1);
+  --colour-bg-fill-button-navbar-entry-item-pressed: hsla(259, 22%, 86%, 1);
+  --colour-bg-fill-button-navbar-entry-item-current-default: hsla(255, 28%, 44%, 1);
+  --colour-bg-fill-button-navbar-entry-item-current-hover: hsla(255, 32%, 36%, 1);
+  --colour-bg-fill-button-navbar-entry-item-current-pressed: hsla(255, 44%, 24%, 1);
+  --colour-bg-fill-button-navbar-entry-item-category-current-default: hsla(255, 20%, 96%, 1);
+  --colour-bg-fill-button-navbar-entry-item-category-current-hover: hsla(255, 20%, 92%, 1);
+  --colour-bg-fill-button-navbar-entry-item-category-current-pressed: hsla(259, 22%, 86%, 1);
+
+  /* -----------------------------------------------------------------------
+     Background/Fill - Button / Navbar Entry / Subitem
+     ----------------------------------------------------------------------- */
+  --colour-bg-fill-button-navbar-entry-subitem-default: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-navbar-entry-subitem-hover: hsla(255, 20%, 96%, 1);
+  --colour-bg-fill-button-navbar-entry-subitem-pressed: hsla(255, 20%, 92%, 1);
+  --colour-bg-fill-button-navbar-entry-subitem-current-active: hsla(255, 28%, 44%, 1);
+  --colour-bg-fill-button-navbar-entry-subitem-current-hover: hsla(255, 33%, 32%, 1);
+  --colour-bg-fill-button-navbar-entry-subitem-current-pressed: hsla(255, 44%, 24%, 1);
+  --colour-bg-fill-button-navbar-entry-subitem-disabled: hsla(0, 0%, 100%, 1);
+
+  /* -----------------------------------------------------------------------
+     Background/Fill - Button / Modal Field
+     ----------------------------------------------------------------------- */
+  --colour-bg-fill-button-modal-field-base-default: hsla(255, 20%, 96%, 1);
+  --colour-bg-fill-button-modal-field-base-hover: hsla(255, 20%, 92%, 1);
+  --colour-bg-fill-button-modal-field-base-disabled: hsla(255, 20%, 96%, 1);
+  --colour-bg-fill-button-modal-field-item-default: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-modal-field-item-hover: hsla(255, 20%, 92%, 1);
+  --colour-bg-fill-button-modal-field-item-pressed: hsla(258, 12%, 78%, 1);
+
+  /* -----------------------------------------------------------------------
+     Background/Fill - Scrollbar
+     ----------------------------------------------------------------------- */
+  --colour-bg-fill-scrollbar-default: var(--colour-neutral-grey-500);
+  --colour-bg-fill-scrollbar-hover: var(--colour-neutral-grey-400);
+  --colour-bg-fill-scrollbar-pressed: var(--colour-neutral-grey-300);
+
+  /* -----------------------------------------------------------------------
+     Stroke - Divider
+     ----------------------------------------------------------------------- */
+  --colour-stroke-divider-neutral-extralight: hsla(0, 0%, 96%, 1);
+  --colour-stroke-divider-neutral-light: hsla(0, 0%, 92%, 1);
+  --colour-stroke-divider-neutral-medium: hsla(0, 0%, 90%, 1);
+  --colour-stroke-divider-neutral-dark: hsla(0, 0%, 80%, 1);
+  --colour-stroke-divider-neutral-extradark: hsla(0, 0%, 60%, 1);
+  --colour-stroke-divider-primary-light: hsla(259, 22%, 86%, 1);
+  --colour-stroke-divider-primary-medium: hsla(256, 12%, 56%, 1);
+  --colour-stroke-divider-primary-extradark: hsla(255, 44%, 24%, 1);
+
+  /* -----------------------------------------------------------------------
+     Stroke - Button / CTA Brand
+     ----------------------------------------------------------------------- */
+  --colour-stroke-button-cta-brand-secondary-default: hsla(255, 28%, 44%, 1);
+  --colour-stroke-button-cta-brand-secondary-hover: hsla(255, 32%, 36%, 1);
+  --colour-stroke-button-cta-brand-secondary-pressed: hsla(255, 44%, 24%, 1);
+  --colour-stroke-button-cta-brand-secondary-disabled: hsla(259, 22%, 86%, 1);
+
+  /* -----------------------------------------------------------------------
+     Stroke - Button / CTA Danger
+     ----------------------------------------------------------------------- */
+  --colour-stroke-button-cta-danger-secondary-default: hsla(4, 64%, 48%, 1);
+  --colour-stroke-button-cta-danger-secondary-hover: hsla(4, 90%, 30%, 1);
+  --colour-stroke-button-cta-danger-secondary-pressed: hsla(5, 90%, 20%, 1);
+  --colour-stroke-button-cta-danger-secondary-disabled: hsla(4, 44%, 88%, 1);
+
+  /* -----------------------------------------------------------------------
+     Stroke - Button / CTA Caution
+     ----------------------------------------------------------------------- */
+  --colour-stroke-button-cta-caution-secondary-default: hsla(37, 72%, 50%, 1);
+  --colour-stroke-button-cta-caution-secondary-hover: hsla(37, 84%, 40%, 1);
+  --colour-stroke-button-cta-caution-secondary-pressed: hsla(37, 100%, 20%, 1);
+  --colour-stroke-button-cta-caution-secondary-disabled: hsla(36, 84%, 88%, 1);
+
+  /* -----------------------------------------------------------------------
+     Stroke - Button / CTA Neutral
+     ----------------------------------------------------------------------- */
+  --colour-stroke-button-cta-neutral-secondary-default: hsla(0, 0%, 20%, 1);
+  --colour-stroke-button-cta-neutral-secondary-hover: hsla(0, 0%, 10%, 1);
+  --colour-stroke-button-cta-neutral-secondary-pressed: hsla(0, 0%, 0%, 1);
+  --colour-stroke-button-cta-neutral-secondary-disabled: hsla(0, 0%, 90%, 1);
+
+  /* -----------------------------------------------------------------------
+     Stroke - Button / CTA Emphasis
+     ----------------------------------------------------------------------- */
+  --colour-stroke-button-cta-emphasis-secondary-default: hsla(103, 50%, 36%, 1);
+  --colour-stroke-button-cta-emphasis-secondary-hover: hsla(103, 48%, 32%, 1);
+  --colour-stroke-button-cta-emphasis-secondary-pressed: hsla(103, 87%, 12%, 1);
+  --colour-stroke-button-cta-emphasis-secondary-disabled: hsla(103, 33%, 83%, 1);
+
+  /* -----------------------------------------------------------------------
+     Stroke - Button / Tab
+     ----------------------------------------------------------------------- */
+  --colour-stroke-button-tab: hsla(0, 0%, 60%, 1);
+
+  /* -----------------------------------------------------------------------
+     Stroke - Button / Checkbox
+     ----------------------------------------------------------------------- */
+  --colour-stroke-button-checkbox: hsla(255, 33%, 32%, 1);
+
+  /* -----------------------------------------------------------------------
+     Stroke - Element Focus / Brand
+     ----------------------------------------------------------------------- */
+  --colour-stroke-element-focus-brand-enabled-base: hsla(251, 20%, 84%, 1);
+  --colour-stroke-element-focus-brand-disabled-primary: hsla(251, 20%, 84%, 1);
+  --colour-stroke-element-focus-brand-disabled-secondary: hsla(259, 22%, 86%, 1);
+  --colour-stroke-element-focus-brand-disabled-tertiary: hsla(255, 20%, 92%, 1);
+
+  /* -----------------------------------------------------------------------
+     Stroke - Element Focus / Danger
+     ----------------------------------------------------------------------- */
+  --colour-stroke-element-focus-danger-enabled-base: hsla(4, 53%, 80%, 1);
+  --colour-stroke-element-focus-danger-disabled-primary: hsla(4, 53%, 80%, 1);
+  --colour-stroke-element-focus-danger-disabled-secondary: hsla(4, 37%, 92%, 1);
+  --colour-stroke-element-focus-danger-disabled-tertiary: hsla(4, 37%, 92%, 1);
+
+  /* -----------------------------------------------------------------------
+     Stroke - Element Focus / Caution
+     ----------------------------------------------------------------------- */
+  --colour-stroke-element-focus-caution-enabled-base: hsla(37, 72%, 72%, 1);
+  --colour-stroke-element-focus-caution-disabled-primary: hsla(37, 40%, 64%, 1);
+  --colour-stroke-element-focus-caution-disabled-secondary: hsla(36, 84%, 88%, 1);
+  --colour-stroke-element-focus-caution-disabled-tertiary: hsla(36, 84%, 88%, 1);
+
+  /* -----------------------------------------------------------------------
+     Stroke - Element Focus / Neutral
+     ----------------------------------------------------------------------- */
+  --colour-stroke-element-focus-neutral-enabled-base: hsla(0, 0%, 80%, 1);
+  --colour-stroke-element-focus-neutral-disabled-primary: hsla(0, 0%, 80%, 1);
+  --colour-stroke-element-focus-neutral-disabled-secondary: hsla(0, 0%, 90%, 1);
+  --colour-stroke-element-focus-neutral-disabled-tertiary: hsla(0, 0%, 92%, 1);
+
+  /* -----------------------------------------------------------------------
+     Stroke - Element Focus / Emphasis
+     ----------------------------------------------------------------------- */
+  --colour-stroke-element-focus-emphasis-enabled-base: hsla(103, 33%, 83%, 1);
+  --colour-stroke-element-focus-emphasis-disabled-primary: hsla(103, 33%, 83%, 1);
+  --colour-stroke-element-focus-emphasis-disabled-secondary: hsla(103, 40%, 90%, 1);
+  --colour-stroke-element-focus-emphasis-disabled-tertiary: hsla(103, 50%, 95%, 1);
+
+  /* -----------------------------------------------------------------------
+     Stroke - Textbox
+     ----------------------------------------------------------------------- */
+  --colour-stroke-textbox-empty: hsla(0, 0%, 60%, 1);
+  --colour-stroke-textbox-active: hsla(255, 28%, 44%, 1);
+  --colour-stroke-textbox-filled: hsla(0, 0%, 40%, 1);
+  --colour-stroke-textbox-warning: hsla(37, 92%, 51%, 1);
+  --colour-stroke-textbox-error: hsla(4, 85%, 62%, 1);
+
+  /* -----------------------------------------------------------------------
+     Stroke - Dropdown
+     ----------------------------------------------------------------------- */
+  --colour-stroke-dropdown-brand: hsla(259, 22%, 86%, 1);
+  --colour-stroke-dropdown-neutral: hsla(0, 0%, 90%, 1);
+  --colour-stroke-dropdown-emphasis: hsla(103, 20%, 72%, 1);
+  --colour-stroke-dropdown-danger: hsla(4, 37%, 92%, 1);
+  --colour-stroke-dropdown-caution: hsla(38, 76%, 92%, 1);
+
+  /* -----------------------------------------------------------------------
+     Data Visualisation - Legend / Series
+     ----------------------------------------------------------------------- */
+  --colour-dataviz-legend-series-01: hsla(8, 100%, 64%, 1);
+  --colour-dataviz-legend-series-02: hsla(55, 88%, 43%, 1);
+  --colour-dataviz-legend-series-03: hsla(75, 84%, 40%, 1);
+  --colour-dataviz-legend-series-04: hsla(168, 100%, 41%, 1);
+  --colour-dataviz-legend-series-05: hsla(195, 100%, 41%, 1);
+  --colour-dataviz-legend-series-06: hsla(222, 100%, 69%, 1);
+  --colour-dataviz-legend-series-07: hsla(265, 100%, 72%, 1);
+  --colour-dataviz-legend-series-08: hsla(320, 79%, 65%, 1);
+
+  /* -----------------------------------------------------------------------
+     Data Visualisation - Series 01 States
+     ----------------------------------------------------------------------- */
+  --colour-dataviz-series-01-default: hsla(8, 100%, 64%, 1);
+  --colour-dataviz-series-01-hover: hsla(8, 80%, 52%, 1);
+  --colour-dataviz-series-01-pressed: hsla(8, 92%, 36%, 1);
+  --colour-dataviz-series-01-hint: hsla(8, 100%, 94%, 1);
+}
+
+/* ==========================================================================
+   eChart Coder Theme Overrides
+   Only properties that differ from the Payerpath (default) theme.
+   ========================================================================== */
+
+[data-theme="echart-coder"] {
+  /* -----------------------------------------------------------------------
+     Background/Fill - Button / Navbar Entry / Item
+     ----------------------------------------------------------------------- */
+  --colour-bg-fill-button-navbar-entry-item-default: hsla(0, 0%, 100%, 0);
+  --colour-bg-fill-button-navbar-entry-item-hover: hsla(0, 0%, 100%, 0.14);
+  --colour-bg-fill-button-navbar-entry-item-pressed: hsla(0, 0%, 100%, 0.2);
+  --colour-bg-fill-button-navbar-entry-item-current-default: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-navbar-entry-item-current-hover: hsla(255, 28%, 44%, 1);
+  --colour-bg-fill-button-navbar-entry-item-current-pressed: hsla(255, 33%, 32%, 1);
+  --colour-bg-fill-button-navbar-entry-item-category-current-default: hsla(0, 0%, 100%, 0);
+  --colour-bg-fill-button-navbar-entry-item-category-current-hover: hsla(255, 28%, 44%, 1);
+  --colour-bg-fill-button-navbar-entry-item-category-current-pressed: hsla(255, 33%, 32%, 1);
+
+  /* -----------------------------------------------------------------------
+     Background/Fill - Button / Navbar Entry / Subitem
+     ----------------------------------------------------------------------- */
+  --colour-bg-fill-button-navbar-entry-subitem-default: hsla(0, 0%, 100%, 0);
+  --colour-bg-fill-button-navbar-entry-subitem-hover: hsla(0, 0%, 100%, 0.14);
+  --colour-bg-fill-button-navbar-entry-subitem-pressed: hsla(0, 0%, 100%, 0.2);
+  --colour-bg-fill-button-navbar-entry-subitem-current-active: hsla(0, 0%, 100%, 1);
+  --colour-bg-fill-button-navbar-entry-subitem-current-hover: hsla(255, 28%, 44%, 1);
+  --colour-bg-fill-button-navbar-entry-subitem-current-pressed: hsla(255, 33%, 32%, 1);
+  --colour-bg-fill-button-navbar-entry-subitem-disabled: hsla(0, 0%, 100%, 0);
+}

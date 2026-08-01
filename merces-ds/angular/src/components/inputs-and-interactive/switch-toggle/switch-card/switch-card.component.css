@@ -1,0 +1,333 @@
+/* ==========================================================================
+   Switch Toggle Card
+   Figma: Switch Toggle Card (1056:9547) — Brand only; Neutral hook prepared.
+
+   Structure:
+     Host (role=switch, focus carrier)
+       └─ .switch-card__frame   (styled row — fills full width, carries bg)
+            ├─ .switch-card__text-frame  (label — flex:1, takes remaining width)
+            │    └─ span.paragraph-ui-thin
+            └─ .switch-card__track-wrapper  (focus ring container)
+                 └─ .switch-card__track  (Mini pill — same dims as switch Mini)
+                      └─ .switch-card__knob
+
+   Orientation: DOM order is always [text, track]. For 'stack' orientation,
+   flex-direction: row-reverse visually swaps them without touching DOM.
+
+   Note: The card's switch uses alternate bg fills (not the same as standalone
+   switch) because the card background is different. On/Off strokes also differ.
+   ========================================================================== */
+
+/* ==========================================================================
+   Mini switch geometry (code-only — same maths as switch.component.css Mini)
+   ========================================================================== */
+
+:host {
+  /* Mini: track 44×28, knob 20×20 default / 28×20 pressed */
+  --switch-track-w: calc(var(--gap-4xl) + var(--gap-1xs) * 2 + var(--gap-3xl)); /* 44px */
+  --switch-track-h: calc(var(--gap-4xl) + var(--gap-1xs) * 2);                  /* 28px */
+  --switch-knob-size: var(--gap-4xl);                                            /* 20px */
+  --switch-knob-size-pressed: calc(var(--gap-4xl) + var(--gap-md));             /* 28px */
+  --switch-knob-pad: var(--gap-1xs);                                             /* 4px  */
+  --switch-knob-off-left: var(--gap-1xs);                                       /* 4px  */
+  --switch-knob-on-left: calc(var(--gap-1xs) + var(--gap-3xl));                 /* 20px */
+  --switch-knob-on-pressed-left: calc(var(--gap-1xs) + var(--gap-3xl) - var(--gap-md)); /* 12px */
+}
+
+/* ==========================================================================
+   Spring easing — Figma: Custom spring, Stiffness 450, Damping 26.67, Mass 1,
+   Duration 450ms. Matches switch.component.css exactly.
+   ========================================================================== */
+
+:host {
+  --ease-spring: linear(
+    0,
+    0.111 5.56%,
+    0.346 11.11%,
+    0.598 16.67%,
+    0.813 22.22%,
+    0.954 27.78%,
+    1.039 33.33%,
+    1.072 38.89%,
+    1.077 44.44%,
+    1.063 50%,
+    1.043 55.56%,
+    1.023 61.11%,
+    1.009 66.67%,
+    1.001 72.22%,
+    0.996 77.78%,
+    0.994 83.33%,
+    0.994 88.89%,
+    0.996 94.44%,
+    1
+  );
+}
+
+/* ── Host ── */
+
+:host {
+  display: block;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+}
+
+:host(.switch-card--disabled) {
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   Card frame — the visible row container
+   ========================================================================== */
+
+.switch-card__frame {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* Padding: top/right/bottom = gap/md (8px), left = gap/1xl (12px) */
+  padding: var(--gap-md) var(--gap-md) var(--gap-md) var(--gap-1xl);
+  gap: var(--gap-3xl);
+  /* Radius: Figma binds topLeftRadius etc. to gap/md — use that token */
+  border-radius: var(--gap-md);
+  /* Focus ring — transparent by default, always reserved */
+  outline: var(--stroke-button-focus) solid transparent;
+  outline-offset: var(--gap-2xs);
+  transition:
+    background-color 150ms cubic-bezier(0, 0, 0, 1),
+    outline-color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* Stack orientation: visually swap label and switch without touching DOM */
+:host(.switch-card--stack) .switch-card__frame {
+  flex-direction: row-reverse;
+}
+
+/* ==========================================================================
+   Text frame
+   ========================================================================== */
+
+.switch-card__text-frame {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  padding: var(--gap-1xs) 0;
+}
+
+.switch-card__text-frame span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* ==========================================================================
+   Track wrapper — holds focus ring clearance
+   ========================================================================== */
+
+.switch-card__track-wrapper {
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Track — Mini pill
+   ========================================================================== */
+
+.switch-card__track {
+  position: relative;
+  width: var(--switch-track-w);
+  height: var(--switch-track-h);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  /* Off-state stroke — inset outline prevents layout shifts */
+  outline: var(--stroke-xs) solid transparent;
+  outline-offset: calc(-1 * var(--stroke-xs));
+  transition:
+    background-color 450ms var(--ease-spring),
+    outline-color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* ==========================================================================
+   Knob — Mini thumb
+   ========================================================================== */
+
+.switch-card__knob {
+  position: absolute;
+  top: var(--switch-knob-pad);
+  width: var(--switch-knob-size);
+  height: var(--switch-knob-size);
+  border-radius: var(--radius-full);
+  transition:
+    left 450ms var(--ease-spring),
+    width 150ms cubic-bezier(0, 0, 0, 1),
+    background-color 450ms var(--ease-spring);
+}
+
+/* Knob position — Off */
+:host(.switch-card--off) .switch-card__knob {
+  left: var(--switch-knob-off-left);
+}
+
+/* Knob position — On */
+:host(.switch-card--on) .switch-card__knob {
+  left: var(--switch-knob-on-left);
+}
+
+/* Knob elongation — Off pressed */
+:host(.switch-card--off:active:not(.switch-card--disabled)) .switch-card__knob {
+  width: var(--switch-knob-size-pressed);
+}
+
+/* Knob elongation — On pressed (shifts left) */
+:host(.switch-card--on:active:not(.switch-card--disabled)) .switch-card__knob {
+  width: var(--switch-knob-size-pressed);
+  left: var(--switch-knob-on-pressed-left);
+}
+
+/* ==========================================================================
+   Brand theme — card frame fills
+   ========================================================================== */
+
+/* Default */
+:host(.switch-card--brand) .switch-card__frame {
+  background-color: var(--colour-stroke-button-card-switch-brand-default);
+}
+
+/* Hover */
+:host(.switch-card--brand:hover:not(.switch-card--disabled)) .switch-card__frame {
+  background-color: var(--colour-stroke-button-card-switch-brand-hover);
+}
+
+/* Pressed */
+:host(.switch-card--brand:active:not(.switch-card--disabled)) .switch-card__frame {
+  background-color: var(--colour-stroke-button-card-switch-brand-pressed);
+}
+
+/* Disabled */
+:host(.switch-card--brand.switch-card--disabled) .switch-card__frame {
+  background-color: var(--colour-stroke-button-card-switch-brand-disabled);
+}
+
+/* ==========================================================================
+   Brand theme — track fills (Off)
+   The card's Off state uses 'alternate' fill (white), not 'off-default', because
+   the card bg is already a light tint — the switch needs contrast.
+   ========================================================================== */
+
+/* Off — Default */
+:host(.switch-card--brand.switch-card--off) .switch-card__track {
+  background-color: var(--colour-fill-button-switch-brand-bg-alternate);
+  outline-color: var(--colour-stroke-button-switch-off-default);
+}
+
+/* Off — Hover */
+:host(.switch-card--brand.switch-card--off:hover:not(.switch-card--disabled)) .switch-card__track {
+  background-color: var(--colour-fill-button-switch-brand-bg-off-hover);
+  outline-color: var(--colour-stroke-button-switch-off-hover);
+}
+
+/* Off — Pressed */
+:host(.switch-card--brand.switch-card--off:active:not(.switch-card--disabled)) .switch-card__track {
+  background-color: var(--colour-fill-button-switch-brand-bg-off-pressed-alt);
+  outline-color: var(--colour-stroke-button-switch-off-pressed);
+}
+
+/* Off — Disabled */
+:host(.switch-card--brand.switch-card--off.switch-card--disabled) .switch-card__track {
+  background-color: var(--colour-fill-button-switch-brand-bg-disabled);
+}
+
+/* ==========================================================================
+   Brand theme — track fills (On)
+   ========================================================================== */
+
+/* On — Default */
+:host(.switch-card--brand.switch-card--on) .switch-card__track {
+  background-color: var(--colour-fill-button-switch-brand-bg-on-default);
+}
+
+/* On — Hover */
+:host(.switch-card--brand.switch-card--on:hover:not(.switch-card--disabled)) .switch-card__track {
+  background-color: var(--colour-fill-button-switch-brand-bg-on-hover);
+}
+
+/* On — Pressed */
+:host(.switch-card--brand.switch-card--on:active:not(.switch-card--disabled)) .switch-card__track {
+  background-color: var(--colour-fill-button-switch-brand-bg-on-pressed);
+}
+
+/* On — Disabled */
+:host(.switch-card--brand.switch-card--on.switch-card--disabled) .switch-card__track {
+  background-color: var(--colour-fill-button-switch-brand-bg-disabled);
+}
+
+/* ==========================================================================
+   Brand theme — knob fills
+   ========================================================================== */
+
+/* Off — Default */
+:host(.switch-card--brand.switch-card--off) .switch-card__knob {
+  background-color: var(--colour-fill-button-switch-brand-knob-off-default);
+}
+
+/* Off — Hover */
+:host(.switch-card--brand.switch-card--off:hover:not(.switch-card--disabled)) .switch-card__knob {
+  background-color: var(--colour-fill-button-switch-brand-knob-off-hover);
+}
+
+/* Off — Pressed */
+:host(.switch-card--brand.switch-card--off:active:not(.switch-card--disabled)) .switch-card__knob {
+  background-color: var(--colour-fill-button-switch-brand-knob-off-pressed);
+}
+
+/* Off — Disabled */
+:host(.switch-card--brand.switch-card--off.switch-card--disabled) .switch-card__knob {
+  background-color: var(--colour-fill-button-switch-brand-knob-disabled);
+}
+
+/* On — Default */
+:host(.switch-card--brand.switch-card--on) .switch-card__knob {
+  background-color: var(--colour-fill-button-switch-brand-knob-on-default);
+}
+
+/* On — Hover */
+:host(.switch-card--brand.switch-card--on:hover:not(.switch-card--disabled)) .switch-card__knob {
+  background-color: var(--colour-fill-button-switch-brand-knob-on-hover);
+}
+
+/* On — Pressed */
+:host(.switch-card--brand.switch-card--on:active:not(.switch-card--disabled)) .switch-card__knob {
+  background-color: var(--colour-fill-button-switch-brand-knob-on-pressed);
+}
+
+/* On — Disabled */
+:host(.switch-card--brand.switch-card--on.switch-card--disabled) .switch-card__knob {
+  background-color: var(--colour-fill-button-switch-brand-knob-disabled);
+}
+
+/* ==========================================================================
+   Brand theme — text colour
+   ========================================================================== */
+
+:host(.switch-card--brand) .switch-card__text-frame span {
+  color: var(--colour-text-default-base);
+}
+
+:host(.switch-card--brand.switch-card--disabled) .switch-card__text-frame span {
+  color: var(--colour-text-default-link-disabled);
+}
+
+/* ==========================================================================
+   Brand theme — focus ring on card frame (keyboard-only)
+   ========================================================================== */
+
+:host(.switch-card--keyboard-focus.switch-card--brand) .switch-card__frame {
+  outline-color: var(--colour-stroke-element-focus-brand-enabled-base);
+}
+
+/* ==========================================================================
+   Neutral theme — PREPARED (token hooks ready, styles pending flavour delivery)
+   When neutral variant is added to Figma, add rules here following the same
+   pattern as Brand above, replacing 'brand' with 'neutral' in class names
+   and token names.
+   ========================================================================== */

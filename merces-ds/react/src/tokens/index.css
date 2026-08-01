@@ -1,0 +1,19 @@
+/* ==========================================================================
+   Merces Design System — Token Index
+   Imports all design token files in dependency order
+   ========================================================================== */
+
+/* Layout tokens */
+@import './spacing.css';
+@import './radius.css';
+@import './strokes.css';
+
+/* Style tokens */
+@import './colors.css';
+@import './semantic-colors.css';
+@import './typography.css';
+
+/* Component styles (buttons only — Sub-Controls & Icon load via CSS Modules) */
+@import '../components/Inputs and Interactive/CTA Buttons/index.css';
+@import '../components/Inputs and Interactive/Span Buttons/index.css';
+@import '../components/Inputs and Interactive/Compound Buttons/index.css';

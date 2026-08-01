@@ -1,0 +1,163 @@
+/* Scroller — custom scrollbar styling mixin
+   Figma: Scroller (279:9919)
+   Variants: Direction(Vertical/Horizontal) × Size(Base/Mini) × State(Default/Hover/Pressed)
+
+   Dimensions (from Figma):
+   ┌─────────────┬─────────────┬──────────────┬───────────┐
+   │ Size         │ Track Width │ Bar Width    │ Padding   │
+   ├─────────────┼─────────────┼──────────────┼───────────┤
+   │ Base         │ 16px        │ 8px          │ 4px       │
+   │ Mini         │ 12px        │ 4px          │ 4px       │
+   └─────────────┴─────────────┴──────────────┴───────────┘
+
+   Colours:
+   - Default: --colour-bg-fill-scrollbar-default  → grey-500 (80%)
+   - Hover:   --colour-bg-fill-scrollbar-hover    → grey-400 (60%)
+   - Pressed: --colour-bg-fill-scrollbar-pressed  → grey-300 (40%)
+   - Track:   transparent
+   - Thumb radius: --radius-full (pill)
+*/
+
+/* ---- Mini (default) — vertical ---- */
+
+:global(.mds-scroller--mini) {
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: var(--colour-bg-fill-scrollbar-default) transparent;
+}
+
+/* WebKit (Chrome, Safari, Edge) */
+:global(.mds-scroller--mini)::-webkit-scrollbar {
+  width: 12px;
+}
+
+:global(.mds-scroller--mini)::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+:global(.mds-scroller--mini)::-webkit-scrollbar-thumb {
+  background-color: var(--colour-bg-fill-scrollbar-default);
+  border-radius: var(--radius-full);
+  border: var(--spacing-1xs) solid transparent;
+  background-clip: padding-box;
+  cursor: pointer;
+}
+
+:global(.mds-scroller--mini)::-webkit-scrollbar-thumb:hover {
+  background-color: var(--colour-bg-fill-scrollbar-hover);
+  cursor: pointer;
+}
+
+:global(.mds-scroller--mini)::-webkit-scrollbar-thumb:active {
+  background-color: var(--colour-bg-fill-scrollbar-pressed);
+  cursor: grabbing;
+}
+
+/* ---- Mini — horizontal ---- */
+
+:global(.mds-scroller--mini-horizontal) {
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: var(--colour-bg-fill-scrollbar-default) transparent;
+}
+
+:global(.mds-scroller--mini-horizontal)::-webkit-scrollbar {
+  height: 12px;
+  width: 0; /* suppress vertical gutter on horizontal-only scroller */
+}
+
+:global(.mds-scroller--mini-horizontal)::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+:global(.mds-scroller--mini-horizontal)::-webkit-scrollbar-thumb {
+  background-color: var(--colour-bg-fill-scrollbar-default);
+  border-radius: var(--radius-full);
+  /* Vertical border (top/bottom) shrinks the visible bar to 4px inside
+     the 12px track.  Horizontal border is 0 so the thumb's left/right
+     edges align flush with the content above (no visual offset). */
+  border-top: var(--spacing-1xs) solid transparent;
+  border-bottom: var(--spacing-1xs) solid transparent;
+  border-left: 0;
+  border-right: 0;
+  background-clip: padding-box;
+  cursor: pointer;
+}
+
+:global(.mds-scroller--mini-horizontal)::-webkit-scrollbar-thumb:hover {
+  background-color: var(--colour-bg-fill-scrollbar-hover);
+  cursor: pointer;
+}
+
+:global(.mds-scroller--mini-horizontal)::-webkit-scrollbar-thumb:active {
+  background-color: var(--colour-bg-fill-scrollbar-pressed);
+  cursor: grabbing;
+}
+
+/* ---- Base — vertical ---- */
+
+:global(.mds-scroller--base) {
+  /* Firefox */
+  scrollbar-width: auto;
+  scrollbar-color: var(--colour-bg-fill-scrollbar-default) transparent;
+}
+
+:global(.mds-scroller--base)::-webkit-scrollbar {
+  width: 16px;
+}
+
+:global(.mds-scroller--base)::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+:global(.mds-scroller--base)::-webkit-scrollbar-thumb {
+  background-color: var(--colour-bg-fill-scrollbar-default);
+  border-radius: var(--radius-full);
+  border: var(--spacing-1xs) solid transparent;
+  background-clip: padding-box;
+  cursor: pointer;
+}
+
+:global(.mds-scroller--base)::-webkit-scrollbar-thumb:hover {
+  background-color: var(--colour-bg-fill-scrollbar-hover);
+  cursor: pointer;
+}
+
+:global(.mds-scroller--base)::-webkit-scrollbar-thumb:active {
+  background-color: var(--colour-bg-fill-scrollbar-pressed);
+  cursor: grabbing;
+}
+
+/* ---- Base — horizontal ---- */
+
+:global(.mds-scroller--base-horizontal) {
+  /* Firefox */
+  scrollbar-width: auto;
+  scrollbar-color: var(--colour-bg-fill-scrollbar-default) transparent;
+}
+
+:global(.mds-scroller--base-horizontal)::-webkit-scrollbar {
+  height: 16px;
+}
+
+:global(.mds-scroller--base-horizontal)::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+:global(.mds-scroller--base-horizontal)::-webkit-scrollbar-thumb {
+  background-color: var(--colour-bg-fill-scrollbar-default);
+  border-radius: var(--radius-full);
+  border: var(--spacing-1xs) solid transparent;
+  background-clip: padding-box;
+  cursor: pointer;
+}
+
+:global(.mds-scroller--base-horizontal)::-webkit-scrollbar-thumb:hover {
+  background-color: var(--colour-bg-fill-scrollbar-hover);
+  cursor: pointer;
+}
+
+:global(.mds-scroller--base-horizontal)::-webkit-scrollbar-thumb:active {
+  background-color: var(--colour-bg-fill-scrollbar-pressed);
+  cursor: grabbing;
+}

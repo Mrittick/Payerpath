@@ -1,0 +1,203 @@
+/* ==========================================================================
+   Merces Design System — Selection Chip
+   Figma: Selection Chip (1778:865)
+
+   Direct port of the React implementation.
+
+   Animation strategy:
+   - Strikethrough uses pure dissolve (opacity fade only).
+   - Icon expands from width:0 to make room in layout, but visual
+     appearance is controlled by opacity alone (no overflow:hidden).
+     Width/margin open space while the icon fades in.
+   - All transitions use the DS standard 150ms cubic-bezier(0,0,0,1).
+   - Hover/pressed states driven by CSS :hover/:active — no JS signals.
+   ========================================================================== */
+
+
+/* ── Host ── */
+
+:host {
+  display: inline-flex;
+}
+
+
+/* ── Button — the chip surface ── */
+
+.selection-chip__button {
+  appearance: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-sm);
+  width: 100%;
+  padding: var(--gap-md) var(--gap-1xl);
+  border-radius: var(--radius-md);
+  text-align: left;
+  position: relative;
+
+  background-color: var(--colour-brand-purple-1100);
+  box-shadow: inset 0 0 0 var(--stroke-xs) var(--colour-brand-purple-200);
+  color: var(--colour-brand-purple-100);
+
+  transition:
+    background-color var(--transition-duration-state) var(--transition-easing-state),
+    box-shadow var(--transition-duration-state) var(--transition-easing-state),
+    color var(--transition-duration-state) var(--transition-easing-state);
+}
+
+
+/* ── Wrap modifiers ── */
+
+:host(.selection-chip--wrap) .selection-chip__button {
+  max-width: none;
+}
+
+:host(.selection-chip--no-wrap) .selection-chip__button {
+  max-width: 100%;
+}
+
+
+/* ── Label ── */
+
+.selection-chip__label {
+  font: inherit;
+  color: inherit;
+  position: relative;
+}
+
+:host(.selection-chip--wrap) .selection-chip__label {
+  white-space: normal;
+}
+
+:host(.selection-chip--no-wrap) .selection-chip__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+
+/* ── Strikethrough — dissolve pseudo-element on label ── */
+
+.selection-chip__label::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: var(--stroke-xs);
+  background-color: currentColor;
+  opacity: 0;
+  transition: opacity var(--transition-duration-state) var(--transition-easing-state);
+}
+
+.selection-chip__button:hover .selection-chip__label::after,
+.selection-chip__button:active .selection-chip__label::after {
+  opacity: 1;
+}
+
+
+/* ── Icon — cross close icon ── */
+
+.selection-chip__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  color: var(--colour-brand-purple-200);
+  transition: color var(--transition-duration-state) var(--transition-easing-state);
+}
+
+/* No-wrap: icon hidden in default, animated reveal on hover */
+:host(.selection-chip--no-wrap) .selection-chip__icon {
+  width: 0;
+  margin-left: 0;
+  opacity: 0;
+  transition:
+    width var(--transition-duration-state) var(--transition-easing-state),
+    margin-left var(--transition-duration-state) var(--transition-easing-state),
+    opacity var(--transition-duration-state) var(--transition-easing-state),
+    color var(--transition-duration-state) var(--transition-easing-state);
+}
+
+
+/* ── Hover state — CSS :hover only ── */
+
+.selection-chip__button:hover {
+  background-color: var(--colour-brand-purple-1000);
+}
+
+/* No-wrap: reveal icon on hover */
+:host(.selection-chip--no-wrap) .selection-chip__button:hover .selection-chip__icon {
+  width: 16px;
+  margin-left: var(--gap-sm);
+  opacity: 1;
+}
+
+
+/* ── Pressed state — CSS :active only ── */
+
+.selection-chip__button:active {
+  background-color: var(--colour-brand-red-1000);
+  box-shadow: inset 0 0 0 var(--stroke-xs) var(--colour-brand-red-100);
+  color: var(--colour-brand-red-200);
+}
+
+.selection-chip__button:active .selection-chip__icon {
+  color: var(--colour-brand-red-200);
+}
+
+:host(.selection-chip--no-wrap) .selection-chip__button:active .selection-chip__icon {
+  width: 16px;
+  margin-left: var(--gap-sm);
+  opacity: 1;
+  color: var(--colour-brand-red-200);
+}
+
+
+/* ── Tooltip — CSS-only, dissolve on hover ── */
+
+.selection-chip__button::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + var(--gap-1xs));
+  z-index: 9999;
+
+  background-color: var(--colour-brand-purple-200);
+  color: var(--colour-neutral-white);
+  padding: var(--gap-sm) var(--gap-1xl);
+  border-radius: var(--radius-md);
+
+  width: max-content;
+  max-width: var(--gap-selectionchip-tooltip-maxwidth);
+  white-space: normal;
+  word-break: break-word;
+
+  /* paragraph/p4-bold (::after can't use utility classes) */
+  font-family: var(--font-family-primary);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.41667em;
+  text-decoration: none;
+
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--transition-duration-state) var(--transition-easing-state),
+    background-color var(--transition-duration-state) var(--transition-easing-state);
+}
+
+.selection-chip__button:hover::after {
+  opacity: 1;
+}
+
+.selection-chip__button:active::after {
+  background-color: var(--colour-brand-red-300);
+  opacity: 1;
+}

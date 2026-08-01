@@ -1,0 +1,50 @@
+/* ==========================================================================
+   Merces Design System — Icon
+   Assets / Icon
+   Hybrid CSS Module: :global() preserves BEM class names for cross-component
+   references while enabling CSS Module imports in React components.
+   ========================================================================== */
+
+:global(:root) {
+  --icon-size-tiny:  12px;   /* Figma: Tiny */
+  --icon-size-mini:  16px;   /* Figma: Mini */
+  --icon-size-base:  20px;   /* Figma: Base */
+  --icon-size-large: 24px;   /* Figma: Large */
+  --icon-size-huge:  32px;   /* Figma: Huge */
+}
+
+:global(.mds-icon) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--icon-size, var(--icon-size-base));
+  height: var(--icon-size, var(--icon-size-base));
+  color: inherit;
+  user-select: none;
+  line-height: 0;
+}
+
+:global(.mds-icon) > svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+  overflow: hidden;
+}
+
+/* Size modifiers */
+:global(.mds-icon--tiny)  { --icon-size: var(--icon-size-tiny);  }
+:global(.mds-icon--mini)  { --icon-size: var(--icon-size-mini);  }
+:global(.mds-icon--base)  { --icon-size: var(--icon-size-base);  }
+:global(.mds-icon--large) { --icon-size: var(--icon-size-large); }
+:global(.mds-icon--huge)  { --icon-size: var(--icon-size-huge);  }
+
+/* Color utilities */
+:global(.mds-icon--color-default)  { color: var(--colour-text-default-base); }
+:global(.mds-icon--color-sub)      { color: var(--colour-text-default-sub); }
+:global(.mds-icon--color-disabled) { color: var(--colour-text-default-disabled); }
+:global(.mds-icon--color-error)    { color: var(--colour-text-default-error); }
+:global(.mds-icon--color-warning)  { color: var(--colour-text-default-warning); }
+:global(.mds-icon--color-inverted) { color: var(--colour-text-inverted-base); }
+:global(.mds-icon--color-brand)    { color: var(--colour-ds-main-base); }
+:global(.mds-icon--color-accent)   { color: var(--colour-ds-accent-base); }

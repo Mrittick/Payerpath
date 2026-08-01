@@ -1,0 +1,76 @@
+/* ==========================================================================
+   Merces Design System — Calendar Header
+   Inputs and Interactive / Calendar / CalendarHeader
+   Hybrid CSS Module: :global() preserves BEM class names.
+   Figma: Header (736:1381) — 6 variants
+   State(Default/Hover) × Level(Date/Month/Year)
+
+   Structure:
+     Root: HUG×32, VERTICAL, CENTER×CENTER, radius 8
+     Frame: FIXED×HUG, HORIZONTAL, CENTER×CENTER, pad 6/12/6/12, gap 4
+       Date level:  [Month text, Year text]
+       Month level: [Label text, Year text]  (Label = "Year" literal, renamed in code)
+       Year level:  [From text, "-" text, To text]
+
+   Sizing:
+     Root: mainAxis AUTO (HUG), crossAxis FIXED (32px)
+     Frame: mainAxis FIXED, crossAxis AUTO (HUG)
+
+   Tokens:
+     Default: frame fill purple-1100, text purple-100
+     Hover:   frame fill purple-400,  text neutral/white
+
+   Text: 14px Bold Satoshi, 140% → forced 20px
+   Transition: 150ms, cubic-bezier(0,0,0,1)
+   ========================================================================== */
+
+:global(.mds-cal-header) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  flex: 1 1 0%;              /* grows within framework header row */
+  min-width: 0;
+}
+
+:global(.mds-cal-header__frame) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 0%;                  /* FILL — stretches to full root width */
+  min-width: 0;
+  padding: 6px 12px;
+  gap: 4px;
+  border-radius: 8px;
+  background-color: var(--colour-brand-purple-1100);
+  transition: background-color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* Hover */
+:global(.mds-cal-header:hover .mds-cal-header__frame),
+:global(.mds-cal-header.mds-cal-header--hover .mds-cal-header__frame) {
+  background-color: var(--colour-brand-purple-400);
+}
+
+/* ---- Text ---- */
+
+:global(.mds-cal-header__text) {
+  font-family: var(--font-family);
+  font-size: var(--ui-font-size);          /* 14px */
+  font-weight: var(--ui-font-weight);      /* 700 — Bold */
+  line-height: 20px;                       /* forced */
+  letter-spacing: var(--ui-letter-spacing); /* 0 */
+  text-align: center;
+  white-space: nowrap;
+  color: var(--colour-brand-purple-100);
+  transition: color 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+/* Hover: white text */
+:global(.mds-cal-header:hover .mds-cal-header__text),
+:global(.mds-cal-header.mds-cal-header--hover .mds-cal-header__text) {
+  color: var(--colour-neutral-white);
+}

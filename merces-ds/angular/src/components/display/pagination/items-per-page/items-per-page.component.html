@@ -1,0 +1,25 @@
+<div class="ipp__trigger">
+  <span class="ipp__value paragraph-ui-thin">{{ value() }}</span>
+  <merces-icon name="chevron-down" type="bold" [size]="20" />
+</div>
+
+@if (_rendered()) {
+  <div
+    class="ipp__panel"
+    [class.ipp__panel--open]="_open()"
+    role="listbox"
+    [style.position]="'fixed'"
+    [style.bottom.px]="_panelPos()?.bottom"
+    [style.left.px]="_panelPos()?.left"
+    [style.width.px]="_panelPos()?.width"
+    (click)="$event.stopPropagation()"
+  >
+    @for (opt of options(); track opt) {
+      <merces-dropdown-item
+        [label]="'' + opt"
+        [checked]="opt === value()"
+        (selected)="select(opt)"
+      />
+    }
+  </div>
+}

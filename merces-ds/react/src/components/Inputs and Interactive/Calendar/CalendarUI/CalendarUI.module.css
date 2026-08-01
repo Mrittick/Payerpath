@@ -1,0 +1,48 @@
+/* ==========================================================================
+   Merces Design System — Calendar UI
+   Inputs and Interactive / Calendar / CalendarUI
+   Hybrid CSS Module: :global() preserves BEM class names.
+   Figma: Calendar UI (779:482) — 3 variants
+   Ranged(False/True) × longRanged(False/True)
+
+   Structure:
+     Single:     Root > Calendar Framework
+     Ranged:     Root > Calendar Framework + Divider + Calendar Framework
+     LongRanged: Root > Calendar Framework + Divider + Calendar Framework
+
+   Root: radius 16, white fill, 1px INSIDE stroke (colour/stroke/dropdown-brand)
+   Divider: 1px wide, full height, fill colour/stroke/divider/primary-light
+
+   Sizing:
+     Single: AUTO×AUTO (260×272)
+     Ranged/LongRanged: HORIZONTAL, AUTO×AUTO, gap 8 (541×272)
+   ========================================================================== */
+
+/* ---- Root ---- */
+
+:global(.mds-cal-ui) {
+  display: inline-flex;
+  border-radius: 16px;
+  background-color: var(--colour-neutral-white);
+  border: 1px solid var(--colour-stroke-dropdown-brand);
+  box-sizing: border-box;
+}
+
+/* Ranged: horizontal layout with gap */
+:global(.mds-cal-ui--ranged) {
+  gap: 8px;
+}
+
+/* ---- Divider ---- */
+
+:global(.mds-cal-ui__divider) {
+  display: flex;
+  align-items: stretch;
+  width: 1px;
+  align-self: stretch;
+}
+
+:global(.mds-cal-ui__divider-fill) {
+  width: 1px;
+  background-color: var(--colour-stroke-divider-primary-light);
+}

@@ -1,0 +1,81 @@
+/* ==========================================================================
+   Merces Design System — Min-Max Values String Group
+   Data Entry / Min-Max Values String Group
+   Figma: Min-Max Values String Group component set
+
+   Variants:
+     Layout: Vertical | Horizontal
+
+   Vertical:
+     flex-col, gap: 12px
+     Label: px 14px
+     Inputs row: flex-row, gap: 8px, two flex-1 fields
+
+   Horizontal:
+     flex-row, gap: 12px
+     Label: px 14px, FILL (flex-1)
+     Inputs: FILL (flex-1), gap: 8px, two fields
+   ========================================================================== */
+
+/* ---- Root ---- */
+
+:global(.mds-minmax-group) {
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Layout: Vertical */
+:global(.mds-minmax-group--vertical) {
+  flex-direction: column;
+  gap: var(--spacing-1xl);
+}
+
+/* Layout: Horizontal */
+:global(.mds-minmax-group--horizontal) {
+  flex-direction: row;
+  gap: var(--spacing-1xl);
+  align-items: flex-start;
+}
+
+/* ---- Label ---- */
+
+:global(.mds-minmax-group__label) {
+  font-family: 'Satoshi Variable', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  color: var(--colour-text-default-base);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+  padding: 0 14px;
+  box-sizing: border-box;
+}
+
+/* Horizontal: label takes flex-1 and aligns to input center */
+:global(.mds-minmax-group--horizontal) :global(.mds-minmax-group__label) {
+  flex: 1 0 0;
+  padding-top: 10px;
+}
+
+/* ---- Inputs row ---- */
+
+:global(.mds-minmax-group__inputs) {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-md);
+  width: 100%;
+}
+
+/* Horizontal: inputs row takes flex-1 */
+:global(.mds-minmax-group--horizontal) :global(.mds-minmax-group__inputs) {
+  flex: 1 0 0;
+}
+
+/* Each field inside inputs takes equal space */
+:global(.mds-minmax-group__inputs) :global(.mds-string-field) {
+  flex: 1 0 0;
+  width: auto;
+}

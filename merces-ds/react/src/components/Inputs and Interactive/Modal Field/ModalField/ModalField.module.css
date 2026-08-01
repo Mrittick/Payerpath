@@ -1,0 +1,164 @@
+/* ==========================================================================
+   Merces Design System — Modal Field
+   Inputs and Interactive / Modal Field
+   Hybrid CSS Module: :global() preserves BEM class names.
+   Figma: Modal Field (3086:16281) — 12 variants
+   Selected(True/False) × State(Default/Hover/Disabled) × Focus(True/False)
+   ========================================================================== */
+
+/* ---- Transition timing ---- */
+
+:root {
+  --modal-field-duration: 150ms;
+  --modal-field-easing: cubic-bezier(0, 0, 0, 1);
+}
+
+/* ---- Outer wrapper ---- */
+
+:global(.mds-modal-field) {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: var(--radius-md);
+  transition: box-shadow var(--modal-field-duration) var(--modal-field-easing);
+}
+
+/* Focus ring — 3px outside via box-shadow */
+:global(.mds-modal-field--focus) {
+  box-shadow: 0 0 0 var(--stroke-button-focus) var(--colour-stroke-element-focus-brand-enabled-base);
+}
+
+/* ---- Trigger ---- */
+
+:global(.mds-modal-field__trigger) {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1xl);
+  padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-lg) var(--spacing-2xl);
+  border-radius: var(--radius-md);
+  background-color: var(--colour-bg-fill-button-modal-field-base-default);
+  cursor: pointer;
+  transition: background-color var(--modal-field-duration) var(--modal-field-easing);
+}
+
+/* Hover */
+:global(.mds-modal-field:not(.mds-modal-field--disabled):hover .mds-modal-field__trigger),
+:global(.mds-modal-field--hover .mds-modal-field__trigger) {
+  background-color: var(--colour-bg-fill-button-modal-field-base-hover);
+}
+
+/* Disabled */
+:global(.mds-modal-field--disabled .mds-modal-field__trigger) {
+  background-color: var(--colour-bg-fill-button-modal-field-base-disabled);
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ---- Block (text + indicator chevron) ----
+   FILL width — children align to start, chevron hugs text when selected,
+   chevron pushed right when unselected (text is FILL). */
+
+:global(.mds-modal-field__block) {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  flex: 1 1 0%;
+  min-width: 0;
+}
+
+/* ---- Text ----
+   Single text span: content + colour change via React props.
+   HUG in both states (matches Figma). */
+
+:global(.mds-modal-field__text) {
+  font-family: var(--font-family);
+  font-size: var(--ui-thin-font-size);
+  font-weight: var(--ui-thin-font-weight);
+  line-height: var(--ui-thin-line-height);
+  letter-spacing: var(--ui-thin-letter-spacing);
+  color: var(--colour-text-modal-field-label-default);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color var(--modal-field-duration) var(--modal-field-easing);
+}
+
+:global(.mds-modal-field--selected .mds-modal-field__text) {
+  color: var(--colour-text-modal-field-label-selected);
+}
+
+:global(.mds-modal-field--disabled .mds-modal-field__text) {
+  color: var(--colour-text-modal-field-label-disabled);
+}
+
+/* ---- Indicator (mini chevron next to text — visible only when selected) ---- */
+
+:global(.mds-modal-field__indicator) {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  color: var(--colour-text-dropdown-label-default);
+  opacity: 0;
+  transition: opacity var(--modal-field-duration) var(--modal-field-easing);
+}
+
+:global(.mds-modal-field--selected .mds-modal-field__indicator) {
+  opacity: 1;
+}
+
+:global(.mds-modal-field--disabled .mds-modal-field__indicator) {
+  color: var(--colour-text-dropdown-label-disabled);
+}
+
+/* ---- Action stack (crossfade between chevron and clear button) ----
+   Both elements always in the DOM, layered via position absolute.
+   The --selected modifier toggles which one is visible. */
+
+:global(.mds-modal-field__action-stack) {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  /* Size matches the larger of the two children (base icon = 20px + padding) */
+  width: 24px;
+  height: 24px;
+}
+
+:global(.mds-modal-field__action) {
+  position: absolute;
+  inset: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--colour-text-dropdown-label-default);
+  transition: opacity var(--modal-field-duration) var(--modal-field-easing);
+}
+
+/* Chevron: visible when unselected, hidden when selected */
+:global(.mds-modal-field__action--chevron) {
+  opacity: 1;
+}
+
+:global(.mds-modal-field--selected .mds-modal-field__action--chevron) {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Clear: hidden when unselected, visible when selected */
+:global(.mds-modal-field__action--clear) {
+  opacity: 0;
+  pointer-events: none;
+}
+
+:global(.mds-modal-field--selected .mds-modal-field__action--clear) {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Disabled + unselected: chevron uses purple-700 */
+:global(.mds-modal-field--disabled:not(.mds-modal-field--selected) .mds-modal-field__action--chevron) {
+  color: var(--colour-brand-purple-700);
+}

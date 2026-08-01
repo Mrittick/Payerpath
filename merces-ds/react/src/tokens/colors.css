@@ -1,0 +1,129 @@
+/* ==========================================================================
+   Merces Design System - Primitive Colour Tokens
+   Source: Figma Primitives Collection (VariableCollectionId:6:226)
+   Mode: Light
+   ========================================================================== */
+
+:root {
+  /* -----------------------------------------------------------------------
+     Neutral Colours
+     ----------------------------------------------------------------------- */
+  --colour-neutral-grey-100: hsla(0, 0%, 10%, 1);
+  --colour-neutral-grey-200: hsla(0, 0%, 20%, 1);
+  --colour-neutral-grey-300: hsla(0, 0%, 40%, 1);
+  --colour-neutral-grey-400: hsla(0, 0%, 60%, 1);
+  --colour-neutral-grey-500: hsla(0, 0%, 80%, 1);
+  --colour-neutral-grey-600: hsla(0, 0%, 90%, 1);
+  --colour-neutral-grey-700: hsla(0, 0%, 92%, 1);
+  --colour-neutral-grey-800: hsla(0, 0%, 94%, 1);
+  --colour-neutral-grey-900: hsla(0, 0%, 96%, 1);
+  --colour-neutral-grey-1000: hsla(0, 0%, 98%, 1);
+  --colour-neutral-white: hsla(0, 0%, 100%, 1);
+  --colour-neutral-black: hsla(0, 0%, 0%, 1);
+  --colour-neutral-null: hsla(0, 0%, 100%, 0);
+  --colour-neutral-white-alpha-1: hsla(0, 0%, 100%, 0.14);
+  --colour-neutral-white-alpha-2: hsla(0, 0%, 100%, 0.2);
+
+  /* -----------------------------------------------------------------------
+     Brand / Purple
+     ----------------------------------------------------------------------- */
+  --colour-brand-purple-50: hsla(256, 50%, 15%, 1);
+  --colour-brand-purple-100: hsla(255, 44%, 24%, 1);
+  --colour-brand-purple-200: hsla(255, 33%, 32%, 1);
+  --colour-brand-purple-300: hsla(255, 32%, 36%, 1);
+  --colour-brand-purple-400: hsla(255, 28%, 44%, 1);
+  --colour-brand-purple-500: hsla(255, 16%, 44%, 1);
+  --colour-brand-purple-600: hsla(256, 12%, 56%, 1);
+  --colour-brand-purple-700: hsla(258, 12%, 78%, 1);
+  --colour-brand-purple-800: hsla(251, 20%, 84%, 1);
+  --colour-brand-purple-900: hsla(259, 22%, 86%, 1);
+  --colour-brand-purple-1000: hsla(255, 20%, 92%, 1);
+  --colour-brand-purple-1100: hsla(255, 20%, 96%, 1);
+
+  /* -----------------------------------------------------------------------
+     Brand / Red
+     ----------------------------------------------------------------------- */
+  --colour-brand-red-100: hsla(5, 90%, 20%, 1);
+  --colour-brand-red-200: hsla(4, 90%, 30%, 1);
+  --colour-brand-red-300: hsla(4, 64%, 48%, 1);
+  --colour-brand-red-400: hsla(4, 85%, 62%, 1);
+  --colour-brand-red-500: hsla(5, 80%, 72%, 1);
+  --colour-brand-red-600: hsla(5, 36%, 72%, 1);
+  --colour-brand-red-700: hsla(4, 53%, 80%, 1);
+  --colour-brand-red-800: hsla(4, 44%, 88%, 1);
+  --colour-brand-red-900: hsla(4, 37%, 92%, 1);
+  --colour-brand-red-1000: hsla(6, 100%, 98%, 1);
+  --colour-brand-red-1100: hsla(0, 100%, 99%, 1);
+
+  /* -----------------------------------------------------------------------
+     Brand / Yellow
+     ----------------------------------------------------------------------- */
+  --colour-brand-yellow-100: hsla(37, 100%, 20%, 1);
+  --colour-brand-yellow-200: hsla(37, 88%, 30%, 1);
+  --colour-brand-yellow-300: hsla(37, 84%, 40%, 1);
+  --colour-brand-yellow-400: hsla(37, 72%, 50%, 1);
+  --colour-brand-yellow-500: hsla(37, 92%, 51%, 1);
+  --colour-brand-yellow-600: hsla(37, 40%, 64%, 1);
+  --colour-brand-yellow-700: hsla(37, 72%, 72%, 1);
+  --colour-brand-yellow-800: hsla(36, 84%, 88%, 1);
+  --colour-brand-yellow-900: hsla(38, 76%, 92%, 1);
+  --colour-brand-yellow-1000: hsla(35, 81%, 96%, 1);
+  --colour-brand-yellow-1100: hsla(36, 100%, 98%, 1);
+
+  /* -----------------------------------------------------------------------
+     Brand / Green
+     ----------------------------------------------------------------------- */
+  --colour-brand-green-100: hsla(103, 87%, 12%, 1);
+  --colour-brand-green-200: hsla(103, 24%, 24%, 1);
+  --colour-brand-green-300: hsla(103, 48%, 32%, 1);
+  --colour-brand-green-400: hsla(103, 50%, 36%, 1);
+  --colour-brand-green-500: hsla(103, 36%, 54%, 1);
+  --colour-brand-green-600: hsla(104, 12%, 64%, 1);
+  --colour-brand-green-700: hsla(103, 20%, 72%, 1);
+  --colour-brand-green-800: hsla(103, 33%, 83%, 1);
+  --colour-brand-green-900: hsla(103, 40%, 90%, 1);
+  --colour-brand-green-1000: hsla(103, 50%, 95%, 1);
+  --colour-brand-green-1100: hsla(107, 60%, 97%, 1);
+
+  /* -----------------------------------------------------------------------
+     Data Visualisation - Default Palette
+     ----------------------------------------------------------------------- */
+  --colour-dataviz-coral-default: hsla(8, 100%, 64%, 1);
+  --colour-dataviz-lime-default: hsla(55, 88%, 43%, 1);
+  --colour-dataviz-parrot-default: hsla(75, 84%, 40%, 1);
+  --colour-dataviz-turquoise-default: hsla(168, 100%, 41%, 1);
+  --colour-dataviz-sky-default: hsla(195, 100%, 41%, 1);
+  --colour-dataviz-ocean-default: hsla(222, 100%, 69%, 1);
+  --colour-dataviz-lavender-default: hsla(265, 100%, 72%, 1);
+  --colour-dataviz-rose-default: hsla(320, 79%, 65%, 1);
+
+  /* -----------------------------------------------------------------------
+     Data Visualisation - Emphasis / Focus / Hint
+     ----------------------------------------------------------------------- */
+  --colour-dataviz-coral-emphasis: hsla(8, 80%, 52%, 1);
+  --colour-dataviz-coral-focus: hsla(8, 92%, 36%, 1);
+  --colour-dataviz-coral-hint: hsla(8, 100%, 94%, 1);
+
+  /* -----------------------------------------------------------------------
+     Data Visualisation - Duplicates (default 2 variants)
+     ----------------------------------------------------------------------- */
+  --colour-dataviz-lime-default-2: hsla(55, 88%, 43%, 1);
+  --colour-dataviz-parrot-default-2: hsla(75, 84%, 40%, 1);
+  --colour-dataviz-turquoise-default-2: hsla(168, 100%, 41%, 1);
+  --colour-dataviz-sky-default-2: hsla(195, 100%, 41%, 1);
+  --colour-dataviz-ocean-default-2: hsla(222, 100%, 69%, 1);
+  --colour-dataviz-lavender-default-2: hsla(265, 100%, 72%, 1);
+  --colour-dataviz-rose-default-2: hsla(320, 79%, 65%, 1);
+
+  /* -----------------------------------------------------------------------
+     Data Visualisation - Legacy / Bright Palette
+     ----------------------------------------------------------------------- */
+  --colour-dataviz-legacy-bright-coral: hsla(8, 100%, 72%, 1);
+  --colour-dataviz-legacy-bright-lime: hsla(55, 100%, 44%, 1);
+  --colour-dataviz-legacy-bright-parrot: hsla(72, 100%, 44%, 1);
+  --colour-dataviz-legacy-bright-turquoise: hsla(168, 100%, 44%, 1);
+  --colour-dataviz-legacy-bright-sky: hsla(195, 100%, 48%, 1);
+  --colour-dataviz-legacy-bright-ocean: hsla(222, 100%, 64%, 1);
+  --colour-dataviz-legacy-bright-lavender: hsla(265, 100%, 72%, 1);
+  --colour-dataviz-legacy-bright-rose: hsla(320, 100%, 72%, 1);
+}
