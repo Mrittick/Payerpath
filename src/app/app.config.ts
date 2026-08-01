@@ -4,14 +4,16 @@ import { provideRouter, withHashLocation, withViewTransitions } from '@angular/r
 import { lastValueFrom } from 'rxjs';
 import { routes } from './app.routes';
 import { tokenInterceptor } from './interceptors/token.interceptor';
-import { githubPagesMockInterceptor } from './interceptors/github-pages-mock.interceptor';
+import { mockInterceptor } from './interceptors/mock.interceptor';
 import { AuthService } from './services/auth.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideHttpClient(withInterceptors([githubPagesMockInterceptor, tokenInterceptor])),
-    provideRouter(routes, withHashLocation(), withViewTransitions()),
+    // mockInterceptor must come first — it short-circuits all /api/* requests
+    // on GitHub Pages before tokenInterceptor attempts to attach Bearer tokens.
+    provideHttpClient(withInterceptors([mockInterceptor, tokenInterceptor])),
+    provideRouter(routes, withViewTransitions()),
     {
       provide:    APP_INITIALIZER,
       useFactory: (auth: AuthService) => () => lastValueFrom(auth.initialize()),

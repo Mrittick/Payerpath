@@ -19,27 +19,22 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "merces-ds/src/assets/",
+                "input": "../merces-ds/angular/src/assets/",
                 "output": "/assets/"
               },
               {
                 "glob": "**/*",
                 "input": "src/assets/",
                 "output": "/assets/"
-              },
-              {
-                "glob": "**/*",
-                "input": "database/",
-                "output": "/database/"
               }
             ],
             "styles": [
-              "merces-ds/src/stylesheet/reset.css",
-              "merces-ds/src/stylesheet/tokens/primitives.css",
-              "merces-ds/src/stylesheet/tokens/semantic-tokens.css",
-              "merces-ds/src/stylesheet/tokens/typography.css",
-              "merces-ds/src/stylesheet/tokens/shadows.css",
-              "merces-ds/src/stylesheet/global.css",
+              "../merces-ds/angular/src/stylesheet/reset.css",
+              "../merces-ds/angular/src/stylesheet/tokens/primitives.css",
+              "../merces-ds/angular/src/stylesheet/tokens/semantic-tokens.css",
+              "../merces-ds/angular/src/stylesheet/tokens/typography.css",
+              "../merces-ds/angular/src/stylesheet/tokens/shadows.css",
+              "../merces-ds/angular/src/stylesheet/global.css",
               "src/styles.css"
             ],
             "scripts": [],
@@ -53,8 +48,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "1MB",
+                  "maximumError": "3MB"
+                },
+                {
+                  "type": "any",
+                  "maximumWarning": "800kB",
+                  "maximumError": "2MB"
                 }
               ],
               "outputHashing": "all"

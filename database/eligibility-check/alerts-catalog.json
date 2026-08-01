@@ -1,0 +1,287 @@
+{
+  "Medicare": [
+    {
+      "label": "Medicare Advantage:",
+      "text": "This patient has a Medicare advantage plan: COLIN\nService Type: 30 - Health Benefit Plan Coverage\nInsurance Type: Preferred Provider Organization (PPO)\nMA Bill Option Code - C",
+      "changes": null
+    },
+    {
+      "label": "Primary Payer:",
+      "text": "01192",
+      "changes": null
+    },
+    {
+      "label": "Patient Information:",
+      "text": "Some of the patient's information does not match what is on file with their insurance:",
+      "changes": null
+    },
+    {
+      "label": "Change(s):",
+      "text": null,
+      "changes": [
+        { "field": "Gender", "request": "-", "response": "F" },
+        { "field": "Member ID", "request": "898623509FC24AB084186D8BB6D6A400", "response": "1FE2BDC2FB324D2493A22153D5F77B965" }
+      ]
+    },
+    {
+      "label": "Deductible Alert:",
+      "text": "This patient has a remaining deductible of $1,556.00",
+      "changes": null
+    }
+  ],
+  "Medicaid": [
+    {
+      "label": "Managed Medicaid:",
+      "text": "This patient is enrolled in a Managed Medicaid plan: SUNRISE HEALTH\nService Type: 98 - Professional (Physician) Visit - Office\nInsurance Type: Health Maintenance Organization (HMO)\nCoverage Level - Individual",
+      "changes": null
+    },
+    {
+      "label": "Primary Payer:",
+      "text": "MCDVAM",
+      "changes": null
+    },
+    {
+      "label": "Patient Information:",
+      "text": "Some of the patient's information does not match what is on file with their insurance:",
+      "changes": null
+    },
+    {
+      "label": "Change(s):",
+      "text": null,
+      "changes": [
+        { "field": "Last Name", "request": "JOHNSON", "response": "JOHNSTON" },
+        { "field": "Date of Birth", "request": "1985-03-12", "response": "1985-03-21" }
+      ]
+    },
+    {
+      "label": "Coverage Alert:",
+      "text": "This patient has $0 cost sharing as per their state Medicaid plan. No deductible applies.",
+      "changes": null
+    }
+  ],
+  "UnitedHealth": [
+    {
+      "label": "Plan Information:",
+      "text": "This patient is enrolled in plan: CHOICE PLUS\nService Type: 30 - Health Benefit Plan Coverage\nInsurance Type: Preferred Provider Organization (PPO)\nNetwork: UnitedHealthcare Choice Plus Network",
+      "changes": null
+    },
+    {
+      "label": "Primary Payer:",
+      "text": "87726",
+      "changes": null
+    },
+    {
+      "label": "Patient Information:",
+      "text": "Patient identity confirmed. No discrepancies found with UnitedHealthcare.",
+      "changes": null
+    },
+    {
+      "label": "Change(s):",
+      "text": "None",
+      "changes": null
+    },
+    {
+      "label": "Deductible Alert:",
+      "text": "This patient has a remaining individual deductible of $2,100.00 for the current plan year.",
+      "changes": null
+    }
+  ],
+  "Cigna": [
+    {
+      "label": "Plan Information:",
+      "text": "This patient is enrolled in plan: OPEN ACCESS PLUS\nService Type: 30 - Health Benefit Plan Coverage\nInsurance Type: Preferred Provider Organization (PPO)\nNetwork: Cigna Open Access Plus In-Network",
+      "changes": null
+    },
+    {
+      "label": "Primary Payer:",
+      "text": "62308",
+      "changes": null
+    },
+    {
+      "label": "Patient Information:",
+      "text": "Some of the patient's information does not match what is on file with their insurance:",
+      "changes": null
+    },
+    {
+      "label": "Change(s):",
+      "text": null,
+      "changes": [
+        { "field": "Gender", "request": "M", "response": "F" },
+        { "field": "First Name", "request": "ALEX", "response": "ALEXIS" }
+      ]
+    },
+    {
+      "label": "Deductible Alert:",
+      "text": "This patient has a remaining in-network deductible of $750.00 for the current benefit period.",
+      "changes": null
+    }
+  ],
+  "Humana": [
+    {
+      "label": "Plan Information:",
+      "text": "This patient is enrolled in plan: HUMANA GOLD PLUS\nService Type: 30 - Health Benefit Plan Coverage\nInsurance Type: Health Maintenance Organization (HMO)\nMA Bill Option Code - A",
+      "changes": null
+    },
+    {
+      "label": "Primary Payer:",
+      "text": "61101",
+      "changes": null
+    },
+    {
+      "label": "Patient Information:",
+      "text": "Patient identity confirmed. No discrepancies found at this time.",
+      "changes": null
+    },
+    {
+      "label": "Change(s):",
+      "text": "None",
+      "changes": null
+    },
+    {
+      "label": "Deductible Alert:",
+      "text": "This patient has a remaining out-of-pocket maximum of $3,400.00. Annual deductible has been met.",
+      "changes": null
+    }
+  ],
+  "Centene": [
+    {
+      "label": "Plan Information:",
+      "text": "This patient is enrolled in plan: WELLCARE TOTAL CARE\nService Type: 30 - Health Benefit Plan Coverage\nInsurance Type: Health Maintenance Organization (HMO)\nCoverage Type - Medicaid Managed Care",
+      "changes": null
+    },
+    {
+      "label": "Primary Payer:",
+      "text": "CNTFLX",
+      "changes": null
+    },
+    {
+      "label": "Patient Information:",
+      "text": "Patient identity confirmed. No discrepancies found with Centene/WellCare.",
+      "changes": null
+    },
+    {
+      "label": "Change(s):",
+      "text": "None",
+      "changes": null
+    },
+    {
+      "label": "Coverage Alert:",
+      "text": "This patient has $0 co-payment for primary care visits under their managed Medicaid plan.",
+      "changes": null
+    }
+  ],
+  "Kaiser Permanente": [
+    {
+      "label": "Plan Information:",
+      "text": "This patient is enrolled in plan: KAISER SILVER 70 HMO\nService Type: 30 - Health Benefit Plan Coverage\nInsurance Type: Health Maintenance Organization (HMO)\nRegion: Northern California",
+      "changes": null
+    },
+    {
+      "label": "Primary Payer:",
+      "text": "94135",
+      "changes": null
+    },
+    {
+      "label": "Patient Information:",
+      "text": "Patient identity confirmed. No discrepancies found with Kaiser Permanente.",
+      "changes": null
+    },
+    {
+      "label": "Change(s):",
+      "text": "None",
+      "changes": null
+    },
+    {
+      "label": "Deductible Alert:",
+      "text": "This patient has a remaining family deductible of $4,600.00. Individual deductible has been met.",
+      "changes": null
+    }
+  ],
+  "CVS Health": [
+    {
+      "label": "Plan Information:",
+      "text": "This patient is enrolled in plan: AETNA CVS HEALTH BRONZE\nService Type: 30 - Health Benefit Plan Coverage\nInsurance Type: Exclusive Provider Organization (EPO)\nNetwork: Aetna Select Network",
+      "changes": null
+    },
+    {
+      "label": "Primary Payer:",
+      "text": "60054",
+      "changes": null
+    },
+    {
+      "label": "Patient Information:",
+      "text": "Some of the patient's information does not match what is on file with their insurance:",
+      "changes": null
+    },
+    {
+      "label": "Change(s):",
+      "text": null,
+      "changes": [
+        { "field": "Date of Birth", "request": "1972-11-08", "response": "1972-11-18" },
+        { "field": "ZIP", "request": "90210", "response": "90212" }
+      ]
+    },
+    {
+      "label": "Deductible Alert:",
+      "text": "This patient has a remaining deductible of $5,500.00 for the current plan year.",
+      "changes": null
+    }
+  ],
+  "Blue Cross Blue Shield": [
+    {
+      "label": "Plan Information:",
+      "text": "This patient is enrolled in plan: BLUE ADVANTAGE PLUS\nService Type: 30 - Health Benefit Plan Coverage\nInsurance Type: Preferred Provider Organization (PPO)\nNetwork: BlueCard PPO National Network",
+      "changes": null
+    },
+    {
+      "label": "Primary Payer:",
+      "text": "00630",
+      "changes": null
+    },
+    {
+      "label": "Patient Information:",
+      "text": "Some of the patient's information does not match what is on file with their insurance:",
+      "changes": null
+    },
+    {
+      "label": "Change(s):",
+      "text": null,
+      "changes": [
+        { "field": "Last Name", "request": "WILLIAMS", "response": "WILLIAMSON" },
+        { "field": "Member ID", "request": "ZGP123456789", "response": "ZGP987654321" }
+      ]
+    },
+    {
+      "label": "Deductible Alert:",
+      "text": "This patient has a remaining in-network deductible of $1,200.00 and an out-of-network deductible of $3,600.00.",
+      "changes": null
+    }
+  ],
+  "Aetna": [
+    {
+      "label": "Plan Information:",
+      "text": "This patient is enrolled in plan: AETNA ADVANTAGE PLUS HMO\nService Type: 30 - Health Benefit Plan Coverage\nInsurance Type: Health Maintenance Organization (HMO)\nNetwork: Aetna HMO/POS Network",
+      "changes": null
+    },
+    {
+      "label": "Primary Payer:",
+      "text": "60054",
+      "changes": null
+    },
+    {
+      "label": "Patient Information:",
+      "text": "Patient identity confirmed. No discrepancies detected with Aetna records.",
+      "changes": null
+    },
+    {
+      "label": "Change(s):",
+      "text": "None",
+      "changes": null
+    },
+    {
+      "label": "Deductible Alert:",
+      "text": "This patient has met their annual deductible. Remaining out-of-pocket maximum is $1,750.00.",
+      "changes": null
+    }
+  ]
+}

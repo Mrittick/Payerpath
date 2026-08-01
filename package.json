@@ -6,8 +6,7 @@
     "dev": "node dev.mjs",
     "start": "ng serve",
     "build": "ng build",
-    "server": "node backend/server.js",
-    "sync-ds": "node sync-ds.js"
+    "server": "node backend/server.js"
   },
   "dependencies": {
     "@angular/animations": "^19.2.0",

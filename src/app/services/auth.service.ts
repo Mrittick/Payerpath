@@ -9,14 +9,11 @@ export interface User {
   role:  string;
 }
 
-import { MOCK_USER_REGISTRY } from '../database/mock-users';
-
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly http = inject(HttpClient);
 
-  private readonly _accessToken = signal<string | null>(localStorage.getItem('gh_demo_token'));
-  private readonly _currentUsername = signal<string | null>(localStorage.getItem('gh_demo_user'));
+  private readonly _accessToken = signal<string | null>(null);
 
   readonly isAuthenticated = computed(() => !!this._accessToken());
 
@@ -24,44 +21,28 @@ export class AuthService {
     return this._accessToken();
   }
 
-  getCurrentUsername(): string | null {
-    return this._currentUsername();
-  }
-
   login(email: string, username: string, password: string): Observable<void> {
-    const user = MOCK_USER_REGISTRY[username];
-    const isValid = user && user.email === email && user.password === password;
-
-    if (isValid) {
-      const fakeToken = 'demo-mock-jwt-token';
-      this._accessToken.set(fakeToken);
-      this._currentUsername.set(username);
-      localStorage.setItem('gh_demo_token', fakeToken);
-      localStorage.setItem('gh_demo_user', username);
-      return of(void 0);
-    } else {
-      console.error('Login failed: Invalid credentials');
-      const error = new Error('Authentication failed');
-      return new Observable(subscriber => subscriber.error(error));
-    }
+    return this.http
+      .post<{ accessToken: string }>('/api/auth/login', { email, username, password })
+      .pipe(
+        tap(({ accessToken }) => this._accessToken.set(accessToken)),
+        map(() => void 0),
+      );
   }
 
   logout(): void {
     this._accessToken.set(null);
-    this._currentUsername.set(null);
-    localStorage.removeItem('gh_demo_token');
-    localStorage.removeItem('gh_demo_user');
+    this.http.post('/api/auth/logout', {}).subscribe();
   }
 
   refresh(): Observable<boolean> {
-    const token = localStorage.getItem('gh_demo_token');
-    const user = localStorage.getItem('gh_demo_user');
-    if (token && user) {
-      this._accessToken.set(token);
-      this._currentUsername.set(user);
-      return of(true);
-    }
-    return of(false);
+    return this.http
+      .post<{ accessToken: string }>('/api/auth/refresh', {})
+      .pipe(
+        tap(({ accessToken }) => this._accessToken.set(accessToken)),
+        map(() => true),
+        catchError(() => of(false)),
+      );
   }
 
   initialize(): Observable<boolean> {

@@ -5,8 +5,5 @@
     "types": []
   },
   "files": ["src/main.ts"],
-  "include": [
-    "src/**/*.d.ts",
-    "merces-ds/src/**/*"
-  ]
+  "include": ["src/**/*.d.ts"]
 }

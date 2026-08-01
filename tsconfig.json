@@ -19,7 +19,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "@merces/*": ["./merces-ds/src/*"]
+      "@merces/*": ["../merces-ds/angular/src/*"]
     }
   },
   "angularCompilerOptions": {

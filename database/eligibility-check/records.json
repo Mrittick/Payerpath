@@ -1,0 +1,6191 @@
+[
+  {
+    "patientName": "Alexandria Johnson",
+    "found": true,
+    "dateOfBirth": "07/16/1978",
+    "transactionDate": "04/20/2026",
+    "insurance": "UnitedHealth",
+    "result": "active",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Ananya Iyer",
+    "found": false,
+    "dateOfBirth": "03/22/1995",
+    "transactionDate": "04/18/2026",
+    "insurance": "Cigna",
+    "result": "active",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Carlos Mendoza",
+    "found": false,
+    "dateOfBirth": "11/01/1982",
+    "transactionDate": "04/16/2026",
+    "insurance": "Humana",
+    "result": "active",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Darius Angelopoulos",
+    "found": true,
+    "dateOfBirth": "09/05/1965",
+    "transactionDate": "04/14/2026",
+    "insurance": "Centene",
+    "result": "cannot-process",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Elijah Roberts",
+    "found": false,
+    "dateOfBirth": "02/14/2001",
+    "transactionDate": "04/12/2026",
+    "insurance": "Kaiser Permanente",
+    "result": "active",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Emily Carter",
+    "found": false,
+    "dateOfBirth": "06/29/1990",
+    "transactionDate": "04/10/2026",
+    "insurance": "Medicaid",
+    "result": "active",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Fatima Al-Zahra",
+    "found": false,
+    "dateOfBirth": "12/08/1973",
+    "transactionDate": "04/08/2026",
+    "insurance": "CVS Health",
+    "result": "active",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Jacob Rosen",
+    "found": false,
+    "dateOfBirth": "04/11/1988",
+    "transactionDate": "04/06/2026",
+    "insurance": "Medicare",
+    "result": "inactive",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Jing Liu",
+    "found": true,
+    "dateOfBirth": "08/03/1969",
+    "transactionDate": "04/04/2026",
+    "insurance": "UnitedHealth",
+    "result": "unknown",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Maria Gonzalez",
+    "found": false,
+    "dateOfBirth": "01/30/1998",
+    "transactionDate": "04/02/2026",
+    "insurance": "Cigna",
+    "result": "unknown",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Michael O'Connor",
+    "found": false,
+    "dateOfBirth": "05/19/1976",
+    "transactionDate": "03/31/2026",
+    "insurance": "Humana",
+    "result": "active",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Neha Patel",
+    "found": false,
+    "dateOfBirth": "10/27/1992",
+    "transactionDate": "03/29/2026",
+    "insurance": "Centene",
+    "result": "active",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Omar Haddad",
+    "found": false,
+    "dateOfBirth": "03/06/1985",
+    "transactionDate": "03/27/2026",
+    "insurance": "Kaiser Permanente",
+    "result": "active",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Peter Williams",
+    "found": true,
+    "dateOfBirth": "07/25/1970",
+    "transactionDate": "03/25/2026",
+    "insurance": "Medicaid",
+    "result": "active",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Robert Klein",
+    "found": true,
+    "dateOfBirth": "11/09/1999",
+    "transactionDate": "03/23/2026",
+    "insurance": "CVS Health",
+    "result": "active",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Saleh Aziz",
+    "found": false,
+    "dateOfBirth": "04/02/1979",
+    "transactionDate": "03/21/2026",
+    "insurance": "Medicare",
+    "result": "invalid-response",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Sofia Petrov",
+    "found": false,
+    "dateOfBirth": "08/18/1994",
+    "transactionDate": "03/19/2026",
+    "insurance": "UnitedHealth",
+    "result": "active",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Sunil Rao",
+    "found": false,
+    "dateOfBirth": "01/15/1981",
+    "transactionDate": "03/17/2026",
+    "insurance": "Cigna",
+    "result": "active",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Tamara McMahon",
+    "found": true,
+    "dateOfBirth": "06/01/1962",
+    "transactionDate": "03/15/2026",
+    "insurance": "Humana",
+    "result": "active",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Jennifer Hall",
+    "found": false,
+    "dateOfBirth": "08/12/1981",
+    "transactionDate": "09/04/2026",
+    "insurance": "Medicaid",
+    "result": "active",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Kevin Davis",
+    "found": false,
+    "dateOfBirth": "06/11/1954",
+    "transactionDate": "02/21/2026",
+    "insurance": "CVS Health",
+    "result": "invalid-response",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": "$400.00"
+  },
+  {
+    "patientName": "Timothy Rivera",
+    "found": false,
+    "dateOfBirth": "08/23/1956",
+    "transactionDate": "03/14/2026",
+    "insurance": "Kaiser Permanente",
+    "result": "unknown",
+    "alerts": [
+      "PR",
+      "PI"
+    ],
+    "coPayments": "$30.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Ashley Mitchell",
+    "found": false,
+    "dateOfBirth": "09/19/1980",
+    "transactionDate": "09/25/2025",
+    "insurance": "Humana",
+    "result": "inactive",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": "$1200.00"
+  },
+  {
+    "patientName": "James Robinson",
+    "found": false,
+    "dateOfBirth": "01/04/2009",
+    "transactionDate": "10/26/2026",
+    "insurance": "Unknown",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Jennifer Rodriguez",
+    "found": true,
+    "dateOfBirth": "03/19/1991",
+    "transactionDate": "10/14/2026",
+    "insurance": "UnitedHealth",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Joshua Hernandez",
+    "found": false,
+    "dateOfBirth": "08/03/1983",
+    "transactionDate": "06/09/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "invalid-response",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Karen Johnson",
+    "found": true,
+    "dateOfBirth": "04/24/1966",
+    "transactionDate": "10/24/2026",
+    "insurance": "CVS Health",
+    "result": "inactive",
+    "alerts": [
+      "IC",
+      "PI"
+    ],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Joshua Thomas",
+    "found": false,
+    "dateOfBirth": "02/28/1976",
+    "transactionDate": "12/08/2026",
+    "insurance": "CVS Health",
+    "result": "cannot-process",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Christopher Harris",
+    "found": false,
+    "dateOfBirth": "05/01/1983",
+    "transactionDate": "01/03/2026",
+    "insurance": "Medicaid",
+    "result": "inactive",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Sandra Gonzalez",
+    "found": true,
+    "dateOfBirth": "09/12/1995",
+    "transactionDate": "09/07/2025",
+    "insurance": "Cigna",
+    "result": "inactive",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": "$20.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Deborah Jackson",
+    "found": false,
+    "dateOfBirth": "09/22/1950",
+    "transactionDate": "02/15/2025",
+    "insurance": "Humana",
+    "result": "unknown",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": "$40.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Mary Gonzalez",
+    "found": true,
+    "dateOfBirth": "05/09/2004",
+    "transactionDate": "12/09/2025",
+    "insurance": "CVS Health",
+    "result": "active",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": "$40.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Melissa Young",
+    "found": true,
+    "dateOfBirth": "09/24/1998",
+    "transactionDate": "03/01/2026",
+    "insurance": "Humana",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Melissa Robinson",
+    "found": false,
+    "dateOfBirth": "06/13/1985",
+    "transactionDate": "11/06/2026",
+    "insurance": "UnitedHealth",
+    "result": "active",
+    "alerts": [],
+    "coPayments": "$20.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "John Brown",
+    "found": true,
+    "dateOfBirth": "07/04/1962",
+    "transactionDate": "10/04/2026",
+    "insurance": "Humana",
+    "result": "inactive",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Margaret Baker",
+    "found": false,
+    "dateOfBirth": "03/21/1991",
+    "transactionDate": "10/18/2025",
+    "insurance": "Centene",
+    "result": "inactive",
+    "alerts": [
+      "IC",
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Brian Lee",
+    "found": false,
+    "dateOfBirth": "09/02/1954",
+    "transactionDate": "09/28/2026",
+    "insurance": "Centene",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Donna Brown",
+    "found": true,
+    "dateOfBirth": "01/17/1998",
+    "transactionDate": "04/14/2026",
+    "insurance": "Unknown",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Amanda Mitchell",
+    "found": false,
+    "dateOfBirth": "02/21/1977",
+    "transactionDate": "10/23/2026",
+    "insurance": "Cigna",
+    "result": "cannot-process",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": "$10.00",
+    "deductibles": "$1600.00"
+  },
+  {
+    "patientName": "Brian Jones",
+    "found": true,
+    "dateOfBirth": "02/03/2004",
+    "transactionDate": "04/01/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "active",
+    "alerts": [],
+    "coPayments": "$20.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Kenneth Johnson",
+    "found": true,
+    "dateOfBirth": "08/03/1986",
+    "transactionDate": "11/17/2026",
+    "insurance": "CVS Health",
+    "result": "cannot-process",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Daniel Allen",
+    "found": false,
+    "dateOfBirth": "05/08/1970",
+    "transactionDate": "02/04/2025",
+    "insurance": "CVS Health",
+    "result": "active",
+    "alerts": [],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Amanda Rodriguez",
+    "found": false,
+    "dateOfBirth": "02/07/1961",
+    "transactionDate": "09/04/2026",
+    "insurance": "Kaiser Permanente",
+    "result": "inactive",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": "$1200.00"
+  },
+  {
+    "patientName": "Linda Thomas",
+    "found": true,
+    "dateOfBirth": "10/25/1964",
+    "transactionDate": "01/09/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "active",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Paul Carter",
+    "found": true,
+    "dateOfBirth": "09/07/1982",
+    "transactionDate": "01/18/2025",
+    "insurance": "Medicare",
+    "result": "active",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Steven Allen",
+    "found": false,
+    "dateOfBirth": "05/13/1971",
+    "transactionDate": "11/14/2025",
+    "insurance": "Medicare",
+    "result": "inactive",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "William Garcia",
+    "found": false,
+    "dateOfBirth": "08/25/1991",
+    "transactionDate": "07/02/2025",
+    "insurance": "Cigna",
+    "result": "active",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": "$20.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Daniel Martin",
+    "found": true,
+    "dateOfBirth": "01/28/1992",
+    "transactionDate": "06/25/2026",
+    "insurance": "Humana",
+    "result": "unknown",
+    "alerts": [
+      "IC",
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Thomas Lewis",
+    "found": true,
+    "dateOfBirth": "11/22/1983",
+    "transactionDate": "04/10/2025",
+    "insurance": "Centene",
+    "result": "inactive",
+    "alerts": [
+      "IC",
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Donna Torres",
+    "found": true,
+    "dateOfBirth": "02/18/1976",
+    "transactionDate": "11/27/2026",
+    "insurance": "Cigna",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Charles White",
+    "found": true,
+    "dateOfBirth": "07/11/1951",
+    "transactionDate": "11/24/2026",
+    "insurance": "Unknown",
+    "result": "unknown",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": "$400.00"
+  },
+  {
+    "patientName": "Donald Robinson",
+    "found": true,
+    "dateOfBirth": "09/24/1993",
+    "transactionDate": "05/05/2026",
+    "insurance": "Medicare",
+    "result": "active",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Linda Thomas",
+    "found": false,
+    "dateOfBirth": "11/22/1979",
+    "transactionDate": "06/25/2026",
+    "insurance": "UnitedHealth",
+    "result": "invalid-response",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Susan Lopez",
+    "found": true,
+    "dateOfBirth": "12/05/1962",
+    "transactionDate": "10/15/2026",
+    "insurance": "Medicaid",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Betty Martinez",
+    "found": true,
+    "dateOfBirth": "03/27/1987",
+    "transactionDate": "07/25/2026",
+    "insurance": "Humana",
+    "result": "cannot-process",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": "$30.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Joshua Martin",
+    "found": true,
+    "dateOfBirth": "05/25/2004",
+    "transactionDate": "04/12/2025",
+    "insurance": "Humana",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": "$20.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Amanda Campbell",
+    "found": true,
+    "dateOfBirth": "05/03/1982",
+    "transactionDate": "09/25/2025",
+    "insurance": "Centene",
+    "result": "active",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Melissa Scott",
+    "found": true,
+    "dateOfBirth": "09/12/2002",
+    "transactionDate": "10/23/2026",
+    "insurance": "Centene",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": "$1400.00"
+  },
+  {
+    "patientName": "Nancy Lopez",
+    "found": true,
+    "dateOfBirth": "02/21/2002",
+    "transactionDate": "12/21/2025",
+    "insurance": "Medicare",
+    "result": "unknown",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Jennifer Davis",
+    "found": true,
+    "dateOfBirth": "11/25/1976",
+    "transactionDate": "05/27/2026",
+    "insurance": "Medicaid",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Susan Green",
+    "found": true,
+    "dateOfBirth": "06/18/1979",
+    "transactionDate": "06/01/2026",
+    "insurance": "Kaiser Permanente",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Sandra Nelson",
+    "found": false,
+    "dateOfBirth": "11/23/1966",
+    "transactionDate": "12/27/2026",
+    "insurance": "Unknown",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Sandra Martinez",
+    "found": false,
+    "dateOfBirth": "12/02/2000",
+    "transactionDate": "10/26/2025",
+    "insurance": "CVS Health",
+    "result": "inactive",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Christopher Torres",
+    "found": false,
+    "dateOfBirth": "06/06/1974",
+    "transactionDate": "05/20/2025",
+    "insurance": "CVS Health",
+    "result": "active",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": "$700.00"
+  },
+  {
+    "patientName": "James Nguyen",
+    "found": true,
+    "dateOfBirth": "06/14/1954",
+    "transactionDate": "02/06/2026",
+    "insurance": "Kaiser Permanente",
+    "result": "unknown",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Mark Torres",
+    "found": false,
+    "dateOfBirth": "04/16/1953",
+    "transactionDate": "07/27/2026",
+    "insurance": "Centene",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": "$30.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Elizabeth Mitchell",
+    "found": true,
+    "dateOfBirth": "11/28/1953",
+    "transactionDate": "08/11/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "unknown",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Karen Torres",
+    "found": true,
+    "dateOfBirth": "03/24/2005",
+    "transactionDate": "01/17/2025",
+    "insurance": "Cigna",
+    "result": "invalid-response",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": "$50.00",
+    "deductibles": "$1600.00"
+  },
+  {
+    "patientName": "Betty Garcia",
+    "found": false,
+    "dateOfBirth": "01/05/2007",
+    "transactionDate": "02/01/2026",
+    "insurance": "Centene",
+    "result": "inactive",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": "$300.00"
+  },
+  {
+    "patientName": "Susan Davis",
+    "found": false,
+    "dateOfBirth": "10/17/1965",
+    "transactionDate": "04/26/2026",
+    "insurance": "Cigna",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": "$40.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Betty Robinson",
+    "found": true,
+    "dateOfBirth": "12/24/1975",
+    "transactionDate": "10/04/2026",
+    "insurance": "Medicare",
+    "result": "active",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Susan Gonzalez",
+    "found": false,
+    "dateOfBirth": "07/11/1961",
+    "transactionDate": "06/17/2025",
+    "insurance": "Medicaid",
+    "result": "active",
+    "alerts": [],
+    "coPayments": "$10.00",
+    "deductibles": "$1700.00"
+  },
+  {
+    "patientName": "Kimberly Hill",
+    "found": true,
+    "dateOfBirth": "09/14/1952",
+    "transactionDate": "06/21/2026",
+    "insurance": "Centene",
+    "result": "unknown",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Timothy Adams",
+    "found": false,
+    "dateOfBirth": "12/11/1986",
+    "transactionDate": "08/17/2025",
+    "insurance": "CVS Health",
+    "result": "invalid-response",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Matthew King",
+    "found": false,
+    "dateOfBirth": "12/18/1964",
+    "transactionDate": "10/05/2025",
+    "insurance": "CVS Health",
+    "result": "invalid-response",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": "$40.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Stephanie Taylor",
+    "found": false,
+    "dateOfBirth": "10/03/1990",
+    "transactionDate": "03/09/2025",
+    "insurance": "Medicare",
+    "result": "active",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Patricia Green",
+    "found": false,
+    "dateOfBirth": "05/21/1951",
+    "transactionDate": "10/15/2026",
+    "insurance": "Medicare",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Anthony Williams",
+    "found": false,
+    "dateOfBirth": "08/27/1951",
+    "transactionDate": "01/15/2026",
+    "insurance": "UnitedHealth",
+    "result": "active",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Daniel Scott",
+    "found": true,
+    "dateOfBirth": "09/04/2005",
+    "transactionDate": "01/28/2025",
+    "insurance": "Centene",
+    "result": "invalid-response",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "James Jones",
+    "found": false,
+    "dateOfBirth": "10/02/1983",
+    "transactionDate": "07/24/2025",
+    "insurance": "Medicare",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": "$1200.00"
+  },
+  {
+    "patientName": "Richard Robinson",
+    "found": true,
+    "dateOfBirth": "08/16/1956",
+    "transactionDate": "11/03/2026",
+    "insurance": "Medicaid",
+    "result": "cannot-process",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": "$40.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Margaret Martin",
+    "found": true,
+    "dateOfBirth": "05/19/1986",
+    "transactionDate": "10/19/2026",
+    "insurance": "Cigna",
+    "result": "active",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Joshua Anderson",
+    "found": true,
+    "dateOfBirth": "06/06/1964",
+    "transactionDate": "04/18/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "John Hernandez",
+    "found": true,
+    "dateOfBirth": "08/14/2006",
+    "transactionDate": "05/06/2025",
+    "insurance": "Medicare",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "William Roberts",
+    "found": true,
+    "dateOfBirth": "10/06/1983",
+    "transactionDate": "08/06/2025",
+    "insurance": "Unknown",
+    "result": "unknown",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Donald Taylor",
+    "found": true,
+    "dateOfBirth": "09/18/1956",
+    "transactionDate": "09/10/2026",
+    "insurance": "Centene",
+    "result": "inactive",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Brian Allen",
+    "found": false,
+    "dateOfBirth": "08/17/1972",
+    "transactionDate": "12/04/2026",
+    "insurance": "CVS Health",
+    "result": "invalid-response",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Richard Thomas",
+    "found": false,
+    "dateOfBirth": "03/11/1955",
+    "transactionDate": "07/22/2025",
+    "insurance": "Humana",
+    "result": "invalid-response",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Steven Wilson",
+    "found": false,
+    "dateOfBirth": "04/06/1958",
+    "transactionDate": "12/24/2026",
+    "insurance": "Humana",
+    "result": "active",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "James Thompson",
+    "found": true,
+    "dateOfBirth": "03/11/1974",
+    "transactionDate": "07/24/2026",
+    "insurance": "CVS Health",
+    "result": "cannot-process",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Melissa Harris",
+    "found": false,
+    "dateOfBirth": "06/26/2009",
+    "transactionDate": "10/21/2026",
+    "insurance": "UnitedHealth",
+    "result": "active",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "David Nguyen",
+    "found": false,
+    "dateOfBirth": "11/28/1964",
+    "transactionDate": "12/27/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Barbara Jones",
+    "found": false,
+    "dateOfBirth": "12/07/1988",
+    "transactionDate": "08/05/2025",
+    "insurance": "Centene",
+    "result": "active",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Charles Lee",
+    "found": true,
+    "dateOfBirth": "07/01/2006",
+    "transactionDate": "08/02/2026",
+    "insurance": "CVS Health",
+    "result": "unknown",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Matthew Wilson",
+    "found": true,
+    "dateOfBirth": "01/05/2007",
+    "transactionDate": "12/25/2025",
+    "insurance": "Medicaid",
+    "result": "invalid-response",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Jessica Campbell",
+    "found": true,
+    "dateOfBirth": "12/26/1988",
+    "transactionDate": "02/01/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "inactive",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": "$10.00",
+    "deductibles": "$200.00"
+  },
+  {
+    "patientName": "Thomas Flores",
+    "found": true,
+    "dateOfBirth": "11/17/1998",
+    "transactionDate": "12/03/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "invalid-response",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": "$1800.00"
+  },
+  {
+    "patientName": "Carol Roberts",
+    "found": false,
+    "dateOfBirth": "01/17/1970",
+    "transactionDate": "01/06/2025",
+    "insurance": "Medicaid",
+    "result": "active",
+    "alerts": [],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Richard Hernandez",
+    "found": true,
+    "dateOfBirth": "09/02/1951",
+    "transactionDate": "12/04/2025",
+    "insurance": "CVS Health",
+    "result": "active",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": "$1600.00"
+  },
+  {
+    "patientName": "Barbara Campbell",
+    "found": false,
+    "dateOfBirth": "07/06/1976",
+    "transactionDate": "06/04/2025",
+    "insurance": "UnitedHealth",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "George Baker",
+    "found": false,
+    "dateOfBirth": "09/05/1953",
+    "transactionDate": "01/18/2026",
+    "insurance": "Medicare",
+    "result": "unknown",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Anthony Scott",
+    "found": true,
+    "dateOfBirth": "09/24/1996",
+    "transactionDate": "12/24/2026",
+    "insurance": "Humana",
+    "result": "active",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Anthony Smith",
+    "found": false,
+    "dateOfBirth": "05/15/2000",
+    "transactionDate": "01/08/2025",
+    "insurance": "Medicare",
+    "result": "cannot-process",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Elizabeth King",
+    "found": true,
+    "dateOfBirth": "11/06/1958",
+    "transactionDate": "07/04/2026",
+    "insurance": "Humana",
+    "result": "invalid-response",
+    "alerts": [
+      "IC",
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Joshua Harris",
+    "found": true,
+    "dateOfBirth": "01/22/1951",
+    "transactionDate": "02/14/2025",
+    "insurance": "Centene",
+    "result": "inactive",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": "$20.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Thomas Perez",
+    "found": false,
+    "dateOfBirth": "05/17/1992",
+    "transactionDate": "12/16/2025",
+    "insurance": "Cigna",
+    "result": "inactive",
+    "alerts": [
+      "PR",
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Ashley Robinson",
+    "found": false,
+    "dateOfBirth": "05/06/1994",
+    "transactionDate": "06/07/2026",
+    "insurance": "CVS Health",
+    "result": "inactive",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": "$1700.00"
+  },
+  {
+    "patientName": "Sarah Gonzalez",
+    "found": true,
+    "dateOfBirth": "09/15/1963",
+    "transactionDate": "09/10/2026",
+    "insurance": "Medicare",
+    "result": "inactive",
+    "alerts": [
+      "PR",
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": "$400.00"
+  },
+  {
+    "patientName": "Nancy Hernandez",
+    "found": false,
+    "dateOfBirth": "07/14/1963",
+    "transactionDate": "02/27/2025",
+    "insurance": "Humana",
+    "result": "active",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": "$0.00"
+  },
+  {
+    "patientName": "Steven King",
+    "found": false,
+    "dateOfBirth": "01/08/1995",
+    "transactionDate": "12/08/2026",
+    "insurance": "Humana",
+    "result": "unknown",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Mark Sanchez",
+    "found": false,
+    "dateOfBirth": "07/25/1983",
+    "transactionDate": "04/04/2025",
+    "insurance": "Humana",
+    "result": "inactive",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": "$900.00"
+  },
+  {
+    "patientName": "Linda Hernandez",
+    "found": true,
+    "dateOfBirth": "07/08/1960",
+    "transactionDate": "08/12/2026",
+    "insurance": "Medicare",
+    "result": "inactive",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Joshua Smith",
+    "found": true,
+    "dateOfBirth": "02/23/1956",
+    "transactionDate": "04/13/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Susan Moore",
+    "found": true,
+    "dateOfBirth": "09/03/1977",
+    "transactionDate": "03/16/2025",
+    "insurance": "CVS Health",
+    "result": "cannot-process",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Kenneth Hill",
+    "found": false,
+    "dateOfBirth": "10/25/1951",
+    "transactionDate": "12/10/2025",
+    "insurance": "Medicare",
+    "result": "unknown",
+    "alerts": [
+      "PI",
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Paul Torres",
+    "found": true,
+    "dateOfBirth": "12/11/1969",
+    "transactionDate": "09/16/2025",
+    "insurance": "Humana",
+    "result": "cannot-process",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Nancy Scott",
+    "found": false,
+    "dateOfBirth": "06/10/1972",
+    "transactionDate": "02/04/2026",
+    "insurance": "Unknown",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": "$0.00"
+  },
+  {
+    "patientName": "Richard Nelson",
+    "found": false,
+    "dateOfBirth": "12/27/1984",
+    "transactionDate": "12/19/2025",
+    "insurance": "Unknown",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Deborah Scott",
+    "found": true,
+    "dateOfBirth": "04/28/1958",
+    "transactionDate": "10/22/2025",
+    "insurance": "UnitedHealth",
+    "result": "inactive",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "James Baker",
+    "found": true,
+    "dateOfBirth": "09/07/2004",
+    "transactionDate": "09/06/2026",
+    "insurance": "CVS Health",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": "$500.00"
+  },
+  {
+    "patientName": "Ashley Rivera",
+    "found": true,
+    "dateOfBirth": "04/23/2005",
+    "transactionDate": "08/05/2026",
+    "insurance": "CVS Health",
+    "result": "unknown",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": "$30.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Kevin Rodriguez",
+    "found": false,
+    "dateOfBirth": "03/04/1980",
+    "transactionDate": "09/17/2025",
+    "insurance": "CVS Health",
+    "result": "invalid-response",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": "$600.00"
+  },
+  {
+    "patientName": "Kimberly Thomas",
+    "found": true,
+    "dateOfBirth": "07/17/2005",
+    "transactionDate": "09/25/2026",
+    "insurance": "Centene",
+    "result": "active",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Charles Baker",
+    "found": true,
+    "dateOfBirth": "12/18/1970",
+    "transactionDate": "05/03/2025",
+    "insurance": "Humana",
+    "result": "active",
+    "alerts": [],
+    "coPayments": "$20.00",
+    "deductibles": "$1500.00"
+  },
+  {
+    "patientName": "William Lewis",
+    "found": true,
+    "dateOfBirth": "12/21/1961",
+    "transactionDate": "02/19/2026",
+    "insurance": "Centene",
+    "result": "unknown",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Susan Brown",
+    "found": false,
+    "dateOfBirth": "08/15/1999",
+    "transactionDate": "03/18/2025",
+    "insurance": "Medicaid",
+    "result": "active",
+    "alerts": [],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Michael Hill",
+    "found": true,
+    "dateOfBirth": "03/27/1963",
+    "transactionDate": "01/06/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "invalid-response",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Carol Clark",
+    "found": false,
+    "dateOfBirth": "06/03/1999",
+    "transactionDate": "12/27/2025",
+    "insurance": "Medicaid",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Robert Nguyen",
+    "found": false,
+    "dateOfBirth": "04/25/1976",
+    "transactionDate": "04/20/2026",
+    "insurance": "Unknown",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Andrew Davis",
+    "found": true,
+    "dateOfBirth": "03/16/1968",
+    "transactionDate": "03/01/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "active",
+    "alerts": [],
+    "coPayments": "$20.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Brian Moore",
+    "found": true,
+    "dateOfBirth": "02/13/1994",
+    "transactionDate": "11/26/2026",
+    "insurance": "Medicaid",
+    "result": "active",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Sarah Flores",
+    "found": false,
+    "dateOfBirth": "01/19/1990",
+    "transactionDate": "03/26/2026",
+    "insurance": "UnitedHealth",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": "$30.00",
+    "deductibles": "$1100.00"
+  },
+  {
+    "patientName": "Mark Martin",
+    "found": false,
+    "dateOfBirth": "03/21/1957",
+    "transactionDate": "01/16/2025",
+    "insurance": "UnitedHealth",
+    "result": "active",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": "$30.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Stephanie Mitchell",
+    "found": false,
+    "dateOfBirth": "08/21/1955",
+    "transactionDate": "07/03/2025",
+    "insurance": "Medicaid",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Brian Thompson",
+    "found": true,
+    "dateOfBirth": "03/04/2006",
+    "transactionDate": "05/08/2026",
+    "insurance": "Centene",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": "$20.00",
+    "deductibles": "$1000.00"
+  },
+  {
+    "patientName": "Susan Moore",
+    "found": true,
+    "dateOfBirth": "08/17/2000",
+    "transactionDate": "05/28/2025",
+    "insurance": "Centene",
+    "result": "inactive",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": "$20.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Donald Mitchell",
+    "found": true,
+    "dateOfBirth": "08/17/1972",
+    "transactionDate": "09/26/2025",
+    "insurance": "Centene",
+    "result": "active",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": "$40.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Ashley Torres",
+    "found": true,
+    "dateOfBirth": "12/19/1995",
+    "transactionDate": "02/15/2026",
+    "insurance": "Cigna",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "James King",
+    "found": false,
+    "dateOfBirth": "11/21/1970",
+    "transactionDate": "04/18/2026",
+    "insurance": "Medicaid",
+    "result": "inactive",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": "$30.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Karen Torres",
+    "found": true,
+    "dateOfBirth": "08/02/1985",
+    "transactionDate": "06/05/2025",
+    "insurance": "Humana",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "James Baker",
+    "found": false,
+    "dateOfBirth": "06/17/1981",
+    "transactionDate": "01/06/2025",
+    "insurance": "UnitedHealth",
+    "result": "inactive",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "William Clark",
+    "found": false,
+    "dateOfBirth": "03/15/1984",
+    "transactionDate": "10/28/2025",
+    "insurance": "Humana",
+    "result": "active",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Charles Anderson",
+    "found": true,
+    "dateOfBirth": "08/04/1972",
+    "transactionDate": "01/16/2026",
+    "insurance": "CVS Health",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Thomas Rivera",
+    "found": false,
+    "dateOfBirth": "03/21/1954",
+    "transactionDate": "01/01/2026",
+    "insurance": "Centene",
+    "result": "invalid-response",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": "$1900.00"
+  },
+  {
+    "patientName": "Michael Johnson",
+    "found": false,
+    "dateOfBirth": "08/25/1991",
+    "transactionDate": "03/23/2026",
+    "insurance": "Kaiser Permanente",
+    "result": "active",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Barbara Moore",
+    "found": true,
+    "dateOfBirth": "06/26/1978",
+    "transactionDate": "10/15/2026",
+    "insurance": "Cigna",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Elizabeth Scott",
+    "found": true,
+    "dateOfBirth": "03/07/1990",
+    "transactionDate": "01/07/2025",
+    "insurance": "Cigna",
+    "result": "active",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Donald Ramirez",
+    "found": false,
+    "dateOfBirth": "03/05/1975",
+    "transactionDate": "08/05/2025",
+    "insurance": "UnitedHealth",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Joseph Lewis",
+    "found": false,
+    "dateOfBirth": "08/03/1955",
+    "transactionDate": "11/24/2025",
+    "insurance": "Medicare",
+    "result": "active",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Sandra Williams",
+    "found": false,
+    "dateOfBirth": "03/07/2002",
+    "transactionDate": "09/23/2026",
+    "insurance": "Cigna",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Sandra Sanchez",
+    "found": true,
+    "dateOfBirth": "11/11/1963",
+    "transactionDate": "05/26/2025",
+    "insurance": "Medicaid",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "William Young",
+    "found": true,
+    "dateOfBirth": "03/08/1985",
+    "transactionDate": "11/28/2026",
+    "insurance": "Centene",
+    "result": "unknown",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": "$30.00",
+    "deductibles": "$100.00"
+  },
+  {
+    "patientName": "Anthony Lopez",
+    "found": true,
+    "dateOfBirth": "05/10/1981",
+    "transactionDate": "10/12/2025",
+    "insurance": "UnitedHealth",
+    "result": "cannot-process",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Mary Harris",
+    "found": true,
+    "dateOfBirth": "01/03/1980",
+    "transactionDate": "09/19/2026",
+    "insurance": "Medicare",
+    "result": "invalid-response",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Barbara Allen",
+    "found": false,
+    "dateOfBirth": "08/05/1982",
+    "transactionDate": "03/01/2026",
+    "insurance": "Kaiser Permanente",
+    "result": "invalid-response",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Joseph Brown",
+    "found": true,
+    "dateOfBirth": "05/10/1986",
+    "transactionDate": "10/18/2026",
+    "insurance": "Centene",
+    "result": "inactive",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Donald Rivera",
+    "found": true,
+    "dateOfBirth": "02/28/1953",
+    "transactionDate": "12/13/2026",
+    "insurance": "Humana",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Donald Gonzalez",
+    "found": false,
+    "dateOfBirth": "08/21/1977",
+    "transactionDate": "08/10/2026",
+    "insurance": "CVS Health",
+    "result": "unknown",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Charles Young",
+    "found": true,
+    "dateOfBirth": "06/05/1975",
+    "transactionDate": "09/27/2025",
+    "insurance": "Medicaid",
+    "result": "inactive",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Carol Harris",
+    "found": true,
+    "dateOfBirth": "02/18/1998",
+    "transactionDate": "06/12/2025",
+    "insurance": "Medicaid",
+    "result": "inactive",
+    "alerts": [
+      "IC",
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Anthony Miller",
+    "found": true,
+    "dateOfBirth": "06/18/1960",
+    "transactionDate": "03/14/2025",
+    "insurance": "Humana",
+    "result": "invalid-response",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Deborah Lopez",
+    "found": false,
+    "dateOfBirth": "05/03/1979",
+    "transactionDate": "03/12/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "inactive",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Kevin Jackson",
+    "found": true,
+    "dateOfBirth": "07/27/1951",
+    "transactionDate": "07/16/2025",
+    "insurance": "Humana",
+    "result": "cannot-process",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Matthew Adams",
+    "found": false,
+    "dateOfBirth": "07/06/1959",
+    "transactionDate": "01/26/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Steven Martin",
+    "found": false,
+    "dateOfBirth": "06/15/1987",
+    "transactionDate": "01/15/2025",
+    "insurance": "Cigna",
+    "result": "active",
+    "alerts": [
+      "IC",
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Karen Lopez",
+    "found": true,
+    "dateOfBirth": "06/15/1973",
+    "transactionDate": "05/11/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "unknown",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": "$50.00",
+    "deductibles": "$700.00"
+  },
+  {
+    "patientName": "Carol Martin",
+    "found": false,
+    "dateOfBirth": "05/10/1985",
+    "transactionDate": "11/28/2025",
+    "insurance": "UnitedHealth",
+    "result": "invalid-response",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Karen Nelson",
+    "found": false,
+    "dateOfBirth": "04/05/2001",
+    "transactionDate": "08/12/2026",
+    "insurance": "Medicare",
+    "result": "inactive",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Melissa Mitchell",
+    "found": true,
+    "dateOfBirth": "03/04/1999",
+    "transactionDate": "10/11/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Ashley Harris",
+    "found": true,
+    "dateOfBirth": "12/12/2000",
+    "transactionDate": "07/01/2026",
+    "insurance": "UnitedHealth",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": "$1400.00"
+  },
+  {
+    "patientName": "Joshua Hernandez",
+    "found": true,
+    "dateOfBirth": "08/03/2005",
+    "transactionDate": "03/11/2025",
+    "insurance": "UnitedHealth",
+    "result": "cannot-process",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Steven Lee",
+    "found": true,
+    "dateOfBirth": "09/11/1977",
+    "transactionDate": "04/08/2025",
+    "insurance": "Humana",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Sarah Ramirez",
+    "found": true,
+    "dateOfBirth": "01/09/1995",
+    "transactionDate": "11/04/2025",
+    "insurance": "UnitedHealth",
+    "result": "unknown",
+    "alerts": [
+      "PI",
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Steven Walker",
+    "found": false,
+    "dateOfBirth": "01/20/1972",
+    "transactionDate": "05/19/2025",
+    "insurance": "UnitedHealth",
+    "result": "cannot-process",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": "$20.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Carol Perez",
+    "found": true,
+    "dateOfBirth": "01/25/1970",
+    "transactionDate": "07/16/2025",
+    "insurance": "Unknown",
+    "result": "unknown",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Elizabeth Rodriguez",
+    "found": false,
+    "dateOfBirth": "07/22/1997",
+    "transactionDate": "10/20/2026",
+    "insurance": "Medicare",
+    "result": "cannot-process",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Karen Garcia",
+    "found": true,
+    "dateOfBirth": "09/04/1961",
+    "transactionDate": "06/21/2025",
+    "insurance": "UnitedHealth",
+    "result": "invalid-response",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Andrew Rodriguez",
+    "found": false,
+    "dateOfBirth": "10/13/2001",
+    "transactionDate": "10/25/2025",
+    "insurance": "CVS Health",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": "$30.00",
+    "deductibles": "$1700.00"
+  },
+  {
+    "patientName": "Sandra Martinez",
+    "found": true,
+    "dateOfBirth": "11/15/1976",
+    "transactionDate": "02/18/2025",
+    "insurance": "Medicaid",
+    "result": "invalid-response",
+    "alerts": [
+      "IC",
+      "PI"
+    ],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Michelle Smith",
+    "found": true,
+    "dateOfBirth": "01/07/2002",
+    "transactionDate": "06/06/2025",
+    "insurance": "UnitedHealth",
+    "result": "inactive",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Elizabeth Thompson",
+    "found": true,
+    "dateOfBirth": "03/13/1959",
+    "transactionDate": "04/13/2025",
+    "insurance": "Centene",
+    "result": "cannot-process",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Betty Lewis",
+    "found": false,
+    "dateOfBirth": "05/15/1982",
+    "transactionDate": "03/24/2026",
+    "insurance": "Medicaid",
+    "result": "cannot-process",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": "$20.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Melissa Miller",
+    "found": false,
+    "dateOfBirth": "03/21/1999",
+    "transactionDate": "12/13/2025",
+    "insurance": "CVS Health",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Robert Nguyen",
+    "found": false,
+    "dateOfBirth": "07/05/2000",
+    "transactionDate": "12/17/2025",
+    "insurance": "Centene",
+    "result": "inactive",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Betty Hernandez",
+    "found": false,
+    "dateOfBirth": "08/14/1993",
+    "transactionDate": "12/08/2025",
+    "insurance": "CVS Health",
+    "result": "active",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Carol Mitchell",
+    "found": false,
+    "dateOfBirth": "08/10/1988",
+    "transactionDate": "04/13/2026",
+    "insurance": "Cigna",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": "$40.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Nancy Taylor",
+    "found": false,
+    "dateOfBirth": "11/26/2007",
+    "transactionDate": "06/18/2026",
+    "insurance": "Centene",
+    "result": "active",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Andrew Carter",
+    "found": true,
+    "dateOfBirth": "03/21/1951",
+    "transactionDate": "03/24/2025",
+    "insurance": "Cigna",
+    "result": "invalid-response",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Steven Scott",
+    "found": true,
+    "dateOfBirth": "06/09/2004",
+    "transactionDate": "12/16/2026",
+    "insurance": "Medicaid",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Charles Brown",
+    "found": false,
+    "dateOfBirth": "01/21/1988",
+    "transactionDate": "12/09/2025",
+    "insurance": "Centene",
+    "result": "cannot-process",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "David White",
+    "found": false,
+    "dateOfBirth": "06/04/2005",
+    "transactionDate": "09/08/2026",
+    "insurance": "UnitedHealth",
+    "result": "unknown",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Mark Carter",
+    "found": true,
+    "dateOfBirth": "02/19/1981",
+    "transactionDate": "11/14/2025",
+    "insurance": "Centene",
+    "result": "unknown",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Andrew Robinson",
+    "found": true,
+    "dateOfBirth": "12/17/2004",
+    "transactionDate": "03/11/2025",
+    "insurance": "CVS Health",
+    "result": "unknown",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": "$20.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Michael Robinson",
+    "found": false,
+    "dateOfBirth": "06/23/1959",
+    "transactionDate": "01/10/2026",
+    "insurance": "Cigna",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": "$1900.00"
+  },
+  {
+    "patientName": "James Hall",
+    "found": true,
+    "dateOfBirth": "05/22/1978",
+    "transactionDate": "11/26/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "invalid-response",
+    "alerts": [
+      "IC",
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Susan Garcia",
+    "found": false,
+    "dateOfBirth": "02/24/1995",
+    "transactionDate": "07/28/2026",
+    "insurance": "Medicaid",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": "$40.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Linda Green",
+    "found": false,
+    "dateOfBirth": "09/15/1958",
+    "transactionDate": "04/23/2025",
+    "insurance": "Medicare",
+    "result": "inactive",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Kimberly Perez",
+    "found": true,
+    "dateOfBirth": "02/16/1990",
+    "transactionDate": "05/26/2026",
+    "insurance": "Cigna",
+    "result": "cannot-process",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Margaret Taylor",
+    "found": true,
+    "dateOfBirth": "03/20/1977",
+    "transactionDate": "07/23/2025",
+    "insurance": "Humana",
+    "result": "unknown",
+    "alerts": [
+      "PR",
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "John Nguyen",
+    "found": false,
+    "dateOfBirth": "05/12/1976",
+    "transactionDate": "03/08/2026",
+    "insurance": "Cigna",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": "$1800.00"
+  },
+  {
+    "patientName": "Carol King",
+    "found": true,
+    "dateOfBirth": "10/14/1962",
+    "transactionDate": "11/12/2026",
+    "insurance": "Cigna",
+    "result": "unknown",
+    "alerts": [
+      "IC",
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Kimberly Anderson",
+    "found": true,
+    "dateOfBirth": "01/08/2008",
+    "transactionDate": "11/07/2025",
+    "insurance": "Humana",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Stephanie Miller",
+    "found": true,
+    "dateOfBirth": "12/10/1969",
+    "transactionDate": "12/04/2026",
+    "insurance": "Medicaid",
+    "result": "cannot-process",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Deborah Baker",
+    "found": true,
+    "dateOfBirth": "03/20/1954",
+    "transactionDate": "12/04/2025",
+    "insurance": "CVS Health",
+    "result": "cannot-process",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Nancy Harris",
+    "found": false,
+    "dateOfBirth": "06/26/1969",
+    "transactionDate": "11/15/2026",
+    "insurance": "CVS Health",
+    "result": "unknown",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Linda Mitchell",
+    "found": true,
+    "dateOfBirth": "04/04/2004",
+    "transactionDate": "12/06/2025",
+    "insurance": "Humana",
+    "result": "active",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "George Roberts",
+    "found": false,
+    "dateOfBirth": "03/09/1991",
+    "transactionDate": "04/11/2025",
+    "insurance": "Centene",
+    "result": "unknown",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Kimberly Green",
+    "found": true,
+    "dateOfBirth": "09/27/1959",
+    "transactionDate": "10/07/2026",
+    "insurance": "UnitedHealth",
+    "result": "active",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "William Flores",
+    "found": true,
+    "dateOfBirth": "05/03/1963",
+    "transactionDate": "04/23/2026",
+    "insurance": "Medicaid",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Stephanie Brown",
+    "found": false,
+    "dateOfBirth": "07/20/1974",
+    "transactionDate": "11/25/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "inactive",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Mark Nelson",
+    "found": false,
+    "dateOfBirth": "08/09/1952",
+    "transactionDate": "01/03/2025",
+    "insurance": "UnitedHealth",
+    "result": "cannot-process",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Elizabeth Lopez",
+    "found": false,
+    "dateOfBirth": "08/13/1957",
+    "transactionDate": "03/25/2025",
+    "insurance": "Centene",
+    "result": "unknown",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Mary Allen",
+    "found": true,
+    "dateOfBirth": "01/28/1992",
+    "transactionDate": "04/25/2025",
+    "insurance": "Centene",
+    "result": "invalid-response",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "David Clark",
+    "found": true,
+    "dateOfBirth": "05/13/1976",
+    "transactionDate": "06/25/2025",
+    "insurance": "Medicaid",
+    "result": "invalid-response",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Deborah Walker",
+    "found": true,
+    "dateOfBirth": "03/12/1986",
+    "transactionDate": "07/13/2026",
+    "insurance": "Humana",
+    "result": "active",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Christopher Baker",
+    "found": true,
+    "dateOfBirth": "04/05/2007",
+    "transactionDate": "11/18/2025",
+    "insurance": "Centene",
+    "result": "invalid-response",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Margaret Jackson",
+    "found": true,
+    "dateOfBirth": "01/03/1985",
+    "transactionDate": "07/13/2026",
+    "insurance": "Medicaid",
+    "result": "inactive",
+    "alerts": [
+      "IC",
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Andrew Young",
+    "found": true,
+    "dateOfBirth": "10/06/1985",
+    "transactionDate": "12/02/2025",
+    "insurance": "Medicare",
+    "result": "active",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": "$30.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Ashley Green",
+    "found": false,
+    "dateOfBirth": "05/24/1976",
+    "transactionDate": "12/06/2025",
+    "insurance": "Centene",
+    "result": "inactive",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Susan Wilson",
+    "found": true,
+    "dateOfBirth": "09/12/1971",
+    "transactionDate": "08/14/2026",
+    "insurance": "Centene",
+    "result": "active",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Charles Hernandez",
+    "found": true,
+    "dateOfBirth": "06/10/1994",
+    "transactionDate": "03/05/2025",
+    "insurance": "UnitedHealth",
+    "result": "invalid-response",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": "$600.00"
+  },
+  {
+    "patientName": "Joshua Sanchez",
+    "found": false,
+    "dateOfBirth": "05/13/1961",
+    "transactionDate": "03/11/2025",
+    "insurance": "CVS Health",
+    "result": "cannot-process",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Karen Carter",
+    "found": false,
+    "dateOfBirth": "07/21/1951",
+    "transactionDate": "11/13/2026",
+    "insurance": "Kaiser Permanente",
+    "result": "inactive",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": "$1200.00"
+  },
+  {
+    "patientName": "Robert Taylor",
+    "found": true,
+    "dateOfBirth": "09/15/1983",
+    "transactionDate": "08/26/2025",
+    "insurance": "Cigna",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": "$40.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Susan Allen",
+    "found": true,
+    "dateOfBirth": "01/17/1980",
+    "transactionDate": "06/21/2025",
+    "insurance": "Medicare",
+    "result": "inactive",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": "$20.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Susan Sanchez",
+    "found": true,
+    "dateOfBirth": "07/24/1972",
+    "transactionDate": "07/10/2026",
+    "insurance": "Centene",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Andrew Williams",
+    "found": false,
+    "dateOfBirth": "01/04/1989",
+    "transactionDate": "08/01/2025",
+    "insurance": "UnitedHealth",
+    "result": "inactive",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Mary Flores",
+    "found": true,
+    "dateOfBirth": "12/09/1963",
+    "transactionDate": "01/28/2026",
+    "insurance": "Medicaid",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Carol Campbell",
+    "found": true,
+    "dateOfBirth": "11/07/1981",
+    "transactionDate": "03/09/2026",
+    "insurance": "UnitedHealth",
+    "result": "active",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Sarah Lopez",
+    "found": false,
+    "dateOfBirth": "08/10/1966",
+    "transactionDate": "04/13/2025",
+    "insurance": "CVS Health",
+    "result": "cannot-process",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Sandra Allen",
+    "found": false,
+    "dateOfBirth": "11/10/2005",
+    "transactionDate": "07/28/2025",
+    "insurance": "Humana",
+    "result": "unknown",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Matthew Rodriguez",
+    "found": true,
+    "dateOfBirth": "12/20/1997",
+    "transactionDate": "04/03/2026",
+    "insurance": "Cigna",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": "$1700.00"
+  },
+  {
+    "patientName": "Daniel Mitchell",
+    "found": true,
+    "dateOfBirth": "12/19/1999",
+    "transactionDate": "05/21/2025",
+    "insurance": "CVS Health",
+    "result": "active",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": "$1100.00"
+  },
+  {
+    "patientName": "Daniel Campbell",
+    "found": true,
+    "dateOfBirth": "02/10/2000",
+    "transactionDate": "12/01/2026",
+    "insurance": "Medicare",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": "$0.00"
+  },
+  {
+    "patientName": "Joseph White",
+    "found": false,
+    "dateOfBirth": "03/16/1954",
+    "transactionDate": "11/24/2026",
+    "insurance": "Kaiser Permanente",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Linda Sanchez",
+    "found": true,
+    "dateOfBirth": "09/28/1973",
+    "transactionDate": "03/02/2026",
+    "insurance": "Medicare",
+    "result": "unknown",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Emily Wright",
+    "found": false,
+    "dateOfBirth": "10/09/1975",
+    "transactionDate": "10/03/2026",
+    "insurance": "Medicaid",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": "$1200.00"
+  },
+  {
+    "patientName": "James Thomas",
+    "found": true,
+    "dateOfBirth": "03/14/2007",
+    "transactionDate": "11/06/2026",
+    "insurance": "Medicaid",
+    "result": "cannot-process",
+    "alerts": [
+      "PI",
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Joseph Thomas",
+    "found": true,
+    "dateOfBirth": "01/12/1955",
+    "transactionDate": "08/25/2025",
+    "insurance": "Cigna",
+    "result": "inactive",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Joshua Ramirez",
+    "found": true,
+    "dateOfBirth": "04/08/1975",
+    "transactionDate": "03/23/2026",
+    "insurance": "Cigna",
+    "result": "inactive",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": "$40.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Thomas Carter",
+    "found": true,
+    "dateOfBirth": "10/09/1987",
+    "transactionDate": "04/05/2025",
+    "insurance": "CVS Health",
+    "result": "active",
+    "alerts": [],
+    "coPayments": "$20.00",
+    "deductibles": "$1800.00"
+  },
+  {
+    "patientName": "Charles Wilson",
+    "found": false,
+    "dateOfBirth": "05/27/1970",
+    "transactionDate": "12/22/2025",
+    "insurance": "UnitedHealth",
+    "result": "active",
+    "alerts": [],
+    "coPayments": "$30.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Elizabeth Jones",
+    "found": true,
+    "dateOfBirth": "01/16/1987",
+    "transactionDate": "02/13/2025",
+    "insurance": "Humana",
+    "result": "inactive",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": "$20.00",
+    "deductibles": "$1900.00"
+  },
+  {
+    "patientName": "James Taylor",
+    "found": false,
+    "dateOfBirth": "09/02/2007",
+    "transactionDate": "06/25/2025",
+    "insurance": "Centene",
+    "result": "inactive",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": "$300.00"
+  },
+  {
+    "patientName": "Charles Smith",
+    "found": true,
+    "dateOfBirth": "04/02/2000",
+    "transactionDate": "06/23/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Timothy Nelson",
+    "found": true,
+    "dateOfBirth": "05/19/1975",
+    "transactionDate": "05/18/2025",
+    "insurance": "CVS Health",
+    "result": "unknown",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Jessica Williams",
+    "found": false,
+    "dateOfBirth": "08/01/1954",
+    "transactionDate": "03/18/2026",
+    "insurance": "Kaiser Permanente",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": "$40.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Michael Nelson",
+    "found": true,
+    "dateOfBirth": "08/18/1993",
+    "transactionDate": "11/19/2026",
+    "insurance": "Kaiser Permanente",
+    "result": "cannot-process",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Timothy Garcia",
+    "found": false,
+    "dateOfBirth": "12/17/1973",
+    "transactionDate": "09/21/2025",
+    "insurance": "UnitedHealth",
+    "result": "active",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Christopher Scott",
+    "found": false,
+    "dateOfBirth": "09/05/2006",
+    "transactionDate": "09/12/2026",
+    "insurance": "UnitedHealth",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "William Perez",
+    "found": true,
+    "dateOfBirth": "05/04/1980",
+    "transactionDate": "08/04/2025",
+    "insurance": "Medicare",
+    "result": "active",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Donna Wilson",
+    "found": true,
+    "dateOfBirth": "02/19/1950",
+    "transactionDate": "01/02/2026",
+    "insurance": "UnitedHealth",
+    "result": "active",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Barbara Lopez",
+    "found": false,
+    "dateOfBirth": "01/01/1989",
+    "transactionDate": "04/01/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": "$30.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Melissa Wilson",
+    "found": true,
+    "dateOfBirth": "02/26/1993",
+    "transactionDate": "02/05/2025",
+    "insurance": "Centene",
+    "result": "unknown",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Kenneth Lewis",
+    "found": false,
+    "dateOfBirth": "08/05/1993",
+    "transactionDate": "04/07/2026",
+    "insurance": "Kaiser Permanente",
+    "result": "cannot-process",
+    "alerts": [
+      "IC",
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": "$900.00"
+  },
+  {
+    "patientName": "David Lopez",
+    "found": true,
+    "dateOfBirth": "01/25/1973",
+    "transactionDate": "11/06/2026",
+    "insurance": "Centene",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Robert Williams",
+    "found": false,
+    "dateOfBirth": "04/03/1979",
+    "transactionDate": "11/15/2026",
+    "insurance": "Medicaid",
+    "result": "invalid-response",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Emily Lopez",
+    "found": true,
+    "dateOfBirth": "09/03/1961",
+    "transactionDate": "07/18/2025",
+    "insurance": "Centene",
+    "result": "active",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Anthony Anderson",
+    "found": true,
+    "dateOfBirth": "09/13/1967",
+    "transactionDate": "03/08/2025",
+    "insurance": "Medicare",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": "$1700.00"
+  },
+  {
+    "patientName": "Melissa Flores",
+    "found": true,
+    "dateOfBirth": "05/11/1950",
+    "transactionDate": "09/02/2025",
+    "insurance": "Medicaid",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Barbara Adams",
+    "found": false,
+    "dateOfBirth": "09/17/1996",
+    "transactionDate": "09/19/2026",
+    "insurance": "UnitedHealth",
+    "result": "inactive",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Jessica Carter",
+    "found": false,
+    "dateOfBirth": "02/26/1995",
+    "transactionDate": "06/18/2026",
+    "insurance": "Cigna",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "James Walker",
+    "found": false,
+    "dateOfBirth": "09/08/1966",
+    "transactionDate": "11/25/2026",
+    "insurance": "Humana",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Mark Carter",
+    "found": false,
+    "dateOfBirth": "01/11/1992",
+    "transactionDate": "09/21/2025",
+    "insurance": "Centene",
+    "result": "unknown",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Kimberly Nguyen",
+    "found": true,
+    "dateOfBirth": "01/01/1975",
+    "transactionDate": "01/18/2026",
+    "insurance": "Centene",
+    "result": "active",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": "$400.00"
+  },
+  {
+    "patientName": "William Moore",
+    "found": true,
+    "dateOfBirth": "05/03/1964",
+    "transactionDate": "10/09/2026",
+    "insurance": "Medicare",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Linda Thompson",
+    "found": false,
+    "dateOfBirth": "08/04/1972",
+    "transactionDate": "03/18/2026",
+    "insurance": "Centene",
+    "result": "active",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": "$20.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Joshua Anderson",
+    "found": false,
+    "dateOfBirth": "05/13/1966",
+    "transactionDate": "11/14/2025",
+    "insurance": "Humana",
+    "result": "cannot-process",
+    "alerts": [
+      "IC",
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Brian Campbell",
+    "found": false,
+    "dateOfBirth": "12/20/1995",
+    "transactionDate": "02/26/2026",
+    "insurance": "UnitedHealth",
+    "result": "inactive",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Jessica Martinez",
+    "found": false,
+    "dateOfBirth": "08/15/1987",
+    "transactionDate": "08/13/2025",
+    "insurance": "Medicaid",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Lisa Garcia",
+    "found": true,
+    "dateOfBirth": "05/26/1951",
+    "transactionDate": "11/22/2026",
+    "insurance": "Medicaid",
+    "result": "active",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Ashley Young",
+    "found": true,
+    "dateOfBirth": "03/03/1987",
+    "transactionDate": "11/17/2025",
+    "insurance": "Centene",
+    "result": "unknown",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": "$1400.00"
+  },
+  {
+    "patientName": "Margaret Wilson",
+    "found": false,
+    "dateOfBirth": "03/05/1990",
+    "transactionDate": "08/15/2025",
+    "insurance": "Medicaid",
+    "result": "unknown",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "James Carter",
+    "found": false,
+    "dateOfBirth": "05/18/1991",
+    "transactionDate": "12/28/2026",
+    "insurance": "Kaiser Permanente",
+    "result": "unknown",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Donald Nelson",
+    "found": true,
+    "dateOfBirth": "08/05/1997",
+    "transactionDate": "07/02/2025",
+    "insurance": "CVS Health",
+    "result": "active",
+    "alerts": [],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Thomas Green",
+    "found": false,
+    "dateOfBirth": "03/14/1958",
+    "transactionDate": "03/19/2025",
+    "insurance": "CVS Health",
+    "result": "invalid-response",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Karen Rivera",
+    "found": true,
+    "dateOfBirth": "01/03/2009",
+    "transactionDate": "08/07/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": "$400.00"
+  },
+  {
+    "patientName": "Nancy Thomas",
+    "found": false,
+    "dateOfBirth": "08/02/1995",
+    "transactionDate": "06/07/2026",
+    "insurance": "Humana",
+    "result": "active",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Jessica Brown",
+    "found": true,
+    "dateOfBirth": "10/03/1989",
+    "transactionDate": "03/07/2026",
+    "insurance": "CVS Health",
+    "result": "inactive",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Matthew Wilson",
+    "found": true,
+    "dateOfBirth": "10/01/2003",
+    "transactionDate": "05/28/2026",
+    "insurance": "Humana",
+    "result": "active",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Donna Flores",
+    "found": false,
+    "dateOfBirth": "07/27/2002",
+    "transactionDate": "02/21/2025",
+    "insurance": "UnitedHealth",
+    "result": "cannot-process",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Joseph Rodriguez",
+    "found": false,
+    "dateOfBirth": "04/15/1971",
+    "transactionDate": "11/08/2025",
+    "insurance": "Centene",
+    "result": "active",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Charles Sanchez",
+    "found": false,
+    "dateOfBirth": "09/12/1972",
+    "transactionDate": "12/13/2025",
+    "insurance": "CVS Health",
+    "result": "cannot-process",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Carol Garcia",
+    "found": false,
+    "dateOfBirth": "09/21/1954",
+    "transactionDate": "02/14/2026",
+    "insurance": "Centene",
+    "result": "invalid-response",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Amanda Robinson",
+    "found": true,
+    "dateOfBirth": "04/11/1964",
+    "transactionDate": "10/25/2026",
+    "insurance": "UnitedHealth",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Kevin Brown",
+    "found": true,
+    "dateOfBirth": "11/21/1963",
+    "transactionDate": "12/19/2026",
+    "insurance": "UnitedHealth",
+    "result": "active",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Michelle Campbell",
+    "found": true,
+    "dateOfBirth": "11/01/1984",
+    "transactionDate": "10/15/2025",
+    "insurance": "Medicaid",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Elizabeth Moore",
+    "found": true,
+    "dateOfBirth": "07/18/1964",
+    "transactionDate": "04/21/2026",
+    "insurance": "CVS Health",
+    "result": "invalid-response",
+    "alerts": [
+      "IC",
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Margaret Lee",
+    "found": true,
+    "dateOfBirth": "12/22/1990",
+    "transactionDate": "10/17/2025",
+    "insurance": "Medicare",
+    "result": "active",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": "$300.00"
+  },
+  {
+    "patientName": "Michael Moore",
+    "found": true,
+    "dateOfBirth": "08/13/1965",
+    "transactionDate": "09/23/2026",
+    "insurance": "Cigna",
+    "result": "active",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Kenneth Martinez",
+    "found": false,
+    "dateOfBirth": "06/06/1983",
+    "transactionDate": "11/10/2026",
+    "insurance": "CVS Health",
+    "result": "inactive",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "George Moore",
+    "found": true,
+    "dateOfBirth": "06/27/1969",
+    "transactionDate": "02/21/2026",
+    "insurance": "Humana",
+    "result": "active",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Margaret Thomas",
+    "found": true,
+    "dateOfBirth": "02/28/1951",
+    "transactionDate": "03/08/2025",
+    "insurance": "CVS Health",
+    "result": "unknown",
+    "alerts": [
+      "IC",
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Margaret Carter",
+    "found": false,
+    "dateOfBirth": "04/05/1975",
+    "transactionDate": "12/01/2025",
+    "insurance": "Medicare",
+    "result": "cannot-process",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Nancy Jackson",
+    "found": true,
+    "dateOfBirth": "12/06/1959",
+    "transactionDate": "02/12/2026",
+    "insurance": "UnitedHealth",
+    "result": "invalid-response",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Melissa Brown",
+    "found": false,
+    "dateOfBirth": "01/03/1998",
+    "transactionDate": "04/14/2026",
+    "insurance": "Centene",
+    "result": "active",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": "$1400.00"
+  },
+  {
+    "patientName": "Kimberly Gonzalez",
+    "found": false,
+    "dateOfBirth": "10/27/2002",
+    "transactionDate": "05/03/2025",
+    "insurance": "Cigna",
+    "result": "inactive",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Stephanie Wilson",
+    "found": false,
+    "dateOfBirth": "08/14/1987",
+    "transactionDate": "04/05/2026",
+    "insurance": "CVS Health",
+    "result": "active",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Ashley Rodriguez",
+    "found": false,
+    "dateOfBirth": "08/11/1972",
+    "transactionDate": "10/13/2026",
+    "insurance": "Medicaid",
+    "result": "unknown",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Anthony Williams",
+    "found": false,
+    "dateOfBirth": "02/12/1971",
+    "transactionDate": "08/22/2026",
+    "insurance": "Medicaid",
+    "result": "inactive",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Christopher Hall",
+    "found": true,
+    "dateOfBirth": "04/08/1951",
+    "transactionDate": "04/11/2025",
+    "insurance": "CVS Health",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": "$30.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Jessica Nguyen",
+    "found": false,
+    "dateOfBirth": "12/05/1951",
+    "transactionDate": "01/17/2026",
+    "insurance": "Centene",
+    "result": "unknown",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Jennifer Gonzalez",
+    "found": false,
+    "dateOfBirth": "12/05/1979",
+    "transactionDate": "05/16/2026",
+    "insurance": "Medicaid",
+    "result": "inactive",
+    "alerts": [
+      "PR",
+      "PI"
+    ],
+    "coPayments": "$40.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Robert Hill",
+    "found": true,
+    "dateOfBirth": "08/04/1964",
+    "transactionDate": "10/18/2026",
+    "insurance": "UnitedHealth",
+    "result": "invalid-response",
+    "alerts": [
+      "PI",
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": "$100.00"
+  },
+  {
+    "patientName": "Kevin Martin",
+    "found": true,
+    "dateOfBirth": "02/02/1978",
+    "transactionDate": "10/25/2025",
+    "insurance": "CVS Health",
+    "result": "invalid-response",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Ashley Moore",
+    "found": true,
+    "dateOfBirth": "11/13/1990",
+    "transactionDate": "11/17/2025",
+    "insurance": "Medicare",
+    "result": "invalid-response",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Margaret Young",
+    "found": false,
+    "dateOfBirth": "06/16/1965",
+    "transactionDate": "08/01/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Deborah Smith",
+    "found": false,
+    "dateOfBirth": "04/15/1962",
+    "transactionDate": "04/21/2026",
+    "insurance": "Kaiser Permanente",
+    "result": "cannot-process",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": "$20.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "James Miller",
+    "found": false,
+    "dateOfBirth": "11/28/1955",
+    "transactionDate": "03/13/2026",
+    "insurance": "Centene",
+    "result": "invalid-response",
+    "alerts": [
+      "IC",
+      "PR"
+    ],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "David Gonzalez",
+    "found": false,
+    "dateOfBirth": "05/12/1990",
+    "transactionDate": "06/23/2025",
+    "insurance": "Cigna",
+    "result": "active",
+    "alerts": [],
+    "coPayments": "$30.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Richard Nelson",
+    "found": true,
+    "dateOfBirth": "06/02/1959",
+    "transactionDate": "09/20/2025",
+    "insurance": "Medicare",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": "$200.00"
+  },
+  {
+    "patientName": "Linda Thomas",
+    "found": false,
+    "dateOfBirth": "04/20/1968",
+    "transactionDate": "12/25/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "inactive",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": "$200.00"
+  },
+  {
+    "patientName": "James Clark",
+    "found": true,
+    "dateOfBirth": "08/21/1968",
+    "transactionDate": "09/05/2026",
+    "insurance": "Medicaid",
+    "result": "active",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Nancy Nguyen",
+    "found": true,
+    "dateOfBirth": "12/26/1970",
+    "transactionDate": "06/17/2026",
+    "insurance": "CVS Health",
+    "result": "inactive",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Betty Wright",
+    "found": false,
+    "dateOfBirth": "08/24/1969",
+    "transactionDate": "10/22/2025",
+    "insurance": "Cigna",
+    "result": "unknown",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Kevin Johnson",
+    "found": true,
+    "dateOfBirth": "12/09/1993",
+    "transactionDate": "01/01/2026",
+    "insurance": "Medicare",
+    "result": "active",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Kimberly Martinez",
+    "found": true,
+    "dateOfBirth": "07/25/1973",
+    "transactionDate": "12/11/2026",
+    "insurance": "CVS Health",
+    "result": "inactive",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "William Nelson",
+    "found": true,
+    "dateOfBirth": "03/17/2009",
+    "transactionDate": "01/25/2026",
+    "insurance": "Medicaid",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Karen Thomas",
+    "found": true,
+    "dateOfBirth": "08/19/1972",
+    "transactionDate": "09/21/2025",
+    "insurance": "Centene",
+    "result": "invalid-response",
+    "alerts": [
+      "IC",
+      "PI"
+    ],
+    "coPayments": "$30.00",
+    "deductibles": "$1200.00"
+  },
+  {
+    "patientName": "Daniel Miller",
+    "found": true,
+    "dateOfBirth": "10/21/1952",
+    "transactionDate": "02/13/2026",
+    "insurance": "Medicare",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "John Wilson",
+    "found": true,
+    "dateOfBirth": "08/27/1962",
+    "transactionDate": "06/05/2025",
+    "insurance": "Cigna",
+    "result": "unknown",
+    "alerts": [
+      "IC",
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "George Thompson",
+    "found": false,
+    "dateOfBirth": "01/15/1990",
+    "transactionDate": "04/27/2026",
+    "insurance": "Kaiser Permanente",
+    "result": "unknown",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Donald Moore",
+    "found": false,
+    "dateOfBirth": "05/27/1994",
+    "transactionDate": "05/17/2025",
+    "insurance": "CVS Health",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Deborah Martin",
+    "found": true,
+    "dateOfBirth": "06/20/1993",
+    "transactionDate": "01/16/2026",
+    "insurance": "UnitedHealth",
+    "result": "unknown",
+    "alerts": [
+      "PR",
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Amanda Walker",
+    "found": false,
+    "dateOfBirth": "05/07/1996",
+    "transactionDate": "07/27/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": "$40.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Karen Clark",
+    "found": true,
+    "dateOfBirth": "12/17/1978",
+    "transactionDate": "11/18/2025",
+    "insurance": "Medicaid",
+    "result": "cannot-process",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Robert Williams",
+    "found": false,
+    "dateOfBirth": "04/07/1985",
+    "transactionDate": "02/07/2025",
+    "insurance": "Cigna",
+    "result": "cannot-process",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Kevin Wright",
+    "found": true,
+    "dateOfBirth": "02/18/1992",
+    "transactionDate": "03/17/2026",
+    "insurance": "UnitedHealth",
+    "result": "invalid-response",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "James Thomas",
+    "found": false,
+    "dateOfBirth": "04/21/1981",
+    "transactionDate": "05/06/2025",
+    "insurance": "UnitedHealth",
+    "result": "unknown",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Jessica Wright",
+    "found": false,
+    "dateOfBirth": "04/21/1957",
+    "transactionDate": "05/23/2026",
+    "insurance": "UnitedHealth",
+    "result": "cannot-process",
+    "alerts": [
+      "IC",
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Matthew Ramirez",
+    "found": false,
+    "dateOfBirth": "08/13/1966",
+    "transactionDate": "09/27/2025",
+    "insurance": "UnitedHealth",
+    "result": "inactive",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Jennifer Jones",
+    "found": true,
+    "dateOfBirth": "01/17/1962",
+    "transactionDate": "10/12/2025",
+    "insurance": "CVS Health",
+    "result": "inactive",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Ashley Harris",
+    "found": false,
+    "dateOfBirth": "01/22/1954",
+    "transactionDate": "09/26/2026",
+    "insurance": "CVS Health",
+    "result": "cannot-process",
+    "alerts": [
+      "IC",
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Kenneth Taylor",
+    "found": false,
+    "dateOfBirth": "08/28/2009",
+    "transactionDate": "04/23/2025",
+    "insurance": "Medicare",
+    "result": "inactive",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": "$20.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Lisa Carter",
+    "found": false,
+    "dateOfBirth": "11/07/1972",
+    "transactionDate": "01/26/2026",
+    "insurance": "Cigna",
+    "result": "unknown",
+    "alerts": [
+      "IC",
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": "$1300.00"
+  },
+  {
+    "patientName": "Jessica Young",
+    "found": true,
+    "dateOfBirth": "11/01/1957",
+    "transactionDate": "11/13/2025",
+    "insurance": "CVS Health",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Matthew Walker",
+    "found": false,
+    "dateOfBirth": "02/03/2003",
+    "transactionDate": "07/15/2026",
+    "insurance": "Medicaid",
+    "result": "invalid-response",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": "$30.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Sarah Baker",
+    "found": true,
+    "dateOfBirth": "02/07/2001",
+    "transactionDate": "01/24/2025",
+    "insurance": "UnitedHealth",
+    "result": "cannot-process",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": "$1300.00"
+  },
+  {
+    "patientName": "Margaret Allen",
+    "found": true,
+    "dateOfBirth": "05/01/1978",
+    "transactionDate": "11/12/2025",
+    "insurance": "Medicaid",
+    "result": "active",
+    "alerts": [],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Barbara Adams",
+    "found": false,
+    "dateOfBirth": "05/02/1976",
+    "transactionDate": "07/04/2025",
+    "insurance": "UnitedHealth",
+    "result": "unknown",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Lisa Thomas",
+    "found": true,
+    "dateOfBirth": "07/28/2002",
+    "transactionDate": "07/11/2026",
+    "insurance": "Medicaid",
+    "result": "unknown",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Richard Thompson",
+    "found": true,
+    "dateOfBirth": "03/06/2000",
+    "transactionDate": "11/07/2025",
+    "insurance": "Cigna",
+    "result": "active",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Joshua Lopez",
+    "found": true,
+    "dateOfBirth": "08/28/1986",
+    "transactionDate": "12/26/2026",
+    "insurance": "Medicare",
+    "result": "cannot-process",
+    "alerts": [
+      "IC",
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Daniel Hernandez",
+    "found": true,
+    "dateOfBirth": "02/03/1965",
+    "transactionDate": "12/08/2026",
+    "insurance": "Medicare",
+    "result": "cannot-process",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Michael Miller",
+    "found": false,
+    "dateOfBirth": "04/06/2007",
+    "transactionDate": "08/03/2025",
+    "insurance": "Medicare",
+    "result": "cannot-process",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Kimberly Allen",
+    "found": true,
+    "dateOfBirth": "08/14/2005",
+    "transactionDate": "09/08/2025",
+    "insurance": "UnitedHealth",
+    "result": "active",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": "$30.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Melissa Harris",
+    "found": true,
+    "dateOfBirth": "08/21/1999",
+    "transactionDate": "01/16/2026",
+    "insurance": "Medicare",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Kimberly Miller",
+    "found": false,
+    "dateOfBirth": "12/05/1974",
+    "transactionDate": "10/08/2025",
+    "insurance": "Medicare",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": "$20.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Deborah Green",
+    "found": false,
+    "dateOfBirth": "03/01/1953",
+    "transactionDate": "06/03/2025",
+    "insurance": "Cigna",
+    "result": "active",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": "$20.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Paul Hall",
+    "found": true,
+    "dateOfBirth": "03/22/1951",
+    "transactionDate": "09/26/2026",
+    "insurance": "Humana",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": "$20.00",
+    "deductibles": "$1200.00"
+  },
+  {
+    "patientName": "Susan Martin",
+    "found": false,
+    "dateOfBirth": "01/28/1979",
+    "transactionDate": "03/14/2026",
+    "insurance": "Medicare",
+    "result": "cannot-process",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Joshua Torres",
+    "found": false,
+    "dateOfBirth": "11/13/1951",
+    "transactionDate": "08/05/2026",
+    "insurance": "Medicare",
+    "result": "cannot-process",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Paul Jackson",
+    "found": true,
+    "dateOfBirth": "02/02/1969",
+    "transactionDate": "07/24/2025",
+    "insurance": "Centene",
+    "result": "unknown",
+    "alerts": [
+      "IC",
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Kevin Johnson",
+    "found": false,
+    "dateOfBirth": "06/27/1983",
+    "transactionDate": "08/23/2026",
+    "insurance": "Centene",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": "$50.00",
+    "deductibles": "$200.00"
+  },
+  {
+    "patientName": "Jennifer Campbell",
+    "found": true,
+    "dateOfBirth": "08/01/1963",
+    "transactionDate": "10/08/2026",
+    "insurance": "UnitedHealth",
+    "result": "active",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Mary Taylor",
+    "found": false,
+    "dateOfBirth": "10/01/1972",
+    "transactionDate": "08/06/2026",
+    "insurance": "UnitedHealth",
+    "result": "active",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Michelle Garcia",
+    "found": true,
+    "dateOfBirth": "03/08/2001",
+    "transactionDate": "08/04/2025",
+    "insurance": "Medicare",
+    "result": "cannot-process",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Mark Taylor",
+    "found": false,
+    "dateOfBirth": "02/14/1968",
+    "transactionDate": "11/09/2025",
+    "insurance": "Centene",
+    "result": "invalid-response",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Anthony Lopez",
+    "found": false,
+    "dateOfBirth": "11/18/2007",
+    "transactionDate": "05/01/2026",
+    "insurance": "Medicaid",
+    "result": "invalid-response",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "William Roberts",
+    "found": false,
+    "dateOfBirth": "06/07/1996",
+    "transactionDate": "05/04/2025",
+    "insurance": "Medicare",
+    "result": "active",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Timothy Sanchez",
+    "found": false,
+    "dateOfBirth": "06/19/1963",
+    "transactionDate": "11/28/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Mark Walker",
+    "found": true,
+    "dateOfBirth": "01/25/1976",
+    "transactionDate": "03/11/2026",
+    "insurance": "Centene",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Emily King",
+    "found": true,
+    "dateOfBirth": "07/06/2009",
+    "transactionDate": "10/01/2026",
+    "insurance": "Centene",
+    "result": "unknown",
+    "alerts": [
+      "IC",
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Margaret Moore",
+    "found": false,
+    "dateOfBirth": "09/11/1979",
+    "transactionDate": "08/14/2026",
+    "insurance": "Centene",
+    "result": "inactive",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Paul Nguyen",
+    "found": true,
+    "dateOfBirth": "12/05/1996",
+    "transactionDate": "11/24/2025",
+    "insurance": "UnitedHealth",
+    "result": "unknown",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Brian Allen",
+    "found": false,
+    "dateOfBirth": "03/09/1965",
+    "transactionDate": "10/13/2026",
+    "insurance": "Cigna",
+    "result": "invalid-response",
+    "alerts": [
+      "PI",
+      "PR"
+    ],
+    "coPayments": "$30.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Joseph Campbell",
+    "found": false,
+    "dateOfBirth": "02/24/1969",
+    "transactionDate": "03/04/2025",
+    "insurance": "Medicaid",
+    "result": "inactive",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Emily Anderson",
+    "found": false,
+    "dateOfBirth": "09/01/1982",
+    "transactionDate": "06/03/2025",
+    "insurance": "Medicaid",
+    "result": "active",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": "$40.00",
+    "deductibles": "$1700.00"
+  },
+  {
+    "patientName": "Kevin King",
+    "found": true,
+    "dateOfBirth": "11/25/1979",
+    "transactionDate": "01/28/2026",
+    "insurance": "Cigna",
+    "result": "inactive",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Betty Thomas",
+    "found": false,
+    "dateOfBirth": "06/06/1976",
+    "transactionDate": "09/22/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "active",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Emily Carter",
+    "found": true,
+    "dateOfBirth": "09/15/2001",
+    "transactionDate": "06/24/2026",
+    "insurance": "Humana",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Joshua Anderson",
+    "found": false,
+    "dateOfBirth": "04/21/1953",
+    "transactionDate": "11/13/2026",
+    "insurance": "UnitedHealth",
+    "result": "active",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "John Green",
+    "found": false,
+    "dateOfBirth": "05/19/1962",
+    "transactionDate": "08/21/2025",
+    "insurance": "Medicaid",
+    "result": "cannot-process",
+    "alerts": [
+      "IC",
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Sarah White",
+    "found": false,
+    "dateOfBirth": "09/07/2009",
+    "transactionDate": "06/10/2026",
+    "insurance": "Centene",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": "$20.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Susan Allen",
+    "found": true,
+    "dateOfBirth": "09/17/1982",
+    "transactionDate": "03/02/2026",
+    "insurance": "Humana",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Joshua Walker",
+    "found": true,
+    "dateOfBirth": "08/24/1975",
+    "transactionDate": "10/18/2026",
+    "insurance": "Cigna",
+    "result": "unknown",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": "$1000.00"
+  },
+  {
+    "patientName": "Steven Scott",
+    "found": true,
+    "dateOfBirth": "09/20/1970",
+    "transactionDate": "09/07/2026",
+    "insurance": "Kaiser Permanente",
+    "result": "inactive",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Sandra Walker",
+    "found": false,
+    "dateOfBirth": "04/23/1960",
+    "transactionDate": "10/26/2026",
+    "insurance": "Centene",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Robert Campbell",
+    "found": false,
+    "dateOfBirth": "01/23/1975",
+    "transactionDate": "10/15/2025",
+    "insurance": "Cigna",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Andrew White",
+    "found": false,
+    "dateOfBirth": "01/06/1971",
+    "transactionDate": "03/08/2026",
+    "insurance": "Humana",
+    "result": "unknown",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Nancy Martin",
+    "found": true,
+    "dateOfBirth": "08/11/1984",
+    "transactionDate": "01/05/2026",
+    "insurance": "Cigna",
+    "result": "inactive",
+    "alerts": [
+      "IC",
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Mary Baker",
+    "found": false,
+    "dateOfBirth": "11/02/2005",
+    "transactionDate": "08/05/2025",
+    "insurance": "UnitedHealth",
+    "result": "active",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": "$20.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Timothy Nguyen",
+    "found": false,
+    "dateOfBirth": "10/10/2004",
+    "transactionDate": "07/07/2026",
+    "insurance": "Medicaid",
+    "result": "cannot-process",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "George Clark",
+    "found": true,
+    "dateOfBirth": "07/02/1981",
+    "transactionDate": "12/19/2025",
+    "insurance": "Medicaid",
+    "result": "invalid-response",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": "$40.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "David Robinson",
+    "found": false,
+    "dateOfBirth": "12/03/1956",
+    "transactionDate": "06/12/2026",
+    "insurance": "Kaiser Permanente",
+    "result": "active",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": "$1400.00"
+  },
+  {
+    "patientName": "Emily Torres",
+    "found": false,
+    "dateOfBirth": "03/09/1991",
+    "transactionDate": "11/20/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "invalid-response",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Barbara Smith",
+    "found": false,
+    "dateOfBirth": "08/25/1958",
+    "transactionDate": "08/11/2025",
+    "insurance": "Cigna",
+    "result": "invalid-response",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "George Brown",
+    "found": false,
+    "dateOfBirth": "10/07/1966",
+    "transactionDate": "06/27/2026",
+    "insurance": "Cigna",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": "$40.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Kenneth Torres",
+    "found": false,
+    "dateOfBirth": "08/24/1978",
+    "transactionDate": "01/27/2026",
+    "insurance": "CVS Health",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Andrew Wilson",
+    "found": false,
+    "dateOfBirth": "11/07/2006",
+    "transactionDate": "06/11/2025",
+    "insurance": "Cigna",
+    "result": "active",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Matthew Brown",
+    "found": false,
+    "dateOfBirth": "06/09/1994",
+    "transactionDate": "04/04/2026",
+    "insurance": "Humana",
+    "result": "invalid-response",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": "$30.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Thomas Perez",
+    "found": false,
+    "dateOfBirth": "07/06/1953",
+    "transactionDate": "09/01/2026",
+    "insurance": "Cigna",
+    "result": "unknown",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Sarah Campbell",
+    "found": true,
+    "dateOfBirth": "11/11/1980",
+    "transactionDate": "05/06/2026",
+    "insurance": "Centene",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": "$1500.00"
+  },
+  {
+    "patientName": "Margaret Jones",
+    "found": false,
+    "dateOfBirth": "10/03/1963",
+    "transactionDate": "10/13/2026",
+    "insurance": "Medicare",
+    "result": "active",
+    "alerts": [],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Carol Wilson",
+    "found": true,
+    "dateOfBirth": "10/05/1962",
+    "transactionDate": "09/12/2026",
+    "insurance": "Medicaid",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Melissa White",
+    "found": true,
+    "dateOfBirth": "08/13/1968",
+    "transactionDate": "03/28/2026",
+    "insurance": "Kaiser Permanente",
+    "result": "invalid-response",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Richard Hill",
+    "found": false,
+    "dateOfBirth": "11/09/1967",
+    "transactionDate": "02/28/2025",
+    "insurance": "Humana",
+    "result": "invalid-response",
+    "alerts": [
+      "PR",
+      "PI"
+    ],
+    "coPayments": "$40.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Richard Harris",
+    "found": false,
+    "dateOfBirth": "07/25/1952",
+    "transactionDate": "07/24/2025",
+    "insurance": "Medicare",
+    "result": "invalid-response",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Stephanie Gonzalez",
+    "found": true,
+    "dateOfBirth": "07/25/1982",
+    "transactionDate": "05/20/2025",
+    "insurance": "Cigna",
+    "result": "unknown",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Melissa Baker",
+    "found": true,
+    "dateOfBirth": "12/09/1988",
+    "transactionDate": "12/01/2026",
+    "insurance": "CVS Health",
+    "result": "invalid-response",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Susan Young",
+    "found": false,
+    "dateOfBirth": "01/06/1998",
+    "transactionDate": "04/27/2025",
+    "insurance": "Medicare",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Kimberly Clark",
+    "found": false,
+    "dateOfBirth": "04/09/1956",
+    "transactionDate": "02/22/2026",
+    "insurance": "Humana",
+    "result": "inactive",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "David Walker",
+    "found": true,
+    "dateOfBirth": "03/11/1999",
+    "transactionDate": "02/22/2025",
+    "insurance": "Medicaid",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Andrew Scott",
+    "found": true,
+    "dateOfBirth": "02/07/1995",
+    "transactionDate": "05/02/2025",
+    "insurance": "Medicaid",
+    "result": "active",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Paul Rivera",
+    "found": false,
+    "dateOfBirth": "03/04/1996",
+    "transactionDate": "07/01/2026",
+    "insurance": "Centene",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Mark Carter",
+    "found": true,
+    "dateOfBirth": "12/01/1996",
+    "transactionDate": "10/21/2025",
+    "insurance": "Centene",
+    "result": "unknown",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": "$20.00",
+    "deductibles": "$1500.00"
+  },
+  {
+    "patientName": "Michelle Hernandez",
+    "found": false,
+    "dateOfBirth": "10/10/2007",
+    "transactionDate": "03/19/2026",
+    "insurance": "Humana",
+    "result": "cannot-process",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Christopher Rodriguez",
+    "found": true,
+    "dateOfBirth": "12/25/1998",
+    "transactionDate": "11/05/2026",
+    "insurance": "CVS Health",
+    "result": "invalid-response",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": "$50.00",
+    "deductibles": "$1300.00"
+  },
+  {
+    "patientName": "Melissa Jackson",
+    "found": true,
+    "dateOfBirth": "02/13/1964",
+    "transactionDate": "09/14/2026",
+    "insurance": "CVS Health",
+    "result": "active",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "James Rivera",
+    "found": false,
+    "dateOfBirth": "06/08/1997",
+    "transactionDate": "02/15/2026",
+    "insurance": "Kaiser Permanente",
+    "result": "unknown",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": "$30.00",
+    "deductibles": "$300.00"
+  },
+  {
+    "patientName": "Michelle Adams",
+    "found": false,
+    "dateOfBirth": "03/11/1967",
+    "transactionDate": "07/07/2025",
+    "insurance": "Humana",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "William Lopez",
+    "found": true,
+    "dateOfBirth": "02/05/1954",
+    "transactionDate": "07/26/2026",
+    "insurance": "Cigna",
+    "result": "inactive",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": "$10.00",
+    "deductibles": "$1000.00"
+  },
+  {
+    "patientName": "Karen Harris",
+    "found": false,
+    "dateOfBirth": "12/25/1961",
+    "transactionDate": "09/28/2026",
+    "insurance": "Kaiser Permanente",
+    "result": "inactive",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Patricia White",
+    "found": false,
+    "dateOfBirth": "03/26/1998",
+    "transactionDate": "03/12/2026",
+    "insurance": "Humana",
+    "result": "active",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Richard Lee",
+    "found": true,
+    "dateOfBirth": "06/06/1984",
+    "transactionDate": "03/02/2025",
+    "insurance": "Cigna",
+    "result": "active",
+    "alerts": [],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Carol Young",
+    "found": true,
+    "dateOfBirth": "06/19/1964",
+    "transactionDate": "03/06/2026",
+    "insurance": "CVS Health",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Paul Lopez",
+    "found": true,
+    "dateOfBirth": "11/04/2000",
+    "transactionDate": "03/15/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Lisa Williams",
+    "found": true,
+    "dateOfBirth": "01/18/1967",
+    "transactionDate": "11/14/2026",
+    "insurance": "Medicaid",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Nancy Moore",
+    "found": true,
+    "dateOfBirth": "01/15/1990",
+    "transactionDate": "02/21/2026",
+    "insurance": "Kaiser Permanente",
+    "result": "active",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Mary Thompson",
+    "found": true,
+    "dateOfBirth": "02/08/1986",
+    "transactionDate": "04/01/2025",
+    "insurance": "Medicaid",
+    "result": "inactive",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Stephanie Garcia",
+    "found": false,
+    "dateOfBirth": "07/23/1955",
+    "transactionDate": "10/27/2026",
+    "insurance": "CVS Health",
+    "result": "cannot-process",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Melissa Flores",
+    "found": true,
+    "dateOfBirth": "02/14/1968",
+    "transactionDate": "05/04/2025",
+    "insurance": "Medicaid",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Sandra King",
+    "found": true,
+    "dateOfBirth": "07/20/1998",
+    "transactionDate": "09/05/2026",
+    "insurance": "Kaiser Permanente",
+    "result": "unknown",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Betty Scott",
+    "found": true,
+    "dateOfBirth": "02/11/1973",
+    "transactionDate": "12/20/2025",
+    "insurance": "CVS Health",
+    "result": "active",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Carol Nguyen",
+    "found": true,
+    "dateOfBirth": "09/08/1988",
+    "transactionDate": "10/24/2026",
+    "insurance": "Cigna",
+    "result": "invalid-response",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "James White",
+    "found": true,
+    "dateOfBirth": "06/03/1963",
+    "transactionDate": "10/12/2025",
+    "insurance": "Humana",
+    "result": "inactive",
+    "alerts": [
+      "IC",
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": "$1600.00"
+  },
+  {
+    "patientName": "Donna Wright",
+    "found": false,
+    "dateOfBirth": "10/18/1980",
+    "transactionDate": "02/11/2025",
+    "insurance": "Medicaid",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Nancy Garcia",
+    "found": true,
+    "dateOfBirth": "11/14/1980",
+    "transactionDate": "03/14/2025",
+    "insurance": "Centene",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": "$50.00",
+    "deductibles": "$500.00"
+  },
+  {
+    "patientName": "Kimberly Torres",
+    "found": true,
+    "dateOfBirth": "04/15/1985",
+    "transactionDate": "02/09/2026",
+    "insurance": "CVS Health",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Daniel Robinson",
+    "found": false,
+    "dateOfBirth": "05/15/1980",
+    "transactionDate": "09/10/2026",
+    "insurance": "Medicaid",
+    "result": "inactive",
+    "alerts": [
+      "PI",
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Betty Brown",
+    "found": true,
+    "dateOfBirth": "09/12/1952",
+    "transactionDate": "09/09/2026",
+    "insurance": "Medicaid",
+    "result": "invalid-response",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": "$40.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Jessica Anderson",
+    "found": true,
+    "dateOfBirth": "03/28/1978",
+    "transactionDate": "12/03/2026",
+    "insurance": "CVS Health",
+    "result": "cannot-process",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": "$20.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Emily Adams",
+    "found": false,
+    "dateOfBirth": "08/02/1995",
+    "transactionDate": "09/13/2025",
+    "insurance": "Medicare",
+    "result": "active",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Carol Allen",
+    "found": false,
+    "dateOfBirth": "07/01/1983",
+    "transactionDate": "10/22/2025",
+    "insurance": "UnitedHealth",
+    "result": "inactive",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Melissa Martin",
+    "found": true,
+    "dateOfBirth": "04/25/2006",
+    "transactionDate": "04/12/2025",
+    "insurance": "Medicare",
+    "result": "active",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Charles Lewis",
+    "found": true,
+    "dateOfBirth": "12/25/1980",
+    "transactionDate": "01/24/2026",
+    "insurance": "Centene",
+    "result": "cannot-process",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Michelle Harris",
+    "found": true,
+    "dateOfBirth": "10/07/1972",
+    "transactionDate": "02/01/2025",
+    "insurance": "Cigna",
+    "result": "unknown",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": "$1900.00"
+  },
+  {
+    "patientName": "Christopher Rivera",
+    "found": false,
+    "dateOfBirth": "07/17/1993",
+    "transactionDate": "04/17/2025",
+    "insurance": "UnitedHealth",
+    "result": "inactive",
+    "alerts": [
+      "IC",
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Jessica Roberts",
+    "found": true,
+    "dateOfBirth": "11/22/1970",
+    "transactionDate": "11/27/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Amanda Walker",
+    "found": false,
+    "dateOfBirth": "05/22/1962",
+    "transactionDate": "09/06/2026",
+    "insurance": "CVS Health",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "James Harris",
+    "found": true,
+    "dateOfBirth": "12/06/1955",
+    "transactionDate": "01/09/2026",
+    "insurance": "Cigna",
+    "result": "inactive",
+    "alerts": [
+      "PR",
+      "PI"
+    ],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Betty Robinson",
+    "found": false,
+    "dateOfBirth": "02/07/1973",
+    "transactionDate": "03/21/2025",
+    "insurance": "UnitedHealth",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Thomas Moore",
+    "found": false,
+    "dateOfBirth": "09/16/1972",
+    "transactionDate": "03/03/2025",
+    "insurance": "Cigna",
+    "result": "active",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Susan Nguyen",
+    "found": false,
+    "dateOfBirth": "01/25/1971",
+    "transactionDate": "07/10/2025",
+    "insurance": "Medicare",
+    "result": "active",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Karen Nelson",
+    "found": false,
+    "dateOfBirth": "12/10/1966",
+    "transactionDate": "03/03/2026",
+    "insurance": "CVS Health",
+    "result": "cannot-process",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Elizabeth Robinson",
+    "found": true,
+    "dateOfBirth": "03/22/1983",
+    "transactionDate": "08/22/2026",
+    "insurance": "UnitedHealth",
+    "result": "inactive",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Emily Torres",
+    "found": true,
+    "dateOfBirth": "01/13/1988",
+    "transactionDate": "04/13/2026",
+    "insurance": "UnitedHealth",
+    "result": "cannot-process",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Paul Garcia",
+    "found": false,
+    "dateOfBirth": "02/15/1972",
+    "transactionDate": "01/06/2025",
+    "insurance": "Medicaid",
+    "result": "invalid-response",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Kimberly Smith",
+    "found": false,
+    "dateOfBirth": "10/25/2003",
+    "transactionDate": "09/10/2026",
+    "insurance": "Kaiser Permanente",
+    "result": "inactive",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Sandra Green",
+    "found": false,
+    "dateOfBirth": "04/07/1994",
+    "transactionDate": "01/25/2025",
+    "insurance": "Humana",
+    "result": "inactive",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Karen Nguyen",
+    "found": true,
+    "dateOfBirth": "09/26/1959",
+    "transactionDate": "02/22/2025",
+    "insurance": "Medicare",
+    "result": "cannot-process",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Kenneth Campbell",
+    "found": true,
+    "dateOfBirth": "02/25/1988",
+    "transactionDate": "12/11/2025",
+    "insurance": "Cigna",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": "$30.00",
+    "deductibles": "$1400.00"
+  },
+  {
+    "patientName": "Charles Young",
+    "found": true,
+    "dateOfBirth": "02/21/1992",
+    "transactionDate": "07/09/2025",
+    "insurance": "Cigna",
+    "result": "active",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Ashley Lopez",
+    "found": true,
+    "dateOfBirth": "02/19/1950",
+    "transactionDate": "08/11/2026",
+    "insurance": "Centene",
+    "result": "unknown",
+    "alerts": [
+      "PI",
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Emily Robinson",
+    "found": false,
+    "dateOfBirth": "06/28/1987",
+    "transactionDate": "03/24/2025",
+    "insurance": "CVS Health",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Donna Garcia",
+    "found": true,
+    "dateOfBirth": "04/20/1976",
+    "transactionDate": "12/13/2026",
+    "insurance": "Medicare",
+    "result": "inactive",
+    "alerts": [
+      "PR",
+      "PI"
+    ],
+    "coPayments": "$10.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Donald Clark",
+    "found": true,
+    "dateOfBirth": "09/15/1961",
+    "transactionDate": "03/15/2026",
+    "insurance": "UnitedHealth",
+    "result": "invalid-response",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Robert Thompson",
+    "found": true,
+    "dateOfBirth": "06/22/2004",
+    "transactionDate": "02/13/2026",
+    "insurance": "Cigna",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Jessica Anderson",
+    "found": false,
+    "dateOfBirth": "04/02/1966",
+    "transactionDate": "01/02/2025",
+    "insurance": "Medicare",
+    "result": "inactive",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Nancy Nguyen",
+    "found": true,
+    "dateOfBirth": "10/22/1983",
+    "transactionDate": "03/09/2025",
+    "insurance": "Cigna",
+    "result": "invalid-response",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Deborah Martinez",
+    "found": false,
+    "dateOfBirth": "07/13/1992",
+    "transactionDate": "11/12/2025",
+    "insurance": "Humana",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Lisa Anderson",
+    "found": false,
+    "dateOfBirth": "12/23/2009",
+    "transactionDate": "08/15/2026",
+    "insurance": "UnitedHealth",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Andrew Miller",
+    "found": true,
+    "dateOfBirth": "02/11/1952",
+    "transactionDate": "05/13/2026",
+    "insurance": "CVS Health",
+    "result": "unknown",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": "$30.00",
+    "deductibles": "$1800.00"
+  },
+  {
+    "patientName": "Joshua Martinez",
+    "found": false,
+    "dateOfBirth": "09/18/2007",
+    "transactionDate": "05/18/2026",
+    "insurance": "Medicaid",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Jennifer Hill",
+    "found": true,
+    "dateOfBirth": "07/19/1995",
+    "transactionDate": "10/24/2025",
+    "insurance": "Medicaid",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": "$30.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Karen Lee",
+    "found": false,
+    "dateOfBirth": "04/03/1964",
+    "transactionDate": "06/04/2026",
+    "insurance": "Medicaid",
+    "result": "inactive",
+    "alerts": [
+      "IC",
+      "PI"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Betty Walker",
+    "found": false,
+    "dateOfBirth": "07/05/1959",
+    "transactionDate": "07/03/2026",
+    "insurance": "CVS Health",
+    "result": "active",
+    "alerts": [],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Charles Baker",
+    "found": false,
+    "dateOfBirth": "11/14/1996",
+    "transactionDate": "12/02/2026",
+    "insurance": "Medicaid",
+    "result": "invalid-response",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Kevin Robinson",
+    "found": true,
+    "dateOfBirth": "12/24/1994",
+    "transactionDate": "03/07/2026",
+    "insurance": "Cigna",
+    "result": "inactive",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": "$40.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "William Hernandez",
+    "found": true,
+    "dateOfBirth": "04/24/1987",
+    "transactionDate": "04/01/2026",
+    "insurance": "Centene",
+    "result": "active",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Ashley Brown",
+    "found": false,
+    "dateOfBirth": "04/09/1976",
+    "transactionDate": "11/18/2025",
+    "insurance": "Humana",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": "$400.00"
+  },
+  {
+    "patientName": "Elizabeth Robinson",
+    "found": true,
+    "dateOfBirth": "02/16/1977",
+    "transactionDate": "01/01/2026",
+    "insurance": "CVS Health",
+    "result": "inactive",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": "$30.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "David Wright",
+    "found": true,
+    "dateOfBirth": "10/28/1982",
+    "transactionDate": "10/03/2025",
+    "insurance": "Medicaid",
+    "result": "cannot-process",
+    "alerts": [
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Carol King",
+    "found": true,
+    "dateOfBirth": "11/21/2008",
+    "transactionDate": "07/26/2025",
+    "insurance": "Centene",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": "$10.00",
+    "deductibles": "$1100.00"
+  },
+  {
+    "patientName": "Lisa Taylor",
+    "found": true,
+    "dateOfBirth": "05/08/1987",
+    "transactionDate": "10/26/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "cannot-process",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "John Gonzalez",
+    "found": false,
+    "dateOfBirth": "07/03/2001",
+    "transactionDate": "12/08/2025",
+    "insurance": "Humana",
+    "result": "unknown",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": "$20.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "John Hernandez",
+    "found": false,
+    "dateOfBirth": "01/18/1999",
+    "transactionDate": "10/22/2025",
+    "insurance": "CVS Health",
+    "result": "cannot-process",
+    "alerts": [
+      "PR",
+      "IC"
+    ],
+    "coPayments": null,
+    "deductibles": "$800.00"
+  },
+  {
+    "patientName": "Michael Smith",
+    "found": true,
+    "dateOfBirth": "11/03/1982",
+    "transactionDate": "02/25/2025",
+    "insurance": "UnitedHealth",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Matthew White",
+    "found": true,
+    "dateOfBirth": "07/10/1956",
+    "transactionDate": "04/24/2025",
+    "insurance": "Medicare",
+    "result": "inactive",
+    "alerts": [
+      "PI",
+      "PR"
+    ],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Sandra Wilson",
+    "found": true,
+    "dateOfBirth": "09/23/1974",
+    "transactionDate": "10/12/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Steven Young",
+    "found": false,
+    "dateOfBirth": "11/26/1990",
+    "transactionDate": "08/22/2026",
+    "insurance": "Humana",
+    "result": "invalid-response",
+    "alerts": [
+      "IC"
+    ],
+    "coPayments": "$10.00",
+    "deductibles": "$1900.00"
+  },
+  {
+    "patientName": "John Roberts",
+    "found": false,
+    "dateOfBirth": "09/23/1988",
+    "transactionDate": "06/24/2025",
+    "insurance": "Medicaid",
+    "result": "inactive",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Deborah Sanchez",
+    "found": false,
+    "dateOfBirth": "08/24/1993",
+    "transactionDate": "08/07/2025",
+    "insurance": "Kaiser Permanente",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": "$40.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Donald Mitchell",
+    "found": false,
+    "dateOfBirth": "06/19/1955",
+    "transactionDate": "06/24/2026",
+    "insurance": "Cigna",
+    "result": "unknown",
+    "alerts": [
+      "PI",
+      "IC"
+    ],
+    "coPayments": "$50.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Amanda Baker",
+    "found": false,
+    "dateOfBirth": "05/10/1955",
+    "transactionDate": "02/04/2025",
+    "insurance": "Cigna",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": "$30.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Brian Robinson",
+    "found": true,
+    "dateOfBirth": "11/26/1999",
+    "transactionDate": "09/06/2025",
+    "insurance": "Centene",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": "$40.00",
+    "deductibles": null
+  },
+  {
+    "patientName": "Karen Baker",
+    "found": false,
+    "dateOfBirth": "07/25/1982",
+    "transactionDate": "01/03/2026",
+    "insurance": "Cigna",
+    "result": "cannot-process",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  },
+  {
+    "patientName": "Emily Hill",
+    "found": false,
+    "dateOfBirth": "12/27/1958",
+    "transactionDate": "04/26/2026",
+    "insurance": "CVS Health",
+    "result": "cannot-process",
+    "alerts": [
+      "PI"
+    ],
+    "coPayments": "$30.00",
+    "deductibles": "$600.00"
+  },
+  {
+    "patientName": "Barbara Garcia",
+    "found": true,
+    "dateOfBirth": "09/09/1968",
+    "transactionDate": "04/12/2026",
+    "insurance": "Medicare",
+    "result": "unknown",
+    "alerts": [],
+    "coPayments": null,
+    "deductibles": null
+  }
+]
