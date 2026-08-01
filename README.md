@@ -1,6 +1,8 @@
 # Veradigm Payerpath Concept App
 
-![Veradigm Payerpath App Banner](./src/assets/repo-thumb.png)
+<p align="center">
+  <img src="./src/assets/repo-thumb.png" alt="Veradigm Payerpath App Banner" width="100%">
+</p>
 
 This repository contains the Vercel-ready source code for the Veradigm Payerpath Concept app, based on the Merces Design System.
 
