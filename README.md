@@ -1,6 +1,6 @@
 # Veradigm Payerpath Concept App
 
-This repository contains the Vercel-ready concept application for the Veradigm Payerpath dashboard.
+This repository contains the Vercel-ready source code for the Veradigm Payerpath Concept app, based on the Merces Design System.
 
 ## Overview
 - **Routing**: Configured as a Single Page Application (SPA) without hash-based URLs.
