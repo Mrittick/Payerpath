@@ -19,7 +19,7 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "../merces-ds/angular/src/assets/",
+                "input": "merces-ds/angular/src/assets/",
                 "output": "/assets/"
               },
               {
@@ -29,12 +29,12 @@
               }
             ],
             "styles": [
-              "../merces-ds/angular/src/stylesheet/reset.css",
-              "../merces-ds/angular/src/stylesheet/tokens/primitives.css",
-              "../merces-ds/angular/src/stylesheet/tokens/semantic-tokens.css",
-              "../merces-ds/angular/src/stylesheet/tokens/typography.css",
-              "../merces-ds/angular/src/stylesheet/tokens/shadows.css",
-              "../merces-ds/angular/src/stylesheet/global.css",
+              "merces-ds/angular/src/stylesheet/reset.css",
+              "merces-ds/angular/src/stylesheet/tokens/primitives.css",
+              "merces-ds/angular/src/stylesheet/tokens/semantic-tokens.css",
+              "merces-ds/angular/src/stylesheet/tokens/typography.css",
+              "merces-ds/angular/src/stylesheet/tokens/shadows.css",
+              "merces-ds/angular/src/stylesheet/global.css",
               "src/styles.css"
             ],
             "scripts": [],
