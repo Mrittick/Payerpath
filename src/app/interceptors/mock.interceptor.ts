@@ -20,10 +20,10 @@ const MOCK_TOKEN = 'mock.access.token.github-pages';
 /** Matches the wire format that GET /api/users/me returns from the real server.
  *  Uses the same field names (username, not id) that the backend actually sends. */
 const MOCK_USER = {
-  username:  'mrittick',
-  email:     'mrittick.choudhury@veradigm.com',
-  name:      'Mrittick Choudhury',
-  role:      'admin',
+  username:  'demo',
+  email:     'demo@mrittick.com',
+  name:      'Demo Account',
+  role:      'Temporary User',
   avatarUrl: null,
 };
 

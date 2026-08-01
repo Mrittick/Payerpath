@@ -85,7 +85,7 @@ export class LoginComponent {
 
     this.loading.set(true);
     this.auth.login(this.email(), this.username(), this.password()).subscribe({
-      next: () => this.router.navigate(['/dashboard']),
+      next: () => this.router.navigate(['/analytics/remittances']),
       error: (err: HttpErrorResponse) => {
         const code: string   = err.error?.code   ?? '';
         const fields: Record<string, string> = err.error?.fields ?? {};

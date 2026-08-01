@@ -55,8 +55,8 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./screens/analytics/analytics.routes').then(m => m.analyticsRoutes),
       },
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: '', redirectTo: 'analytics/remittances', pathMatch: 'full' },
     ],
   },
-  { path: '**', redirectTo: 'dashboard' },
+  { path: '**', redirectTo: 'analytics/remittances' },
 ];
